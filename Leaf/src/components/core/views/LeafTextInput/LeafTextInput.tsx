@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { TextInput } from 'react-native-paper';
 
 interface Props {

@@ -3,30 +3,36 @@ import { StyleSheet, Text, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import LeafButton, { LeafButtonType } from './src/components/core/views/LeafButton/LeafButton';
 import LeafTextInput, { LeafTextInputType } from './src/components/core/views/LeafTextInput/LeafTextInput';
+import { NativeBaseProvider, VStack } from 'native-base';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <LeafButton 
-          type={LeafButtonType.filled} 
-          onPress={() => {console.log("Hello World")}} 
-        />
+    <NativeBaseProvider>
+      <PaperProvider theme={theme}>
+        <SafeAreaView>
+        <VStack space={4} paddingX={4}>
+          <LeafButton 
+            type={LeafButtonType.filled} 
+            onPress={() => {console.log("Hello World")}} 
+          />
 
-        <LeafButton 
-          type={LeafButtonType.filled} 
-          onPress={() => {console.log("Hello World")}} 
-        />
+          <LeafButton 
+            type={LeafButtonType.filled} 
+            onPress={() => {console.log("Hello World")}} 
+          />
 
-        <LeafTextInput 
-          label={"Testing"}
-          type={LeafTextInputType.outlined}
-          onTextChange={(text) => console.log(text)}
-        />
+          <LeafTextInput 
+            label={"Testing"}
+            type={LeafTextInputType.outlined}
+            onTextChange={(text) => console.log(text)}
+          />
 
-        <StatusBar style="auto" />
-      </View>
-    </PaperProvider>
+          <StatusBar style="auto" />
+        </VStack>
+        </SafeAreaView>
+      </PaperProvider>
+    </NativeBaseProvider>
   );
 }
 
