@@ -3,6 +3,7 @@ import { Button } from 'react-native-paper';
 
 interface Props {
     type: LeafButtonType;
+    disabled?: boolean
     onPress: () => void;
 }
 
@@ -11,12 +12,13 @@ export enum LeafButtonType {
     outlined = "outlined"
 }
 
-const LeafButton: React.FC<Props> = ({ type, onPress }) => {
+const LeafButton: React.FC<Props> = ({ type, disabled = false, onPress }) => {
     return (
         <Button 
             icon="camera" 
             mode={type} 
             onPress={onPress}
+            disabled={disabled}
         >
             Press me
         </Button>
