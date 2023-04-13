@@ -2,8 +2,10 @@ import React from 'react';
 import { Button } from 'react-native-paper';
 
 interface Props {
+    label: string
     type: LeafButtonType;
-    disabled?: boolean
+    icon?: string; // https://pictogrammers.com/library/mdi/
+    disabled?: boolean;
     onPress: () => void;
 }
 
@@ -12,15 +14,15 @@ export enum LeafButtonType {
     outlined = "outlined"
 }
 
-const LeafButton: React.FC<Props> = ({ type, disabled = false, onPress }) => {
+const LeafButton: React.FC<Props> = ({ label, type, icon = null, disabled = false, onPress }) => {
     return (
         <Button 
-            icon="camera" 
+            icon={icon}
             mode={type} 
             onPress={onPress}
             disabled={disabled}
         >
-            Press me
+            {label}
         </Button>
     );
 }
