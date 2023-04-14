@@ -10,7 +10,7 @@ import StateManager from '../state/StateManager';
 const FormOutput: React.FC = () => {
     const forceUpdate = useForceUpdate()
 
-    StateManager.formState.subscribe(() => {
+    StateManager.formSubmitted.subscribe(() => {
         // Note, instead of force updating, a standard useState hook could be used instead
         forceUpdate();
     })

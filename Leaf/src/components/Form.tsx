@@ -39,7 +39,7 @@ const Form: React.FC = () => {
                 onPress={() => {
                     let form = new FormEntry(text1, text2);
                     Session.instance.formEntry = form;
-                    StateManager.formState.publish();
+                    StateManager.formSubmitted.publish();
                 }}
             />
         </VStack>
