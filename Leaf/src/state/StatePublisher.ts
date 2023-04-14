@@ -12,7 +12,7 @@ class StatePublisher {
         },
         reducers: {
             newForm: state => {
-                state.value = (state.value + 1)%10
+                state.value = (state.value + 1)%10;
             }
         }
     })
