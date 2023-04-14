@@ -9,10 +9,8 @@ class LeafValuePublisher<Type> {
 
     private readonly slice;
     private readonly publisher;
-    private state: Type;
 
     constructor(initialState: Type) {
-        this.state = initialState;
         this.slice = createSlice({
             name: 'LeafValuePublisher',
             initialState: {
@@ -30,17 +28,16 @@ class LeafValuePublisher<Type> {
         });
     }
 
-    public subscribe(callback: (state: Type) => void) {
-        this.publisher.subscribe(callback(this.state));
+    public subscribe(callback: () => void) {
+        this.publisher.subscribe(callback);
     }
 
     public publish(value: Type) {
-        this.state = value;
         this.publisher.dispatch(this.slice.actions.publishAction(value));
     }
 
     public read(): Type {
-        return this.state;
+        return this.publisher.getState().value;
     }
 
 }

@@ -8,7 +8,7 @@ class StateManager {
      */
     public static readonly formSubmitted = new LeafPublisher();
 
-    public static readonly isLoggedIn = new LeafValuePublisher(true);
+    public static readonly isLoggedIn = new LeafValuePublisher(false);
 
 }
 
