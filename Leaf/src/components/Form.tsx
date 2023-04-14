@@ -4,7 +4,7 @@ import LeafTextInput, { LeafTextInputType } from './core/views/LeafTextInput/Lea
 import LeafButton, { LeafButtonType } from './core/views/LeafButton/LeafButton';
 import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
-import StatePublisher, { newForm } from '../state/StatePublisher';
+import StateManager from '../state/StateManager';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -39,7 +39,7 @@ const Form: React.FC = () => {
                 onPress={() => {
                     let form = new FormEntry(text1, text2);
                     Session.instance.formEntry = form;
-                    StatePublisher.formPublisher.dispatch(newForm());
+                    StateManager.formState.publish();
                 }}
             />
         </VStack>

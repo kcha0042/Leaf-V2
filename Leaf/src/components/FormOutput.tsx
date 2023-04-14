@@ -1,7 +1,7 @@
 import useForceUpdate from 'use-force-update';
-import StatePublisher from '../state/StatePublisher';
 import Session from '../model/Session';
 import { Text } from 'react-native-paper';
+import StateManager from '../state/StateManager';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -10,7 +10,8 @@ import { Text } from 'react-native-paper';
 const FormOutput: React.FC = () => {
     const forceUpdate = useForceUpdate()
 
-    StatePublisher.formPublisher.subscribe(() => {
+    StateManager.formState.subscribe(() => {
+        // Note, instead of force updating, a standard useState hook could be used instead
         forceUpdate();
     })
 
