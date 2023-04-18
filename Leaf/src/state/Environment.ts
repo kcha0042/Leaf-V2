@@ -1,5 +1,6 @@
-import { Dimensions } from "react-native"
+import { Dimensions, PlatformIOSStatic } from "react-native"
 import { Platform } from 'react-native';
+import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 
 class Environment {
 
@@ -27,8 +28,10 @@ class Environment {
     public getScreenType(): ScreenType {
         const os = this.getOS();
         switch (os) {
-            case OS.ios: 
+            case OS.ios:
+                return (Platform as PlatformIOSStatic).isPad ? ScreenType.large : ScreenType.mobile;
             case OS.android:
+                // TODO: Figure out how to detect Android tablets
                 return ScreenType.mobile;
             case OS.windows:
             case OS.macos:
@@ -43,8 +46,7 @@ class Environment {
                 // Any landscape screen on a web client can be assumed to be on a large screen
                 return ScreenType.large;
             default:
-                const exhaustiveCheck: never = os;
-                throw new Error(`Unhandled case: ${exhaustiveCheck}`);
+                throw new UnreachableCaseError(os);
         }
     }
 
@@ -66,9 +68,43 @@ export enum OS {
     other
 }
 
+export namespace OS {
+    export function toString(os: OS): string {
+        switch (os) {
+            case OS.ios: 
+                return "iOS";
+            case OS.android: 
+                return "Android";
+            case OS.windows: 
+                return "Windows";
+            case OS.macos: 
+                return "macOS";
+            case OS.web: 
+                return "Web";
+            case OS.other: 
+                return "Unknown";
+            default: 
+                throw new UnreachableCaseError(os);
+        }
+    }
+}
+
 export enum ScreenType {
     mobile,
     large
+}
+
+export namespace ScreenType {
+    export function toString(screenType: ScreenType): string {
+        switch (screenType) {
+            case ScreenType.mobile:
+                return "Mobile";
+            case ScreenType.large:
+                return "Large";
+            default:
+                throw new UnreachableCaseError(screenType);
+        }
+    }
 }
 
 export default Environment;

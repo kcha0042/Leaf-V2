@@ -5,6 +5,8 @@ import LeafButton, { LeafButtonType } from './core/views/LeafButton/LeafButton';
 import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
 import StateManager from '../state/StateManager';
+import {Text} from 'react-native';
+import Environment, { ScreenType } from '../state/Environment';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -15,7 +17,9 @@ const Form: React.FC = () => {
     const [text2, setText2] = React.useState("");
 
     return (
-        <VStack space={4} paddingX={4}>
+        <VStack space={4} padding={4}>
+            <Text>{"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}</Text>
+
             <LeafTextInput 
                 label={"Text 1"}
                 type={LeafTextInputType.outlined}
