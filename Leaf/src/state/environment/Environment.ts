@@ -1,6 +1,8 @@
 import { Dimensions, PlatformIOSStatic } from "react-native"
 import { Platform } from 'react-native';
-import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
+import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { OS } from "./OS";
+import { ScreenType } from "./ScreenType";
 
 class Environment {
 
@@ -57,54 +59,6 @@ class Environment {
         ]
     }
 
-}
-
-export enum OS {
-    ios,
-    android,
-    web,
-    windows,
-    macos,
-    other
-}
-
-export namespace OS {
-    export function toString(os: OS): string {
-        switch (os) {
-            case OS.ios: 
-                return "iOS";
-            case OS.android: 
-                return "Android";
-            case OS.windows: 
-                return "Windows";
-            case OS.macos: 
-                return "macOS";
-            case OS.web: 
-                return "Web";
-            case OS.other: 
-                return "Unknown";
-            default: 
-                throw new UnreachableCaseError(os);
-        }
-    }
-}
-
-export enum ScreenType {
-    mobile,
-    large
-}
-
-export namespace ScreenType {
-    export function toString(screenType: ScreenType): string {
-        switch (screenType) {
-            case ScreenType.mobile:
-                return "Mobile";
-            case ScreenType.large:
-                return "Large";
-            default:
-                throw new UnreachableCaseError(screenType);
-        }
-    }
 }
 
 export default Environment;

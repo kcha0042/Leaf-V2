@@ -6,7 +6,8 @@ import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
 import StateManager from '../state/StateManager';
 import {Text} from 'react-native';
-import Environment, { ScreenType } from '../state/Environment';
+import Environment from '../state/environment/Environment';
+import { ScreenType } from '../state/environment/ScreenType';
 
 /**
  * THIS IS A DEMO COMPONENT
