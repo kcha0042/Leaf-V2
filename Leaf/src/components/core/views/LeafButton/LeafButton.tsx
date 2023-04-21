@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
+import { LeafButtonType } from './LeafButtonType';
 
 interface Props {
     label: string
@@ -7,11 +8,6 @@ interface Props {
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
     onPress: () => void;
-}
-
-export enum LeafButtonType {
-    filled = "contained",
-    outlined = "outlined"
 }
 
 const LeafButton: React.FC<Props> = ({ label, type, icon = null, disabled = false, onPress }) => {

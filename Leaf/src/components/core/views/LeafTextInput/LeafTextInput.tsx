@@ -1,15 +1,11 @@
 import React from 'react';
 import { TextInput } from 'react-native-paper';
+import { LeafTextInputType } from './LeafTetInputType';
 
 interface Props {
     label: string;
     type: LeafTextInputType;
     onTextChange: (text: string) => void;
-}
-
-export enum LeafTextInputType {
-    flat = "flat",
-    outlined = "outlined"
 }
 
 const LeafTextInput: React.FC<Props> = ({ label, type, onTextChange }) => {

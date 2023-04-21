@@ -1,13 +1,15 @@
 import { VStack } from 'native-base';
 import React from 'react';
-import LeafTextInput, { LeafTextInputType } from './core/views/LeafTextInput/LeafTextInput';
-import LeafButton, { LeafButtonType } from './core/views/LeafButton/LeafButton';
+import LeafTextInput from './core/views/LeafTextInput/LeafTextInput';
+import LeafButton from './core/views/LeafButton/LeafButton';
 import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
 import StateManager from '../state/StateManager';
 import {Text} from 'react-native';
 import Environment from '../state/environment/Environment';
 import { ScreenType } from '../state/environment/ScreenType';
+import { LeafTextInputType } from './core/views/LeafTextInput/LeafTetInputType';
+import { LeafButtonType } from './core/views/LeafButton/LeafButtonType';
 
 /**
  * THIS IS A DEMO COMPONENT
