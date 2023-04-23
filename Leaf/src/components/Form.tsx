@@ -5,11 +5,12 @@ import LeafButton from './core/views/LeafButton/LeafButton';
 import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
 import StateManager from '../state/StateManager';
-import {Text} from 'react-native';
 import Environment from '../state/environment/Environment';
 import { ScreenType } from '../state/environment/ScreenType';
 import { LeafTextInputType } from './core/views/LeafTextInput/LeafTetInputType';
 import { LeafButtonType } from './core/views/LeafButton/LeafButtonType';
+import LeafText from './core/views/LeafText/LeafText';
+import { LeafPresetTypography } from './core/styles/presets/LeafPresetTypography';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -21,7 +22,10 @@ const Form: React.FC = () => {
 
     return (
         <VStack space={4} padding={4}>
-            <Text>{"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}</Text>
+            <LeafText 
+                text={"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}
+                typography={LeafPresetTypography.body}
+            />
 
             <LeafTextInput 
                 label={"Text 1"}
@@ -42,6 +46,7 @@ const Form: React.FC = () => {
             <LeafButton 
                 label="Submit"
                 icon="send"
+                typography={LeafPresetTypography.primaryButton}
                 type={LeafButtonType.filled} 
                 onPress={() => {
                     let form = new FormEntry(text1, text2);

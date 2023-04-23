@@ -1,14 +1,28 @@
-import { Dimensions, PlatformIOSStatic } from "react-native"
+import { Appearance, Dimensions, PlatformIOSStatic } from "react-native"
 import { Platform } from 'react-native';
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
 import { OS } from "./OS";
 import { ScreenType } from "./ScreenType";
+import { ColorScheme } from "./ColorScheme";
 
 class Environment {
 
     public static readonly instance = new Environment()
 
     private constructor() { }
+
+    public getColorScheme(): ColorScheme {
+        // TODO: I can't get this to change correctly
+        const colorScheme = Appearance.getColorScheme();
+        switch (colorScheme) {
+            case 'dark':
+                return ColorScheme.dark;
+            case 'light':
+                return ColorScheme.light;
+            default:
+                return ColorScheme.light;
+        }
+    }
 
     public getOS(): OS {
         switch (Platform.OS) {
