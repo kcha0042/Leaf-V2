@@ -4,13 +4,13 @@ import { LeafButtonType } from './LeafButtonType';
 import LeafText from '../LeafText/LeafText';
 import Environment from '../../../../state/environment/Environment';
 import { OS } from '../../../../state/environment/OS';
-import { LeafPresetTypography } from '../../styles/presets/LeafPresetTypography';
 import { ViewStyle } from 'react-native';
+import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 
 interface Props {
     label: string;
     type: LeafButtonType;
-    typography: LeafPresetTypography;
+    typography: LeafTypographyConfig;
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
     style?: ViewStyle;
@@ -31,6 +31,11 @@ const LeafButton: React.FC<Props> = ({
     let labelStyle = {}
     if (os != OS.web) {
         labelStyle = { lineHeight: 0 } // Centres the text
+    }
+
+    if (disabled) {
+        // Override colour when disabled
+        typography.presetColor = undefined;
     }
     
     return (

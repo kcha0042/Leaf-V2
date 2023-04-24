@@ -2,7 +2,7 @@ import useForceUpdate from 'use-force-update';
 import Session from '../model/Session';
 import StateManager from '../state/StateManager';
 import LeafText from './core/views/LeafText/LeafText';
-import { LeafPresetTypography } from './core/styles/presets/LeafPresetTypography';
+import LeafTypography from './core/styles/LeafTypography';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -19,7 +19,7 @@ const FormOutput: React.FC = () => {
 
     return (
         <LeafText 
-            typography={LeafPresetTypography.body}
+            typography={LeafTypography.body}
             style={{textAlign: 'center', padding: 20}}
         >
             {text ?? "Nothing Yet Submitted"}

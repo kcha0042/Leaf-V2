@@ -1,4 +1,4 @@
-import { LeafPresetColor } from "../presets/LeafPresetColor";
+import LeafColor from "../color/LeafColor";
 import { LeafFontFamily } from "./LeafFontFamily";
 import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
 import { StyleSheet } from 'react-native';
@@ -7,7 +7,8 @@ class LeafTypographyConfig {
 
     public size: number;
     public fontFamily: LeafFontFamily;
-    public presetColor: LeafPresetColor;
+    // An undefined color allows the component handle the color
+    public presetColor: LeafColor | undefined;
     public bold: boolean;
     public italic: boolean;
     public underlined: boolean;
@@ -16,8 +17,8 @@ class LeafTypographyConfig {
         let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
         return config.getFont(this.bold, this.italic);
     }
-    get color(): string {
-        return LeafPresetColor.getColor(this.presetColor);
+    get color(): string | undefined {
+        return this.presetColor?.getColor();
     }
     get lineStyle(): "none" | "underline" | "line-through" | "underline line-through" {
         let result = "";
@@ -37,7 +38,7 @@ class LeafTypographyConfig {
     constructor(
         size: number, 
         fontFamily: LeafFontFamily, 
-        color: LeafPresetColor,
+        color: LeafColor | undefined,
         bold: boolean = false, 
         italic: boolean = false, 
         underlined: boolean = false,

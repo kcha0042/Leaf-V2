@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text } from 'react-native-paper';
-import { LeafPresetTypography } from '../../styles/presets/LeafPresetTypography';
 import { TextStyle } from 'react-native';
+import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 
 interface Props {
     children; // No type - can be any element (allows text element embedding)
-    typography: LeafPresetTypography;
+    typography: LeafTypographyConfig;
     style?: TextStyle;
 }
 
@@ -17,7 +17,7 @@ const LeafText: React.FC<Props> = ({
     return (
         <Text
             style={[
-                LeafPresetTypography.getStyle(typography),
+                typography.getStylesheet(),
                 style,
             ]}
         >

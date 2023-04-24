@@ -10,8 +10,8 @@ import { ScreenType } from '../state/environment/ScreenType';
 import { LeafTextInputType } from './core/views/LeafTextInput/LeafTetInputType';
 import { LeafButtonType } from './core/views/LeafButton/LeafButtonType';
 import LeafText from './core/views/LeafText/LeafText';
-import { LeafPresetTypography } from './core/styles/presets/LeafPresetTypography';
-import { LeafPresetDimen } from './core/styles/presets/LeafPresetDimen';
+import LeafTypography from './core/styles/LeafTypography';
+import LeafDimensions from './core/styles/LeafDimensions';
 
 /**
  * THIS IS A DEMO COMPONENT
@@ -21,8 +21,8 @@ const Form: React.FC = () => {
     const [text2, setText2] = React.useState("");
 
     return (
-        <VStack space={LeafPresetDimen.screenSpacing} padding={LeafPresetDimen.screenPadding}>
-            <LeafText typography={LeafPresetTypography.body}>
+        <VStack space={LeafDimensions.screenSpacing} padding={LeafDimensions.screenPadding}>
+            <LeafText typography={LeafTypography.body}>
                 {"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}
             </LeafText>
 
@@ -45,7 +45,7 @@ const Form: React.FC = () => {
             <LeafButton 
                 label="Submit"
                 icon="send"
-                typography={LeafPresetTypography.primaryButton}
+                typography={LeafTypography.primaryButton}
                 type={LeafButtonType.filled} 
                 onPress={() => {
                     let form = new FormEntry(text1, text2);
