@@ -5,6 +5,7 @@ import LeafText from '../LeafText/LeafText';
 import Environment from '../../../../state/environment/Environment';
 import { OS } from '../../../../state/environment/OS';
 import { LeafPresetTypography } from '../../styles/presets/LeafPresetTypography';
+import { ViewStyle } from 'react-native';
 
 interface Props {
     label: string;
@@ -12,6 +13,7 @@ interface Props {
     typography: LeafPresetTypography;
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
+    style?: ViewStyle;
     onPress: () => void;
 }
 
@@ -21,7 +23,8 @@ const LeafButton: React.FC<Props> = ({
     typography,
     icon = null, 
     disabled = false, 
-    onPress 
+    style,
+    onPress,
 }) => {
     // TODO: Figure out a better way to centre the text
     let os: OS = Environment.instance.getOS();
@@ -37,11 +40,11 @@ const LeafButton: React.FC<Props> = ({
             onPress={onPress}
             disabled={disabled}
             labelStyle={labelStyle}
+            style={style}
         >
-            <LeafText 
-                text={label}
-                typography={typography}
-            />
+            <LeafText typography={typography}>
+                {label}
+            </LeafText>
         </Button>
     );
 }

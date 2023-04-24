@@ -1,4 +1,4 @@
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider, Text, TextInput } from 'react-native-paper';
 import { NativeBaseProvider, VStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Form from './src/components/Form';

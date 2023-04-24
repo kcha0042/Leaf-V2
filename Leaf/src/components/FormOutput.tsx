@@ -1,12 +1,12 @@
 import useForceUpdate from 'use-force-update';
 import Session from '../model/Session';
-import { Text } from 'react-native-paper';
 import StateManager from '../state/StateManager';
+import LeafText from './core/views/LeafText/LeafText';
+import { LeafPresetTypography } from './core/styles/presets/LeafPresetTypography';
 
 /**
  * THIS IS A DEMO COMPONENT
  */
-
 const FormOutput: React.FC = () => {
     const forceUpdate = useForceUpdate()
 
@@ -18,9 +18,12 @@ const FormOutput: React.FC = () => {
     let text: string | null = Session.instance.formEntry?.getContent();
 
     return (
-        <Text variant="bodyLarge" style={{textAlign: 'center', padding: 20}}>
+        <LeafText 
+            typography={LeafPresetTypography.body}
+            style={{textAlign: 'center', padding: 20}}
+        >
             {text ?? "Nothing Yet Submitted"}
-        </Text>
+        </LeafText>
     );
 }
 

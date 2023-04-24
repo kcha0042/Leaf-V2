@@ -9,27 +9,27 @@ export enum LeafPresetTypography {
 }
 
 export namespace LeafPresetTypography {
-    export function getStyle(typography: LeafPresetTypography): {} {
-        let config: LeafTypographyConfig;
+    export function getConfig(typography: LeafPresetTypography): LeafTypographyConfig {
         switch (typography) {
             case LeafPresetTypography.body:
-                config = new LeafTypographyConfig(
-                    14,
+                return new LeafTypographyConfig(
+                    15,
                     LeafFontFamily.poppins,
                     LeafPresetColor.bodyText,
                 );
-                break;
             case LeafPresetTypography.primaryButton:
-                config = new LeafTypographyConfig(
+                return new LeafTypographyConfig(
                     14,
                     LeafFontFamily.poppins,
                     LeafPresetColor.primaryButtonText,
-                    true,
                 );
-                break;
             default:
                 throw new UnreachableCaseError(typography);
         }
+    }
+
+    export function getStyle(typography: LeafPresetTypography): {} {
+        let config: LeafTypographyConfig = LeafPresetTypography.getConfig(typography);
         return config.getStylesheet();
     }
 }

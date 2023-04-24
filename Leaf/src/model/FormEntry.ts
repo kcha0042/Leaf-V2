@@ -2,7 +2,6 @@
 /**
  * THIS IS A DEMO CLASS
  */
-
 class FormEntry {
 
     private text1: string

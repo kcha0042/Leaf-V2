@@ -7,11 +7,32 @@ class LeafTypographyConfig {
 
     public size: number;
     public fontFamily: LeafFontFamily;
-    public color: LeafPresetColor;
+    public presetColor: LeafPresetColor;
     public bold: boolean;
     public italic: boolean;
     public underlined: boolean;
     public linedOut: boolean;
+    get font(): string {
+        let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
+        return config.getFont(this.bold, this.italic);
+    }
+    get color(): string {
+        return LeafPresetColor.getColor(this.presetColor);
+    }
+    get lineStyle(): "none" | "underline" | "line-through" | "underline line-through" {
+        let result = "";
+        if (!this.underlined && !this.linedOut) {
+            result = "none";
+        } else {
+            if (this.underlined) {
+                result = "underline";
+            }
+            if (this.linedOut) {
+                result = (result + " line-through").trimStart();
+            }
+        }
+        return (result as "none" | "underline" | "line-through" | "underline line-through");
+    }
 
     constructor(
         size: number, 
@@ -24,7 +45,7 @@ class LeafTypographyConfig {
     ) {
         this.size = size;
         this.fontFamily = fontFamily;
-        this.color = color;
+        this.presetColor = color;
         this.bold = bold;
         this.italic = italic;
         this.underlined = underlined;
@@ -32,25 +53,12 @@ class LeafTypographyConfig {
     }
 
     public getStylesheet(): {} {
-        let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
-        let font = config.getFont(this.bold, this.italic);
-        let lineStyle = "";
-        if (!this.underlined && !this.linedOut) {
-            lineStyle = "none";
-        } else {
-            if (this.underlined) {
-                lineStyle = "underline";
-            }
-            if (this.linedOut) {
-                lineStyle = (lineStyle + " line-through").trimStart();
-            }
-        }
         return StyleSheet.create({
             typography: {
-                fontFamily: font,
-                color: LeafPresetColor.getColor(this.color),
+                fontFamily: this.font,
+                color: this.color,
                 fontSize: this.size,
-                textDecorationLine: (lineStyle as "none" | "underline" | "line-through" | "underline line-through"),
+                textDecorationLine: this.lineStyle,
             }
         }).typography;
     }

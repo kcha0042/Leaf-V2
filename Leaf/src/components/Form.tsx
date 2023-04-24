@@ -11,21 +11,20 @@ import { LeafTextInputType } from './core/views/LeafTextInput/LeafTetInputType';
 import { LeafButtonType } from './core/views/LeafButton/LeafButtonType';
 import LeafText from './core/views/LeafText/LeafText';
 import { LeafPresetTypography } from './core/styles/presets/LeafPresetTypography';
+import { LeafPresetDimen } from './core/styles/presets/LeafPresetDimen';
 
 /**
  * THIS IS A DEMO COMPONENT
  */
-
 const Form: React.FC = () => {
     const [text1, setText1] = React.useState("");
     const [text2, setText2] = React.useState("");
 
     return (
-        <VStack space={4} padding={4}>
-            <LeafText 
-                text={"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}
-                typography={LeafPresetTypography.body}
-            />
+        <VStack space={LeafPresetDimen.screenSpacing} padding={LeafPresetDimen.screenPadding}>
+            <LeafText typography={LeafPresetTypography.body}>
+                {"Screen type detected: " + ScreenType.toString(Environment.instance.getScreenType())}
+            </LeafText>
 
             <LeafTextInput 
                 label={"Text 1"}
