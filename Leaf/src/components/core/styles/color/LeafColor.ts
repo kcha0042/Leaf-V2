@@ -8,12 +8,14 @@ class LeafColor {
     private readonly lightMode: string;
     private readonly darkMode: string;
 
-    constructor(lightMode: string, darkMode: string) {
+    constructor(lightMode: string, darkMode?: string) {
         const cssColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^rgba?\([^\)]+\)$|^hsla?\([^\)]+\)$|^[\w]+$/;
+        // If no dark mode is provided, dark mode / light mode is equivalent
+        let setDarkMode = darkMode || lightMode;
         assert(cssColorRegex.test(lightMode), `Invalid lightMode color string provided: '${lightMode}'`);
-        assert(cssColorRegex.test(darkMode), `Invalid darkMode color string provided: '${darkMode}'`);
+        assert(cssColorRegex.test(setDarkMode), `Invalid darkMode color string provided: '${setDarkMode}'`);
         this.lightMode = lightMode;
-        this.darkMode = darkMode;
+        this.darkMode = setDarkMode;
     }
 
     /**

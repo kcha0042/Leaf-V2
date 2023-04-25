@@ -16,7 +16,8 @@ class LeafTypography {
         return new LeafTypographyConfig(
             15,
             LeafFontFamily.poppins,
-            LeafColors.primaryButton,
+            LeafColors.primaryButtonText,
+            true,
         );
     }
 

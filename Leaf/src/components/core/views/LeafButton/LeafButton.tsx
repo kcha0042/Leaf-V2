@@ -6,11 +6,13 @@ import Environment from '../../../../state/environment/Environment';
 import { OS } from '../../../../state/environment/OS';
 import { ViewStyle } from 'react-native';
 import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
+import LeafColor from '../../styles/color/LeafColor';
 
 interface Props {
     label: string;
     type: LeafButtonType;
     typography: LeafTypographyConfig;
+    color: LeafColor;
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
     style?: ViewStyle;
@@ -21,6 +23,7 @@ const LeafButton: React.FC<Props> = ({
     label, 
     type, 
     typography,
+    color,
     icon = null, 
     disabled = false, 
     style,
@@ -46,6 +49,7 @@ const LeafButton: React.FC<Props> = ({
             disabled={disabled}
             labelStyle={labelStyle}
             style={style}
+            buttonColor={color.getColor()}
         >
             <LeafText typography={typography}>
                 {label}

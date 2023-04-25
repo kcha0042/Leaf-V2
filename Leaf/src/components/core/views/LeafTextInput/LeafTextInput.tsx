@@ -1,18 +1,16 @@
 import React from 'react';
 import { TextInput } from 'react-native-paper';
-import { LeafTextInputType } from './LeafTetInputType';
 import { ViewStyle } from 'react-native';
+import LeafColors from '../../styles/LeafColors';
 
 interface Props {
     label: string;
-    type: LeafTextInputType;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
 }
 
 const LeafTextInput: React.FC<Props> = ({ 
     label, 
-    type, 
     style,
     onTextChange,
 }) => {
@@ -22,8 +20,14 @@ const LeafTextInput: React.FC<Props> = ({
         <TextInput
             label={label}
             value={text}
-            mode={type}
-            style={style}
+            mode="outlined"
+            style={[
+                style,
+                { borderRadius: 30 },
+            ]}
+            outlineColor="transparent" 
+            theme={{ colors: { primary: LeafColors.bodyText.getColor() } }}
+            outlineStyle={{ borderRadius: 12 }}
             onChangeText={text => {
                 setText(text)
                 onTextChange(text);
