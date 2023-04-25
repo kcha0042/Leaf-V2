@@ -7,6 +7,7 @@ import { OS } from '../../../../state/environment/OS';
 import { ViewStyle } from 'react-native';
 import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 import LeafColor from '../../styles/color/LeafColor';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
     label: string;
@@ -43,12 +44,20 @@ const LeafButton: React.FC<Props> = ({
     
     return (
         <Button 
-            icon={icon}
+            icon={({ size, color }) => (
+                <Icon name={icon} size={size + 8} color={color} />
+            )}
             mode={type} 
             onPress={onPress}
             disabled={disabled}
-            labelStyle={labelStyle}
-            style={style}
+            labelStyle={[
+                { padding: 2 },
+                labelStyle,
+            ]}
+            style={[
+                style,
+                { borderRadius: 50 },
+            ]}
             buttonColor={color.getColor()}
         >
             <LeafText typography={typography}>

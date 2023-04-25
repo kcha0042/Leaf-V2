@@ -1,5 +1,5 @@
 import { DefaultTheme, Provider as PaperProvider, Text, TextInput } from 'react-native-paper';
-import { NativeBaseProvider, VStack } from 'native-base';
+import { Flex, NativeBaseProvider, VStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Form from './src/components/Form';
 import FormOutput from './src/components/FormOutput';
@@ -8,6 +8,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { View } from 'react-native';
 import { LeafFont } from './src/components/core/styles/typography/LeafFont';
+import LoginScreen from './src/components/login/LoginScreen';
+import LeafDimensions from './src/components/core/styles/LeafDimensions';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,12 +35,11 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <PaperProvider theme={theme}>
-        <View onLayout={onLayoutRootView}>
-          <SafeAreaView>
-            <VStack>
-              <Form />
-              <FormOutput />
-            </VStack>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <SafeAreaView style={{ flex: 1 }}>
+            <Flex padding={LeafDimensions.screenPadding} flex={1}>
+              <LoginScreen />
+            </Flex>
           </SafeAreaView>
         </View>
       </PaperProvider>

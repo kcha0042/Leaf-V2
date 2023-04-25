@@ -4,19 +4,27 @@ import LeafColors from "./LeafColors";
 
 class LeafTypography {
 
+    static get display(): LeafTypographyConfig {
+        return new LeafTypographyConfig(
+            70,
+            LeafFontFamily.gilroy,
+            LeafColors.textDark,
+        );
+    }
+
     static get body(): LeafTypographyConfig {
         return new LeafTypographyConfig(
             15,
             LeafFontFamily.poppins,
-            LeafColors.bodyText,
+            LeafColors.textDark,
         );
     }
 
     static get primaryButton(): LeafTypographyConfig {
         return new LeafTypographyConfig(
-            15,
+            18,
             LeafFontFamily.poppins,
-            LeafColors.primaryButtonText,
+            LeafColors.textLight,
             true,
         );
     }

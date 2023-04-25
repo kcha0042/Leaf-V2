@@ -26,7 +26,7 @@ const LeafTextInput: React.FC<Props> = ({
                 { borderRadius: 30 },
             ]}
             outlineColor="transparent" 
-            theme={{ colors: { primary: LeafColors.bodyText.getColor() } }}
+            theme={{ colors: { primary: LeafColors.textDark.getColor() } }}
             outlineStyle={{ borderRadius: 12 }}
             onChangeText={text => {
                 setText(text)

@@ -1,7 +1,7 @@
 
 class LeafDimensions {
 
-    static readonly screenPadding = 4;
+    static readonly screenPadding = 5;
 
     static readonly screenSpacing = 4;
 

@@ -45,7 +45,7 @@ const Form: React.FC = () => {
                 icon="send"
                 typography={LeafTypography.primaryButton}
                 type={LeafButtonType.filled} 
-                color={LeafColors.primaryButton}
+                color={LeafColors.accent}
                 onPress={() => {
                     let form = new FormEntry(text1, text2);
                     Session.instance.formEntry = form;
