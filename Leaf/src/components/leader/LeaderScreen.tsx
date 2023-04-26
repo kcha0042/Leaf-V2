@@ -7,6 +7,7 @@ import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import StateManager from "../../state/StateManager";
+import { LoginStatus } from "../../state/LoginStatus";
 
 const LeaderScreen: React.FC = () => {
     return (
@@ -27,7 +28,7 @@ const LeaderScreen: React.FC = () => {
                 type={LeafButtonType.filled} 
                 color={LeafColors.accent}
                 onPress={() => {
-                    StateManager.isLoggedIn.publish(false);
+                    StateManager.loginStatus.publish(LoginStatus.loggedOut);
                 }}
             />
 

@@ -1,5 +1,6 @@
 import LeafPublisher from "./LeafPublisher";
 import LeafValuePublisher from "./LeafValuePublisher"
+import { LoginStatus } from "./LoginStatus";
 
 class StateManager {
 
@@ -8,7 +9,7 @@ class StateManager {
      */
     public static readonly formSubmitted = new LeafPublisher();
 
-    public static readonly isLoggedIn = new LeafValuePublisher(false);
+    public static readonly loginStatus = new LeafValuePublisher(LoginStatus.loggedOut);
 
 }
 

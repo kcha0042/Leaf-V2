@@ -2,19 +2,30 @@ import React from "react";
 import LoginScreen from "./login/LoginScreen";
 import LeaderScreen from "./leader/LeaderScreen";
 import StateManager from "../state/StateManager";
+import { LoginStatus } from "../state/LoginStatus";
+import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
+import WorkerScreen from "./worker/WorkerScreen";
+import AdminScreen from "./admin/AdminScreen";
 
 const MainScreen: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
 
-    StateManager.isLoggedIn.subscribe(() => {
-        setIsLoggedIn(StateManager.isLoggedIn.read());
+    StateManager.loginStatus.subscribe(() => {
+        setLoginStatus(StateManager.loginStatus.read());
     });
 
-    return isLoggedIn ? (
-        <LeaderScreen />
-    ) : (
-        <LoginScreen />
-    );
+    switch (loginStatus) {
+        case LoginStatus.loggedOut:
+            return <LoginScreen />
+        case LoginStatus.worker:
+            return <WorkerScreen />
+        case LoginStatus.leader:
+            return <LeaderScreen />
+        case LoginStatus.admin:
+            return <AdminScreen />
+        default:
+            throw new UnreachableCaseError(loginStatus);
+    }
 }
 
 export default MainScreen;

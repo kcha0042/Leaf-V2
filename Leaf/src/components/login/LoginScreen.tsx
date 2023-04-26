@@ -9,6 +9,7 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import { strings } from "../../localisation/Strings";
 import StateManager from "../../state/StateManager";
+import { LoginStatus } from "../../state/LoginStatus";
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = React.useState("");
@@ -23,7 +24,18 @@ const LoginScreen: React.FC = () => {
     }
 
     const onLoginPressed = () => {
-        StateManager.isLoggedIn.publish(true);
+        // Obviously this entire thing will be reworked in time
+        switch (username.toLowerCase()) {
+            case "worker":
+                StateManager.loginStatus.publish(LoginStatus.worker);
+                break;
+            case "leader":
+                StateManager.loginStatus.publish(LoginStatus.leader);
+                break;
+            case "admin":
+                StateManager.loginStatus.publish(LoginStatus.admin);
+                break;
+        }
     }
 
     return (
