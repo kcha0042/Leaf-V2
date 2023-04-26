@@ -1,4 +1,4 @@
-import { Flex, Spacer, VStack } from "native-base";
+import { Spacer, VStack } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
@@ -7,7 +7,8 @@ import LeafDimensions from "../core/styles/LeafDimensions";
 import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
-
+import { strings } from "../../localisation/Strings";
+import StateManager from "../../state/StateManager";
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = React.useState("");
@@ -22,7 +23,7 @@ const LoginScreen: React.FC = () => {
     }
 
     const onLoginPressed = () => {
-        console.log("TODO")
+        StateManager.isLoggedIn.publish(true);
     }
 
     return (
@@ -30,25 +31,27 @@ const LoginScreen: React.FC = () => {
             <Spacer/>
 
             <LeafText typography={LeafTypography.display} style={{ textAlign: 'center', paddingBottom: 20 }}>
-                Login
+                {strings("login.title")}
             </LeafText>
 
             <VStack space={2}>
                 <LeafTextInput
-                    label="Username"
-                    style={{ backgroundColor: "#ececec" }}
+                    label={strings("login.inputLabel.username")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
                     onTextChange={onUsernameInput}
                 />
 
                 <LeafTextInput
-                    label="Password"
-                    style={{ backgroundColor: "#ececec" }}
+                    label={strings("login.inputLabel.password")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
                     onTextChange={onPasswordInput}
                 />
             </VStack>
 
             <LeafButton 
-                label="Login"
+                label={strings("button.login")}
                 icon="arrow-right-circle"
                 typography={LeafTypography.primaryButton}
                 type={LeafButtonType.filled} 

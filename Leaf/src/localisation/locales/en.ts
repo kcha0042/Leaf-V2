@@ -9,7 +9,18 @@
  */
 export default {
 
-    // TODO: Remove
-    "welcome": "Hello {0}!"
+    // Main
+    "appName": "TODO",
+
+    // Buttons
+    "button.login": "Login",
+    "button.logout": "Logot",
+    "button.done": "Done",
+    "button.cancel": "Cancel",
+
+    // Login
+    "login.title": "Login",
+    "login.inputLabel.username": "Username",
+    "login.inputLabel.password": "Password",
 
 }

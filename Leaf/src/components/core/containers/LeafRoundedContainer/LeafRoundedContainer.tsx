@@ -1,7 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native-paper';
 import { StyleSheet, TextStyle, View } from 'react-native';
-import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 import LeafColor from '../../styles/color/LeafColor';
 
 interface Props {
