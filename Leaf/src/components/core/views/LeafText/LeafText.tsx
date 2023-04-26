@@ -17,6 +17,7 @@ const LeafText: React.FC<Props> = ({
     return (
         <Text
             style={[
+                { width: "100%" },
                 typography.getStylesheet(),
                 style,
             ]}

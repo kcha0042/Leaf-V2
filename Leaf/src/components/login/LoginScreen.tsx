@@ -24,15 +24,18 @@ const LoginScreen: React.FC = () => {
     }
 
     const onLoginPressed = () => {
-        // Obviously this entire thing will be reworked in time
+        // TODO: Obviously this entire thing will be reworked in time
         switch (username.toLowerCase()) {
             case "worker":
+            case "w":
                 StateManager.loginStatus.publish(LoginStatus.worker);
                 break;
             case "leader":
+            case "l":
                 StateManager.loginStatus.publish(LoginStatus.leader);
                 break;
             case "admin":
+            case "a":
                 StateManager.loginStatus.publish(LoginStatus.admin);
                 break;
         }
@@ -82,6 +85,11 @@ const LoginScreen: React.FC = () => {
             <Spacer />
 
             <Spacer />
+
+            {/* TODO: Remove later */}
+            <LeafText typography={LeafTypography.body} >
+                {'TEMP: For now, just login using "W"/"Worker", "L"/"Leader" or "A"/"Admin" as the username.'}
+            </LeafText>
         </VStack>
     );
 }
