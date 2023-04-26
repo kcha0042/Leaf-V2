@@ -1,4 +1,4 @@
-import { Spacer, VStack } from "native-base";
+import { Box, Spacer, VStack, View } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
@@ -27,14 +27,17 @@ const LoginScreen: React.FC = () => {
     }
 
     return (
-        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
+        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing} alignItems={"center"} width={"100%"}>
             <Spacer/>
 
-            <LeafText typography={LeafTypography.display} style={{ textAlign: 'center', paddingBottom: 20 }}>
+            <LeafText 
+                typography={LeafTypography.display} 
+                style={{ textAlign: 'center', paddingBottom: 20 }}
+            >
                 {strings("login.title")}
             </LeafText>
 
-            <VStack space={2}>
+            <Box maxWidth={"400px"} alignItems={"center"} width={"100%"}>
                 <LeafTextInput
                     label={strings("login.inputLabel.username")}
                     textColor={LeafColors.textDark}
@@ -42,23 +45,25 @@ const LoginScreen: React.FC = () => {
                     onTextChange={onUsernameInput}
                 />
 
+                <Spacer size={2} />
+
                 <LeafTextInput
                     label={strings("login.inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onPasswordInput}
                 />
-            </VStack>
 
-            <LeafButton 
-                label={strings("button.login")}
-                icon="arrow-right-circle"
-                typography={LeafTypography.primaryButton}
-                type={LeafButtonType.filled} 
-                color={LeafColors.accent}
-                style={{ marginTop: 30 }}
-                onPress={onLoginPressed}
-            />
+                <LeafButton 
+                    label={strings("button.login")}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.primaryButton}
+                    type={LeafButtonType.filled} 
+                    color={LeafColors.accent}
+                    style={{ marginTop: 40 }}
+                    onPress={onLoginPressed}
+                />
+            </Box>
 
             <Spacer />
             

@@ -56,7 +56,10 @@ const LeafButton: React.FC<Props> = ({
             ]}
             style={[
                 style,
-                { borderRadius: 50 },
+                { 
+                    borderRadius: 50, 
+                    width: "100%"
+                },
             ]}
             buttonColor={color.getColor()}
         >

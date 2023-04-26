@@ -1,8 +1,4 @@
-import { Spacer, VStack } from "native-base";
 import React from "react";
-import LeafText from "./core/views/LeafText/LeafText";
-import LeafTypography from "./core/styles/LeafTypography";
-import LeafDimensions from "./core/styles/LeafDimensions";
 import LoginScreen from "./login/LoginScreen";
 import LeaderScreen from "./leader/LeaderScreen";
 import StateManager from "../state/StateManager";

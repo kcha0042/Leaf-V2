@@ -27,8 +27,11 @@ const LeafTextInput: React.FC<Props> = ({
             mode="outlined"
             style={[
                 style,
-                { borderRadius: 30 },
-                { backgroundColor: color.getColor() }
+                { 
+                    borderRadius: 30, 
+                    width: "100%", 
+                    backgroundColor: color.getColor() 
+                },
             ]}
             outlineColor="transparent" 
             theme={{ colors: { primary: textColor.getColor() } }}
