@@ -1,4 +1,4 @@
-import { Box, Spacer, VStack, View } from "native-base";
+import { Box, Spacer, VStack } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
@@ -8,8 +8,8 @@ import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import { strings } from "../../localisation/Strings";
-import StateManager from "../../state/StateManager";
-import { LoginStatus } from "../../state/LoginStatus";
+import StateManager from "../../state/publishers/StateManager";
+import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = React.useState("");

@@ -4,9 +4,9 @@ import LeafTextInput from './core/views/LeafTextInput/LeafTextInput';
 import LeafButton from './core/views/LeafButton/LeafButton';
 import Session from '../model/Session';
 import FormEntry from '../model/FormEntry';
-import StateManager from '../state/StateManager';
+import StateManager from '../state/publishers/StateManager';
 import Environment from '../state/environment/Environment';
-import { ScreenType } from '../state/environment/ScreenType';
+import { ScreenType } from '../state/environment/types/ScreenType';
 import { LeafButtonType } from './core/views/LeafButton/LeafButtonType';
 import LeafText from './core/views/LeafText/LeafText';
 import LeafTypography from './core/styles/LeafTypography';
@@ -28,6 +28,8 @@ const Form: React.FC = () => {
 
             <LeafTextInput 
                 label={"Text 1"}
+                textColor={LeafColors.textDark}
+                color={LeafColors.textBackgroundDark}
                 onTextChange={(text) => {
                     setText1(text);
                 }}
@@ -35,6 +37,8 @@ const Form: React.FC = () => {
 
             <LeafTextInput 
                 label={"Text 2"}
+                textColor={LeafColors.textDark}
+                color={LeafColors.textBackgroundDark}
                 onTextChange={(text) => {
                     setText2(text);
                 }}

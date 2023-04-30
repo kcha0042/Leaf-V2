@@ -1,9 +1,9 @@
 import { Appearance, Dimensions, PlatformIOSStatic } from "react-native"
 import { Platform } from 'react-native';
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
-import { OS } from "./OS";
-import { ScreenType } from "./ScreenType";
-import { ColorScheme } from "./ColorScheme";
+import { OS } from "./types/OS";
+import { ScreenType } from "./types/ScreenType";
+import { ColorScheme } from "./types/ColorScheme";
 
 class Environment {
 

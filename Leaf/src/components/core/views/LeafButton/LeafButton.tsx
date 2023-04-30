@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper';
 import { LeafButtonType } from './LeafButtonType';
 import LeafText from '../LeafText/LeafText';
 import Environment from '../../../../state/environment/Environment';
-import { OS } from '../../../../state/environment/OS';
+import { OS } from '../../../../state/environment/types/OS';
 import { ViewStyle } from 'react-native';
 import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 import LeafColor from '../../styles/color/LeafColor';

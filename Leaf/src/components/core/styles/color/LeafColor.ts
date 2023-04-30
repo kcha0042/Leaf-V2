@@ -1,6 +1,6 @@
 import { assert } from "../../../../language/assertions/Assert";
 import { UnreachableCaseError } from "../../../../language/errors/UnreachableCaseError";
-import { ColorScheme } from "../../../../state/environment/ColorScheme";
+import { ColorScheme } from "../../../../state/environment/types/ColorScheme";
 import Environment from "../../../../state/environment/Environment";
 
 class LeafColor {

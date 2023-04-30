@@ -1,4 +1,4 @@
-import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { UnreachableCaseError } from "../../../language/errors/UnreachableCaseError";
 
 export enum ScreenType {
     mobile,

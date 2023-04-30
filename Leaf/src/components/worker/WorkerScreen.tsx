@@ -6,8 +6,8 @@ import LeafDimensions from "../core/styles/LeafDimensions";
 import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
-import StateManager from "../../state/StateManager";
-import { LoginStatus } from "../../state/LoginStatus";
+import StateManager from "../../state/publishers/StateManager";
+import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 const WorkerScreen: React.FC = () => {
     return (

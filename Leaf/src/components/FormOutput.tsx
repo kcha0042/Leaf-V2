@@ -1,6 +1,6 @@
 import useForceUpdate from 'use-force-update';
 import Session from '../model/Session';
-import StateManager from '../state/StateManager';
+import StateManager from '../state/publishers/StateManager';
 import LeafText from './core/views/LeafText/LeafText';
 import LeafTypography from './core/styles/LeafTypography';
 

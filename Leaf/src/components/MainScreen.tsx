@@ -1,8 +1,8 @@
 import React from "react";
 import LoginScreen from "./login/LoginScreen";
 import LeaderScreen from "./leader/LeaderScreen";
-import StateManager from "../state/StateManager";
-import { LoginStatus } from "../state/LoginStatus";
+import StateManager from "../state/publishers/StateManager";
+import { LoginStatus } from "../state/publishers/types/LoginStatus";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import WorkerScreen from "./worker/WorkerScreen";
 import AdminScreen from "./admin/AdminScreen";

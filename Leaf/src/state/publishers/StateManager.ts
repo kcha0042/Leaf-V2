@@ -1,6 +1,6 @@
-import LeafPublisher from "./LeafPublisher";
-import LeafValuePublisher from "./LeafValuePublisher"
-import { LoginStatus } from "./LoginStatus";
+import LeafPublisher from "./impl/LeafPublisher";
+import LeafValuePublisher from "./impl/LeafValuePublisher"
+import { LoginStatus } from "./types/LoginStatus";
 
 /**
  * Stores application-level state to avoid having to pass state to different components, and reduces component coupling. Uses the publisher-subscriber pattern.

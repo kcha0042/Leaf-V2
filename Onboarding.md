@@ -46,6 +46,34 @@ If a wrapped component doesn't already exist, create it. Even if it does nothing
 
 When creating components, core components to be used throughout the application (e.g. `LeafButton`) should be created in the `components/core` directory in the relevant folder. Components used for a specified part of the app, e.g. `LoginScreen`, would be stored in its relevant directory, not in `components/core`.
 
+Naming conventions:
+
+* Core components have the prefix `Leaf`, e.g. `LeafButton`
+* Components that represent an entire screen (that would be pushed to the navigation stack) have the prefix `Screen`, e.g. `LoginScreen`
+* Child components of screen components don't have a prefix, e.g. `PatientCard`
+
+## Style Presets
+
+We define presets for styling our components so our app can feel consistent and be more maintainable. These are found in `components/core/styles`.
+
+* `LeafTypography` has all the preset typography (font, size, color) of the app
+* `LeafDimensions` has all the preset dimensions of the app
+* `LeafColors` has all the colors of the app
+
+The presets don't need to be referred to when creating components, you could create a new instance of a `LeafTypographyConfig` and pass that into your component if you want to use a text style isn't used in any other components, however in the vast majority of scenarios you should be referring to the preset ones.
+
+These are also mutable, meaning you're free to change them - they're defined using Typescript getters (calculated properties), meaning every time you refer to a property a new instance is returned.
+
+```typescript
+let outcomeTextTypography = LeafTypography.body;
+if (error) {
+    // Modifying this doesn't induce side effects
+    // Other LeafTypography.body instances won't be affected
+    outcomeTextTypography.presetColor = LeafColors.textError;
+    outcomeTextTypography.bold = true;
+}
+```
+
 ## Environment
 
 Anything relating to the application environment should be read and managed in `Environment` rather than called directly.
