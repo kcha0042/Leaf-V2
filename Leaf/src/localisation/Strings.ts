@@ -9,7 +9,13 @@ const language = Localization.locale.split('-')[0];
 const locale = locales[language] || locales.en;
 
 /**
- * Retrieves a localised string using its key
+ * Retrieves a localised string using its key.
+ * Keys and localised string files are loacted in the /locales directory.
+ * 
+ * ```
+ * let buttonText = strings("button.done")
+ * let interpolatedString = strings("welcome", "Billy") // Replaces "{0}" with "Billy"
+ * ```
  * 
  * @param path The key to the string
  * @param interpolations Strings to insert to {0}, {1}, etc.

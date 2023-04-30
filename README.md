@@ -3,6 +3,8 @@ A multi-platform mental health triage application.
 
 Try out the latest release on web [here](https://fit4002-team9.github.io/Leaf/).
 
+If you're an onboarding developer, read the [onboarding documentation](Onboarding.md).
+
 ## Setup
 
 1. Make sure you have latest version of Node.js installed
