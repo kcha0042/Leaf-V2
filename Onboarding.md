@@ -12,12 +12,8 @@ let buttonText = strings("button.done");
 
 ```tsx
 // Wrong
-let myButtonText = "Done";
+let buttonText = "Done";
 ```
-
-
-
-
 
 More documentation can be found in `Strings.ts` and `en.ts` located in the `/localisation` directory.
 
@@ -28,7 +24,7 @@ When using components, use our wrapped components that start with the prefix `Le
 ```tsx
 // Correct
 <LeafText typography={LeafTypography.body} >
-	TODO
+    TODO
 </LeafText>
 ```
 
