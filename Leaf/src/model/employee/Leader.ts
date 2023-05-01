@@ -6,3 +6,5 @@ class Leader extends Employee {
     // Empty implementation
 
 }
+
+export default Leader;

@@ -19,3 +19,5 @@ class TriageAction {
     }
 
 }
+
+export default TriageAction;

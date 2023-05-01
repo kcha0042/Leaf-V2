@@ -5,12 +5,10 @@ class Hospital {
 
     public readonly id: UUID;
     public readonly name: string;
-    public readonly wards: Ward[];
 
-    constructor(name: string, wards: Ward[]) {
+    constructor(name: string) {
         this.id = UUID.generate();
         this.name = name;
-        this.wards = wards;
     }
 
 }

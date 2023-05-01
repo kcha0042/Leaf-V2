@@ -39,6 +39,10 @@ class StateManager {
 
     public static readonly loginStatus = new LeafValuePublisher(LoginStatus.loggedOut);
 
+    public static readonly workersFetched = new LeafPublisher();
+
+    public static readonly patientsFetched = new LeafPublisher();
+
 }
 
 export default StateManager;

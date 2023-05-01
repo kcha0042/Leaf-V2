@@ -10,3 +10,5 @@ class Worker extends Employee {
     }
 
 }
+
+export default Worker;

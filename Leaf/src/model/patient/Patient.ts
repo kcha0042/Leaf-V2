@@ -2,6 +2,7 @@ import EmployeeID from "../employee/EmployeeID";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
 import UUID from "../core/UUID";
+import TriageCase from "../triage/TriageCase";
 
 class Patient {
 
@@ -9,7 +10,7 @@ class Patient {
     private _dob: Date;
     private _firstName: string;
     private _lastName: string;
-    public readonly triageCaseID: UUID;
+    public readonly triageCase: TriageCase;
     private _postCode: string;
     private _timeLastAllocated: Date;
     private _allocatedTo: EmployeeID;
@@ -44,7 +45,7 @@ class Patient {
         dob: Date,
         firstName: string,
         lastName: string,
-        triageCaseID: UUID,
+        triageCase: TriageCase,
         postCode: string,
         timeLastAllocated: Date,
         allocatedTo: EmployeeID,
@@ -54,7 +55,7 @@ class Patient {
         this._dob = dob;
         this._firstName = firstName;
         this._lastName = lastName;
-        this.triageCaseID = triageCaseID;
+        this.triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
@@ -62,3 +63,5 @@ class Patient {
     }
 
 }
+
+export default Patient;
