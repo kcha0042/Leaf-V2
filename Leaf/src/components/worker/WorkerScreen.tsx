@@ -45,29 +45,11 @@ const WorkerScreen: React.FC = () => {
                 )}
                 keyExtractor={(patient) => patient.mrn.toString()}
                 ItemSeparatorComponent={() => (
-                    <Spacer size={3.5} />
+                    <Spacer size={LeafDimensions.cardSpacing} />
                 )}
                 flexGrow={0}
                 margin={-LeafDimensions.screenPadding}
                 padding={LeafDimensions.screenPadding}
-            />
-
-            <LeafText
-                typography={LeafTypography.body}
-                style={{ textAlign: 'center' }}
-            >
-                TODO: Worker Screen
-            </LeafText>
-
-            <LeafButton 
-                label="Logout (TEMP)"
-                icon="arrow-left-circle"
-                typography={LeafTypography.primaryButton}
-                type={LeafButtonType.filled} 
-                color={LeafColors.accent}
-                onPress={() => {
-                    StateManager.loginStatus.publish(LoginStatus.loggedOut);
-                }}
             />
 
             <Spacer />

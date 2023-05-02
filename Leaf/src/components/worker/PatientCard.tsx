@@ -19,7 +19,9 @@ const PatientCard: React.FC<Props> = ({
     style,
     onPress,
 }) => {
-    let datetimeText = patient.triageCase.arrivalDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "  |  " + patient.triageCase.arrivalDate.toDateString();
+    let timeText = patient.triageCase.arrivalDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let dateText = patient.triageCase.arrivalDate.toDateString();
+    let datetimeText = `${timeText}  |  ${dateText}`;
     return (
         <LeafFloatingCard 
             color={LeafColors.textBackgroundLight}
