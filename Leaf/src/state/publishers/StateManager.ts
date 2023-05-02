@@ -32,11 +32,6 @@ import { LoginStatus } from "./types/LoginStatus";
  */
 class StateManager {
 
-    /**
-     * THIS IS A DEMO PROPERTY
-     */
-    public static readonly formSubmitted = new LeafPublisher();
-
     public static readonly loginStatus = new LeafValuePublisher(LoginStatus.loggedOut);
 
     public static readonly workersFetched = new LeafPublisher();
