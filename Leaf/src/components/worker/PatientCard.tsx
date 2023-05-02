@@ -10,7 +10,7 @@ import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCa
 interface Props {
     patient: Patient;
     style?: ViewStyle;
-    onPress: (patient) => void;
+    onPress: () => void;
 }
 
 const PatientCard: React.FC<Props> = ({ 
@@ -29,6 +29,7 @@ const PatientCard: React.FC<Props> = ({
         <LeafFloatingCard 
             color={LeafColors.textBackgroundLight}
             style={style}
+            onPress={onPress}
         >
             <HStack>
                 <TriageCodeBadge

@@ -22,6 +22,7 @@ const YourPatientsScreen: React.FC = () => {
     }, []);
 
     const onPressPatient = (patient) => {
+        // TODO: Navigation
         console.log(patient.fullName);
     }
 
@@ -43,7 +44,7 @@ const YourPatientsScreen: React.FC = () => {
                     renderItem={({ item: patient }) => (
                         <PatientCard 
                             patient={patient} 
-                            onPress={onPressPatient}
+                            onPress={() => {onPressPatient(patient)}}
                         />
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}

@@ -1,6 +1,6 @@
 import { TextStyle, ViewStyle } from "react-native";
 import Patient from "../../model/patient/Patient";
-import LeafFlatContainer from "../core/containers/LeafFlatContainer/LeafRoundedContainer";
+import LeafFlatContainer from "../core/containers/LeafFlatContainer/LeafFlatContainer";
 import LeafColors from "../core/styles/LeafColors";
 import LeafTypography from "../core/styles/LeafTypography";
 import LeafText from "../core/views/LeafText/LeafText";

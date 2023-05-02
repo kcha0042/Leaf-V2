@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
-import Environment from '../../../../state/environment/Environment';
-import { OS } from '../../../../state/environment/types/OS';
 
 interface Props {
     color: LeafColor;
@@ -11,7 +9,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-const LeafFloatingCard: React.FC<Props> = ({ 
+const LeafFlatContainer: React.FC<Props> = ({ 
     color,
     onPress = null,
     children,
@@ -35,16 +33,8 @@ const LeafFloatingCard: React.FC<Props> = ({
 const styles = StyleSheet.create({
     container: {
         borderRadius: 16,
-        padding: 14,
-        shadowColor: '#000000',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        // Shadows appear sligntly differnt on web
-        shadowOpacity: Environment.instance.getOS() == OS.web ? 0.23 : 0.18,
-        shadowRadius: Environment.instance.getOS() == OS.web ? 12 : 7,
+        padding: 24,
     }
 });
 
-export default LeafFloatingCard;
+export default LeafFlatContainer;
