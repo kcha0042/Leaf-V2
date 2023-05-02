@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text } from 'react-native-paper';
 import { TextStyle } from 'react-native';
 import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
