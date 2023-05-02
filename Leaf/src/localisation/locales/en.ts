@@ -12,6 +12,9 @@ export default {
     // Main
     "appName": "TODO",
 
+    // Headers
+    "header.yourPatients": "Your Patients",
+
     // Buttons
     "button.login": "Login",
     "button.logout": "Logot",

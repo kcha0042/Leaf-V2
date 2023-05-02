@@ -42,7 +42,13 @@ const LoginScreen: React.FC = () => {
     }
 
     return (
-        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing} alignItems={"center"} width={"100%"}>
+        <VStack 
+            style={{ flex: 1 }} 
+            space={LeafDimensions.screenSpacing} 
+            alignItems={"center"} 
+            width={"100%"}
+            padding={LeafDimensions.screenPadding}
+        >
             <Spacer />
 
             <LeafText 

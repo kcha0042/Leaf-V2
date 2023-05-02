@@ -37,9 +37,7 @@ export default function App() {
       <PaperProvider theme={theme}>
         <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
           <SafeAreaView style={{ flex: 1 }}>
-            <Flex padding={LeafDimensions.screenPadding} flex={1}>
-              <MainScreen />
-            </Flex>
+            <MainScreen />
           </SafeAreaView>
         </View>
       </PaperProvider>
