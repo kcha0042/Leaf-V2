@@ -55,7 +55,8 @@ const WorkerScreen: React.FC = () => {
                     // flexGrow ensures the frame wraps only the FlatList content
                     flexGrow={0}
                     // Stop shadows getting clipped
-                    overflow='visible'
+                    // Don't use overflow prop - doesn't work on web
+                    style={{ overflow: 'visible' }}
                 />
 
                 <Spacer />

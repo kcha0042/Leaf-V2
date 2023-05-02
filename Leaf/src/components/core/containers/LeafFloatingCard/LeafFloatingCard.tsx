@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
+import Environment from '../../../../state/environment/Environment';
+import { OS } from '../../../../state/environment/types/OS';
 
 interface Props {
     color: LeafColor;
@@ -35,8 +37,9 @@ const styles = StyleSheet.create({
             width: 0,
             height: 4,
         },
-        shadowOpacity: 0.18,
-        shadowRadius: 7,
+        // Shadows appear sligntly differnt on web
+        shadowOpacity: Environment.instance.getOS() == OS.web ? 0.23 : 0.18,
+        shadowRadius: Environment.instance.getOS() == OS.web ? 12 : 7,
     }
 });
 

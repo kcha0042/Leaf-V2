@@ -7,6 +7,8 @@ import LeafText from "../core/views/LeafText/LeafText";
 import { HStack, Spacer, VStack, View } from "native-base";
 import { TriageCode } from "../../model/triage/TriageCode";
 import { useState } from "react";
+import Environment from "../../state/environment/Environment";
+import { OS } from "../../state/environment/types/OS";
 
 interface Props {
     code: TriageCode;
@@ -21,6 +23,8 @@ const TriageCodeBadge: React.FC<Props> = ({
 }) => {
     let typography = LeafTypography.badge;
     typography.leafColor = LeafColors.textTriageCode(code);
+    // Padding renders differntly on web
+    let padding = Environment.instance.getOS() == OS.web ? 10 : 3;
     return (
         <View
             style={[
@@ -39,7 +43,7 @@ const TriageCodeBadge: React.FC<Props> = ({
                 wide={false}
                 style={{
                     textAlign: 'center',
-                    padding: 3,
+                    padding: padding,
                     aspectRatio: 1, 
                 }}
             >
