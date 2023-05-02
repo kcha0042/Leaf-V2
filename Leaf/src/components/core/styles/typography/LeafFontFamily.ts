@@ -15,13 +15,17 @@ export namespace LeafFontFamily {
                     LeafFont.gilroyExtraBold,
                     LeafFont.gilroyExtraBold,
                     LeafFont.gilroyExtraBold,
+                    LeafFont.gilroyExtraBold,
+                    LeafFont.gilroyExtraBold,
                     LeafFont.gilroyExtraBold
                 );
             case LeafFontFamily.poppins:
                 return new LeafFontFamilyConfig(
                     LeafFont.poppinsMedium, 
+                    LeafFont.poppinsSemiBold,
                     LeafFont.poppinsBold, 
                     LeafFont.poppinsMediumItalic, 
+                    LeafFont.poppinsSemiBoldItalic,
                     LeafFont.poppinsBoldItalic
                 );
             default: 

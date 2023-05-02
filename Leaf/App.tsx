@@ -15,8 +15,10 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     [LeafFont.gilroyExtraBold]: require('./assets/fonts/Gilroy-ExtraBold.otf'),
     [LeafFont.poppinsMedium]: require('./assets/fonts/Poppins-Medium.ttf'),
+    [LeafFont.poppinsSemiBold]: require('./assets/fonts/Poppins-SemiBold.ttf'),
     [LeafFont.poppinsBold]: require('./assets/fonts/Poppins-Bold.ttf'),
     [LeafFont.poppinsMediumItalic]: require('./assets/fonts/Poppins-MediumItalic.ttf'),
+    [LeafFont.poppinsSemiBoldItalic]: require('./assets/fonts/Poppins-SemiBoldItalic.ttf'),
     [LeafFont.poppinsBoldItalic]: require('./assets/fonts/Poppins-BoldItalic.ttf'),
   });
 

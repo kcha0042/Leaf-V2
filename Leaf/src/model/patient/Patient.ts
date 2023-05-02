@@ -27,6 +27,9 @@ class Patient {
     get lastName(): string {
         return this._lastName;
     }
+    get fullName(): string {
+        return `${this._firstName} ${this._lastName}`
+    }
     get postCode(): string {
         return this._postCode;
     }

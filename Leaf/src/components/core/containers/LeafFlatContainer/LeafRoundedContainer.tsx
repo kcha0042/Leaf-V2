@@ -1,21 +1,24 @@
 import React from 'react';
-import { StyleSheet, TextStyle, View } from 'react-native';
+import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
 
 interface Props {
     color: LeafColor;
     children; // No type - can be any component
+    style?: ViewStyle;
 }
 
-const LeafRoundedContainer: React.FC<Props> = ({ 
+const LeafFlatContainer: React.FC<Props> = ({ 
     color,
     children,
+    style,
 }) => {
     return (
         <View 
             style={[
                 styles.container,
-                { backgroundColor: color.getColor() }
+                { backgroundColor: color.getColor() },
+                style,
             ]}
         >
             {children}
@@ -30,4 +33,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LeafRoundedContainer;
+export default LeafFlatContainer;

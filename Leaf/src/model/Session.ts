@@ -36,7 +36,7 @@ class Session {
         return this.patientStore[id.toString()] || null;
     }
 
-    private fetchAllWorkers() {
+    public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
         let worker1 = new Worker(
@@ -55,7 +55,7 @@ class Session {
         StateManager.workersFetched.publish();
     }
 
-    private fetchAllPatients() {
+    public fetchAllPatients() {
         // TODO: Asyncronously access database and update patientStore
         // Temporary:
         let patient1 = new Patient(
@@ -94,7 +94,7 @@ class Session {
                 new Hospital("Hosptial456"),
                 new MedicalUnit("MedicalUnit456"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.emergency
+                TriageCode.semiUrgent
             ),
             "1234",
             new Date(),

@@ -16,6 +16,7 @@ interface Props {
     color: LeafColor;
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
+    wide?: boolean;
     style?: ViewStyle;
     onPress: () => void;
 }
@@ -27,6 +28,7 @@ const LeafButton: React.FC<Props> = ({
     color,
     icon = null, 
     disabled = false, 
+    wide = true,
     style,
     onPress,
 }) => {
@@ -39,7 +41,7 @@ const LeafButton: React.FC<Props> = ({
 
     if (disabled) {
         // Override colour when disabled
-        typography.presetColor = undefined;
+        typography.leafColor = undefined;
     }
     
     return (
@@ -55,11 +57,9 @@ const LeafButton: React.FC<Props> = ({
                 labelStyle,
             ]}
             style={[
+                { borderRadius: 50 },
+                wide ? { width: "100%" } : { alignSelf: 'center' },
                 style,
-                { 
-                    borderRadius: 50, 
-                    width: "100%"
-                },
             ]}
             buttonColor={color.getColor()}
         >

@@ -2,23 +2,24 @@ import LeafColor from "../color/LeafColor";
 import { LeafFontFamily } from "./LeafFontFamily";
 import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
 import { StyleSheet } from 'react-native';
+import { LeafFontWeight } from "./LeafFontWeight";
 
 class LeafTypographyConfig {
 
     public size: number;
     public fontFamily: LeafFontFamily;
     // An undefined color allows the component handle the color
-    public presetColor: LeafColor | undefined;
-    public bold: boolean;
+    public leafColor: LeafColor | undefined;
+    public weight: LeafFontWeight;
     public italic: boolean;
     public underlined: boolean;
     public linedOut: boolean;
     get font(): string {
         let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
-        return config.getFont(this.bold, this.italic);
+        return config.getFont(this.weight, this.italic);
     }
     get color(): string | undefined {
-        return this.presetColor?.getColor();
+        return this.leafColor?.getColor();
     }
     get lineStyle(): "none" | "underline" | "line-through" | "underline line-through" {
         let result = "";
@@ -39,15 +40,15 @@ class LeafTypographyConfig {
         size: number, 
         fontFamily: LeafFontFamily, 
         color: LeafColor | undefined,
-        bold: boolean = false, 
+        weight: LeafFontWeight = LeafFontWeight.regular, 
         italic: boolean = false, 
         underlined: boolean = false,
         linedOut: boolean = false
     ) {
         this.size = size;
         this.fontFamily = fontFamily;
-        this.presetColor = color;
-        this.bold = bold;
+        this.leafColor = color;
+        this.weight = weight;
         this.italic = italic;
         this.underlined = underlined;
         this.linedOut = linedOut;

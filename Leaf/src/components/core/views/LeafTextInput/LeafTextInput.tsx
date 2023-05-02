@@ -7,6 +7,7 @@ interface Props {
     label: string;
     textColor: LeafColor;
     color: LeafColor;
+    wide?: boolean;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
 }
@@ -15,6 +16,7 @@ const LeafTextInput: React.FC<Props> = ({
     label, 
     textColor,
     color,
+    wide = true,
     style,
     onTextChange,
 }) => {
@@ -26,12 +28,10 @@ const LeafTextInput: React.FC<Props> = ({
             value={text}
             mode="outlined"
             style={[
+                wide ? { width: "100%" } : { alignSelf: 'center' },
+                { borderRadius: 30 },
+                { backgroundColor: color.getColor() },
                 style,
-                { 
-                    borderRadius: 30, 
-                    width: "100%", 
-                    backgroundColor: color.getColor() 
-                },
             ]}
             outlineColor="transparent" 
             theme={{ colors: { primary: textColor.getColor() } }}

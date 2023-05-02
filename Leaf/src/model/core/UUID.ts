@@ -1,21 +1,18 @@
 import ID from "./ID";
-import {v4 as uuidv4} from 'uuid';
+import uuid from 'react-native-uuid';
 
 class UUID extends ID {
 
-    private readonly uuid: uuidv4;
-
-    constructor(uuid: uuidv4) {
+    constructor(uuid: string) {
         super(uuid);
-        this.uuid = uuid;
     }
 
     public static generate(): UUID {
-        return new UUID(uuidv4());
+        return new UUID(uuid.v4() as string);
     }
 
     public matches(other: UUID): boolean {
-        return this.uuid == other.uuid;
+        return this.toString() == other.toString();
     }
 
 }

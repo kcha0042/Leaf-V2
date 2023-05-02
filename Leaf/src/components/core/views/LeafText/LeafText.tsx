@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native-paper';
 import { TextStyle } from 'react-native';
 import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
+import { LeafFontFamily } from '../../styles/typography/LeafFontFamily';
 
 interface Props {
-    children; // No type - can be any element (allows text element embedding)
+    // Text or other components to be embedded
+    children;
+    // Typography applied
     typography: LeafTypographyConfig;
+    // If the component should expand to take up available horizontal space
+    wide?: boolean;
+    // If the frame should exactly match the text
+    verticalWrap?: boolean;
+    // Custom styling
     style?: TextStyle;
 }
 
 const LeafText: React.FC<Props> = ({ 
     children, 
     typography,
+    verticalWrap = false,
+    wide = true,
     style,
 }) => {
+    // For some reason the poppins font is slightly offset
+    // This is a workaround
+    let lineHeightMultiplier = typography.fontFamily == LeafFontFamily.poppins ? 1.15 : 1.0;
     return (
         <Text
             style={[
-                { width: "100%" },
+                wide ? { width: "100%" } : { alignSelf: 'center' },
                 typography.getStylesheet(),
+                verticalWrap ? { 
+                    lineHeight: typography.size*lineHeightMultiplier 
+                } : null,
                 style,
             ]}
         >
