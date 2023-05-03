@@ -15,16 +15,17 @@ export default {
     // Headers
     "header.yourPatients": "Your Patients",
     "header.Nurses": "Nurses",
+    "header.nameSurname": "Nabeeb Yusuf",
 
     // Buttons
     "button.login": "Login",
     "button.logout": "Logot",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.allocate": "New Allocation",
 
     // Login
     "login.title": "Login",
     "login.inputLabel.username": "Username",
     "login.inputLabel.password": "Password",
-
 }

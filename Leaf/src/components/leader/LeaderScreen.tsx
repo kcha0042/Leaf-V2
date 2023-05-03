@@ -8,10 +8,15 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import AllocatePatientsScreen from "./AllocatePatientsScreen";
 
 const LeaderScreen: React.FC = () => {
     return (
-        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
+        <AllocatePatientsScreen />
+    );
+}
+
+{/* <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
             <Spacer/>
 
             <LeafText
@@ -33,8 +38,6 @@ const LeaderScreen: React.FC = () => {
             />
 
             <Spacer />
-        </VStack>
-    );
-}
+        </VStack> */}
 
 export default LeaderScreen;
