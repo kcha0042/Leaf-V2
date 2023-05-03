@@ -7,7 +7,7 @@ import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
 import { FlatList } from "native-base";
-import PatientCard from "./PatientCard";
+import PatientCard from "./components/PatientCard";
 import { strings } from "../../localisation/Strings";
 
 const YourPatientsScreen: React.FC = () => {

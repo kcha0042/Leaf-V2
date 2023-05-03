@@ -9,8 +9,8 @@ const WorkerScreen: React.FC = () => {
     // TODO: Tab bar implementation
     return (
         <SafeAreaView style={style.safeArea}>
-            <NewTriageScreen />
-            {/* <YourPatientsScreen /> */}
+            {/* <NewTriageScreen /> */}
+            <YourPatientsScreen />
         </SafeAreaView>
     );
 }

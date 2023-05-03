@@ -1,14 +1,14 @@
 import { TextStyle, ViewStyle } from "react-native";
-import Patient from "../../model/patient/Patient";
-import LeafFlatContainer from "../core/containers/LeafFlatContainer/LeafFlatContainer";
-import LeafColors from "../core/styles/LeafColors";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafText from "../core/views/LeafText/LeafText";
+import Patient from "../../../model/patient/Patient";
+import LeafFlatContainer from "../../core/containers/LeafFlatContainer/LeafFlatContainer";
+import LeafColors from "../../core/styles/LeafColors";
+import LeafTypography from "../../core/styles/LeafTypography";
+import LeafText from "../../core/views/LeafText/LeafText";
 import { HStack, Spacer, VStack, View } from "native-base";
-import { TriageCode } from "../../model/triage/TriageCode";
+import { TriageCode } from "../../../model/triage/TriageCode";
 import { useState } from "react";
-import Environment from "../../state/environment/Environment";
-import { OS } from "../../state/environment/types/OS";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
     code: TriageCode;

@@ -29,7 +29,10 @@ export default {
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
+    "triageForm.title.triage": "Triage",
     "triageForm.textInput.givenName": "Name",
     "triageForm.textInput.surname": "Surname",
+    "triageForm.textInput.mrn": "MRN",
+    "triageForm.textInput.postcode": "Postcode",
 
 }

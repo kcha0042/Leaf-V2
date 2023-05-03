@@ -1,11 +1,11 @@
 import { ViewStyle } from "react-native";
-import Patient from "../../model/patient/Patient";
-import LeafColors from "../core/styles/LeafColors";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafText from "../core/views/LeafText/LeafText";
+import Patient from "../../../model/patient/Patient";
+import LeafColors from "../../core/styles/LeafColors";
+import LeafTypography from "../../core/styles/LeafTypography";
+import LeafText from "../../core/views/LeafText/LeafText";
 import { HStack, Spacer, VStack, View } from "native-base";
 import TriageCodeBadge from "./TriageCodeBadge";
-import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCard";
+import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
 
 interface Props {
     patient: Patient;
