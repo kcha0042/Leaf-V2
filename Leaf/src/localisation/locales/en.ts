@@ -26,4 +26,7 @@ export default {
     "login.inputLabel.username": "Username",
     "login.inputLabel.password": "Password",
 
+    // Operation
+    "operation.removeAccount": "This will remove this account and all associated data"
+
 }
