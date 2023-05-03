@@ -30,6 +30,15 @@ class LeafTypography {
         );
     }
 
+    static get formCardTitle(): LeafTypographyConfig {
+        return new LeafTypographyConfig(
+            16,
+            LeafFontFamily.poppins,
+            LeafColors.textDark,
+            LeafFontWeight.bold,
+        );
+    }
+
     static get body(): LeafTypographyConfig {
         return new LeafTypographyConfig(
             15,

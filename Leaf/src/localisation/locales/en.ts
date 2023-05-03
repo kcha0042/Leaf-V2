@@ -14,6 +14,7 @@ export default {
 
     // Headers
     "header.yourPatients": "Your Patients",
+    "header.newTriage": "New Triage",
 
     // Buttons
     "button.login": "Login",
@@ -25,5 +26,10 @@ export default {
     "login.title": "Login",
     "login.inputLabel.username": "Username",
     "login.inputLabel.password": "Password",
+
+    // Triage Form
+    "triageForm.title.identity": "Patient Identity",
+    "triageForm.textInput.givenName": "Name",
+    "triageForm.textInput.surname": "Surname",
 
 }

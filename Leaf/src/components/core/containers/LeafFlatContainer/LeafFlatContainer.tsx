@@ -33,7 +33,7 @@ const LeafFlatContainer: React.FC<Props> = ({
 const styles = StyleSheet.create({
     container: {
         borderRadius: 16,
-        padding: 24,
+        padding: 14,
     }
 });
 

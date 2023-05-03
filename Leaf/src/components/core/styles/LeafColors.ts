@@ -57,6 +57,16 @@ class LeafColors {
         return new LeafColor("#ffffff");
     }
 
+    static get screenBackgroundLight(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#ffffff")
+    }
+
+    static get screenBackgroundSemiLight(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#fafafa")
+    }
+
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {
