@@ -27,6 +27,10 @@ export default {
     "login.inputLabel.password": "Password",
 
     // Operation
-    "operation.removeAccount": "This will remove this account and all associated data"
+    "operation.removeAccount": "This will remove this account and all associated data",
+
+    // Label
+    "label.id": "ID: ",
+    "label.loading": "Loading"
 
 }

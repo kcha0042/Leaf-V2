@@ -7,14 +7,11 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import { HStack, Spacer, VStack, View } from "native-base";
+import { Spacer, VStack, View } from "native-base";
 import { strings } from "../../localisation/Strings";
 import Nurse from "../../model/employee/Worker";
 import { ViewStyle } from "react-native";
 import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCard";
-
-
-
 
 interface Props {
     nurse: Nurse;
@@ -27,6 +24,12 @@ const ManageNurseScreen: React.FC<Props> = ({
     style,
     onPress,
 }) => {
+    console.log(nurse)
+    if (nurse == null){
+        return <LeafText typography={LeafTypography.body}>
+            {strings("label.loading")}
+            </LeafText>
+    }
     return (
         <View
             flex={1}
@@ -37,18 +40,15 @@ const ManageNurseScreen: React.FC<Props> = ({
                 space={LeafDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
-                    {/* {nurse.firstName + " " + nurse.lastName} */}
-                    Nurse Name
-                    {/* fix by get the information dynamically */}
+                    {nurse.firstName}
                 </LeafText>
 
                 <LeafText typography={LeafTypography.body}>
-                    Nurse
-                    {/* fix by get the information dynamically */}
+                    nurse
+                    {/* todo: role is not available in Employee atm, fix it later */}
                 </LeafText>
 
                 <LeafText typography={LeafTypography.body}>
-                    {/* {nurse.firstName + " " + nurse.lastName} */}
                     Details
                 </LeafText>
 
@@ -63,8 +63,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                                 typography={LeafTypography.cardTitle}
                                 verticalWrap={true}
                             >
-                                ID: 12345678
-                                {/* fix by get the information dynamically */}
+                                {strings("label.id") + nurse.id.toString()}
                             </LeafText>
                         </View>
 
@@ -74,8 +73,8 @@ const ManageNurseScreen: React.FC<Props> = ({
                             typography={LeafTypography.subscript}
                             wide={false}
                         >
-                            other information if we have
-                            {/* fix by get the information dynamically */}
+                            other information if we have - (temp text, fixed it later)
+                            {/* TEMP Text */}
                         </LeafText>
                     </VStack>
                 </LeafFloatingCard>
@@ -89,7 +88,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                     type={LeafButtonType.filled}
                     color={LeafColors.textError}
                     onPress={() => {
-                        StateManager.loginStatus.publish(LoginStatus.loggedOut);
+                        StateManager.loginStatus.publish(LoginStatus.loggedOut); // should change to delete account method later.
                     }}
                 />
 

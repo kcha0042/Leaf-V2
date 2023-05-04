@@ -8,9 +8,9 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import ManageNurseScreen from "./ManageNurseScreen";
 
 const AdminScreen: React.FC = () => {
-    const [nurse, setNurse] = React.useState<Nurse>(Session.instance.getWorker(new EmployeeID("456-456")));
+    const [nurse, setNurse] = React.useState<Nurse>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
 
-    StateManager.patientsFetched.subscribe(() => {
+    StateManager.workersFetched.subscribe(() => {
         setNurse(Session.instance.getWorker(new EmployeeID("456-456")));
     });
 
