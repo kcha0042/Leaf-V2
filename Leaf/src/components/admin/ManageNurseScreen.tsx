@@ -40,7 +40,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                 space={LeafDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
-                    {nurse.firstName}
+                    {nurse.firstName + " " + nurse.lastName}
                 </LeafText>
 
                 <LeafText typography={LeafTypography.body}>
