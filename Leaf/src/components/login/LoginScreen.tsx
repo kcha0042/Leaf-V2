@@ -3,7 +3,7 @@ import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
 import LeafTextInput from "../core/views/LeafTextInput/LeafTextInput";
-import LeafDimensions from "../core/styles/LeafDimensions";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
@@ -44,10 +44,10 @@ const LoginScreen: React.FC = () => {
     return (
         <VStack 
             style={{ flex: 1 }} 
-            space={LeafDimensions.screenSpacing} 
+            space={LeafBaseDimensions.screenSpacing} 
             alignItems={"center"} 
             width={"100%"}
-            padding={LeafDimensions.screenPadding}
+            padding={LeafBaseDimensions.screenPadding}
         >
             <Spacer />
 

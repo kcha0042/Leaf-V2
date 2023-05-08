@@ -2,12 +2,12 @@ import { ScrollView, Spacer, VStack } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafDimensions from "../core/styles/LeafDimensions";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
 import { FlatList } from "native-base";
-import PatientCard from "./PatientCard";
+import PatientCard from "./components/PatientCard";
 import { strings } from "../../localisation/Strings";
 
 const YourPatientsScreen: React.FC = () => {
@@ -29,11 +29,11 @@ const YourPatientsScreen: React.FC = () => {
     return (
         <ScrollView 
             flex={1}
-            padding={LeafDimensions.screenPadding}
+            padding={LeafBaseDimensions.screenPadding}
         >
             <VStack 
                 flex={1}
-                space={LeafDimensions.screenSpacing}
+                space={LeafBaseDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
                     {strings("header.yourPatients")}
@@ -49,7 +49,7 @@ const YourPatientsScreen: React.FC = () => {
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafDimensions.cardSpacing} />
+                        <Spacer size={LeafBaseDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
                     // flexGrow ensures the frame wraps only the FlatList content

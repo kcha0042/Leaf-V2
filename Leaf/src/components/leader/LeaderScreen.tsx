@@ -2,7 +2,7 @@ import { Spacer, VStack } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafDimensions from "../core/styles/LeafDimensions";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
@@ -11,7 +11,7 @@ import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 const LeaderScreen: React.FC = () => {
     return (
-        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
+        <VStack style={{ flex: 1 }} space={LeafBaseDimensions.screenSpacing}>
             <Spacer/>
 
             <LeafText
