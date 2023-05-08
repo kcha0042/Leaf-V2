@@ -6,8 +6,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { View } from 'react-native';
 import { LeafFont } from './src/components/core/styles/typography/LeafFont';
-import LeafDimensions from './src/components/core/styles/LeafDimensions';
 import MainScreen from './src/components/MainScreen';
+import NewTriageScreen from './src/components/worker/NewTriageScreen';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,9 +36,7 @@ export default function App() {
     <NativeBaseProvider>
       <PaperProvider theme={theme}>
         <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-          <SafeAreaView style={{ flex: 1 }}>
-            <MainScreen />
-          </SafeAreaView>
+          <MainScreen />
         </View>
       </PaperProvider>
     </NativeBaseProvider>

@@ -1,33 +1,31 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
+import Environment from '../../../../state/environment/Environment';
+import { OS } from '../../../../state/environment/types/OS';
 import LeafDimensions from '../../styles/LeafDimensions';
 
 interface Props {
     color: LeafColor;
-    onPress?: () => void | null;
     children; // No type - can be any component
     style?: ViewStyle;
 }
 
-const LeafFlatCard: React.FC<Props> = ({ 
+const LeafOutlinedContainer: React.FC<Props> = ({ 
     color,
-    onPress = null,
     children,
     style,
 }) => {
     return (
-        <TouchableOpacity onPress={onPress} disabled={onPress == null}>
-            <View 
-                style={[
-                    styles.container,
-                    { backgroundColor: color.getColor() },
-                    style,
-                ]}
-            >
-                {children}
-            </View>
-        </TouchableOpacity>
+        <View 
+            style={[
+                styles.container,
+                { borderColor: color.getColor() },
+                style,
+            ]}
+        >
+            {children}
+        </View>
     );
 }
 
@@ -35,7 +33,8 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 16,
         padding: LeafDimensions.cardPadding,
+        borderWidth: 4,
     }
 });
 
-export default LeafFlatCard;
+export default LeafOutlinedContainer;
