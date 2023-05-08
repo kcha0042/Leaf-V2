@@ -7,9 +7,10 @@ import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
 import { FlatList } from "native-base";
-import PatientCard from "../worker/PatientCard";
+import PatientCard from "../worker/components/PatientCard";
 import { strings } from "../../localisation/Strings";
 import AllocateCard from "./AllocateCard";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
@@ -38,11 +39,11 @@ const AllocatePatientsScreen: React.FC = () => {
     return (
         <ScrollView 
             flex={1}
-            padding={LeafDimensions.screenPadding}
+            padding={LeafBaseDimensions.screenPadding}
         >
             <VStack 
                 flex={1}
-                space={LeafDimensions.screenSpacing}
+                space={LeafBaseDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
                     Nabeeb
@@ -63,7 +64,7 @@ const AllocatePatientsScreen: React.FC = () => {
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafDimensions.cardSpacing} />
+                        <Spacer size={LeafBaseDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
                     // flexGrow ensures the frame wraps only the FlatList content
