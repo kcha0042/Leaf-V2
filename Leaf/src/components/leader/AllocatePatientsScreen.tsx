@@ -10,7 +10,6 @@ import { FlatList } from "native-base";
 import PatientCard from "../worker/PatientCard";
 import { strings } from "../../localisation/Strings";
 import AllocateCard from "./AllocateCard";
-import leafIcons from "../core/resources/LeafIcons";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
@@ -46,7 +45,7 @@ const AllocatePatientsScreen: React.FC = () => {
                 space={LeafDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
-                    {strings("header.nameSurname")}
+                    Nabeeb
                 </LeafText>
 
                 <AllocateCard
