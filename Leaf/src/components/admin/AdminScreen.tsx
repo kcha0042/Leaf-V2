@@ -1,40 +1,38 @@
-import { Spacer, VStack } from "native-base";
-import React from "react";
-import LeafText from "../core/views/LeafText/LeafText";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
-import LeafButton from "../core/views/LeafButton/LeafButton";
-import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
-import LeafColors from "../core/styles/LeafColors";
+import { VStack } from "native-base";
+import React, { useEffect } from "react";
+import LeafDimensions from "../core/styles/LeafDimensions";
+import Nurse from "../../model/employee/Worker";
+import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
-import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import EmployeeID from "../../model/employee/EmployeeID";
+import ManageNurseScreen from "./ManageNurseScreen";
 
 const AdminScreen: React.FC = () => {
+    const [nurse, setNurse] = React.useState<Nurse | null>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
+
+    StateManager.workersFetched.subscribe(() => {
+        setNurse(Session.instance.getWorker(new EmployeeID("456-456")));
+    });
+
+    useEffect(() => {
+        Session.instance.fetchAllWorkers();
+    }, []);
+
+    const onPressNurse = (nurse) => {
+        // TODO: Navigation
+        console.log(nurse.firstName);
+    }
+
     return (
-        <VStack style={{ flex: 1 }} space={LeafBaseDimensions.screenSpacing}>
-            <Spacer/>
-
-            <LeafText
-                typography={LeafTypography.body}
-                style={{ textAlign: 'center' }}
-            >
-                TODO: Admin Screen
-            </LeafText>
-
-            <LeafButton 
-                label="Logout (TEMP)"
-                icon="arrow-left-circle"
-                typography={LeafTypography.primaryButton}
-                type={LeafButtonType.filled} 
-                color={LeafColors.accent}
-                onPress={() => {
-                    StateManager.loginStatus.publish(LoginStatus.loggedOut);
-                }}
+        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
+            <ManageNurseScreen
+                nurse={nurse}
+                onPress={() => { onPressNurse(nurse) }}
             />
-
-            <Spacer />
         </VStack>
     );
+
 }
+
 
 export default AdminScreen;
