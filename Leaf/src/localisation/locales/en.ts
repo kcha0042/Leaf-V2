@@ -14,6 +14,7 @@ export default {
 
     // Headers
     "header.yourPatients": "Your Patients",
+    "header.Nurses": "Nurses",
     "header.newTriage": "New Triage",
 
     // Buttons
@@ -21,6 +22,7 @@ export default {
     "button.logout": "Logot",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.allocate": "New Allocation",
 
     // Login
     "login.title": "Login",

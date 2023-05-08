@@ -8,32 +8,11 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import AllocatePatientsScreen from "./AllocatePatientsScreen";
 
 const LeaderScreen: React.FC = () => {
     return (
-        <VStack style={{ flex: 1 }} space={LeafBaseDimensions.screenSpacing}>
-            <Spacer/>
-
-            <LeafText
-                typography={LeafTypography.body}
-                style={{ textAlign: 'center' }}
-            >
-                TODO: Leader Screen
-            </LeafText>
-
-            <LeafButton 
-                label="Logout (TEMP)"
-                icon="arrow-left-circle"
-                typography={LeafTypography.primaryButton}
-                type={LeafButtonType.filled} 
-                color={LeafColors.accent}
-                onPress={() => {
-                    StateManager.loginStatus.publish(LoginStatus.loggedOut);
-                }}
-            />
-
-            <Spacer />
-        </VStack>
+        <AllocatePatientsScreen />
     );
 }
 
