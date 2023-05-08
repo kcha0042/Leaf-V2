@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput } from 'react-native-paper';
 import { ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
+import LeafColors from '../../styles/LeafColors';
 
 interface Props {
     label: string;
@@ -33,7 +34,7 @@ const LeafTextInput: React.FC<Props> = ({
                 { backgroundColor: color.getColor() },
                 style,
             ]}
-            outlineColor="transparent" 
+            outlineColor={LeafColors.outlineTextBackgroundDark.getColor()} 
             theme={{ colors: { primary: textColor.getColor() } }}
             outlineStyle={{ borderRadius: 12 }}
             onChangeText={text => {

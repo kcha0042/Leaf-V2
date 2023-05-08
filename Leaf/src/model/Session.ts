@@ -69,7 +69,7 @@ class Session {
                 new Hospital("Hosptial123"),
                 new MedicalUnit("MedicalUnit123"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.emergency
+                TriageCode.immediate
             ),
             "1234",
             new Date(),

@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
 import Environment from '../../../../state/environment/Environment';
 import { OS } from '../../../../state/environment/types/OS';
+import LeafDimensions from '../../styles/LeafDimensions';
 
 interface Props {
     color: LeafColor;
@@ -31,7 +32,7 @@ const LeafOutlinedContainer: React.FC<Props> = ({
 const styles = StyleSheet.create({
     container: {
         borderRadius: 16,
-        padding: 14,
+        padding: LeafDimensions.cardPadding,
         borderWidth: 4,
     }
 });

@@ -6,6 +6,8 @@ import LeafText from "../../core/views/LeafText/LeafText";
 import { HStack, Spacer, VStack, View } from "native-base";
 import TriageCodeBadge from "./TriageCodeBadge";
 import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
+import LeafFlatCard from "../../core/containers/LeafFlatContainer/LeafFlatContainer";
+import LeafColor from "../../core/styles/color/LeafColor";
 
 interface Props {
     patient: Patient;
@@ -26,8 +28,8 @@ const PatientCard: React.FC<Props> = ({
     let dateText = patient.triageCase.arrivalDate.toDateString();
     let datetimeText = `${timeText}  |  ${dateText}`;
     return (
-        <LeafFloatingCard 
-            color={LeafColors.textBackgroundLight}
+        <LeafFlatCard 
+            color={LeafColors.cardBackgroundLight}
             style={style}
             onPress={onPress}
         >
@@ -61,7 +63,7 @@ const PatientCard: React.FC<Props> = ({
                     </LeafText>
                 </VStack>
             </HStack>
-        </LeafFloatingCard>
+        </LeafFlatCard>
     );
 }
 

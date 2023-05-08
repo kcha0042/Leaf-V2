@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
+import LeafDimensions from '../../styles/LeafDimensions';
 
 interface Props {
     color: LeafColor;
@@ -9,7 +10,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-const LeafFlatContainer: React.FC<Props> = ({ 
+const LeafFlatCard: React.FC<Props> = ({ 
     color,
     onPress = null,
     children,
@@ -33,8 +34,8 @@ const LeafFlatContainer: React.FC<Props> = ({
 const styles = StyleSheet.create({
     container: {
         borderRadius: 16,
-        padding: 14,
+        padding: LeafDimensions.cardPadding,
     }
 });
 
-export default LeafFlatContainer;
+export default LeafFlatCard;

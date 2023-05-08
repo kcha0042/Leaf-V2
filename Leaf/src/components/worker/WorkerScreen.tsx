@@ -18,7 +18,7 @@ const WorkerScreen: React.FC = () => {
 const style = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: LeafColors.screenBackgroundSemiLight.getColor(),
+        backgroundColor: LeafColors.screenBackgroundLight.getColor()
     }
 });
 

@@ -2,6 +2,7 @@ import { LeafFontFamily } from "./typography/LeafFontFamily";
 import LeafTypographyConfig from "./typography/LeafTypographyConfig";
 import LeafColors from "./LeafColors";
 import { LeafFontWeight } from "./typography/LeafFontWeight";
+import LeafColor from "./color/LeafColor";
 
 class LeafTypography {
 
@@ -9,7 +10,7 @@ class LeafTypography {
         return new LeafTypographyConfig(
             70,
             LeafFontFamily.gilroy,
-            LeafColors.textDark,
+            LeafColors.textBlack,
         );
     }
 
