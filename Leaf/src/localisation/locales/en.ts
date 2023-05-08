@@ -15,7 +15,6 @@ export default {
     // Headers
     "header.yourPatients": "Your Patients",
     "header.Nurses": "Nurses",
-    "header.nameSurname": "Nabeeb Yusuf",
 
     // Buttons
     "button.login": "Login",
