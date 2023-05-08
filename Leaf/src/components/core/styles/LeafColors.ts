@@ -14,30 +14,45 @@ class LeafColors {
 
     static get accent(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#51b962");
+        return new LeafColor("#4f37cc");
+    }
+
+    static get mediumAccent(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#7e61ed");
     }
 
     static get lightAccent(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#e0f9e1");
+        return new LeafColor("#ded6ff");
     }
 
     // Text
 
+    static get textBlack(): LeafColor {
+        // TODO: Update for dark mode
+        // Note: not literally black
+        return new LeafColor("#212529");
+    }
+
     static get textDark(): LeafColor {
-        return new LeafColor("#212529", "#f8f9fa");
+        // TODO: Update for dark mode
+        return new LeafColor("#3f4169");
     }
 
     static get textSemiDark(): LeafColor {
-        return new LeafColor("#4b4c4d", "#b6b8bb");
+        // TODO: Update for dark mode
+        return new LeafColor("#a6a8c5");
     }
 
     static get textLight(): LeafColor {
-        return new LeafColor("#f8f9fa", "#212529");
+        // TODO: Update for dark mode
+        return new LeafColor("#f8f9fa");
     }
 
     static get textSemiLight(): LeafColor {
-        return new LeafColor("#b6b8bb", "#4b4c4d");
+        // TODO: Update for dark mode
+        return new LeafColor("#b6b8bb");
     }
 
     static get textError(): LeafColor {
@@ -49,7 +64,7 @@ class LeafColors {
 
     static get textBackgroundDark(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#ececec");
+        return new LeafColor("#f4f5f7");
     }
 
     static get textBackgroundLight(): LeafColor {
@@ -57,37 +72,50 @@ class LeafColors {
         return new LeafColor("#ffffff");
     }
 
+    static get screenBackgroundLight(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#ffffff")
+    }
+
+    static get screenBackgroundSemiLight(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#fafafa")
+    }
+
+    static get cardBackgroundLight(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#f2f3f9");
+    }
+    
+    // Outlines
+
+    static get outlineTextBackgroundDark(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#e9e3e5"); 
+    }
+
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {
         switch (code) {
             case TriageCode.immediate:
-                return new LeafColor("#b52831");
+                return new LeafColor("#e03131");
             case TriageCode.emergency:
-                return new LeafColor("#df9e40");
+                return new LeafColor("#fd7e14");
             case TriageCode.urgent:
-                return new LeafColor("#0b8552");
+                return new LeafColor("#fab005");
             case TriageCode.semiUrgent:
-                return new LeafColor("#0d548a");
+                return new LeafColor("#74b816");
             case TriageCode.nonUrgent:
-                return new LeafColor("#fefff8");
+                return new LeafColor("#2f9e44");
             default:
                 throw new UnreachableCaseError(code);
         }
     }
 
     public static textTriageCode(code: TriageCode): LeafColor {
-        switch (code) {
-            case TriageCode.immediate:
-            case TriageCode.emergency:
-            case TriageCode.urgent:
-            case TriageCode.semiUrgent:
-                return LeafColors.textLight;
-            case TriageCode.nonUrgent:
-                return LeafColors.textDark;
-            default:
-                throw new UnreachableCaseError(code);
-        }
+        // At the moment all codes have light text overlays
+        return LeafColors.textLight;
     }
 
 }

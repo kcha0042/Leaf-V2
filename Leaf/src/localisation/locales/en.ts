@@ -14,24 +14,35 @@ export default {
 
     // Headers
     "header.yourPatients": "Your Patients",
+    "header.Nurses": "Nurses",
+    "header.newTriage": "New Triage",
 
     // Buttons
     "button.login": "Login",
     "button.logout": "Logot",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.allocate": "New Allocation",
 
     // Login
     "login.title": "Login",
     "login.inputLabel.username": "Username",
     "login.inputLabel.password": "Password",
 
-    // Operation
+    // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
 
-    // Label
+    // Labels
     "label.id": "ID: ",
     "label.loading": "Loading",
-    "label.details": "Details"
+    "label.details": "Details",
+
+    // Triage Form
+    "triageForm.title.identity": "Patient Identity",
+    "triageForm.title.triage": "Triage",
+    "triageForm.textInput.givenName": "Name",
+    "triageForm.textInput.surname": "Surname",
+    "triageForm.textInput.mrn": "MRN",
+    "triageForm.textInput.postcode": "Postcode",
 
 }

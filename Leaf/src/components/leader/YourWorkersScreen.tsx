@@ -2,54 +2,54 @@ import { ScrollView, Spacer, VStack } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
+import LeafDimensions from "../core/styles/LeafDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
-import Patient from "../../model/patient/Patient";
+import Worker from "../../model/employee/Worker";
 import { FlatList } from "native-base";
-import PatientCard from "./components/PatientCard";
 import { strings } from "../../localisation/Strings";
+import WorkerCard from "./WorkerCard";
 
-const YourPatientsScreen: React.FC = () => {
-    const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
+const YourWorkersScreen: React.FC = () => {
+    const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());
 
-    StateManager.patientsFetched.subscribe(() => {
-        setPatients(Session.instance.getAllPatients());
+    StateManager.workersFetched.subscribe(() => {
+        setWorkers(Session.instance.getAllWorkers());
     });
 
     useEffect(() => {
-        Session.instance.fetchAllPatients();
+        Session.instance.fetchAllWorkers();
     }, []);
 
-    const onPressPatient = (patient) => {
+    const onPressWorker = (worker) => {
         // TODO: Navigation
-        console.log(patient.fullName);
+        console.log(worker.firstName); // TODO: Add worker fullname instead of first name
     }
 
     return (
         <ScrollView 
             flex={1}
-            padding={LeafBaseDimensions.screenPadding}
+            padding={LeafDimensions.screenPadding}
         >
             <VStack 
                 flex={1}
-                space={LeafBaseDimensions.screenSpacing}
+                space={LeafDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
-                    {strings("header.yourPatients")}
+                    {strings("header.Nurses")}
                 </LeafText>
 
                 <FlatList
-                    data={patients}
-                    renderItem={({ item: patient }) => (
-                        <PatientCard 
-                            patient={patient} 
-                            onPress={() => {onPressPatient(patient)}}
+                    data={workers}
+                    renderItem={({ item: worker }) => (
+                        <WorkerCard 
+                            worker={worker} 
+                            onPress={() => {onPressWorker(worker)}}
                         />
                     )}
-                    keyExtractor={(patient) => patient.mrn.toString()}
+                    keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafBaseDimensions.cardSpacing} />
+                        <Spacer size={LeafDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
                     // flexGrow ensures the frame wraps only the FlatList content
@@ -65,4 +65,4 @@ const YourPatientsScreen: React.FC = () => {
     );
 }
 
-export default YourPatientsScreen;
+export default YourWorkersScreen;

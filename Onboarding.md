@@ -173,5 +173,137 @@ for (let day of weekdays) {
 assertionFailure(`No day matched current day: ${currentDay}`)
 ```
 
+## Navigation
 
+Navigation is managed in stacks, a stack is made up of screen components. To create the UI for your account you must create an `LeafAccountUI` and set the `stacks` attribute to the stacks you have created, to add this account to the application you must add it to `LeafAppUserInterfaces`.
+
+### Creating Screens
+
+Stacks are made from screen objects.
+
+```typescript
+export interface LeafScreen {
+    name: string,
+    component: React.FC,
+    options?: object
+};
+```
+
+To create a screen object you can call:
+
+```typescript
+function createLeafScreen(name: string, component: React.FC, options?: object): LeafScreen 
+```
+
+The `options` param will be passed to the screen options of the [react native stack](https://reactnavigation.org/docs/stack-navigator)
+
+### Creating Stacks
+
+```typescript
+export interface LeafStack {
+    stackName: string,
+    initialRouteName: string,
+    sideBarItemList: LeafSideBarItem[],
+    screens: LeafScreen[],
+    icon: string,
+    focusedIcon: string,
+    options?: object
+};
+```
+
+To create a stack object you can call:
+
+```typescript
+function createLeafStack(stackName: string, initialRouteName: string, screens: LeafScreen[], icon: string, focusedIcon: string, options?: object, sideBarItemList: LeafSideBarItem[]= []): LeafStack
+```
+
+If the first screen in the stack is a scrollable list of items, then you should add these to the stack as a list of `SideBarItem`, this will allow us to render a sidebar on tablets.
+
+```typescript
+export interface LeafSideBarItem {
+    header: string,
+    subHeader: string,
+    desc: string,
+    props?: object
+};
+```
+
+### Creating Account UI
+
+```typescript
+export interface LeafAccountUI {
+    name: string,
+    stacks: LeafStack[]
+};
+```
+
+Then add to:
+
+```typescript
+const LeafAppUserInterfaces = {
+
+};
+```
+
+Our app navigator will render the correct account interface based on who the user logs in as.
+
+### Best Practice
+
+You should create an enum with the stack names, use this enum anytime you want to access stack names, e.g:
+
+```typescript
+enum NurseUIStacks {
+    YourPatients = "Your Patients",
+    Patients = "Patients",
+    NewTriage = "New Triage",
+    YourAccount = "Your Account",
+    DemoNavigation = "Demo Navigation"
+};
+```
+
+Each stack should have an enum with the screen names:
+
+```typescript
+enum sScreens {
+    DemoNavigation = "Demo Navigation",
+    Scrollable = "Scrollable Screen"
+}
+
+const sScreen1 = createLeafScreen(sScreens.DemoNavigation, DemoNavigation);
+
+const sScreen2 = createLeafScreen(sScreens.Scrollable, ScrollableScreen, { headerLargeTitle: true });
+
+const sStack = createLeafStack(NurseUIStacks.DemoNavigation, sScreens.DemoNavigation, [sScreen1, sScreen2], "clipboard-outline", "clipboard-account-outline");
+```
+
+For type safe navigation you should implement a navigation prop:
+
+```typescript
+// Replace undefined with the route params passed into the screen e.g. { param1: boolean, param2: string }
+type ScrollableStackParamList = {
+    "Demo Navigation": undefined; 
+    "Scrollable Screen": undefined; 
+}
+
+// This allows for type checking, you should define this for each screen
+export type DemoNavigationNavigationProp = NativeStackNavigationProp<ScrollableStackParamList, 'Demo Navigation'>
+```
+
+This is how you pass into your screens:
+
+```typescript
+interface DemoNavigationProps {
+    navigation: DemoNavigationNavigationProp    
+}
+
+export const DemoNavigation: React.FC<DemoNavigationProps> = ({ navigation }) => {
+    return (
+        <View style={styles.container}>
+            <Text> Demo Navigation </Text> 
+            <LeafButton label={"Navigate"} type 		{LeafButtonType.filled} onPress={() => navigation.navigate('Scrollable Screen')}>
+            </LeafButton>
+        </View>
+    )
+}
+```
 
