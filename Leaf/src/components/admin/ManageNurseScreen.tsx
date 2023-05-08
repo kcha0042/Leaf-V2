@@ -24,8 +24,8 @@ const ManageNurseScreen: React.FC<Props> = ({
     style,
     onPress,
 }) => {
-    console.log(nurse)
-    if (nurse == null){
+
+    if (nurse == null) {
         return <LeafText typography={LeafTypography.body}>
             {strings("label.loading")}
             </LeafText>
@@ -49,7 +49,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                 </LeafText>
 
                 <LeafText typography={LeafTypography.body}>
-                    Details
+                    {strings("label.details")}
                 </LeafText>
 
                 <LeafFloatingCard

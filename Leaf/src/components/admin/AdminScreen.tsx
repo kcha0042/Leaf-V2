@@ -8,7 +8,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import ManageNurseScreen from "./ManageNurseScreen";
 
 const AdminScreen: React.FC = () => {
-    const [nurse, setNurse] = React.useState<Nurse>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
+    const [nurse, setNurse] = React.useState<Nurse | null>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
 
     StateManager.workersFetched.subscribe(() => {
         setNurse(Session.instance.getWorker(new EmployeeID("456-456")));
@@ -17,8 +17,6 @@ const AdminScreen: React.FC = () => {
     useEffect(() => {
         Session.instance.fetchAllWorkers();
     }, []);
-
-    console.log(nurse);
 
     const onPressNurse = (nurse) => {
         // TODO: Navigation
@@ -29,7 +27,8 @@ const AdminScreen: React.FC = () => {
         <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
             <ManageNurseScreen
                 nurse={nurse}
-                onPress={() => { onPressNurse(nurse) }} />
+                onPress={() => { onPressNurse(nurse) }}
+            />
         </VStack>
     );
 

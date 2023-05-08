@@ -31,6 +31,7 @@ export default {
 
     // Label
     "label.id": "ID: ",
-    "label.loading": "Loading"
+    "label.loading": "Loading",
+    "label.details": "Details"
 
 }
