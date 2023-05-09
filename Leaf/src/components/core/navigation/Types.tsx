@@ -12,14 +12,12 @@ export interface LeafScreen {
 
 /**
  * A sidebar item, this will be displayed in the sidebar on tablet
- * The props will be passed to the screen when on press is called
+ * Pass props must update the props you require for the next screen
  */
 export interface LeafSideBarItem {
-    header: string,
-    subHeader: string,
-    desc: string,
-    props?: object,
-    onPress: () => any
+    component: React.FC,
+    searchableString?: string,
+    passProps: () => void
 };
 
 /**
