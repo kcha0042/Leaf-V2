@@ -6,6 +6,8 @@ import { LoginStatus } from "../state/publishers/types/LoginStatus";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import WorkerScreen from "./worker/WorkerScreen";
 import AdminScreen from "./admin/AdminScreen";
+import { DrawerNavigator } from "./core/navigation/DrawerNavigator";
+import { AppNavigator } from "./core/navigation/AppNavigator";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
@@ -13,6 +15,8 @@ const MainScreen: React.FC = () => {
     StateManager.loginStatus.subscribe(() => {
         setLoginStatus(StateManager.loginStatus.read());
     });
+
+    return <AppNavigator/>
 
     switch (loginStatus) {
         case LoginStatus.loggedOut:
