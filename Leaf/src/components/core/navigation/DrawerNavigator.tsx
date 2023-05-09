@@ -11,7 +11,12 @@ const Drawer = createDrawerNavigator()
 
 export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+            screenOptions={{
+                headerShown: false,
+                drawerType: "permanent"
+            }}
+        >
             {
                 stacks.map(stack => <Drawer.Screen name={stack.stackName} component={StackWrapper(stack)}/>)
             }

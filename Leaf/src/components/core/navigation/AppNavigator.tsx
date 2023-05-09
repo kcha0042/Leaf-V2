@@ -6,7 +6,7 @@ import { LeafAppUserInterfaces } from "./Types";
 
 export const AppNavigator: React.FC = () => {
     // TODO: check which account is logged in, use the corresponding UI to load the pafe
-    const deviceIsTablet = false;
+    const deviceIsTablet = true;
 
     return (
         <NavigationContainer>
