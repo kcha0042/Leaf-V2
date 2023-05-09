@@ -18,6 +18,9 @@ export const YourPatients = () => {
     )
 }
 
+//* For showcasing sidebar
+
+
 interface DemoNavigationProps {
     navigation: DemoNavigationNavigationProp    
 }

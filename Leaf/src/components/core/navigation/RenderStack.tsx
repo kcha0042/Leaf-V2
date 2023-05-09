@@ -63,7 +63,7 @@ function renderNativeStack(leafStack: LeafStack) {
                             <Stack.Screen 
                                 key={s.name}
                                 name={s.name}
-                                component={s.component}
+                                component={s.component} // TODO: add sidebar wrapper here
                                 options={({ navigation }) => ({
                                     ...s.options,
                                     ...globalOptions,
