@@ -199,6 +199,8 @@ The `options` param will be passed to the screen options of the [react native st
 
 ### Creating Stacks
 
+Stacks are groups of screens that can be navigated between, you can only navigate between screens if they are in the same stack.
+
 ```typescript
 export interface LeafStack {
     stackName: string,
@@ -219,12 +221,13 @@ function createLeafStack(stackName: string, initialRouteName: string, screens: L
 
 If the first screen in the stack is a scrollable list of items, then you should add these to the stack as a list of `SideBarItem`, this will allow us to render a sidebar on tablets.
 
+`passProps` should update the props for the next screen, this will involve updating state using our publisher subscriber model.
+
 ```typescript
 export interface LeafSideBarItem {
-    header: string,
-    subHeader: string,
-    desc: string,
-    props?: object
+    component: React.FC,
+    searchString?: string,
+    passProps: () => void
 };
 ```
 
@@ -249,7 +252,7 @@ Our app navigator will render the correct account interface based on who the use
 
 ### Best Practice
 
-You should create an enum with the stack names, use this enum anytime you want to access stack names, e.g:
+You should create an enum with the stack names for your account UI, use this enum anytime you want to access stack names, e.g:
 
 ```typescript
 enum NurseUIStacks {
@@ -264,23 +267,23 @@ enum NurseUIStacks {
 Each stack should have an enum with the screen names:
 
 ```typescript
-enum sScreens {
+enum DemoNavigationScreens {
     DemoNavigation = "Demo Navigation",
     Scrollable = "Scrollable Screen"
 }
 
-const sScreen1 = createLeafScreen(sScreens.DemoNavigation, DemoNavigation);
+const demoScreen1 = createLeafScreen(DemoNavigationScreens.DemoNavigation, DemoNavigation);
 
-const sScreen2 = createLeafScreen(sScreens.Scrollable, ScrollableScreen, { headerLargeTitle: true });
+const demoScreen2 = createLeafScreen(DemoNavigationScreens.Scrollable, ScrollableScreen);
 
-const sStack = createLeafStack(NurseUIStacks.DemoNavigation, sScreens.DemoNavigation, [sScreen1, sScreen2], "clipboard-outline", "clipboard-account-outline");
+const demoStack = createLeafStack(NurseUIStacks.DemoNavigation, DemoNavigationnScreens.DemoNavigation, [demoScreen1, demoScreen2], "clipboard-outline", "clipboard-account-outline");
 ```
 
 For type safe navigation you should implement a navigation prop:
 
 ```typescript
 // Replace undefined with the route params passed into the screen e.g. { param1: boolean, param2: string }
-type ScrollableStackParamList = {
+type DemoStackParamList = {
     "Demo Navigation": undefined; 
     "Scrollable Screen": undefined; 
 }
