@@ -16,8 +16,8 @@ export interface LeafScreen {
  */
 export interface LeafSideBarItem {
     component: React.FC,
+    passProps: () => void,
     searchableString?: string,
-    passProps: () => void
 };
 
 /**

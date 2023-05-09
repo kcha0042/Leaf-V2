@@ -16,8 +16,6 @@ const MainScreen: React.FC = () => {
         setLoginStatus(StateManager.loginStatus.read());
     });
 
-    return <AppNavigator/>
-
     switch (loginStatus) {
         case LoginStatus.loggedOut:
             return <LoginScreen />

@@ -1,8 +1,11 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LeafScreen, LeafSideBarItem, LeafStack } from "./Types";
 import CustomLeafHeader from "./CustomHeader";
+import { Sidebar } from "./Sidebar";
+import { View, StyleSheet } from "react-native";
+import Environment from "../../../state/environment/Environment";
+import { ScreenType } from "../../../state/environment/types/ScreenType";
 
 /**
  * Creates a leaf screen
@@ -46,7 +49,7 @@ export function AddScreenToStack(stack: LeafStack, screen: LeafScreen): LeafStac
  * @param leafStack the stack you want to render
  * @returns a React Native Native Stack
  */
-function renderNativeStack(leafStack: LeafStack) {
+function renderNativeStack(leafStack: LeafStack, hasSidebar: boolean) {
     
     const Stack = createStackNavigator();
 
@@ -59,11 +62,12 @@ function renderNativeStack(leafStack: LeafStack) {
         <Stack.Navigator>
             {
                 leafStack.screens.map((s, index) => {
-                    return (
+                    if (!hasSidebar || index >= 1){
+                        return (
                             <Stack.Screen 
                                 key={s.name}
                                 name={s.name}
-                                component={s.component} // TODO: add sidebar wrapper here
+                                component={s.component}
                                 options={({ navigation }) => ({
                                     ...s.options,
                                     ...globalOptions,
@@ -72,17 +76,17 @@ function renderNativeStack(leafStack: LeafStack) {
                                             title={s.name}
                                             buttonProps={
                                                 {
-                                                    canGoBack: index > 0,
+                                                    canGoBack: !hasSidebar ? index > 0 : index > 1, // we only want to allow the user to go back if it's the first screen in the stack
                                                     navigation: navigation,
                                                 }
                                             }
                                         />
-                                    )
-                                })}
+                                )})}
                             />
                         )
-                    })
-                }
+                    }
+                })
+            }
         </Stack.Navigator>
     )
 }
@@ -96,8 +100,38 @@ function renderNativeStack(leafStack: LeafStack) {
 export const StackWrapper = (leafStack: LeafStack): React.FC => {
     
     const NativeStack: React.FC = () => {
-        return renderNativeStack(leafStack);
+
+        const hasSidebar = leafStack.sideBarItemList.length >= 1 && Environment.instance.getScreenType() == ScreenType.large;
+
+        if (hasSidebar){
+            return(
+                <View style={styles.container}>
+                    <View style={styles.sidebarWrapper}>
+                        <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].name}/>
+                    </View>
+
+                    <View style={styles.stackWrapper}>
+                        {renderNativeStack(leafStack, hasSidebar)}
+                    </View>
+                </View>
+            )
+        }
+
+        return renderNativeStack(leafStack, hasSidebar);
     };
     
     return NativeStack;
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    sidebarWrapper: {
+        flex: 3,
+    },
+    stackWrapper: {
+        flex: 5
+    }
+})

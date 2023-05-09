@@ -1,6 +1,5 @@
-import { VStack } from "native-base";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LeafTypography from "../styles/LeafTypography";
 import LeafText from "../views/LeafText/LeafText";
@@ -13,22 +12,31 @@ interface Props {
 
 export const Sidebar: React.FC<Props> = ({ items, title }) => {
     return (
-        <VStack>
-            <LeafText typography={LeafTypography.header}> 
-                { title }
-            </LeafText>
+        <SafeAreaView style={styles.container}>
+            <ScrollView>
+                <LeafText typography={LeafTypography.header} style={{ padding: 10 }}> 
+                    { title }
+                </LeafText>
 
-            {
-                items.map(item => {
-                    return (
-                        <TouchableOpacity
-                            onPress={item.passProps}
-                        >
-                            <item.component />
-                        </TouchableOpacity>
-                    )
-                })
-            }
-        </VStack>
+                {
+                    items.map(item => {
+                        return (
+                            <TouchableOpacity
+                                onPress={item.passProps}
+                            >
+                                <item.component />
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+            </ScrollView>
+        </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        borderRightWidth: 1,
+        borderColor: '#ccc'
+    }
+})
