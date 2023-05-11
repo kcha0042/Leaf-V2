@@ -5,13 +5,20 @@ import { ScrollView } from "native-base";
 import Patient from "../../../model/patient/Patient";
 import PatientCard from "../../worker/components/PatientCard";
 import { dummyPatients } from "./DemoPatients";
+import { PatientsNavigationProp } from "./DemoAccountUI";
+
+
 
 //* For showcasing sidebar
-export const SidebarItemWrapper = (patient: Patient): React.FC => {
-    const SideBar: React.FC = () => {
+interface SidebarProps {
+    navigation?: PatientsNavigationProp
+}
+
+export const SidebarItemWrapper = (patient: Patient, navigation?: PatientsNavigationProp): React.FC => {
+    const SideBar: React.FC<SidebarProps> = () => {
         return (
             <View key={`${patient.mrn} view`} style={{padding: 10}}>
-                <PatientCard key={`${patient.mrn} card`}  patient={patient} onPress={() => null}/>
+                <PatientCard key={`${patient.mrn} card`}  patient={patient} onPress={() => navigation.navigate('Patient')}/>
             </View>
         )
     }
@@ -20,12 +27,12 @@ export const SidebarItemWrapper = (patient: Patient): React.FC => {
 }
     
     
-export const SideBarScreen: React.FC = () => {
+export const SideBarScreen: React.FC<SidebarProps> = ({ navigation }) => {
 
     return (
         <ScrollView>
         {
-            dummyPatients.map(patient => SidebarItemWrapper(patient))
+            dummyPatients.map(patient => SidebarItemWrapper(patient, navigation)({}))
         }
         </ScrollView>
     )

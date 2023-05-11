@@ -3,6 +3,14 @@ import { YourPatients, Patients, NewTriage, YourAccount, SideBarScreen, SidebarI
 import { createLeafScreen, createLeafStack } from "./RenderStack";
 import { createLeafAccountUI } from "./CreateAccountUI";
 import { dummyPatients } from "./DemoPatients";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type PatientsStackParamList = {
+    "Patients": undefined; 
+    "Patient": undefined; 
+}
+
+export type PatientsNavigationProp = StackNavigationProp<PatientsStackParamList, 'Patients'>
 
 const createDemoUI = (): LeafAccountUI => {
     // stacks
@@ -17,10 +25,12 @@ const createDemoUI = (): LeafAccountUI => {
     enum YourPatientScreens {
         FormEntry = "Form Entry"
     }
+
     const yourPatientsScreen1 = createLeafScreen(YourPatientScreens.FormEntry, YourPatients);
     const yourPatientStack = createLeafStack(NurseUIStacks.YourPatients, YourPatientScreens.FormEntry, [yourPatientsScreen1], "clipboard-outline", "clipboard-account-outline");
     
     // Patients stack
+
     enum PatientScreens {
         Patients = "Patients",
         Patient = "Patient"
