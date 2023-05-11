@@ -107,7 +107,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
         
         const [showStack, setShowStack] = useState(false);
         const hasSidebar = leafStack.sideBarItemList.length >= 1 && Environment.instance.getScreenType() == ScreenType.large;
-        
+
         StateManager.drawerShowStack.subscribe(() => {
             setShowStack(StateManager.drawerShowStack.read())
         })
@@ -148,7 +148,8 @@ const styles = StyleSheet.create({
     emptyScreen: {
         flex: 5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignContent: 'center',
+        alignItems: 'center',
     },
     sidebarWrapper: {
         flex: 3,

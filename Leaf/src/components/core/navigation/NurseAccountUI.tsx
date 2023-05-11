@@ -23,10 +23,17 @@ const ypStack = createLeafStack(NurseUIStacks.YourPatients, YpScreens.FormEntry,
 
 // Patients stack
 enum PScreens {
-    Patients = "Patients Screen"
+    Patients = "Patients",
+    Patient = "Patient"
 }
-const pScreen1 = createLeafScreen(PScreens.Patients, Patients);
-const pStack = createLeafStack(NurseUIStacks.Patients, PScreens.Patients, [pScreen1], "clipboard-outline", "clipboard-account-outline");
+
+const arr = [...Array(10).keys()]
+const items: LeafSideBarItem[] = [] 
+arr.forEach(num => items.push({ component: SidebarItemWrapper(num), passProps: () => null }))
+
+const pScreen1 = createLeafScreen(PScreens.Patients, SideBarScreen)
+const pScreen2 = createLeafScreen(PScreens.Patient, Patients);
+const pStack = createLeafStack(NurseUIStacks.Patients, PScreens.Patients, [pScreen1, pScreen2], "clipboard-outline", "clipboard-account-outline", {}, items);
 
 // New triage stack
 enum NtScreens {
@@ -70,6 +77,8 @@ const demoSidebarScreen2 = createLeafScreen(DemoSideBarScreens.DemoNavigation, D
 const demoSidebarScreen3 = createLeafScreen(DemoSideBarScreens.Scrollable, ScrollableScreen);
 const demoSidebarStack = createLeafStack(NurseUIStacks.DemoSideBar, DemoSideBarScreens.DemoSideBar, [demoSidebarScreen1, demoSidebarScreen2, demoSidebarScreen3], "clipboard-outline", "clipboard-account-outline", {}, sideBarItems);
 
+
+// demo sidebar two
 
 export const NurseUI: LeafAccountUI = {
     name: "Nurse UI",

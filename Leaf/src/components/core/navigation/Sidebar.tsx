@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StateManager from "../../../state/publishers/StateManager";
@@ -12,6 +12,11 @@ interface Props {
 }
 
 export const Sidebar: React.FC<Props> = ({ items, title }) => {
+
+    // If we just rendered the sidebar then we do not want to show the stack
+    useEffect(() => {
+        StateManager.drawerShowStack.publish(false);
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -42,6 +47,7 @@ export const Sidebar: React.FC<Props> = ({ items, title }) => {
 const styles = StyleSheet.create({
     container: {
         borderRightWidth: 1,
+        backgroundColor: 'white',   // TODO: use same colour as drawer
         borderColor: '#ccc'
     }
 })

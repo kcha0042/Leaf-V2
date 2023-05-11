@@ -1,5 +1,5 @@
 import React from "react"
-import { createDrawerNavigator } from "@react-navigation/drawer"
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer"
 import { LeafStack } from "./Types"
 import { StackWrapper } from "./RenderStack"
 
