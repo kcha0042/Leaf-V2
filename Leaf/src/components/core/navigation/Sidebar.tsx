@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StateManager from "../../../state/publishers/StateManager";
+import LeafColors from "../styles/LeafColors";
 import LeafTypography from "../styles/LeafTypography";
 import LeafText from "../views/LeafText/LeafText";
 import { LeafSideBarItem } from "./Types";
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderRightWidth: 0.5,
-        backgroundColor: 'white',   // TODO: use same colour as drawer
-        borderColor: '#ccc'
+        backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+        borderColor: LeafColors.cardBorderLight.getColor()
     }
 })

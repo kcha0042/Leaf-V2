@@ -94,6 +94,12 @@ class LeafColors {
         return new LeafColor("#e9e3e5"); 
     }
 
+    // Borders
+
+    static get cardBorderLight(): LeafColor {
+        return new LeafColor("#cccccc");
+    }
+
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {

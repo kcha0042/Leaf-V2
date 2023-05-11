@@ -2,6 +2,7 @@ import React from "react"
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer"
 import { LeafStack } from "./Types"
 import { StackWrapper } from "./RenderStack"
+import LeafColors from "../styles/LeafColors"
 
 interface Props {
     stacks: LeafStack[]
@@ -14,7 +15,10 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
         <Drawer.Navigator
             screenOptions={{
                 headerShown: false,
-                drawerType: "permanent"
+                drawerType: "permanent",
+                drawerStyle: {
+                    backgroundColor: LeafColors.screenBackgroundLight.getColor()
+                }
             }}
         >
             {
