@@ -22,6 +22,10 @@ export function createLeafScreen(name: string, component: React.FC, options?: ob
     return { name, component, options }
 }
 
+export function createLeafSidebarItem(component: React.FC, passProps: () => void = () => null, searchableString?: string): LeafSideBarItem {
+    return { component, passProps, searchableString }
+}
+
 /**
  * Creates a leaf stack
  * @param stackName the name of the stack, this will be the name seen on the tab bar
@@ -31,10 +35,12 @@ export function createLeafScreen(name: string, component: React.FC, options?: ob
  * @param focusedIcon the icon for the tab bar to show when the stack is selected
  * @param options the stack options, provided to the stack (https://reactnavigation.org/docs/stack-navigator)
  * @param sideBarItemList the side bar items, if your first screen is a list of items that should be rendered as a sidebar on tablet (see navigation on github) then you will need to provide this param
+ * @param sideBarSearchable are the items in the sidebar searchable? false by default
  * @returns a {@link LeafStack}
  */
-export function createLeafStack(stackName: string, initialRouteName: string, screens: LeafScreen[], icon: string, focusedIcon: string, options?: object, sideBarItemList: LeafSideBarItem[]= []): LeafStack {
-    return { stackName, initialRouteName, sideBarItemList, screens, icon, focusedIcon, options };
+export function createLeafStack(stackName: string, initialRouteName: string, screens: LeafScreen[], icon: string, focusedIcon: string, options?: object, sideBarItemList: LeafSideBarItem[] = [], sideBarSearchable: boolean = false): LeafStack {
+    // TODO: add check, if searchable is true then we need to check the sidebar item list to see if all searchable strings are defined
+    return { stackName, initialRouteName, sideBarItemList, sideBarSearchable, screens, icon, focusedIcon, options };
 }
 
 /**
@@ -124,7 +130,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
             return(
                 <View style={styles.container}>
                     <View style={styles.sidebarWrapper}>
-                        <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].name}/>
+                        <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].name} searchable={leafStack.sideBarSearchable}/>
                     </View>
 
                     <View style={styles.stackWrapper}>

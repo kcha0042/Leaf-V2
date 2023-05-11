@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafColors from "../styles/LeafColors";
 import LeafTypography from "../styles/LeafTypography";
 import LeafText from "../views/LeafText/LeafText";
+import { Searchbar } from 'react-native-paper';
 import { LeafSideBarItem } from "./Types";
 
 interface Props {
-    items: LeafSideBarItem[]
-    title: string
+    items: LeafSideBarItem[];
+    title: string;
+    searchable: boolean;
 }
 
 /**
@@ -18,11 +20,21 @@ interface Props {
  * @param param0 {@link Props}
  * @returns our custom sidebar
  */
-export const Sidebar: React.FC<Props> = ({ items, title }) => {
+export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
 
     useEffect(() => {
         StateManager.drawerShowStack.publish(false);
     }, [])
+
+    // Searchbar
+    const [ searchQuery, setSearchQuery ] = React.useState('');
+    const [ filteredSidebarItems, setFilteredSidebarItems] = React.useState(items)
+
+    // Filter items
+    const onChangeSearch = (query) => {
+        setFilteredSidebarItems(items.filter(item => item.searchableString != undefined ? item.searchableString.includes(query) : false));
+        setSearchQuery(query);
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -30,9 +42,23 @@ export const Sidebar: React.FC<Props> = ({ items, title }) => {
                 { title }
             </LeafText>
 
+            {
+                searchable ? 
+                    <View style={styles.searchBarWrapper}>
+                        {/* TODO: add style to search bar */}
+                        <Searchbar
+                            placeholder="Search"
+                            onChangeText={onChangeSearch}
+                            value={searchQuery}
+                        />
+                    </View>
+                :
+                    null
+            }
+
             <ScrollView>
                 {
-                    items.map(item => {
+                    filteredSidebarItems.map(item => {
                         return (
                             <TouchableOpacity
                                 onPress={() => {
@@ -56,5 +82,8 @@ const styles = StyleSheet.create({
         borderRightWidth: 0.5,
         backgroundColor: LeafColors.screenBackgroundLight.getColor(),
         borderColor: LeafColors.sideBarBorderLight.getColor()
+    },
+    searchBarWrapper: {
+        padding: 5
     }
 })

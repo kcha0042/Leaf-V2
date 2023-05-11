@@ -27,6 +27,7 @@ export interface LeafStack {
     stackName: string,
     initialRouteName: string,
     sideBarItemList: LeafSideBarItem[],
+    sideBarSearchable: boolean,
     screens: LeafScreen[],
     icon: string,
     focusedIcon: string,

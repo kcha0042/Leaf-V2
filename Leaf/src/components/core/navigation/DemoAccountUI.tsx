@@ -1,6 +1,6 @@
 import { LeafAccountUI, LeafSideBarItem } from "./Types";
 import { YourPatients, Patients, NewTriage, YourAccount, SideBarScreen, SidebarItemWrapper } from "./DemoScreens";
-import { createLeafScreen, createLeafStack } from "./RenderStack";
+import { createLeafScreen, createLeafSidebarItem, createLeafStack } from "./RenderStack";
 import { createLeafAccountUI } from "./CreateAccountUI";
 import { dummyPatients } from "./DemoPatients";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -36,11 +36,11 @@ const createDemoUI = (): LeafAccountUI => {
     }
     
     const items: LeafSideBarItem[] = [] 
-    dummyPatients.forEach(patient => items.push({ component: SidebarItemWrapper(patient), passProps: () => null }))
+    dummyPatients.forEach(patient => items.push(createLeafSidebarItem(SidebarItemWrapper(patient), () => null, patient.firstName)))
     
     const patientsScreen1 = createLeafScreen(PatientScreens.Patients, SideBarScreen)
     const patientsScreen2 = createLeafScreen(PatientScreens.Patient, Patients);
-    const patientsStack = createLeafStack(NurseUIStacks.Patients, PatientScreens.Patients, [patientsScreen1, patientsScreen2], "clipboard-outline", "clipboard-account-outline", {}, items);
+    const patientsStack = createLeafStack(NurseUIStacks.Patients, PatientScreens.Patients, [patientsScreen1, patientsScreen2], "clipboard-outline", "clipboard-account-outline", {}, items, true);
     
     // New triage stack
     enum NewTriageScreens {
