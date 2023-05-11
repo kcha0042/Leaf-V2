@@ -25,11 +25,11 @@ export const Sidebar: React.FC<Props> = ({ items, title }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <LeafText typography={LeafTypography.header} style={{ padding: 10 }}> 
-                    { title }
-                </LeafText>
+            <LeafText typography={LeafTypography.header} style={{ padding: 10 }}> 
+                { title }
+            </LeafText>
 
+            <ScrollView>
                 {
                     items.map(item => {
                         return (
@@ -51,7 +51,8 @@ export const Sidebar: React.FC<Props> = ({ items, title }) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderRightWidth: 1,
+        flex: 1,
+        borderRightWidth: 0.5,
         backgroundColor: 'white',   // TODO: use same colour as drawer
         borderColor: '#ccc'
     }

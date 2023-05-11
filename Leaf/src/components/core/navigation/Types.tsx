@@ -1,5 +1,5 @@
 import React from "react"
-import { NurseUI } from "./NurseAccountUI"
+import { NurseUI } from "./DemoAccountUI"
 
 /**
  * Our screen object
