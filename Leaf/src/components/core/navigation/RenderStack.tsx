@@ -98,6 +98,7 @@ function renderNativeStack(leafStack: LeafStack, hasSidebar: boolean) {
 /**
  * This wrapper takes our stack object and returns a react component that does not take in any props, then uses the leafStack object to render a native stack
  * This is required as the navigation components (tabbar, drawer, etc) require components, not already rendered JSX elements
+ * In the wrapper we also check, if we have a sidebar, if we need to render the stack or empty screen next to the sidebar
  * @param leafStack the stack to you want to convert to a component
  * @returns A react stack component
  */

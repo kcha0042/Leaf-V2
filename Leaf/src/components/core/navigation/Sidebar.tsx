@@ -11,6 +11,12 @@ interface Props {
     title: string
 }
 
+/**
+ * Renders an item list, we wrap each item in a touchable opacity so that we can overwrite the onPress of the item component. 
+ * The onPress calls the passProps function of the item then updates state telling our drawer to render the stack next to the sidebar
+ * @param param0 {@link Props}
+ * @returns our custom sidebar
+ */
 export const Sidebar: React.FC<Props> = ({ items, title }) => {
 
     useEffect(() => {
