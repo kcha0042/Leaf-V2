@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import StateManager from "../../../state/publishers/StateManager";
 import LeafTypography from "../styles/LeafTypography";
 import LeafText from "../views/LeafText/LeafText";
 import { LeafSideBarItem } from "./Types";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const Sidebar: React.FC<Props> = ({ items, title }) => {
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -22,7 +24,10 @@ export const Sidebar: React.FC<Props> = ({ items, title }) => {
                     items.map(item => {
                         return (
                             <TouchableOpacity
-                                onPress={item.passProps}
+                                onPress={() => {
+                                    item.passProps();
+                                    StateManager.drawerShowStack.publish(true);
+                                }}
                             >
                                 <item.component />
                             </TouchableOpacity>

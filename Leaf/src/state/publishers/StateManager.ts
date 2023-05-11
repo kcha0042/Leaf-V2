@@ -38,6 +38,8 @@ class StateManager {
 
     public static readonly patientsFetched = new LeafPublisher();
 
+    public static readonly drawerShowStack = new LeafValuePublisher(false);
+
 }
 
 export default StateManager;

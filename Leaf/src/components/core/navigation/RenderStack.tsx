@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LeafScreen, LeafSideBarItem, LeafStack } from "./Types";
 import CustomLeafHeader from "./CustomHeader";
@@ -6,6 +6,9 @@ import { Sidebar } from "./Sidebar";
 import { View, StyleSheet } from "react-native";
 import Environment from "../../../state/environment/Environment";
 import { ScreenType } from "../../../state/environment/types/ScreenType";
+import LeafText from "../views/LeafText/LeafText";
+import LeafTypography from "../styles/LeafTypography";
+import StateManager from "../../../state/publishers/StateManager";
 
 /**
  * Creates a leaf screen
@@ -101,7 +104,13 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
     
     const NativeStack: React.FC = () => {
 
+        
+        const [showStack, setShowStack] = useState(false);
         const hasSidebar = leafStack.sideBarItemList.length >= 1 && Environment.instance.getScreenType() == ScreenType.large;
+        
+        StateManager.drawerShowStack.subscribe(() => {
+            setShowStack(StateManager.drawerShowStack.read())
+        })
 
         if (hasSidebar){
             return(
@@ -111,7 +120,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
                     </View>
 
                     <View style={styles.stackWrapper}>
-                        {renderNativeStack(leafStack, hasSidebar)}
+                        {showStack ? renderNativeStack(leafStack, hasSidebar) : <EmptyScreen/>}
                     </View>
                 </View>
             )
@@ -123,10 +132,23 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
     return NativeStack;
 }
 
+const EmptyScreen: React.FC = () => {
+    return (
+        <View style={styles.emptyScreen}>
+            <LeafText typography={LeafTypography.body}> No item selected </LeafText>
+        </View>
+    )
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row'
+    },
+    emptyScreen: {
+        flex: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     sidebarWrapper: {
         flex: 3,
