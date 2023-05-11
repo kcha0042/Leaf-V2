@@ -13,7 +13,6 @@ interface Props {
 
 export const Sidebar: React.FC<Props> = ({ items, title }) => {
 
-    // If we just rendered the sidebar then we do not want to show the stack
     useEffect(() => {
         StateManager.drawerShowStack.publish(false);
     }, [])

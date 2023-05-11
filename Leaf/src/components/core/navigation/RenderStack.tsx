@@ -9,6 +9,7 @@ import { ScreenType } from "../../../state/environment/types/ScreenType";
 import LeafText from "../views/LeafText/LeafText";
 import LeafTypography from "../styles/LeafTypography";
 import StateManager from "../../../state/publishers/StateManager";
+import { useFocusEffect } from "@react-navigation/native";
 
 /**
  * Creates a leaf screen
@@ -104,7 +105,13 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
     
     const NativeStack: React.FC = () => {
 
-        
+        useFocusEffect(
+            React.useCallback(() => {
+                // Reset showStack when this screen is focused
+                setShowStack(false);
+            }, [])
+        );
+
         const [showStack, setShowStack] = useState(false);
         const hasSidebar = leafStack.sideBarItemList.length >= 1 && Environment.instance.getScreenType() == ScreenType.large;
 
@@ -135,7 +142,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
 const EmptyScreen: React.FC = () => {
     return (
         <View style={styles.emptyScreen}>
-            <LeafText typography={LeafTypography.body}> No item selected </LeafText>
+            <LeafText wide={false} typography={LeafTypography.body}> No item selected </LeafText>
         </View>
     )
 }
