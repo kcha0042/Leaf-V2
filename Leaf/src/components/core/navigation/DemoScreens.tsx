@@ -7,8 +7,6 @@ import PatientCard from "../../worker/components/PatientCard";
 import { dummyPatients } from "./DemoPatients";
 import { PatientsNavigationProp } from "./DemoAccountUI";
 
-
-
 //* For showcasing sidebar
 interface SidebarProps {
     navigation?: PatientsNavigationProp
@@ -41,7 +39,7 @@ export const SideBarScreen: React.FC<SidebarProps> = ({ navigation }) => {
 export const YourPatients = () => {
     return (
         <View style={styles.container}>
-            <Text> Your Patients </Text>
+            <Text> Your Patient </Text>
         </View>
     )
 }
