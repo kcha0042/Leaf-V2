@@ -4,6 +4,7 @@ import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError
 import { OS } from "./types/OS";
 import { ScreenType } from "./types/ScreenType";
 import { ColorScheme } from "./types/ColorScheme";
+import { LeafScreenOrientation } from "./types/LeafScreenOrientation";
 
 class Environment {
 
@@ -64,6 +65,15 @@ class Environment {
             default:
                 throw new UnreachableCaseError(os);
         }
+    }
+
+    public getScreenOrientation(): LeafScreenOrientation {
+        const dimensions = this.getScreenDimensions();
+        if (dimensions[0] > dimensions[1]){
+            return LeafScreenOrientation.Landscape;
+        }
+        
+        return LeafScreenOrientation.Potrait;
     }
 
     private getScreenDimensions(): [number, number] {
