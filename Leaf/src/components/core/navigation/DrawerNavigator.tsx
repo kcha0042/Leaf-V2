@@ -30,7 +30,7 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
             setDrawerType(newDrawerType);
 
             if (newDrawerType !== 'permanent') {
-                navigation.dispatch(DrawerActions.toggleDrawer());
+                navigation.dispatch(DrawerActions.openDrawer());
             }
         };
 
