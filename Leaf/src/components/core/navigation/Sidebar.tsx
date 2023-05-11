@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRightWidth: 0.5,
         backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-        borderColor: LeafColors.cardBorderLight.getColor()
+        borderColor: LeafColors.sideBarBorderLight.getColor()
     }
 })

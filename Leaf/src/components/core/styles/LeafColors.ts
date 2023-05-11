@@ -96,7 +96,7 @@ class LeafColors {
 
     // Borders
 
-    static get cardBorderLight(): LeafColor {
+    static get sideBarBorderLight(): LeafColor {
         return new LeafColor("#cccccc");
     }
 
