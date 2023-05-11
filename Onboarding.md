@@ -175,7 +175,7 @@ assertionFailure(`No day matched current day: ${currentDay}`)
 
 ## Navigation
 
-Navigation is managed in stacks, a stack is made up of screen components. To create the UI for your account you must create an `LeafAccountUI` and set the `stacks` attribute to the stacks you have created, to add this account to the application you must add it to `LeafAppUserInterfaces`.
+Navigation is managed in stacks, a stack is made up of screen components. To create the UI for your account you must call `createAccountUI()`, to add this account to the application you must add it to `LeafAppUserInterfaces`.
 
 ### Creating Screens
 
@@ -234,23 +234,22 @@ export interface LeafSideBarItem {
 ### Creating Account UI
 
 ```typescript
-export interface LeafAccountUI {
-    name: string,
-    stacks: LeafStack[]
-};
+const yourAccountUI = createLeafAccountUI(stacks: LeafStack[], name: string) 
 ```
 
 Then add to:
 
 ```typescript
 const LeafAppUserInterfaces = {
-
+	YourAccountUI: yourAccountUI
 };
 ```
 
 Our app navigator will render the correct account interface based on who the user logs in as.
 
 ### Best Practice
+
+#### Stacks Enum
 
 You should create an enum with the stack names for your account UI, use this enum anytime you want to access stack names, e.g:
 
@@ -260,52 +259,77 @@ enum NurseUIStacks {
     Patients = "Patients",
     NewTriage = "New Triage",
     YourAccount = "Your Account",
-    DemoNavigation = "Demo Navigation"
 };
 ```
+
+#### Screens Enum
 
 Each stack should have an enum with the screen names:
 
 ```typescript
-enum DemoNavigationScreens {
-    DemoNavigation = "Demo Navigation",
-    Scrollable = "Scrollable Screen"
+// Patients stack
+enum PatientScreens {
+    Patients = "Patients",
+    Patient = "Patient"
 }
 
-const demoScreen1 = createLeafScreen(DemoNavigationScreens.DemoNavigation, DemoNavigation);
+// creating item list for sidebar
+const items: LeafSideBarItem[] = [] 
+dummyPatients.forEach(patient => items.push({ component: SidebarItemWrapper(patient), passProps: () => null }))
 
-const demoScreen2 = createLeafScreen(DemoNavigationScreens.Scrollable, ScrollableScreen);
+const patientsScreen1 = createLeafScreen(PatientScreens.Patients, SideBarScreen);
+const patientsScreen2 = createLeafScreen(PatientScreens.Patient, Patients);
 
-const demoStack = createLeafStack(NurseUIStacks.DemoNavigation, DemoNavigationnScreens.DemoNavigation, [demoScreen1, demoScreen2], "clipboard-outline", "clipboard-account-outline");
+// If you want to render a sidebar on tablets you must provide the sidebar items to the stack as seen below.
+const patientsStack = createLeafStack(NurseUIStacks.Patients, PatientScreens.Patients, [patientsScreen1, patientsScreen2], "clipboard-outline", "clipboard-account-outline", {}, items);
 ```
+
+#### Type Safe Navigation
 
 For type safe navigation you should implement a navigation prop:
 
 ```typescript
-// Replace undefined with the route params passed into the screen e.g. { param1: boolean, param2: string }
-type DemoStackParamList = {
-    "Demo Navigation": undefined; 
-    "Scrollable Screen": undefined; 
+// Define the screens in the stack
+type PatientsStackParamList = {
+    Patients: undefined; 
+    Patient: undefined; 
 }
 
-// This allows for type checking, you should define this for each screen
-export type DemoNavigationNavigationProp = NativeStackNavigationProp<ScrollableStackParamList, 'Demo Navigation'>
+// Create a navigation prop with the param list and initial route (in this case Patients)
+export type PatientsNavigationProp = StackNavigationProp<PatientsStackParamList, 'Patients'>
 ```
 
 This is how you pass into your screens:
 
 ```typescript
-interface DemoNavigationProps {
-    navigation: DemoNavigationNavigationProp    
+// The props for the sidebar
+interface SidebarProps {
+    navigation?: PatientsNavigationProp
 }
 
-export const DemoNavigation: React.FC<DemoNavigationProps> = ({ navigation }) => {
+// A wrapper that returns a React.FC element, in this case a patient card. You will need to wrap your sidebar item component if you want to pass parameters as our sideBarItem object requires a React.FC component, if you try to pass any parameters to your sidebar Item component it will return a React Element. To solve this you can create a wrapper that takes in your required params and returns a React.FC component that uses the params as shown below.
+export const SidebarItemWrapper = (patient: Patient, navigation?: PatientsNavigationProp): React.FC => {
+    const SideBarItem: React.FC<SidebarProps> = () => {
+        return (
+            <View key={"${patient.mrn} view"} style={{padding: 10}}>
+                <PatientCard key={"${patient.mrn} card"}  patient={patient} onPress={() =>  navigation.navigate('Patient')}/>
+            </View>
+        )
+    }
+
+    return SideBarItem;
+}
+    
+// The screen that renders your side bar items
+// If you provide a sidebar item list to the stack it will not render this screen, instead it will render a screen containing the sidebar items.
+export const SideBarScreen: React.FC<SidebarProps> = ({ navigation }) => {
+
     return (
-        <View style={styles.container}>
-            <Text> Demo Navigation </Text> 
-            <LeafButton label={"Navigate"} type 		{LeafButtonType.filled} onPress={() => navigation.navigate('Scrollable Screen')}>
-            </LeafButton>
-        </View>
+        <ScrollView>
+        {
+            dummyPatients.map(patient => SidebarItemWrapper(patient, navigation)({}))
+        }
+        </ScrollView>
     )
 }
 ```

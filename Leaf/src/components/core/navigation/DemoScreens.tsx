@@ -13,7 +13,7 @@ interface SidebarProps {
 }
 
 export const SidebarItemWrapper = (patient: Patient, navigation?: PatientsNavigationProp): React.FC => {
-    const SideBar: React.FC<SidebarProps> = () => {
+    const SideBarItem: React.FC<SidebarProps> = () => {
         return (
             <View key={`${patient.mrn} view`} style={{padding: 10}}>
                 <PatientCard key={`${patient.mrn} card`}  patient={patient} onPress={() => navigation.navigate('Patient')}/>
@@ -21,7 +21,7 @@ export const SidebarItemWrapper = (patient: Patient, navigation?: PatientsNaviga
         )
     }
 
-    return SideBar;
+    return SideBarItem;
 }
     
     

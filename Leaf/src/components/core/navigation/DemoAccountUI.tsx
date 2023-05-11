@@ -30,7 +30,6 @@ const createDemoUI = (): LeafAccountUI => {
     const yourPatientStack = createLeafStack(NurseUIStacks.YourPatients, YourPatientScreens.FormEntry, [yourPatientsScreen1], "clipboard-outline", "clipboard-account-outline");
     
     // Patients stack
-
     enum PatientScreens {
         Patients = "Patients",
         Patient = "Patient"
