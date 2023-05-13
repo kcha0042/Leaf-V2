@@ -2,8 +2,8 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { ScrollView } from "native-base";
-import Patient from "../../../model/patient/Patient";
-import PatientCard from "../../worker/components/PatientCard";
+import Patient from "../../../../model/patient/Patient";
+import PatientCard from "../../../worker/components/PatientCard";
 import { dummyPatients } from "./DemoPatients";
 import { PatientsNavigationProp } from "./DemoAccountUI";
 

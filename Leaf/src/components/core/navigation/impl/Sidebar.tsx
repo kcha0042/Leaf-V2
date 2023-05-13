@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import StateManager from "../../../state/publishers/StateManager";
-import LeafColors from "../styles/LeafColors";
-import LeafTypography from "../styles/LeafTypography";
-import LeafText from "../views/LeafText/LeafText";
+import StateManager from "../../../../state/publishers/StateManager";
+import LeafColors from "../../styles/LeafColors";
+import LeafTypography from "../../styles/LeafTypography";
+import LeafText from "../../views/LeafText/LeafText";
 import { Searchbar } from 'react-native-paper';
-import { LeafSideBarItem } from "./Types";
+import LeafSidebarItem from "../LeafSidebarItem";
 
 interface Props {
-    items: LeafSideBarItem[];
+    items: LeafSidebarItem[];
     title: string;
     searchable: boolean;
 }

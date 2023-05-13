@@ -1,9 +1,13 @@
 import React from "react";
-import { YourPatients, NewTriage, Patients, YourAccount } from "./DemoScreens";
+import { YourPatients, NewTriage, Patients, YourAccount } from "../demo/DemoScreens";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LeafStack } from "./Types";
-import { StackWrapper } from "./RenderStack";
+import { StackWrapper } from "../impl/RenderStack";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import LeafStack from "../LeafStack";
+import { View } from "react-native";
+import LeafColors from "../../styles/LeafColors";
+import { background } from "native-base/lib/typescript/theme/styled-system";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 interface Props {
     stacks: LeafStack[]
@@ -19,6 +23,12 @@ const Tab = createMaterialBottomTabNavigator();
 export const TabBarNavigator: React.FC<Props> = ({ stacks }) => {
     return (
         <Tab.Navigator
+            // activeColor={LeafColors.accent.getColor()}
+            // inactiveColor={LeafColors.mediumAccent.getColor()}
+            barStyle={{ 
+                // backgroundColor: LeafColors.lightAccent.getColor(),
+                height: 100,
+            }}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color }) => {
                     const stack = stacks.find((s) => s.stackName === route.name);
@@ -26,7 +36,7 @@ export const TabBarNavigator: React.FC<Props> = ({ stacks }) => {
 
                     const iconName = focused ? stack.focusedIcon : stack.icon;
                     return <Icon name={iconName} size={26} color={color} />;
-                }
+                },
             })}
         >
             {

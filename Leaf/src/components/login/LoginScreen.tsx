@@ -48,6 +48,7 @@ const LoginScreen: React.FC = () => {
             alignItems={"center"} 
             width={"100%"}
             padding={LeafBaseDimensions.screenPadding}
+            backgroundColor={LeafColors.screenBackgroundLight.getColor()}
         >
             <Spacer />
 
@@ -91,11 +92,6 @@ const LoginScreen: React.FC = () => {
             <Spacer />
 
             <Spacer />
-
-            {/* TODO: Remove later */}
-            <LeafText typography={LeafTypography.body} >
-                {'TEMP: For now, just login using "W"/"Worker", "L"/"Leader" or "A"/"Admin" as the username.'}
-            </LeafText>
         </VStack>
     );
 }

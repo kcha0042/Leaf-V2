@@ -5,6 +5,7 @@ import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
 export enum LeafFontFamily {
     gilroy,
     poppins,
+    circular,
 }
 
 export namespace LeafFontFamily {
@@ -12,21 +13,36 @@ export namespace LeafFontFamily {
         switch (family) {
             case LeafFontFamily.gilroy: 
                 return new LeafFontFamilyConfig(
+                    null,
+                    null,
+                    null,
                     LeafFont.gilroyExtraBold,
-                    LeafFont.gilroyExtraBold,
-                    LeafFont.gilroyExtraBold,
-                    LeafFont.gilroyExtraBold,
-                    LeafFont.gilroyExtraBold,
-                    LeafFont.gilroyExtraBold
+                    null,
+                    null,
+                    null,
+                    null,
                 );
             case LeafFontFamily.poppins:
                 return new LeafFontFamilyConfig(
                     LeafFont.poppinsMedium, 
                     LeafFont.poppinsSemiBold,
                     LeafFont.poppinsBold, 
+                    null,
                     LeafFont.poppinsMediumItalic, 
                     LeafFont.poppinsSemiBoldItalic,
-                    LeafFont.poppinsBoldItalic
+                    LeafFont.poppinsBoldItalic,
+                    null,
+                );
+            case LeafFontFamily.circular:
+                return new LeafFontFamilyConfig(
+                    LeafFont.circularMedium,
+                    null,
+                    LeafFont.circularBold,
+                    LeafFont.circularBlack,
+                    LeafFont.circularMediumItalic,
+                    null,
+                    LeafFont.circularBoldItalic,
+                    LeafFont.circularBlackItalic,
                 );
             default: 
                 throw new UnreachableCaseError(family);

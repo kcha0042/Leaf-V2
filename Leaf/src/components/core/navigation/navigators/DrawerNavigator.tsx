@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { LeafStack } from "./Types"
-import { StackWrapper } from "./RenderStack"
-import LeafColors from "../styles/LeafColors"
-import Environment from "../../../state/environment/Environment"
-import { LeafScreenOrientation } from "../../../state/environment/types/LeafScreenOrientation"
+import { StackWrapper } from "../impl/RenderStack"
+import LeafColors from "../../styles/LeafColors"
+import Environment from "../../../../state/environment/Environment"
+import { LeafScreenOrientation } from "../../../../state/environment/types/LeafScreenOrientation"
 import { Dimensions } from "react-native"
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import LeafStack from "../LeafStack"
 
 interface Props {
     stacks: LeafStack[]

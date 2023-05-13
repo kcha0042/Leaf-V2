@@ -17,8 +17,19 @@ class Session {
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
+    // The patient currently being previewed within app (any screen)
+    private activePatient: Patient | null = null;
 
     private constructor() { }
+
+    public setActivePatient(patient: Patient | null) {
+        this.activePatient = patient;
+        StateManager.activePatientChanged.publish();
+    }
+
+    public getActivePatient(): Patient | null {
+        return this.activePatient;
+    }
 
     public getAllWorkers(): Worker[] {
         return Object.values(this.workerStore);

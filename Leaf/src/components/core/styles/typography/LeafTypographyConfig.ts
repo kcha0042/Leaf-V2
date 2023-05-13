@@ -14,6 +14,7 @@ class LeafTypographyConfig {
     public italic: boolean;
     public underlined: boolean;
     public linedOut: boolean;
+    public kerning: number;
     get font(): string {
         let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
         return config.getFont(this.weight, this.italic);
@@ -43,7 +44,8 @@ class LeafTypographyConfig {
         weight: LeafFontWeight = LeafFontWeight.regular, 
         italic: boolean = false, 
         underlined: boolean = false,
-        linedOut: boolean = false
+        linedOut: boolean = false,
+        kerning: number = 0,
     ) {
         this.size = size;
         this.fontFamily = fontFamily;
@@ -52,6 +54,7 @@ class LeafTypographyConfig {
         this.italic = italic;
         this.underlined = underlined;
         this.linedOut = linedOut;
+        this.kerning = kerning;
     }
 
     public getStylesheet(): {} {
@@ -61,6 +64,7 @@ class LeafTypographyConfig {
                 color: this.color,
                 fontSize: this.size,
                 textDecorationLine: this.lineStyle,
+                letterSpacing: this.kerning,
             }
         }).typography;
     }

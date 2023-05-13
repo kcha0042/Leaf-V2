@@ -36,7 +36,7 @@ const YourWorkersScreen: React.FC = () => {
                 space={LeafDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
-                    {strings("header.Nurses")}
+                    {strings("header.leader.nurses")}
                 </LeafText>
 
                 <FlatList

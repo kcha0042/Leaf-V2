@@ -11,14 +11,20 @@ class LeafTypography {
             70,
             LeafFontFamily.gilroy,
             LeafColors.textBlack,
+            LeafFontWeight.black,
         );
     }
 
     static get header(): LeafTypographyConfig {
         return new LeafTypographyConfig(
             40,
-            LeafFontFamily.gilroy,
+            LeafFontFamily.circular,
             LeafColors.textDark,
+            LeafFontWeight.black,
+            false,
+            false,
+            false,
+            -0.5
         );
     }
 

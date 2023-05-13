@@ -1,13 +1,13 @@
-import EmployeeID from "../../../model/employee/EmployeeID";
-import Hospital from "../../../model/hospital/Hospital";
-import MedicalUnit from "../../../model/hospital/MedicalUnit";
-import Ward from "../../../model/hospital/Ward";
-import MRN from "../../../model/patient/MRN";
-import Patient from "../../../model/patient/Patient";
-import PatientEvent from "../../../model/patient/PatientEvent";
-import { PatientEventCategory } from "../../../model/patient/PatientEventCategory";
-import TriageCase from "../../../model/triage/TriageCase";
-import { TriageCode } from "../../../model/triage/TriageCode";
+import EmployeeID from "../../../../model/employee/EmployeeID";
+import Hospital from "../../../../model/hospital/Hospital";
+import MedicalUnit from "../../../../model/hospital/MedicalUnit";
+import Ward from "../../../../model/hospital/Ward";
+import MRN from "../../../../model/patient/MRN";
+import Patient from "../../../../model/patient/Patient";
+import PatientEvent from "../../../../model/patient/PatientEvent";
+import { PatientEventCategory } from "../../../../model/patient/PatientEventCategory";
+import TriageCase from "../../../../model/triage/TriageCase";
+import { TriageCode } from "../../../../model/triage/TriageCode";
 
 // I just need these for testing, can't use session as I create the items outside of a component and therefore cannot use useState.
 let patient1 = new Patient(

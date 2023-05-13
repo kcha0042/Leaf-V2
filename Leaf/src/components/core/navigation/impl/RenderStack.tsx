@@ -1,58 +1,16 @@
 import React, { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { LeafScreen, LeafSideBarItem, LeafStack } from "./Types";
+// import { LeafScreen, LeafSideBarItem, LeafStack } from "./Types";
 import CustomLeafHeader from "./CustomHeader";
 import { Sidebar } from "./Sidebar";
 import { View, StyleSheet } from "react-native";
-import Environment from "../../../state/environment/Environment";
-import { ScreenType } from "../../../state/environment/types/ScreenType";
-import LeafText from "../views/LeafText/LeafText";
-import LeafTypography from "../styles/LeafTypography";
-import StateManager from "../../../state/publishers/StateManager";
+import Environment from "../../../../state/environment/Environment";
+import { ScreenType } from "../../../../state/environment/types/ScreenType";
+import LeafText from "../../views/LeafText/LeafText";
+import LeafTypography from "../../styles/LeafTypography";
+import StateManager from "../../../../state/publishers/StateManager";
 import { useFocusEffect } from "@react-navigation/native";
-
-/**
- * Creates a leaf screen
- * @param name the name of the screen, this will displayed in the header
- * @param component the actual screen to render
- * @param options the options to add to the screen, these will be provided to the <Stack.Screen> component (https://reactnavigation.org/docs/stack-navigator)
- * @returns a {@link LeafScreen} with your parameters
- */
-export function createLeafScreen(name: string, component: React.FC, options?: object): LeafScreen {
-    return { name, component, options }
-}
-
-export function createLeafSidebarItem(component: React.FC, passProps: () => void = () => null, searchableString?: string): LeafSideBarItem {
-    return { component, passProps, searchableString }
-}
-
-/**
- * Creates a leaf stack
- * @param stackName the name of the stack, this will be the name seen on the tab bar
- * @param initialRouteName the initial screen
- * @param screens the screens in the stack, the first element in the array will be taken as the first screen
- * @param icon the icon for the tab bar to show
- * @param focusedIcon the icon for the tab bar to show when the stack is selected
- * @param options the stack options, provided to the stack (https://reactnavigation.org/docs/stack-navigator)
- * @param sideBarItemList the side bar items, if your first screen is a list of items that should be rendered as a sidebar on tablet (see navigation on github) then you will need to provide this param
- * @param sideBarSearchable are the items in the sidebar searchable? false by default
- * @returns a {@link LeafStack}
- */
-export function createLeafStack(stackName: string, initialRouteName: string, screens: LeafScreen[], icon: string, focusedIcon: string, options?: object, sideBarItemList: LeafSideBarItem[] = [], sideBarSearchable: boolean = false): LeafStack {
-    // TODO: add check, if searchable is true then we need to check the sidebar item list to see if all searchable strings are defined
-    return { stackName, initialRouteName, sideBarItemList, sideBarSearchable, screens, icon, focusedIcon, options };
-}
-
-/**
- * Adds a screen to a stack
- * @param stack the stack you want to add to
- * @param screen the screen you want to add
- * @returns a {@link LeafStack} with the added screen
- */
-export function AddScreenToStack(stack: LeafStack, screen: LeafScreen): LeafStack {
-    stack.screens.push(screen);
-    return stack;
-}
+import LeafStack from "../LeafStack";
 
 /**
  * Render a react native native stack with the screens you include in the leafstack
@@ -71,19 +29,20 @@ function renderNativeStack(leafStack: LeafStack, hasSidebar: boolean) {
     return (
         <Stack.Navigator>
             {
-                leafStack.screens.map((s, index) => {
+                leafStack.screens.map((screen, index) => {
                     if (!hasSidebar || index >= 1){
                         return (
                             <Stack.Screen 
-                                key={s.name}
-                                name={s.name}
-                                component={s.component}
+                                // Yes, key/name are both id
+                                key={screen.id}
+                                name={screen.id}
+                                component={screen.component}
                                 options={({ navigation }) => ({
-                                    ...s.options,
+                                    ...screen.options,
                                     ...globalOptions,
                                     header: () => (
                                         <CustomLeafHeader
-                                            title={s.name}
+                                            title={screen.title}
                                             buttonProps={
                                                 {
                                                     canGoBack: !hasSidebar ? index > 0 : index > 1, // we only want to allow the user to go back if it's the first screen in the stack
@@ -130,7 +89,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
             return(
                 <View style={styles.container}>
                     <View style={styles.sidebarWrapper}>
-                        <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].name} searchable={leafStack.sideBarSearchable}/>
+                        <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].title} searchable={leafStack.sideBarSearchable}/>
                     </View>
 
                     <View style={styles.stackWrapper}>

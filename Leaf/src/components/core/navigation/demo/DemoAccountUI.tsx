@@ -1,7 +1,7 @@
-import { LeafAccountUI, LeafSideBarItem } from "./Types";
+import { LeafAccountUI, LeafSideBarItem } from "../LeafAppInterfaces";
 import { YourPatients, Patients, NewTriage, YourAccount, SideBarScreen, SidebarItemWrapper } from "./DemoScreens";
-import { createLeafScreen, createLeafSidebarItem, createLeafStack } from "./RenderStack";
-import { createLeafAccountUI } from "./CreateAccountUI";
+import { createLeafScreen, createLeafSidebarItem, createLeafStack } from "../impl/RenderStack";
+import { createLeafAccountUI } from "../CreateAccountUI";
 import { dummyPatients } from "./DemoPatients";
 import { StackNavigationProp } from "@react-navigation/stack";
 
