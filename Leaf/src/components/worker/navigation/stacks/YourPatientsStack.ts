@@ -85,6 +85,7 @@ export const YourPatientsStack = new LeafStack(
     "home-outline",
     "home",
     patientsSideBarItems,
+    true,
 )
 .addNewScreen(
     strings("header.worker.yourPatients"),
