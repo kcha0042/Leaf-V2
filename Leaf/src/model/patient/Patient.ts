@@ -6,15 +6,15 @@ import TriageCase from "../triage/TriageCase";
 
 class Patient {
 
-    private _mrn: MRN;
-    private _dob: Date;
-    private _firstName: string;
-    private _lastName: string;
+    protected _mrn: MRN;
+    protected _dob: Date;
+    protected _firstName: string;
+    protected _lastName: string;
     public readonly triageCase: TriageCase;
-    private _postCode: string;
-    private _timeLastAllocated: Date;
-    private _allocatedTo: EmployeeID;
-    private _events: PatientEvent[];
+    protected _postCode: string;
+    protected _timeLastAllocated: Date;
+    protected _allocatedTo: EmployeeID;
+    protected _events: PatientEvent[];
     get mrn(): MRN {
         return this._mrn;
     }

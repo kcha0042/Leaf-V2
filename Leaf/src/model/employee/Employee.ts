@@ -1,6 +1,6 @@
 import EmployeeID from "./EmployeeID";
 
-class Employee {
+abstract class Employee {
 
     public readonly id: EmployeeID;
     public readonly firstName: string;

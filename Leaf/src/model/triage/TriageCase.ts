@@ -7,14 +7,14 @@ import Ward from "../hospital/Ward";
 class TriageCase {
 
     public readonly id: UUID;
-    private _arrivalDate: Date;
-    private _dischargeDate: Date | null;
-    private _arrivalWard: Ward;
-    private _dischargeWard: Ward | null;
-    private _hospital: Hospital;
-    private _medicalUnit: MedicalUnit;
-    private _triageText: string;
-    private _triageCode: TriageCode;
+    protected _arrivalDate: Date;
+    protected _dischargeDate: Date | null;
+    protected _arrivalWard: Ward;
+    protected _dischargeWard: Ward | null;
+    protected _hospital: Hospital;
+    protected _medicalUnit: MedicalUnit;
+    protected _triageText: string;
+    protected _triageCode: TriageCode;
     get arrivalDate(): Date {
         return this._arrivalDate;
     }
