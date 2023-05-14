@@ -8,6 +8,7 @@ import LeafText from "../../views/LeafText/LeafText";
 import { Searchbar } from 'react-native-paper';
 import LeafSidebarItem from "../LeafSidebarItem";
 import LeafBaseDimensions from "../../styles/LeafBaseDimensions";
+import { Spacer, VStack } from "native-base";
 
 interface Props {
     items: LeafSidebarItem[];
@@ -33,18 +34,25 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
 
     // Filter items
     const onChangeSearch = (query) => {
-        setFilteredSidebarItems(items.filter(item => item.searchableString != undefined ? item.searchableString.includes(query) : false));
+        setFilteredSidebarItems(items.filter(item => item.searchableString != undefined ? item.searchableString.toLowerCase().includes(query.toLowerCase()) : false));
         setSearchQuery(query);
     }
 
+    // This is a one-time use so no need to define a constant
+    // We want it to reflect the header so use that and adapt the size
+    let typography = LeafTypography.header;
+    typography.size = 25;
+
     return (
         <SafeAreaView style={styles.container}>
-            <LeafText typography={LeafTypography.header} style={{ padding: 10 }}> 
-                { title }
-            </LeafText>
+            <VStack paddingX={LeafBaseDimensions.screenPadding/2} flex={1}>
+                <LeafText typography={typography} style={styles.title}> 
+                    {title}
+                </LeafText>
 
-            {
-                searchable ? 
+                {
+                    searchable
+                        ? 
                     <View style={styles.searchBarWrapper}>
                         {/* TODO: add style to search bar */}
                         <Searchbar
@@ -53,29 +61,32 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                             value={searchQuery}
                         />
                     </View>
-                :
+                        :
                     null
-            }
-
-            <ScrollView>
-                {
-                    filteredSidebarItems.map(item => {
-                        return (
-                            <View style={styles.sidebarItemWrapper} key={item.id.toString()}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        item.passProps();
-                                        StateManager.drawerShowStack.publish(true);
-                                        StateManager.sideBarItemPressed.publish();
-                                    }}
-                                >
-                                    <item.component />
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    })
                 }
-            </ScrollView>
+
+                <ScrollView>
+                    <VStack space={LeafBaseDimensions.screenSpacing/2}>
+                        {
+                            filteredSidebarItems.map(item => {
+                                return (
+                                    <View style={styles.sidebarItemWrapper} key={item.id.toString()}>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                item.passProps();
+                                                StateManager.drawerShowStack.publish(true);
+                                                StateManager.sideBarItemPressed.publish();
+                                            }}
+                                        >
+                                            <item.component />
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            })
+                        }
+                    </VStack>
+                </ScrollView>
+            </VStack>
         </SafeAreaView>
     )
 }
@@ -84,14 +95,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderRightWidth: 0.5,
-        padding: LeafBaseDimensions.screenPadding,
         backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-        borderColor: LeafColors.sideBarBorderLight.getColor()
+        borderColor: LeafColors.sideBarBorderLight.getColor(),
+    },
+    title: {
+        textAlign: 'center', 
+        paddingVertical: 16,
     },
     searchBarWrapper: {
-        padding: 5
+        paddingBottom: 16
     },
-    sidebarItemWrapper: {
-        padding: 5
-    }
+    sidebarItemWrapper: { }
 })
