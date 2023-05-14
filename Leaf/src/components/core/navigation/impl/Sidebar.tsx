@@ -7,6 +7,7 @@ import LeafTypography from "../../styles/LeafTypography";
 import LeafText from "../../views/LeafText/LeafText";
 import { Searchbar } from 'react-native-paper';
 import LeafSidebarItem from "../LeafSidebarItem";
+import LeafBaseDimensions from "../../styles/LeafBaseDimensions";
 
 interface Props {
     items: LeafSidebarItem[];
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderRightWidth: 0.5,
+        padding: LeafBaseDimensions.screenPadding,
         backgroundColor: LeafColors.screenBackgroundLight.getColor(),
         borderColor: LeafColors.sideBarBorderLight.getColor()
     },
