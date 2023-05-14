@@ -60,7 +60,7 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
             }}
         >
             {
-                stacks.map(stack => <Drawer.Screen name={stack.stackName} component={StackWrapper(stack)}/>)
+                stacks.map(stack => <Drawer.Screen name={stack.stackName} key={stack.stackName} component={StackWrapper(stack)}/>)
             }
         </Drawer.Navigator>
     )

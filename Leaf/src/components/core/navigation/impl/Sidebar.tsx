@@ -60,7 +60,7 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                 {
                     filteredSidebarItems.map(item => {
                         return (
-                            <View style={styles.sidebarItemWrapper}>
+                            <View style={styles.sidebarItemWrapper} key={item.id.toString()}>
                                 <TouchableOpacity
                                     onPress={() => {
                                         item.passProps();
