@@ -60,14 +60,16 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                 {
                     filteredSidebarItems.map(item => {
                         return (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    item.passProps();
-                                    StateManager.drawerShowStack.publish(true);
-                                }}
-                            >
-                                <item.component />
-                            </TouchableOpacity>
+                            <View style={styles.sidebarItemWrapper}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        item.passProps();
+                                        StateManager.drawerShowStack.publish(true);
+                                    }}
+                                >
+                                    <item.component />
+                                </TouchableOpacity>
+                            </View>
                         )
                     })
                 }
@@ -84,6 +86,9 @@ const styles = StyleSheet.create({
         borderColor: LeafColors.sideBarBorderLight.getColor()
     },
     searchBarWrapper: {
+        padding: 5
+    },
+    sidebarItemWrapper: {
         padding: 5
     }
 })

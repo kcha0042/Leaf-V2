@@ -20,10 +20,10 @@ class LeafStack {
         public readonly stackName: string,
         public readonly icon: string,
         public readonly focusedIcon: string,
-        public readonly options?: object,
-        public readonly screens: LeafScreen[] = [],
         public readonly sideBarItemList: LeafSidebarItem[] = [],
         public readonly sideBarSearchable: boolean = false,
+        public readonly screens: LeafScreen[] = [],
+        public readonly options?: object,
     ) {}
 
     /**
