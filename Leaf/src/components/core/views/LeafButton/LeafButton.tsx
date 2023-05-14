@@ -33,9 +33,8 @@ const LeafButton: React.FC<Props> = ({
     onPress,
 }) => {
     // TODO: Figure out a better way to centre the text
-    let os: OS = Environment.instance.getOS();
     let labelStyle = {}
-    if (os != OS.web) {
+    if (Environment.instance.getOS() == OS.ios) {
         labelStyle = { lineHeight: 0 } // Centres the text
     }
 
