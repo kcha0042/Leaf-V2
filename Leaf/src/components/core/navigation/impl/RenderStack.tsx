@@ -119,15 +119,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     emptyScreen: {
-        flex: 5,
+        flex: 10,
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
     },
     sidebarWrapper: {
-        flex: 3,
+        flex: 5,
     },
     stackWrapper: {
-        flex: 5
+        flex: 10
     }
 })

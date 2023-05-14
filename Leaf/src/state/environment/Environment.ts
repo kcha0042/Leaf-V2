@@ -76,6 +76,14 @@ class Environment {
         return LeafScreenOrientation.Potrait;
     }
 
+    public getScreenWidth(): number {
+        return Dimensions.get('window').width;
+    }
+
+    public getScreenHeight(): number {
+        return Dimensions.get('window').height;
+    }
+
     private getScreenDimensions(): [number, number] {
         return [
             Dimensions.get("window").width,

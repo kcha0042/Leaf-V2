@@ -69,7 +69,8 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                 headerShown: false,
                 drawerType: drawerType,
                 drawerStyle: {
-                    backgroundColor: LeafColors.screenBackgroundLight.getColor()
+                    backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                    width: Environment.instance.getScreenOrientation() == LeafScreenOrientation.Landscape ? Environment.instance.getScreenWidth() * 0.2 : Environment.instance.getScreenWidth() * 0.3
                 },
             }}
             drawerContent={props => <CustomDrawerContent {...props} />}
