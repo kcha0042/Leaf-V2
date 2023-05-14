@@ -24,12 +24,13 @@ const TriageCodeBadge: React.FC<Props> = ({
     let typography = LeafTypography.badge;
     typography.leafColor = LeafColors.textTriageCode(code);
     // Padding renders differntly on web
-    let padding = Environment.instance.getOS() == OS.web ? 10 : 3;
+    let platformIsWeb = Environment.instance.getOS() == OS.web
     return (
         <View
             style={[
                 {
                     borderRadius: 10,
+                    width: platformIsWeb ? typography.size*1.6 : null,
                     backgroundColor: LeafColors.triageCode(code).getColor(),
                     justifyContent: 'center',
                     aspectRatio: 1,
@@ -43,7 +44,7 @@ const TriageCodeBadge: React.FC<Props> = ({
                 wide={false}
                 style={{
                     textAlign: 'center',
-                    padding: padding,
+                    padding: platformIsWeb ? 10 : 3,
                     aspectRatio: 1, 
                 }}
             >
