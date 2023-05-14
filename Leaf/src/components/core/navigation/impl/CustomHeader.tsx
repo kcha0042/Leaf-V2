@@ -34,14 +34,17 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
         setBackgroundColor(StateManager.headerColor.read());
     });
 
-    StateManager.headerTitleOverride.subscribe(() => {
-        let titleOverride = StateManager.headerTitleOverride.read();
-        if (titleOverride != null) {
-          setHeaderTitle(titleOverride);
-        } else {
-          setHeaderTitle(title);
-        }
-    });
+    // Cannot use subscriber pattern here because it will redraw the previous screen's header
+    // (Before it has transitoned away)
+    // useEffect ensures only the page appearing has its header changed
+    useEffect(() => {
+      let titleOverride = StateManager.headerTitleOverride.read();
+      if (titleOverride != null) {
+        setHeaderTitle(titleOverride);
+      } else {
+        setHeaderTitle(title);
+      }
+    }, []);
 
     return (
         <SafeAreaView 
