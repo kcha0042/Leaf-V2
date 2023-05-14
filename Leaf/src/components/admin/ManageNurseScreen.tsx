@@ -12,6 +12,7 @@ import { strings } from "../../localisation/Strings";
 import Nurse from "../../model/employee/Worker";
 import { ViewStyle } from "react-native";
 import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCard";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 
 interface Props {
     nurse: Nurse;
@@ -33,11 +34,11 @@ const ManageNurseScreen: React.FC<Props> = ({
     return (
         <View
             flex={1}
-            padding={LeafDimensions.screenPadding}
+            padding={LeafBaseDimensions.screenPadding}
         >
             <VStack
                 flex={1}
-                space={LeafDimensions.screenSpacing}
+                space={LeafBaseDimensions.screenSpacing}
             >
                 <LeafText typography={LeafTypography.header}>
                     {nurse.firstName + " " + nurse.lastName}

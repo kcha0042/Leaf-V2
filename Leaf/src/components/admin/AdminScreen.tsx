@@ -6,6 +6,8 @@ import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
 import EmployeeID from "../../model/employee/EmployeeID";
 import ManageNurseScreen from "./ManageNurseScreen";
+import LeafColors from "../core/styles/LeafColors";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 
 const AdminScreen: React.FC = () => {
     const [nurse, setNurse] = React.useState<Nurse | null>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
@@ -24,7 +26,13 @@ const AdminScreen: React.FC = () => {
     }
 
     return (
-        <VStack style={{ flex: 1 }} space={LeafDimensions.screenSpacing}>
+        <VStack 
+            style={{ 
+                flex: 1,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                padding: LeafBaseDimensions.screenPadding
+            }}
+        >
             <ManageNurseScreen
                 nurse={nurse}
                 onPress={() => { onPressNurse(nurse) }}

@@ -8,7 +8,9 @@ import Session from "../../model/Session";
 import Worker from "../../model/employee/Worker";
 import { FlatList } from "native-base";
 import { strings } from "../../localisation/Strings";
-import WorkerCard from "./WorkerCard";
+import WorkerCard from "./components/WorkerCard";
+import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
+import LeafColors from "../core/styles/LeafColors";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());
@@ -29,16 +31,15 @@ const YourWorkersScreen: React.FC = () => {
     return (
         <ScrollView 
             flex={1}
-            padding={LeafDimensions.screenPadding}
+            padding={LeafBaseDimensions.screenPadding}
+            style={{
+                backgroundColor: LeafColors.screenBackgroundLight.getColor()
+            }}
         >
             <VStack 
                 flex={1}
-                space={LeafDimensions.screenSpacing}
+                space={LeafBaseDimensions.screenSpacing}
             >
-                <LeafText typography={LeafTypography.header}>
-                    {strings("header.leader.nurses")}
-                </LeafText>
-
                 <FlatList
                     data={workers}
                     renderItem={({ item: worker }) => (
@@ -49,7 +50,7 @@ const YourWorkersScreen: React.FC = () => {
                     )}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafDimensions.cardSpacing} />
+                        <Spacer size={LeafBaseDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
                     // flexGrow ensures the frame wraps only the FlatList content

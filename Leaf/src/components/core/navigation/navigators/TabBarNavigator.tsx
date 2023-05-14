@@ -1,13 +1,8 @@
 import React from "react";
-import { YourPatients, NewTriage, Patients, YourAccount } from "../demo/DemoScreens";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StackWrapper } from "../impl/RenderStack";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import LeafStack from "../LeafStack";
-import { View } from "react-native";
-import LeafColors from "../../styles/LeafColors";
-import { background } from "native-base/lib/typescript/theme/styled-system";
-import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 interface Props {
     stacks: LeafStack[]

@@ -9,8 +9,9 @@ import Patient from "../../model/patient/Patient";
 import { FlatList } from "native-base";
 import PatientCard from "../worker/components/PatientCard";
 import { strings } from "../../localisation/Strings";
-import AllocateCard from "./AllocateCard";
+import AllocateCard from "./components/AllocateCard";
 import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
+import LeafColors from "../core/styles/LeafColors";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
@@ -40,6 +41,9 @@ const AllocatePatientsScreen: React.FC = () => {
         <ScrollView 
             flex={1}
             padding={LeafBaseDimensions.screenPadding}
+            style={{
+                backgroundColor: LeafColors.screenBackgroundLight.getColor()
+            }}
         >
             <VStack 
                 flex={1}

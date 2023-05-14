@@ -1,10 +1,10 @@
 import { ViewStyle } from "react-native";
-import LeafColors from "../core/styles/LeafColors";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafText from "../core/views/LeafText/LeafText";
+import LeafColors from "../../core/styles/LeafColors";
+import LeafTypography from "../../core/styles/LeafTypography";
+import LeafText from "../../core/views/LeafText/LeafText";
 import { HStack, Spacer, VStack, View } from "native-base";
-import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCard";
-import { strings } from "../../localisation/Strings";
+import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
+import { strings } from "../../../localisation/Strings";
 
 
 interface Props {

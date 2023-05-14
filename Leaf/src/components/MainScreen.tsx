@@ -7,6 +7,8 @@ import { WorkerInterface } from "./worker/navigation/WorkerInterface";
 import { LinearNavigator } from "./core/navigation/navigators/LinearNavigator";
 import { loginStack } from "./login/navigation/LoginStack";
 import { InterfaceNavigator } from "./core/navigation/navigators/AppNavigator";
+import { AdminInterface } from "./admin/navigation/AdminInterface";
+import { LeaderInterface } from "./leader/navigation/LeaderInterface";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
@@ -25,9 +27,9 @@ const MainScreen: React.FC = () => {
         case LoginStatus.worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />
         case LoginStatus.leader:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
+            return <InterfaceNavigator leafInterface={LeaderInterface} />
         case LoginStatus.admin:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
+            return <InterfaceNavigator leafInterface={AdminInterface} />
         default:
             throw new UnreachableCaseError(loginStatus);
     }

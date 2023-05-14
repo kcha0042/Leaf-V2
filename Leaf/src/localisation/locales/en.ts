@@ -13,12 +13,21 @@ export default {
     "appName": "TODO",
 
     // Tab bar
+    // Worker
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
     "tabBar.worker.patients": "Patients",
     "tabBar.worker.account": "Account",
+    
+    // Admin
+    "tabBar.admin.manageNurses": "Home",
+
+    // Leader
+    "tabBar.leader.viewNurses": "Home",
+    "tabBar.leader.viewPatients": "Patients",
 
     // Headers
+    // Worker
     "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
     "header.worker.patients": "Patients",
@@ -27,6 +36,14 @@ export default {
     "header.worker.patientOptions": "Patient Options",
     "header.worker.patientPreview": "Patient",
     "header.leader.nurses": "Nurses",
+
+    // Admin
+    "header.admin.manageNurses": "Home",
+
+    // Leader
+    "header.leader.viewNurses": "Nurses",
+    "header.leader.viewPatients": "Patients",
+    "header.leader.allocatePatient": "Allocate Patient",
 
     // Buttons
     "button.login": "Login",

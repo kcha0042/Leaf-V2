@@ -7,8 +7,9 @@ import { LeafScreenOrientation } from "../../../../state/environment/types/LeafS
 import { Dimensions } from "react-native"
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
-import LeafStack from "../LeafStack"
-import StateManager from "../../../../state/publishers/StateManager"
+import LeafStack from "../LeafStack";
+import StateManager from "../../../../state/publishers/StateManager";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
     stacks: LeafStack[]
@@ -56,11 +57,22 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                 drawerType: drawerType,
                 drawerStyle: {
                     backgroundColor: LeafColors.screenBackgroundLight.getColor()
-                }
+                },
             }}
         >
             {
-                stacks.map(stack => <Drawer.Screen name={stack.stackName} key={stack.stackName} component={StackWrapper(stack)}/>)
+                stacks.map(stack => 
+                    <Drawer.Screen 
+                        name={stack.stackName} 
+                        key={stack.stackName} 
+                        component={StackWrapper(stack)}
+                        options={{
+                            drawerIcon: ({ color, size, focused }) => (
+                                <Icon name={focused ? stack.focusedIcon : stack.icon} color={color} size={size} />
+                            )
+                        }}
+                    />
+                )
             }
         </Drawer.Navigator>
     )
