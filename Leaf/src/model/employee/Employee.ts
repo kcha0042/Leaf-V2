@@ -7,6 +7,9 @@ abstract class Employee {
     public readonly firstName: string;
     public readonly lastName: string;
     public abstract readonly role: Role;
+    get fullName(): string {
+        return `${this.firstName} ${this.lastName}`
+    }
 
     constructor(
         id: EmployeeID, 
