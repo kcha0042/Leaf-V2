@@ -1,8 +1,9 @@
 import Employee from "./Employee";
+import { Role } from "./Role";
 
 class Admin extends Employee {
 
-    // Empty implementation
+    public readonly role: Role = Role.admin;
 
 }
 

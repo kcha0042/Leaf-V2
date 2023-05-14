@@ -1,6 +1,6 @@
 
 export enum Role {
     worker,
-    nurse,
+    leader,
     admin,
 }
