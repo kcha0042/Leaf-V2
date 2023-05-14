@@ -9,14 +9,27 @@ import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import LeafStack from "../LeafStack";
 import StateManager from "../../../../state/publishers/StateManager";
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LeafText from "../../views/LeafText/LeafText"
+import LeafTypography from "../../styles/LeafTypography"
 
 interface Props {
     stacks: LeafStack[]
 }
 
-const Drawer = createDrawerNavigator()
 
+const CustomDrawerContent = (props) => {
+    return (
+        <DrawerContentScrollView {...props}>
+            <LeafText style={{ paddingLeft: 5 }} typography={LeafTypography.header} > Intake </LeafText>
+            <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+    );
+}
+
+const Drawer = createDrawerNavigator()
+  
 export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
 
     const getDrawerType = (): 'front' | 'slide' | 'back' | 'permanent' => {
@@ -59,6 +72,7 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                     backgroundColor: LeafColors.screenBackgroundLight.getColor()
                 },
             }}
+            drawerContent={props => <CustomDrawerContent {...props} />}
         >
             {
                 stacks.map(stack => 
