@@ -8,6 +8,7 @@ import { Dimensions } from "react-native"
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import LeafStack from "../LeafStack"
+import StateManager from "../../../../state/publishers/StateManager"
 
 interface Props {
     stacks: LeafStack[]
@@ -35,7 +36,18 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
         };
 
         Dimensions.addEventListener('change', handleDimensionChange)
-    }, [])
+    }, []);
+
+    // Update StateManager.drawerItemChanged
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('state', () => {
+            let state = navigation.getState();
+            if (state != undefined && state.index != StateManager.drawerItemChanged.read()) {
+                StateManager.drawerItemChanged.publish(state.index);
+            }
+        });
+        return unsubscribe;
+    }, []);
 
     return (
         <Drawer.Navigator

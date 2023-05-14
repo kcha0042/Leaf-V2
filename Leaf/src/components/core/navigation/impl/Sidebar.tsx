@@ -65,6 +65,7 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                                     onPress={() => {
                                         item.passProps();
                                         StateManager.drawerShowStack.publish(true);
+                                        StateManager.sideBarItemPressed.publish();
                                     }}
                                 >
                                     <item.component />

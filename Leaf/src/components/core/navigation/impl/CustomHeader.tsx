@@ -34,17 +34,32 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
         setBackgroundColor(StateManager.headerColor.read());
     });
 
-    // Cannot use subscriber pattern here because it will redraw the previous screen's header
-    // (Before it has transitoned away)
-    // useEffect ensures only the page appearing has its header changed
-    useEffect(() => {
+    const reflectTitleOverride = () => {
       let titleOverride = StateManager.headerTitleOverride.read();
       if (titleOverride != null) {
         setHeaderTitle(titleOverride);
       } else {
         setHeaderTitle(title);
       }
+    }
+
+    // Cannot use subscriber pattern here because it will redraw the previous screen's header
+    // (Before it has transitoned away)
+    // useEffect ensures only the page appearing has its header changed
+    useEffect(() => {
+      reflectTitleOverride();
     }, []);
+
+    // Side bar item changes don't trigger remounts
+    StateManager.sideBarItemPressed.subscribe(() => {
+      reflectTitleOverride();
+    });
+
+    // Drawer changes don't trigger remounts
+    StateManager.drawerItemChanged.subscribe(() => {
+      StateManager.headerTitleOverride.publish(null);
+      reflectTitleOverride();
+    });
 
     return (
         <SafeAreaView 

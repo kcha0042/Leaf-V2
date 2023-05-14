@@ -47,6 +47,10 @@ class StateManager {
 
     public static readonly headerTitleOverride = new LeafValuePublisher<string | null>(null);
 
+    public static readonly drawerItemChanged = new LeafValuePublisher(0);
+
+    public static readonly sideBarItemPressed = new LeafPublisher();
+
 }
 
 export default StateManager;
