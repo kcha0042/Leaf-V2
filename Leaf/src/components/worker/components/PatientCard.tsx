@@ -43,7 +43,7 @@ const PatientCard: React.FC<Props> = ({
                     }}
                 />
 
-                <VStack>
+                <VStack style={{ flexShrink: 1 }}>
                     <View alignSelf={'flex-start'}>
                         <LeafText
                             typography={LeafTypography.cardTitle}
