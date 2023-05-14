@@ -7,6 +7,7 @@ import MRN from "../../../../model/patient/MRN";
 import Patient from "../../../../model/patient/Patient";
 import PatientEvent from "../../../../model/patient/PatientEvent";
 import { PatientEventCategory } from "../../../../model/patient/PatientEventCategory";
+import Session from "../../../../model/Session";
 import TriageCase from "../../../../model/triage/TriageCase";
 import { TriageCode } from "../../../../model/triage/TriageCode";
 import LeafSidebarItem from "../../../core/navigation/LeafSidebarItem";
@@ -75,7 +76,7 @@ const dummyPatients = [
 const patientsSideBarItems: LeafSidebarItem[] = dummyPatients.map(patient => {
     return new LeafSidebarItem(
         PatientCardWrapper(patient),
-        () => null, // TODO
+        () => Session.instance.setActivePatient(patient),
         patient.fullName
     )
 })

@@ -6,11 +6,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StateManager from '../../../../state/publishers/StateManager';
 import LeafText from '../../views/LeafText/LeafText';
 import LeafTypography from '../../styles/LeafTypography';
-import Environment from '../../../../state/environment/Environment';
-import { ScreenType } from '../../../../state/environment/types/ScreenType';
-import LeafDimensions from '../../styles/LeafDimensions';
-import LeafBaseDimensions from '../../styles/LeafBaseDimensions';
-import LeafIcon from '../../views/LeafIcon/LeafIcon';
 
 type CustomLeafHeaderProps = {
   title: string;
@@ -39,14 +34,14 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
         setBackgroundColor(StateManager.headerColor.read());
     });
 
-    useEffect(() => {
-      let titleOverride = StateManager.headerTitleOverride.read();
-      if (titleOverride != null) {
-        setHeaderTitle(titleOverride);
-      } else {
-        setHeaderTitle(title);
-      }
-    }, []);
+    StateManager.headerTitleOverride.subscribe(() => {
+        let titleOverride = StateManager.headerTitleOverride.read();
+        if (titleOverride != null) {
+          setHeaderTitle(titleOverride);
+        } else {
+          setHeaderTitle(title);
+        }
+    });
 
     return (
         <SafeAreaView 
