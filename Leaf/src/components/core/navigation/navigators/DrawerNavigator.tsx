@@ -13,6 +13,7 @@ import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawe
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeafText from "../../views/LeafText/LeafText"
 import LeafTypography from "../../styles/LeafTypography"
+import { LeafFontWeight } from "../../styles/typography/LeafFontWeight"
 
 interface Props {
     stacks: LeafStack[]
@@ -63,6 +64,10 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
         return unsubscribe;
     }, []);
 
+    let drawerLabelTypograhy = LeafTypography.body;
+    drawerLabelTypograhy.weight = LeafFontWeight.semiBold;
+    drawerLabelTypograhy.leafColor = undefined; // Allow drawer to decide
+
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -75,6 +80,9 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                 // TODO: Extract into accentBackgroundColor
                 drawerActiveBackgroundColor:  "#f1edfc",
                 drawerActiveTintColor: LeafColors.accent.getColor(),
+                drawerLabelStyle: {
+                    ...drawerLabelTypograhy.getStylesheet(),
+                }
             }}
             drawerContent={props => <CustomDrawerContent {...props} />}
         >
