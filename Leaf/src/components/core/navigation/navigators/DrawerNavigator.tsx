@@ -72,6 +72,9 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                     backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                     width: Environment.instance.getScreenOrientation() == LeafScreenOrientation.Landscape ? Environment.instance.getScreenWidth() * 0.2 : Environment.instance.getScreenWidth() * 0.3
                 },
+                // TODO: Extract into accentBackgroundColor
+                drawerActiveBackgroundColor:  "#f1edfc",
+                drawerActiveTintColor: LeafColors.accent.getColor(),
             }}
             drawerContent={props => <CustomDrawerContent {...props} />}
         >
@@ -83,7 +86,11 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                         component={StackWrapper(stack)}
                         options={{
                             drawerIcon: ({ color, size, focused }) => (
-                                <Icon name={focused ? stack.focusedIcon : stack.icon} color={color} size={size} />
+                                <Icon 
+                                    name={focused ? stack.focusedIcon : stack.icon} 
+                                    color={focused ? LeafColors.accent.getColor() : color} 
+                                    size={size} 
+                                />
                             )
                         }}
                     />

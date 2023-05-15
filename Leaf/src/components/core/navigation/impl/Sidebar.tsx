@@ -9,6 +9,8 @@ import { Searchbar } from 'react-native-paper';
 import LeafSidebarItem from "../LeafSidebarItem";
 import LeafBaseDimensions from "../../styles/LeafBaseDimensions";
 import { Spacer, VStack } from "native-base";
+import LeafColor from "../../styles/color/LeafColor";
+import LeafIcon from "../../views/LeafIcon/LeafIcon";
 
 interface Props {
     items: LeafSidebarItem[];
@@ -40,13 +42,16 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
 
     // This is a one-time use so no need to define a constant
     // We want it to reflect the header so use that and adapt the size
-    let typography = LeafTypography.header;
-    typography.size = 25;
+    let headerTypography = LeafTypography.header;
+    headerTypography.size = 25;
+
+    let searchTypography = LeafTypography.body;
+    searchTypography.size = 18;
 
     return (
         <SafeAreaView style={styles.container}>
             <VStack paddingX={LeafBaseDimensions.screenPadding/2} flex={1}>
-                <LeafText typography={typography} style={styles.title}> 
+                <LeafText typography={headerTypography} style={styles.title}> 
                     {title}
                 </LeafText>
 
@@ -54,11 +59,29 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                     searchable
                         ? 
                     <View style={styles.searchBarWrapper}>
-                        {/* TODO: add style to search bar */}
+                        {/* TODO: Create LeafSearchbar */}
                         <Searchbar
                             placeholder="Search"
+                            placeholderTextColor="#c6bcd6"
                             onChangeText={onChangeSearch}
                             value={searchQuery}
+                            theme={{ colors: { primary: LeafColors.textDark.getColor() } }}
+                            icon={({ size, color }) => (
+                                <LeafIcon icon="magnify" color={new LeafColor(color)} size={size} style={{paddingLeft: 8}} />
+                            )}
+                            iconColor={LeafColors.textDark.getColor()}
+                            inputStyle={{
+                                color: LeafColors.textDark.getColor(),
+                                ...searchTypography.getStylesheet(),
+                                marginVertical: -10,
+                            }}
+                            style={{
+                                backgroundColor: "#f1edfc",
+                                borderRadius: 30,
+                                borderWidth: 1,
+                                borderColor: "#ded8e8",
+                                height: 55,
+                            }}
                         />
                     </View>
                         :
