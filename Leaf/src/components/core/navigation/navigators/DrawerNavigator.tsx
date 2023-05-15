@@ -80,6 +80,9 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                 // TODO: Extract into accentBackgroundColor
                 drawerActiveBackgroundColor:  "#f1edfc",
                 drawerActiveTintColor: LeafColors.accent.getColor(),
+                drawerItemStyle: {
+                    borderRadius: 16,
+                },
                 drawerLabelStyle: {
                     ...drawerLabelTypograhy.getStylesheet(),
                 }
@@ -97,7 +100,13 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                                 <Icon 
                                     name={focused ? stack.focusedIcon : stack.icon} 
                                     color={focused ? LeafColors.accent.getColor() : color} 
-                                    size={size} 
+                                    size={size}
+                                    style={{
+                                        // TODO: Not sure how this is supposed to be accomplished
+                                        // (A bit hacky)
+                                        paddingLeft: 8,
+                                        marginRight: -16,
+                                    }} 
                                 />
                             )
                         }}
