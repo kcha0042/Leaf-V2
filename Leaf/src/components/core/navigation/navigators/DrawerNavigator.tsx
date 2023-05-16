@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeafText from "../../views/LeafText/LeafText"
 import LeafTypography from "../../styles/LeafTypography"
 import { LeafFontWeight } from "../../styles/typography/LeafFontWeight"
+import { strings } from "../../../../localisation/Strings"
 
 interface Props {
     stacks: LeafStack[]
@@ -23,7 +24,7 @@ interface Props {
 const CustomDrawerContent = (props) => {
     return (
         <DrawerContentScrollView {...props}>
-            <LeafText style={{ paddingLeft: 5 }} typography={LeafTypography.header} > Intake </LeafText>
+            <LeafText style={{ paddingLeft: 5 }} typography={LeafTypography.header}> {strings("appName")} </LeafText>
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
     );

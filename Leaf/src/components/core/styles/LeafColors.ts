@@ -60,6 +60,11 @@ class LeafColors {
         return new LeafColor("#e03131");
     }
 
+    static get textUnderlyingAccent(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#c6bcd6");
+    }
+
     // Backgrounds
 
     static get textBackgroundDark(): LeafColor {
@@ -70,6 +75,11 @@ class LeafColors {
     static get textBackgroundLight(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#ffffff");
+    }
+
+    static get textBackgroundAccent(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#f1edfc");
     }
 
     static get screenBackgroundLight(): LeafColor {
@@ -92,6 +102,11 @@ class LeafColors {
     static get outlineTextBackgroundDark(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#e9e3e5"); 
+    }
+
+    static get outlineTextBackgroundAccent(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#ded8e8");
     }
 
     // Borders

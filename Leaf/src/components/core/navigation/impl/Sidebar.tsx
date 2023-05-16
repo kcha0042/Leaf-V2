@@ -11,6 +11,7 @@ import LeafBaseDimensions from "../../styles/LeafBaseDimensions";
 import { Spacer, VStack } from "native-base";
 import LeafColor from "../../styles/color/LeafColor";
 import LeafIcon from "../../views/LeafIcon/LeafIcon";
+import { strings } from "../../../../localisation/Strings";
 
 interface Props {
     items: LeafSidebarItem[];
@@ -61,8 +62,8 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                     <View style={styles.searchBarWrapper}>
                         {/* TODO: Create LeafSearchbar */}
                         <Searchbar
-                            placeholder="Search"
-                            placeholderTextColor="#c6bcd6"
+                            placeholder={strings("search.underlying")}
+                            placeholderTextColor={LeafColors.textUnderlyingAccent.getColor()}
                             onChangeText={onChangeSearch}
                             value={searchQuery}
                             theme={{ colors: { primary: LeafColors.textDark.getColor() } }}
@@ -76,10 +77,10 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                                 marginVertical: -10,
                             }}
                             style={{
-                                backgroundColor: "#f1edfc",
+                                backgroundColor: LeafColors.textBackgroundAccent.getColor(),
                                 borderRadius: 30,
                                 borderWidth: 1,
-                                borderColor: "#ded8e8",
+                                borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
                                 height: 55,
                             }}
                         />

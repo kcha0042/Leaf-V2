@@ -10,24 +10,22 @@
 export default {
 
     // Main
-    "appName": "TODO",
+    "appName": "Intake",
 
-    // Tab bar
-    // Worker
+    // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
     "tabBar.worker.patients": "Patients",
     "tabBar.worker.account": "Account",
     
-    // Admin
+    // Admin Tab Bar
     "tabBar.admin.manageNurses": "Home",
 
-    // Leader
+    // Leader Tab Bar
     "tabBar.leader.viewNurses": "Home",
     "tabBar.leader.viewPatients": "Patients",
 
-    // Headers
-    // Worker
+    // Worker Headers
     "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
     "header.worker.patients": "Patients",
@@ -37,10 +35,10 @@ export default {
     "header.worker.patientPreview": "Patient",
     "header.leader.nurses": "Nurses",
 
-    // Admin
+    // Admin Headers
     "header.admin.manageNurses": "Home",
 
-    // Leader
+    // Leader Headers
     "header.leader.viewNurses": "Nurses",
     "header.leader.viewPatients": "Patients",
     "header.leader.allocatePatient": "Allocate Patient",
@@ -72,5 +70,8 @@ export default {
     "triageForm.textInput.surname": "Surname",
     "triageForm.textInput.mrn": "MRN",
     "triageForm.textInput.postcode": "Postcode",
+
+    // Search
+    "search.underlying": "Search",
 
 }
