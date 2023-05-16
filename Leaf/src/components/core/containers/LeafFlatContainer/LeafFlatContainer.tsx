@@ -33,7 +33,7 @@ const LeafFlatCard: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 16,
+        borderRadius: LeafDimensions.fillRadius,
         padding: LeafDimensions.cardPadding,
     }
 });

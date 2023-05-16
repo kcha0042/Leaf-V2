@@ -92,9 +92,14 @@ class LeafColors {
         return new LeafColor("#fafafa")
     }
 
-    static get cardBackgroundLight(): LeafColor {
+    static get fillBackgroundLight(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#f2f3f9");
+    }
+
+    static get fillBackgroundAccent(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#f1edfc");
     }
     
     // Outlines

@@ -35,7 +35,7 @@ const LeafFloatingCard: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 16,
+        borderRadius: LeafDimensions.fillRadius,
         padding: LeafDimensions.cardPadding,
         shadowColor: '#000000',
         shadowOffset: {

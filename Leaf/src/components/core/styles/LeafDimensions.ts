@@ -7,6 +7,8 @@ class LeafDimensions {
 
     static readonly cardPadding = 18;
 
+    static readonly fillRadius = 16;
+
 }
 
 export default LeafDimensions;

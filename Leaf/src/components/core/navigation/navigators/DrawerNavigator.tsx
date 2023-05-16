@@ -15,6 +15,10 @@ import LeafText from "../../views/LeafText/LeafText"
 import LeafTypography from "../../styles/LeafTypography"
 import { LeafFontWeight } from "../../styles/typography/LeafFontWeight"
 import { strings } from "../../../../localisation/Strings"
+import LeafDimensions from "../../styles/LeafDimensions"
+import LeafIcon from "../../views/LeafIcon/LeafIcon"
+import { LeafIconSize } from "../../views/LeafIcon/LeafIconSize"
+import { HStack } from "native-base"
 
 interface Props {
     stacks: LeafStack[]
@@ -24,7 +28,17 @@ interface Props {
 const CustomDrawerContent = (props) => {
     return (
         <DrawerContentScrollView {...props}>
-            <LeafText style={{ paddingLeft: 5 }} typography={LeafTypography.header}> {strings("appName")} </LeafText>
+            <HStack paddingLeft={5}>
+                <LeafIcon 
+                    icon="clipboard-list" 
+                    color={LeafTypography.header.leafColor} 
+                    size={LeafIconSize.header} 
+                    style={{alignSelf: 'center'}} 
+                />
+
+                <LeafText typography={LeafTypography.header}> {strings("appName")} </LeafText>
+            </HStack>
+
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
     );
@@ -78,11 +92,10 @@ export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
                     backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                     width: Environment.instance.getScreenOrientation() == LeafScreenOrientation.Landscape ? Environment.instance.getScreenWidth() * 0.2 : Environment.instance.getScreenWidth() * 0.3
                 },
-                // TODO: Extract into accentBackgroundColor
-                drawerActiveBackgroundColor:  "#f1edfc",
+                drawerActiveBackgroundColor:  LeafColors.fillBackgroundAccent.getColor(),
                 drawerActiveTintColor: LeafColors.accent.getColor(),
                 drawerItemStyle: {
-                    borderRadius: 16,
+                    borderRadius: LeafDimensions.fillRadius,
                 },
                 drawerLabelStyle: {
                     ...drawerLabelTypograhy.getStylesheet(),

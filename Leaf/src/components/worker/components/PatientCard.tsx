@@ -29,7 +29,7 @@ const PatientCard: React.FC<Props> = ({
     let datetimeText = `${timeText}  |  ${dateText}`;
     return (
         <LeafFlatCard 
-            color={LeafColors.cardBackgroundLight}
+            color={LeafColors.fillBackgroundLight}
             style={style}
             onPress={onPress}
         >
