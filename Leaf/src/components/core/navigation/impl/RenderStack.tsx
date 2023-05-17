@@ -75,6 +75,9 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
             React.useCallback(() => {
                 // Reset showStack when this screen is focused
                 setShowStack(false);
+                return () => {
+                    setShowStack(false);
+                }
             }, [])
         );
 
@@ -98,8 +101,9 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
                 </View>
             )
         }
-
-        return renderNativeStack(leafStack, hasSidebar);
+        else{
+            return renderNativeStack(leafStack, hasSidebar);
+        }
     };
     
     return NativeStack;
