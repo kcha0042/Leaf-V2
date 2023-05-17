@@ -73,8 +73,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
 
         useFocusEffect(
             React.useCallback(() => {
-                // Reset showStack when this screen is focused
-                setShowStack(false);
+                // Reset showStack when this screen is lose focus
                 return () => {
                     setShowStack(false);
                 }
