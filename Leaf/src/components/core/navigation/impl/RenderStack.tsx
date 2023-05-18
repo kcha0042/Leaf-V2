@@ -73,8 +73,10 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
 
         useFocusEffect(
             React.useCallback(() => {
-                // Reset showStack when this screen is focused
-                setShowStack(false);
+                // Reset showStack when this screen is lose focus
+                return () => {
+                    setShowStack(false);
+                }
             }, [])
         );
 
@@ -83,10 +85,10 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
 
         StateManager.drawerShowStack.subscribe(() => {
             setShowStack(StateManager.drawerShowStack.read())
-        })
+        });
 
-        if (hasSidebar){
-            return(
+        if (hasSidebar) {
+            return (
                 <View style={styles.container}>
                     <View style={styles.sidebarWrapper}>
                         <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].title} searchable={leafStack.sideBarSearchable}/>
@@ -97,9 +99,9 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
                     </View>
                 </View>
             )
+        } else {
+            return renderNativeStack(leafStack, hasSidebar);
         }
-
-        return renderNativeStack(leafStack, hasSidebar);
     };
     
     return NativeStack;
