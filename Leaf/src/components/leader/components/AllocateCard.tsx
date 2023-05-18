@@ -16,7 +16,7 @@ const AllocateCard: React.FC<Props> = ({
     style,
     onPress
 }) => {
-    return(
+    return (
         <LeafFloatingCard 
             color={LeafColors.textBackgroundLight}
             style={style}

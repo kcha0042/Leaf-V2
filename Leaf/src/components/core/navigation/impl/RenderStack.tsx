@@ -85,10 +85,10 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
 
         StateManager.drawerShowStack.subscribe(() => {
             setShowStack(StateManager.drawerShowStack.read())
-        })
+        });
 
-        if (hasSidebar){
-            return(
+        if (hasSidebar) {
+            return (
                 <View style={styles.container}>
                     <View style={styles.sidebarWrapper}>
                         <Sidebar items={leafStack.sideBarItemList} title={leafStack.screens[0].title} searchable={leafStack.sideBarSearchable}/>
@@ -99,8 +99,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
                     </View>
                 </View>
             )
-        }
-        else{
+        } else {
             return renderNativeStack(leafStack, hasSidebar);
         }
     };
