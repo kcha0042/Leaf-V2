@@ -30,7 +30,7 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
 
     // Searchbar
     const [searchQuery, setSearchQuery] = React.useState('');
-    const [filteredSidebarItems, setFilteredSidebarItems] = React.useState(items)
+    const [filteredSidebarItems, setFilteredSidebarItems] = React.useState(items);
 
     // Filter items
     const onChangeSearch = (query) => {
