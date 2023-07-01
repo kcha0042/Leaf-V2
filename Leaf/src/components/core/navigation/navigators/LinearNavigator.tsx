@@ -28,7 +28,7 @@ export const LinearNavigator: React.FC<Props> = ({ stack }) => {
                     return (
                         <Stack.Screen 
                             key={screen.id}
-                            name={screen.title}
+                            name={screen.id}
                             component={screen.component}
                             options={({ navigation }) => ({
                                 ...screen.options,

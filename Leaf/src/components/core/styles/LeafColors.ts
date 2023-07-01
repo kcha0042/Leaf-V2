@@ -60,6 +60,11 @@ class LeafColors {
         return new LeafColor("#e03131");
     }
 
+    static get textSuccess(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#099268");
+    }
+
     // Applies to text that overlays textBackgroundAccent and indicates what
     // should go in that text entry
     static get textUnderlyingAccent(): LeafColor {
