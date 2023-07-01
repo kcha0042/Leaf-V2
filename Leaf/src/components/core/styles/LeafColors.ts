@@ -60,9 +60,23 @@ class LeafColors {
         return new LeafColor("#e03131");
     }
 
+    static get textSuccess(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#099268");
+    }
+
+    // Applies to text that overlays textBackgroundAccent and indicates what
+    // should go in that text entry
     static get textUnderlyingAccent(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#c6bcd6");
+    }
+
+    // Applies to text that is used to label a text input but doesn't overlay
+    // the text input itself
+    static get textInputDescription(): LeafColor {
+        // // TODO: Update for dark mode
+        return new LeafColor("#99989a");
     }
 
     // Backgrounds

@@ -5,13 +5,10 @@ import StateManager from "../../../../state/publishers/StateManager";
 import LeafColors from "../../styles/LeafColors";
 import LeafTypography from "../../styles/LeafTypography";
 import LeafText from "../../views/LeafText/LeafText";
-import { Searchbar } from 'react-native-paper';
 import LeafSidebarItem from "../LeafSidebarItem";
 import LeafBaseDimensions from "../../styles/LeafBaseDimensions";
-import { Spacer, VStack } from "native-base";
-import LeafColor from "../../styles/color/LeafColor";
-import LeafIcon from "../../views/LeafIcon/LeafIcon";
-import { strings } from "../../../../localisation/Strings";
+import { VStack } from "native-base";
+import LeafSearchBar from "../../views/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     items: LeafSidebarItem[];
@@ -32,8 +29,8 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
     }, [])
 
     // Searchbar
-    const [ searchQuery, setSearchQuery ] = React.useState('');
-    const [ filteredSidebarItems, setFilteredSidebarItems] = React.useState(items)
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [filteredSidebarItems, setFilteredSidebarItems] = React.useState(items);
 
     // Filter items
     const onChangeSearch = (query) => {
@@ -60,29 +57,9 @@ export const Sidebar: React.FC<Props> = ({ items, title, searchable }) => {
                     searchable
                         ? 
                     <View style={styles.searchBarWrapper}>
-                        {/* TODO: Create LeafSearchbar */}
-                        <Searchbar
-                            placeholder={strings("search.underlying")}
-                            placeholderTextColor={LeafColors.textUnderlyingAccent.getColor()}
-                            onChangeText={onChangeSearch}
-                            value={searchQuery}
-                            theme={{ colors: { primary: LeafColors.textDark.getColor() } }}
-                            icon={({ size, color }) => (
-                                <LeafIcon icon="magnify" color={new LeafColor(color)} size={size} style={{paddingLeft: 8}} />
-                            )}
-                            iconColor={LeafColors.textDark.getColor()}
-                            inputStyle={{
-                                color: LeafColors.textDark.getColor(),
-                                ...searchTypography.getStylesheet(),
-                                marginVertical: -10,
-                            }}
-                            style={{
-                                backgroundColor: LeafColors.textBackgroundAccent.getColor(),
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
-                                height: 55,
-                            }}
+                        <LeafSearchBar 
+                            searchQuery={searchQuery} 
+                            onSearch={onChangeSearch} 
                         />
                     </View>
                         :

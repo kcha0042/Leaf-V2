@@ -3,6 +3,7 @@ import { TextInput } from 'react-native-paper';
 import { ViewStyle } from 'react-native';
 import LeafColor from '../../styles/color/LeafColor';
 import LeafColors from '../../styles/LeafColors';
+import LeafTypography from '../../styles/LeafTypography';
 
 interface Props {
     label: string;
@@ -22,6 +23,7 @@ const LeafTextInput: React.FC<Props> = ({
     onTextChange,
 }) => {
     const [text, setText] = React.useState("");
+    let typography = LeafTypography.body;
 
     return (
         <TextInput
@@ -34,6 +36,9 @@ const LeafTextInput: React.FC<Props> = ({
                 { backgroundColor: color.getColor() },
                 style,
             ]}
+            contentStyle={{
+                ...typography.getStylesheet(),
+            }}
             outlineColor={LeafColors.outlineTextBackgroundDark.getColor()} 
             theme={{ colors: { primary: textColor.getColor() } }}
             outlineStyle={{ borderRadius: 12 }}
