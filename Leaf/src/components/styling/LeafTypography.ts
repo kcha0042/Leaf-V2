@@ -101,6 +101,14 @@ class LeafTypography {
         );
     }
 
+    static get subscriptLabel(): LeafTypographyConfig {
+        return new LeafTypographyConfig(
+            11.5,
+            LeafFontFamily.poppins,
+            LeafColors.textSemiDark,
+        );
+    }
+
 }
 
 export default LeafTypography;

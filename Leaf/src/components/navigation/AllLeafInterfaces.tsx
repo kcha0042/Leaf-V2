@@ -14,8 +14,8 @@ export const WorkerInterface = new LeafInterface()
                 NavigationEnvironment.inst.clearScreens();
                 NavigationEnvironment.inst.setSidebarComponent(<YourPatientsScreen />, "Your Patients");
             },
-            "home",
-            "home-outline",
+            "home-variant",
+            "home-variant-outline",
         )
     )
     .addRoot(

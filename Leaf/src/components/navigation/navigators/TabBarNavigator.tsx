@@ -16,6 +16,7 @@ import NavigationEnvironment from "./NavigationEnvironment"
 import NavigationStateManager from "./NavigationStateManager"
 import { EmptyScreen } from "../EmptyScreen"
 import VStack from "../../containers/VStack"
+import TabBarItem from "../../custom/TabBarItem"
 
 interface Props {
     leafInterface: LeafInterface
@@ -105,45 +106,17 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
             <SafeAreaView 
           edges={['bottom']}
         >
-            <HStack style={{ width: "100%", }}>
-                <LeafButton 
-                    label={"1"}
-                    icon="arrow-right-circle"
-                    typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled} 
-                    color={LeafColors.accent}
-                    wide={false}
-                    onPress={() => {
-                        NavigationEnvironment.inst.clearScreens();
-                        NavigationEnvironment.inst.setSidebarComponent(<YourPatientsScreen />, "Your Patients");
-                    }}
-                />
-
-                <LeafButton 
-                    label={"test"}
-                    icon="arrow-right-circle"
-                    typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled} 
-                    color={LeafColors.accent}
-                    wide={false}
-                    onPress={() => {
-                        NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
-                        NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
-                    }}
-                />
-
-                <LeafButton 
-                    label={"3"}
-                    icon="arrow-right-circle"
-                    typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled} 
-                    color={LeafColors.accent}
-                    wide={false}
-                    onPress={() => {
-                        NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
-                        NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
-                    }}
-                />
+            <HStack style={{ width: "100%", justifyContent: 'space-around', paddingHorizontal: 8 }}>
+                {
+                    leafInterface.roots.map((root, index) => {
+                        return (
+                            <TabBarItem
+                                leafStackRoot={root}
+                                key={root.id.toString()}
+                            />
+                        )
+                    })
+                }
             </HStack>
             </SafeAreaView>
         </VStack>
