@@ -3,12 +3,10 @@ import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import { NavigationContainer } from "@react-navigation/native";
-import { WorkerInterface } from "./worker/navigation/WorkerInterface";
 import { LinearNavigator } from "./core/navigation/navigators/LinearNavigator";
 import { loginStack } from "./login/navigation/LoginStack";
 import { InterfaceNavigator } from "./core/navigation/navigators/AppNavigator";
-import { AdminInterface } from "./admin/navigation/AdminInterface";
-import { LeaderInterface } from "./leader/navigation/LeaderInterface";
+import { WorkerInterface } from "./core/navigation/AllLeafInterfaces";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
@@ -27,9 +25,9 @@ const MainScreen: React.FC = () => {
         case LoginStatus.worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />
         case LoginStatus.leader:
-            return <InterfaceNavigator leafInterface={LeaderInterface} />
+            return <InterfaceNavigator leafInterface={WorkerInterface} />
         case LoginStatus.admin:
-            return <InterfaceNavigator leafInterface={AdminInterface} />
+            return <InterfaceNavigator leafInterface={WorkerInterface} />
         default:
             throw new UnreachableCaseError(loginStatus);
     }

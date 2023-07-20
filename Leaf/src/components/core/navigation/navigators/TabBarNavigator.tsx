@@ -33,9 +33,10 @@ import { YourPatientsStack } from "../../../worker/navigation/stacks/YourPatient
 import { PatientsStack } from "../../../worker/navigation/stacks/PatientsStack"
 import { NewTriageStack } from "../../../worker/navigation/stacks/NewTriageStack"
 import LeafScreen from "../LeafScreen"
+import LeafInterface from "../LeafInterface"
 
 interface Props {
-    stacks: LeafStack[]
+    leafInterface: LeafInterface
 }
 
 /**
@@ -43,7 +44,7 @@ interface Props {
  * @param param0 {@link Props}
  * @returns a JSX tab bar
  */
-export const TabBarNavigator: React.FC<Props> = ({ stacks }) => {
+export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     const [sidebar, setSidebar] = useState<JSX.Element | undefined>(undefined);
     const [screens, setScreens] = useState<LeafScreen[]>([]);
 

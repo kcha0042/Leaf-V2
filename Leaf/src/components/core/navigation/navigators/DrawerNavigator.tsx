@@ -33,13 +33,14 @@ import { YourPatientsStack } from "../../../worker/navigation/stacks/YourPatient
 import { PatientsStack } from "../../../worker/navigation/stacks/PatientsStack"
 import { NewTriageStack } from "../../../worker/navigation/stacks/NewTriageStack"
 import LeafScreen from "../LeafScreen"
+import LeafInterface from "../LeafInterface"
 
 interface Props {
-    stacks: LeafStack[];
+    leafInterface: LeafInterface
 }
 
 const DrawerNavigator: React.FC<Props> = ({ 
-    stacks 
+    leafInterface 
 }) => {
     const [sidebar, setSidebar] = useState<JSX.Element | undefined>(undefined);
     const [screens, setScreens] = useState<LeafScreen[]>([]);

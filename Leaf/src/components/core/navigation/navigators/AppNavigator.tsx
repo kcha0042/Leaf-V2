@@ -3,7 +3,7 @@ import React from "react";
 import Environment from "../../../../state/environment/Environment";
 import { ScreenType } from "../../../../state/environment/types/ScreenType";
 import { TabBarNavigator } from "./TabBarNavigator";
-import LeafInterface from "../LeafAccountUI";
+import LeafInterface from "../LeafInterface";
 import DrawerNavigator from "./DrawerNavigator";
 
 interface Props {
@@ -18,9 +18,9 @@ export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
             {
                 deviceIsTablet 
                     ? 
-                <DrawerNavigator stacks={leafInterface.stacks}/> 
+                <DrawerNavigator leafInterface={leafInterface}/> 
                     :
-                <TabBarNavigator stacks={leafInterface.stacks}/>
+                <TabBarNavigator leafInterface={leafInterface}/>
             }
         </NavigationContainer>
     ) 
