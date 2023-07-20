@@ -56,8 +56,15 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
             <View
                 style={{
                     flex: 1,
+                    width: "100%",
                 }}
             >
+                <SafeAreaView
+                    edges={['top']}
+                    style={{ 
+                        flex: 1,
+                    }}
+                >
                 {
                         screens.length == 0
                             ?
@@ -92,16 +99,13 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                             }
                         </Stack.Navigator>
                     }
+                    </SafeAreaView>
             </View>
 
             <SafeAreaView 
           edges={['bottom']}
-          style={[
-         
-            { backgroundColor: 'red' },
-          ]}
         >
-            <HStack>
+            <HStack style={{ width: "100%", }}>
                 <LeafButton 
                     label={"1"}
                     icon="arrow-right-circle"

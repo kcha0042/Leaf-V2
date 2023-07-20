@@ -20,9 +20,11 @@ interface Props {
 const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
 
-    StateManager.patientsFetched.subscribe(() => {
-        setPatients(Session.instance.getAllPatients());
-    });
+    useEffect(() => {
+        StateManager.patientsFetched.subscribe(() => {
+            setPatients(Session.instance.getAllPatients());
+        });
+    }, []);
 
     useEffect(() => {
         Session.instance.fetchAllPatients();
@@ -30,7 +32,6 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.instance.setActivePatient(patient);
-        // navigation.navigate("PATIENT_PREVIEW");
         NavigationEnvironment.inst.navigationTo(PatientsScreen, navigation, patient.fullName);
     }
 

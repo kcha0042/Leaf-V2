@@ -111,6 +111,11 @@ const DrawerNavigator: React.FC<Props> = ({
                     width: sidebar == undefined ? "80%" : "55%",
                 }}
             >
+                <SafeAreaView
+                    style={{
+                        height: "100%",
+                    }}
+                >
                 {
                         screens.length == 0
                             ?
@@ -145,6 +150,7 @@ const DrawerNavigator: React.FC<Props> = ({
                             }
                         </Stack.Navigator>
                     }
+                    </SafeAreaView>
             </View>
         </HStack>
     );

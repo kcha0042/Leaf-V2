@@ -62,14 +62,10 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
     });
 
     return (
-        <SafeAreaView 
-          edges={['top']}
-          style={[
-            styles.safeAreaWrapper,
-            { backgroundColor: backgroundColor },
-          ]}
-        >
-            <View style={{...styles.header}}>
+            <View style={{
+              backgroundColor: backgroundColor,
+              ...styles.header
+            }}>
                 {/* Only have the button if we can go back */}
                 {
                     buttonProps.canGoBack ?
@@ -85,11 +81,8 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
                   {headerTitle}
                 </LeafText>
             </View>
-        </SafeAreaView>
     )
 };
-
-const height = 80;
 
 const styles = StyleSheet.create({
   header: {
