@@ -30,6 +30,9 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
 
     const [headerTitle, setHeaderTitle] = React.useState<string>(title);
 
+    // TODO: I don't think header title callbacks are necessary anymore
+    // (I need to check this, but we pass it from the previous controller so...)
+
     StateManager.headerColor.subscribe(() => {
         setBackgroundColor(StateManager.headerColor.read());
     });

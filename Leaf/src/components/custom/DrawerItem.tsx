@@ -28,7 +28,7 @@ const DrawerItem: React.FC<Props> = ({
     return (
         <FlatContainer 
             color={isFocused ? LeafColors.fillBackgroundLight : LeafColors.screenBackgroundLight}
-            onPress={leafStackRoot.activateStack}
+            onPress={leafStackRoot.activateOnDrawer}
         >
             <HStack>
                 <FlatContainer

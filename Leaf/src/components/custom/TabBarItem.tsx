@@ -31,7 +31,7 @@ const TabBarItem: React.FC<Props> = ({
             }}
         >
             <TouchableWithoutFeedback
-                onPress={leafStackRoot.activateStack}
+                onPress={leafStackRoot.activateOnTabBar}
                 style={{ paddingVertical: padding, paddingHorizontal: 30 }}
             >
                 <LeafIcon
