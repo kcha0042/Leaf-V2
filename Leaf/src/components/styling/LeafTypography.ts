@@ -80,6 +80,27 @@ class LeafTypography {
         );
     }
 
+    static get drawerItem(): LeafTypographyConfig {
+        return new LeafTypographyConfig(
+            15,
+            LeafFontFamily.poppins,
+            LeafColors.textDark,
+        );
+    }
+
+    static get drawerTitle(): LeafTypographyConfig {
+        return new LeafTypographyConfig(
+            32,
+            LeafFontFamily.circular,
+            LeafColors.textDark,
+            LeafFontWeight.black,
+            false,
+            false,
+            false,
+            -0.5
+        );
+    }
+
 }
 
 export default LeafTypography;

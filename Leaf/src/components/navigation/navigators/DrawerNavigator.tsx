@@ -16,6 +16,9 @@ import NavigationEnvironment from "./NavigationEnvironment"
 import NavigationStateManager from "./NavigationStateManager"
 import { EmptyScreen } from "../EmptyScreen"
 import VStack from "../../containers/VStack"
+import DrawerItem from "../../custom/DrawerItem"
+import { strings } from "../../../localisation/Strings"
+import LeafDimensions from "../../styling/LeafDimensions"
 
 interface Props {
     leafInterface: LeafInterface
@@ -60,18 +63,22 @@ const DrawerNavigator: React.FC<Props> = ({
                 }}
             >
                 <SafeAreaView style={{ width: "100%" }}>
-                    <LeafText typography={LeafTypography.body}> Hello World </LeafText>
+                    <LeafText 
+                        typography={LeafTypography.drawerTitle}
+                        style={{
+                            paddingTop: 4,
+                            paddingLeft: 8,
+                            paddingBottom: 16,
+                        }}
+                    > 
+                        {strings("appName")} 
+                    </LeafText>
+
                     {
                         leafInterface.roots.map((root, index) => {
-                            let icon = NavigationEnvironment.inst.focusedStackRoot != undefined && NavigationEnvironment.inst.focusedStackRoot.matches(root.id) ? root.focusedIcon : root.icon;
                             return (
-                                <LeafButton 
-                                    label={root.title}
-                                    icon={icon}
-                                    typography={LeafTypography.primaryButton}
-                                    type={LeafButtonType.filled} 
-                                    color={LeafColors.accent}
-                                    onPress={root.activateStack}
+                                <DrawerItem 
+                                    leafStackRoot={root} 
                                     key={root.id.toString()}
                                 />
                             )

@@ -10,7 +10,7 @@ interface Props {
     // Icon fill color
     color: LeafColor;
     // Icon size
-    size: LeafIconSize;
+    size: number;
     // Custom style
     style?: ViewStyle;
 }

@@ -70,14 +70,4 @@ const PatientCard: React.FC<Props> = ({
     );
 }
 
-export const PatientCardWrapper = (patient: Patient): React.FC => {
-    const SidebarItem: React.FC = () => {
-        return (
-            <PatientCard patient={patient} onPress={() => null}/>
-        )
-    }
-
-    return SidebarItem
-}
-
 export default PatientCard;
