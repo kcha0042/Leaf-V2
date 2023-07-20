@@ -9,6 +9,11 @@ class NavigationEnvironment {
 
     public static readonly inst = new NavigationEnvironment()
 
+    private _focusedStackRoot: UUID | undefined = undefined;
+    public get focusedStackRoot(): UUID | undefined {
+        return this._focusedStackRoot;
+    }
+
     private _sidebarComponent: JSX.Element | undefined = undefined;
     public get sidebarComponent(): JSX.Element | undefined {
         return this._sidebarComponent;
@@ -64,6 +69,12 @@ class NavigationEnvironment {
             }
         }
         NavigationStateManager.newScreenAdded.publish();
+    }
+
+    public setFocusedStackRoot(id: UUID | undefined) {
+        // If we want in the future, we can check if the incoming id matches the current id
+        // and if they do, unfocus the current stack root
+        this._focusedStackRoot = id;
     }
 
 }

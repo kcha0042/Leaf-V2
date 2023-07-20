@@ -10,6 +10,8 @@ interface Props {
 export const LinearNavigator: React.FC<Props> = ({ screens }) => {
     const Stack = createStackNavigator();
 
+    // TODO: Clean up whatever this is supposed to be
+
     const { height, width } = useSafeAreaFrame();
     const { top, bottom } = useSafeAreaInsets();
     const styles = {

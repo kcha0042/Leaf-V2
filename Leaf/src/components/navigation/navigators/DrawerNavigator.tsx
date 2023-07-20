@@ -63,10 +63,11 @@ const DrawerNavigator: React.FC<Props> = ({
                     <LeafText typography={LeafTypography.body}> Hello World </LeafText>
                     {
                         leafInterface.roots.map((root, index) => {
+                            let icon = NavigationEnvironment.inst.focusedStackRoot != undefined && NavigationEnvironment.inst.focusedStackRoot.matches(root.id) ? root.focusedIcon : root.icon;
                             return (
                                 <LeafButton 
                                     label={root.title}
-                                    icon={root.icon}
+                                    icon={icon}
                                     typography={LeafTypography.primaryButton}
                                     type={LeafButtonType.filled} 
                                     color={LeafColors.accent}
