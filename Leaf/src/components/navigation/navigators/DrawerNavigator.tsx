@@ -93,7 +93,11 @@ const DrawerNavigator: React.FC<Props> = ({
                         <SafeAreaView style={{ flex: 1, width: "100%"}}>
                             <VStack style={{ flex: 1, width: "100%" }}>
                                 <LeafText
-                                    typography={LeafTypography.body}
+                                    typography={LeafTypography.header.withSize(24)}
+                                    style={{
+                                        textAlign: 'center',
+                                        paddingTop: 12,
+                                    }}
                                 >
                                     {NavigationEnvironment.inst.sidebarHeader}
                                 </LeafText>

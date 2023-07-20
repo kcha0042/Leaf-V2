@@ -57,6 +57,36 @@ class LeafTypographyConfig {
         this.kerning = kerning;
     }
 
+    public withSize(size: number): LeafTypographyConfig {
+        this.size = size;
+        return this;
+    }
+
+    public withColor(color: LeafColor): LeafTypographyConfig {
+        this.leafColor = color;
+        return this;
+    }
+
+    public withWeight(weight: LeafFontWeight): LeafTypographyConfig {
+        this.weight = weight;
+        return this;
+    }
+
+    public withItalic(italic: boolean): LeafTypographyConfig {
+        this.italic = italic;
+        return this;
+    }
+
+    public withUnderline(underline: boolean): LeafTypographyConfig {
+        this.underlined = underline;
+        return this;
+    }
+
+    public withLineOut(lineOut: boolean): LeafTypographyConfig {
+        this.linedOut = lineOut;
+        return this;
+    }
+
     public getStylesheet(): {} {
         return StyleSheet.create({
             typography: {
