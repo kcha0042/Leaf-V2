@@ -1,8 +1,6 @@
-import { ScrollView, Spacer, VStack, View } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import { strings } from "../../localisation/Strings";
 import LeafColors from "../core/styles/LeafColors";
 import LeafTextInput from "../core/views/LeafTextInput/LeafTextInput";
@@ -13,6 +11,10 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import { PatientsNavigationProp } from "./navigation/Params";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
+import { ScrollView, View } from "react-native";
+import VStack from "../core/containers/VStack";
+import LeafDimensions from "../core/styles/LeafDimensions";
+import Spacer from "../core/containers/Spacer";
 
 interface Props {
     navigation?: PatientsNavigationProp;
@@ -23,16 +25,19 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         <View 
             style={{
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                flex: 1,
+                width: "100%",
             }}
         >
             <ScrollView 
-                flex={1}
-                padding={LeafBaseDimensions.screenPadding}
+                style={{
+                    flex: 1,
+                    padding: LeafDimensions.screenPadding,
+                    width: "100%",
+                }}
             >
                 <VStack 
-                    flex={1}
-                    space={LeafBaseDimensions.screenSpacing}
+                    spacing={LeafDimensions.screenSpacing}
                 >
                     <FormCard
                         icon="clipboard-account"

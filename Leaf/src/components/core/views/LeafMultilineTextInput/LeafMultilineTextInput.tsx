@@ -5,8 +5,8 @@ import LeafColor from '../../styles/color/LeafColor';
 import LeafColors from '../../styles/LeafColors';
 import LeafTypography from '../../styles/LeafTypography';
 import LeafText from '../LeafText/LeafText';
-import { VStack } from 'native-base';
 import useForceUpdate from 'use-force-update';
+import VStack from '../../containers/VStack';
 
 interface Props {
     label: string;
@@ -47,7 +47,7 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     }
 
     return (
-        <VStack width={"100%"}>
+        <VStack style={{ width: "100%" }}>
             <LeafText typography={labelTypography} style={{ color: labelColor.getColor() }}>
                 {label}
             </LeafText>

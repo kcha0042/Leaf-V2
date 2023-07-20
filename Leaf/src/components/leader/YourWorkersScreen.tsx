@@ -1,4 +1,3 @@
-import { ScrollView, Spacer, VStack } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
@@ -6,11 +5,13 @@ import LeafDimensions from "../core/styles/LeafDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Worker from "../../model/employee/Worker";
-import { FlatList } from "native-base";
 import { strings } from "../../localisation/Strings";
 import WorkerCard from "./components/WorkerCard";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import LeafColors from "../core/styles/LeafColors";
+import { FlatList, ScrollView } from "react-native";
+import VStack from "../core/containers/VStack";
+import Spacer from "../core/containers/Spacer";
+import VGap from "../core/containers/VGap";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());
@@ -30,15 +31,17 @@ const YourWorkersScreen: React.FC = () => {
 
     return (
         <ScrollView 
-            flex={1}
-            padding={LeafBaseDimensions.screenPadding}
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor()
+                flex: 1,
+                padding: LeafDimensions.screenPadding,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >
             <VStack 
-                flex={1}
-                space={LeafBaseDimensions.screenSpacing}
+                spacing={LeafDimensions.screenSpacing}
+                style={{
+                    flex: 1,
+                }}
             >
                 <FlatList
                     data={workers}
@@ -50,14 +53,14 @@ const YourWorkersScreen: React.FC = () => {
                     )}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafBaseDimensions.cardSpacing} />
+                        <VGap size={LeafDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
-                    // flexGrow ensures the frame wraps only the FlatList content
-                    flexGrow={0}
-                    // Stop shadows getting clipped
                     // Don't use overflow prop - doesn't work on web
-                    style={{ overflow: 'visible' }}
+                    style={{ 
+                        overflow: 'visible', // Stop shadows getting clipped
+                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                    }}
                 />
 
                 <Spacer />

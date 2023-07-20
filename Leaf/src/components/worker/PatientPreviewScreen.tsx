@@ -1,13 +1,13 @@
-import { ScrollView, Spacer, VStack } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import LeafColors from "../core/styles/LeafColors";
 import { PatientsNavigationProp } from "./navigation/Params";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
+import LeafDimensions from "../core/styles/LeafDimensions";
+import VStack from "../core/containers/VStack";
 
 interface Props {
     navigation?: PatientsNavigationProp;
@@ -46,12 +46,16 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
             }}
         >
             <ScrollView 
-                flex={1}
-                padding={LeafBaseDimensions.screenPadding}
+                style={{
+                    flex: 1,
+                    padding: LeafDimensions.screenPadding
+                }}
             >
                 <VStack 
-                    flex={1}
-                    space={LeafBaseDimensions.screenSpacing}
+                    spacing={LeafDimensions.screenSpacing}
+                    style={{
+                        flex: 1
+                    }}
                 >
                     <LeafText
                         typography={LeafTypography.body}

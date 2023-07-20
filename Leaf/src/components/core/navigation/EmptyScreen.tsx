@@ -1,5 +1,4 @@
-import { View } from "native-base"
-import { StyleSheet } from "react-native"
+import { StyleSheet, View } from "react-native"
 import LeafText from "../views/LeafText/LeafText"
 import LeafTypography from "../styles/LeafTypography"
 

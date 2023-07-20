@@ -7,12 +7,13 @@ import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import { Spacer, VStack, View } from "native-base";
 import { strings } from "../../localisation/Strings";
 import Nurse from "../../model/employee/Worker";
-import { ViewStyle } from "react-native";
+import { View, ViewStyle } from "react-native";
 import LeafFloatingCard from "../core/containers/LeafFloatingCard/LeafFloatingCard";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
+import VStack from "../core/containers/VStack";
+import Spacer from "../core/containers/Spacer";
+import VGap from "../core/containers/VGap";
 
 interface Props {
     nurse: Nurse;
@@ -33,12 +34,16 @@ const ManageNurseScreen: React.FC<Props> = ({
     }
     return (
         <View
-            flex={1}
-            padding={LeafBaseDimensions.screenPadding}
+            style={{
+                flex: 1,
+                padding: LeafDimensions.screenPadding
+            }}
         >
             <VStack
-                flex={1}
-                space={LeafBaseDimensions.screenSpacing}
+                spacing={LeafDimensions.screenSpacing}
+                style={{
+                    flex: 1,
+                }}
             >
                 <LeafText typography={LeafTypography.header}>
                     {nurse.firstName + " " + nurse.lastName}
@@ -59,7 +64,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                     onPress={onPress}
                 >
                     <VStack>
-                        <View alignSelf={'flex-start'}>
+                        <View style={{ alignSelf: 'flex-start' }}>
                             <LeafText
                                 typography={LeafTypography.cardTitle}
                                 verticalWrap={true}
@@ -68,7 +73,7 @@ const ManageNurseScreen: React.FC<Props> = ({
                             </LeafText>
                         </View>
 
-                        <Spacer size={3} />
+                        <VGap size={6} />
 
                         <LeafText
                             typography={LeafTypography.subscript}

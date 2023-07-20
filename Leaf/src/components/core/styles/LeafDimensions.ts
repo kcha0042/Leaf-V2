@@ -1,13 +1,18 @@
 
 /**
  * Dimensions to be used application-wide.
- * Adhere to css dimensions. This means they will look wrong if placed in native-base components.
  */
 class LeafDimensions {
 
     static readonly cardPadding = 18;
 
     static readonly fillRadius = 16;
+
+    static readonly screenPadding = 22;
+
+    static readonly screenSpacing = 8;
+
+    static readonly cardSpacing = 14;
 
 }
 

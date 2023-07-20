@@ -1,15 +1,18 @@
-import { Box, Spacer, VStack } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
 import LeafTextInput from "../core/views/LeafTextInput/LeafTextInput";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import LeafButton from "../core/views/LeafButton/LeafButton";
 import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
 import LeafColors from "../core/styles/LeafColors";
 import { strings } from "../../localisation/Strings";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import VStack from "../core/containers/VStack";
+import Spacer from "../core/containers/Spacer";
+import LeafDimensions from "../core/styles/LeafDimensions";
+import { View } from "react-native";
+import VGap from "../core/containers/VGap";
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = React.useState("");
@@ -43,12 +46,14 @@ const LoginScreen: React.FC = () => {
 
     return (
         <VStack 
-            style={{ flex: 1 }} 
-            space={LeafBaseDimensions.screenSpacing} 
-            alignItems={"center"} 
-            width={"100%"}
-            padding={LeafBaseDimensions.screenPadding}
-            backgroundColor={LeafColors.screenBackgroundLight.getColor()}
+            spacing={LeafDimensions.screenSpacing} 
+            style={{ 
+                flex: 1,
+                alignItems: 'center',
+                width: '100%',
+                padding: LeafDimensions.screenPadding,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+            }}
         >
             <Spacer />
 
@@ -59,7 +64,13 @@ const LoginScreen: React.FC = () => {
                 {strings("login.title")}
             </LeafText>
 
-            <Box maxWidth={"400px"} alignItems={"center"} width={"100%"}>
+            <View 
+                style={{
+                    maxWidth: 400,
+                    alignItems: 'center',
+                    width: "100%"
+                }}
+            >
                 <LeafTextInput
                     label={strings("login.inputLabel.username")}
                     textColor={LeafColors.textDark}
@@ -67,7 +78,7 @@ const LoginScreen: React.FC = () => {
                     onTextChange={onUsernameInput}
                 />
 
-                <Spacer size={2} />
+                <VGap size={4} />
 
                 <LeafTextInput
                     label={strings("login.inputLabel.password")}
@@ -85,7 +96,7 @@ const LoginScreen: React.FC = () => {
                     style={{ marginTop: 40 }}
                     onPress={onLoginPressed}
                 />
-            </Box>
+            </View>
 
             <Spacer />
             

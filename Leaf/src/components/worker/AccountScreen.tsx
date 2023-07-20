@@ -1,11 +1,11 @@
-import { ScrollView, Spacer, VStack } from "native-base";
 import React from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import LeafColors from "../core/styles/LeafColors";
 import { PatientsNavigationProp } from "./navigation/Params";
+import VStack from "../core/containers/VStack";
+import LeafDimensions from "../core/styles/LeafDimensions";
 
 interface Props {
     navigation?: PatientsNavigationProp;
@@ -20,12 +20,16 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             }}
         >
             <ScrollView 
-                flex={1}
-                padding={LeafBaseDimensions.screenPadding}
+                style={{
+                    flex: 1,
+                    padding: LeafDimensions.screenPadding
+                }}
             >
                 <VStack 
-                    flex={1}
-                    space={LeafBaseDimensions.screenSpacing}
+                    spacing={LeafDimensions.screenSpacing}
+                    style={{
+                        flex: 1
+                    }}
                 >
                     <LeafText
                         typography={LeafTypography.body}

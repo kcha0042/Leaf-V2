@@ -1,4 +1,3 @@
-import { ScrollView, Spacer, VStack } from "native-base";
 import React, { useEffect } from "react";
 import LeafText from "../core/views/LeafText/LeafText";
 import LeafTypography from "../core/styles/LeafTypography";
@@ -6,12 +5,14 @@ import LeafDimensions from "../core/styles/LeafDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
-import { FlatList } from "native-base";
 import PatientCard from "../worker/components/PatientCard";
 import { strings } from "../../localisation/Strings";
 import AllocateCard from "./components/AllocateCard";
-import LeafBaseDimensions from "../core/styles/LeafBaseDimensions";
 import LeafColors from "../core/styles/LeafColors";
+import { FlatList, ScrollView } from "react-native";
+import VStack from "../core/containers/VStack";
+import Spacer from "../core/containers/Spacer";
+import VGap from "../core/containers/VGap";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
@@ -39,15 +40,17 @@ const AllocatePatientsScreen: React.FC = () => {
 
     return (
         <ScrollView 
-            flex={1}
-            padding={LeafBaseDimensions.screenPadding}
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor()
+                flex: 1,
+                padding: LeafDimensions.screenPadding,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >
             <VStack 
-                flex={1}
-                space={LeafBaseDimensions.screenSpacing}
+                spacing={LeafDimensions.screenSpacing}
+                style={{
+                    flex: 1,
+                }}
             >
                 <LeafText typography={LeafTypography.header}>
                     Nabeeb
@@ -57,7 +60,6 @@ const AllocatePatientsScreen: React.FC = () => {
                     onPress={() => {onPressNewAllocation}}
                 />
                     
-
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
@@ -68,14 +70,14 @@ const AllocatePatientsScreen: React.FC = () => {
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => (
-                        <Spacer size={LeafBaseDimensions.cardSpacing} />
+                        <VGap size={LeafDimensions.cardSpacing} />
                     )}
                     scrollEnabled={false}
-                    // flexGrow ensures the frame wraps only the FlatList content
-                    flexGrow={0}
-                    // Stop shadows getting clipped
                     // Don't use overflow prop - doesn't work on web
-                    style={{ overflow: 'visible' }}
+                    style={{ 
+                        overflow: 'visible', // Stop shadows getting clipped
+                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                    }}
                 />
 
                 <Spacer />

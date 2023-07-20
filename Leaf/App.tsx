@@ -1,14 +1,10 @@
-import { DefaultTheme, Provider as PaperProvider, Text, TextInput } from 'react-native-paper';
-import { Flex, NativeBaseProvider, VStack } from 'native-base';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { View } from 'react-native';
-import { LeafFont } from './src/components/core/styles/typography/LeafFont';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import MainScreen from './src/components/MainScreen';
-import NewTriageScreen from './src/components/worker/NewTriageScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { LeafFont } from './src/components/core/styles/typography/LeafFont';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,13 +36,11 @@ export default function App() {
   }
   
   return (
-    <NativeBaseProvider>
-      <PaperProvider theme={theme}>
-        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-          <MainScreen />
-        </View>
-      </PaperProvider>
-    </NativeBaseProvider>
+    <PaperProvider theme={theme}>
+      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+        <MainScreen />
+      </View>
+    </PaperProvider>
   );
 }
 

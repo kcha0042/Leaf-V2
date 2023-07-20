@@ -1,13 +1,14 @@
-import { ViewStyle } from "react-native";
+import { View, ViewStyle } from "react-native";
 import Patient from "../../../model/patient/Patient";
+import LeafFlatCard from "../../core/containers/LeafFlatContainer/LeafFlatContainer";
 import LeafColors from "../../core/styles/LeafColors";
 import LeafTypography from "../../core/styles/LeafTypography";
 import LeafText from "../../core/views/LeafText/LeafText";
-import { HStack, Spacer, VStack, View } from "native-base";
 import TriageCodeBadge from "./TriageCodeBadge";
-import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
-import LeafFlatCard from "../../core/containers/LeafFlatContainer/LeafFlatContainer";
-import LeafColor from "../../core/styles/color/LeafColor";
+import VStack from "../../core/containers/VStack";
+import HStack from "../../core/containers/HStack";
+import HGap from "../../core/containers/HGap";
+import VGap from "../../core/containers/VGap";
 
 interface Props {
     patient: Patient;
@@ -30,7 +31,9 @@ const PatientCard: React.FC<Props> = ({
     return (
         <LeafFlatCard 
             color={LeafColors.fillBackgroundLight}
-            style={style}
+            style={{
+                ...style
+            }}
             onPress={onPress}
         >
             <HStack>
@@ -39,12 +42,12 @@ const PatientCard: React.FC<Props> = ({
                     fillSpace={false}
                     style={{
                         alignSelf: 'flex-start',
-                        marginRight: 10,
+                        marginRight: 12,
                     }}
                 />
 
                 <VStack style={{ flexShrink: 1 }}>
-                    <View alignSelf={'flex-start'}>
+                    <View style={{ alignSelf: 'flex-start' }}>
                         <LeafText
                             typography={LeafTypography.cardTitle}
                             verticalWrap={true}
@@ -53,7 +56,7 @@ const PatientCard: React.FC<Props> = ({
                         </LeafText>
                     </View>
 
-                    <Spacer size={3} />
+                    <VGap size={16} />
 
                     <LeafText
                         typography={LeafTypography.subscript}

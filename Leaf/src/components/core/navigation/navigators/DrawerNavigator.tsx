@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack"
-import { VStack } from "native-base"
 import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -16,6 +15,7 @@ import CustomLeafHeader from "../impl/CustomHeader"
 import NavigationEnvironment from "./NavigationEnvironment"
 import NavigationStateManager from "./NavigationStateManager"
 import { EmptyScreen } from "../EmptyScreen"
+import VStack from "../../containers/VStack"
 
 interface Props {
     leafInterface: LeafInterface
@@ -59,9 +59,8 @@ const DrawerNavigator: React.FC<Props> = ({
                     padding: 16,
                 }}
             >
-                <SafeAreaView style={{ flex: 1 }}>
+                <SafeAreaView style={{ width: "100%" }}>
                     <LeafText typography={LeafTypography.body}> Hello World </LeafText>
-
                     {
                         leafInterface.roots.map((root, index) => {
                             return (
@@ -72,6 +71,7 @@ const DrawerNavigator: React.FC<Props> = ({
                                     type={LeafButtonType.filled} 
                                     color={LeafColors.accent}
                                     onPress={root.activateStack}
+                                    key={root.id.toString()}
                                 />
                             )
                         })
@@ -90,23 +90,16 @@ const DrawerNavigator: React.FC<Props> = ({
                             borderRightColor: 'gray',
                         }}
                     >
-                        <SafeAreaView style={{ flex: 1 }}>
-                            {
-                                sidebar == undefined 
-                                    ? 
-                                undefined 
-                                    : 
-                                <VStack flex={1}>
-                                    <LeafText
-                                        typography={LeafTypography.body}
-                                    >
-                                        {NavigationEnvironment.inst.sidebarHeader}
-                                    </LeafText>
+                        <SafeAreaView style={{ flex: 1, width: "100%"}}>
+                            <VStack style={{ flex: 1, width: "100%" }}>
+                                <LeafText
+                                    typography={LeafTypography.body}
+                                >
+                                    {NavigationEnvironment.inst.sidebarHeader}
+                                </LeafText>
 
-                                    {sidebar}
-                                </VStack>
-                                
-                            }
+                                {sidebar}
+                            </VStack>
                         </SafeAreaView>
                     </VStack>
                 )

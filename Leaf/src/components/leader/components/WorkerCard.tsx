@@ -1,10 +1,12 @@
-import { ViewStyle } from "react-native";
+import { View, ViewStyle } from "react-native";
 import LeafColors from "../../core/styles/LeafColors";
 import LeafTypography from "../../core/styles/LeafTypography";
 import LeafText from "../../core/views/LeafText/LeafText";
-import { HStack, Spacer, VStack, View } from "native-base";
 import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
 import Worker from "../../../model/employee/Worker";
+import VGap from "../../core/containers/VGap";
+import VStack from "../../core/containers/VStack";
+import HStack from "../../core/containers/HStack";
 
 interface Props {
     worker: Worker;
@@ -26,9 +28,8 @@ const WorkerCard: React.FC<Props> = ({
             onPress={onPress}
         >
             <HStack>
-
                 <VStack>
-                    <View alignSelf={'flex-start'}>
+                    <View style={{ alignSelf: 'flex-start' }}>
                         <LeafText
                             typography={LeafTypography.cardTitle}
                             verticalWrap={true}
@@ -37,7 +38,7 @@ const WorkerCard: React.FC<Props> = ({
                         </LeafText>
                     </View>
 
-                    <Spacer size={3} />
+                    <VGap size={6} />
 
                     <LeafText
                         typography={LeafTypography.subscript}
