@@ -13,6 +13,10 @@ import { View } from "react-native";
 import LeafColors from "../core/styles/LeafColors";
 import { useNavigation } from "@react-navigation/native";
 import { PatientsNavigationProp } from "./navigation/Params";
+import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
+import LeafButton from "../core/views/LeafButton/LeafButton";
+import NavigationEnvironment from "../core/navigation/navigators/NavigationEnvironment";
+import ActionsScreen from "./ActionsScreen";
 
 interface Props {
     navigation?: PatientsNavigationProp;
@@ -23,7 +27,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
         <View 
             style={{
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                flex: 1,
             }}
         >
             <ScrollView 
@@ -39,6 +43,17 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                     >
                         TODO: Patients Screen
                     </LeafText>
+
+                    <LeafButton 
+                        label={"Button"}
+                        icon="arrow-right-circle"
+                        typography={LeafTypography.primaryButton}
+                        type={LeafButtonType.filled} 
+                        color={LeafColors.accent}
+                        onPress={() => { 
+                            NavigationEnvironment.inst.navigationTo(ActionsScreen, navigation, "Actions Now"); 
+                        }}
+                    />
                 </VStack>
             </ScrollView>
         </View>

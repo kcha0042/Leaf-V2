@@ -9,6 +9,8 @@ import PatientCard from "./components/PatientCard";
 import { View } from "react-native";
 import LeafColors from "../core/styles/LeafColors";
 import { PatientsNavigationProp } from "./navigation/Params";
+import NavigationEnvironment from "../core/navigation/navigators/NavigationEnvironment";
+import PatientsScreen from "./PatientsScreen";
 
 interface Props {
     navigation?: PatientsNavigationProp;
@@ -25,16 +27,17 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
         Session.instance.fetchAllPatients();
     }, []);
 
-    const onPressPatient = (patient) => {
+    const onPressPatient = (patient: Patient) => {
         Session.instance.setActivePatient(patient);
-        navigation.navigate("PATIENT_PREVIEW");
+        // navigation.navigate("PATIENT_PREVIEW");
+        NavigationEnvironment.inst.navigationTo(PatientsScreen, navigation, patient.fullName);
     }
 
     return (
         <View 
             style={{
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                flex: 1,
             }}
         >
             <ScrollView 

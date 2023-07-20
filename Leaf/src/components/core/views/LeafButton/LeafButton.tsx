@@ -9,6 +9,17 @@ import LeafTypographyConfig from '../../styles/typography/LeafTypographyConfig';
 import LeafColor from '../../styles/color/LeafColor';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+/*
+<LeafButton 
+    label={"Button"}
+    icon="arrow-right-circle"
+    typography={LeafTypography.primaryButton}
+    type={LeafButtonType.filled} 
+    color={LeafColors.accent}
+    onPress={() => { console.log("Pressed") }}
+/>
+*/
+
 interface Props {
     label: string;
     type: LeafButtonType;

@@ -69,7 +69,7 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
             { backgroundColor: backgroundColor },
           ]}
         >
-            <View style={styles.header}>
+            <View style={{...styles.header}}>
                 {/* Only have the button if we can go back */}
                 {
                     buttonProps.canGoBack ?
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 22,
-    paddingTop: 22,
+    paddingTop: 10,
   },
   safeAreaWrapper: {
     // None

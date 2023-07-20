@@ -107,7 +107,7 @@ export const StackWrapper = (leafStack: LeafStack): React.FC => {
     return NativeStack;
 }
 
-const EmptyScreen: React.FC = () => {
+export const EmptyScreen: React.FC = () => {
     return (
         <View style={styles.emptyScreen}>
             <LeafText wide={false} typography={LeafTypography.body}> No item selected </LeafText>

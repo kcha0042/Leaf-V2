@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { StackWrapper } from "../impl/RenderStack"
+import { EmptyScreen, StackWrapper } from "../impl/RenderStack"
 import LeafColors from "../../styles/LeafColors"
 import Environment from "../../../../state/environment/Environment"
 import { LeafScreenOrientation } from "../../../../state/environment/types/LeafScreenOrientation"
-import { Dimensions } from "react-native"
+import { Dimensions, View } from "react-native"
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import LeafStack from "../LeafStack";
@@ -18,115 +18,183 @@ import { strings } from "../../../../localisation/Strings"
 import LeafDimensions from "../../styles/LeafDimensions"
 import LeafIcon from "../../views/LeafIcon/LeafIcon"
 import { LeafIconSize } from "../../views/LeafIcon/LeafIconSize"
-import { HStack } from "native-base"
+import HStack from "../../containers/HStack"
+import { VStack } from "native-base"
+import { SafeAreaView } from "react-native-safe-area-context"
+import LeafButton from "../../views/LeafButton/LeafButton"
+import { LeafButtonType } from "../../views/LeafButton/LeafButtonType"
+import { createStackNavigator } from "@react-navigation/stack"
+import CustomLeafHeader from "../impl/CustomHeader"
+import NavigationStateManager from "./NavigationStateManager"
+import NavigationEnvironment from "./NavigationEnvironment"
+import { YourPatients } from "../demo/DemoScreens"
+import YourPatientsScreen from "../../../worker/YourPatientsScreen"
+import useForceUpdate from "use-force-update"
+import { YourPatientsStack } from "../../../worker/navigation/stacks/YourPatientsStack"
+import { PatientsStack } from "../../../worker/navigation/stacks/PatientsStack"
+import { NewTriageStack } from "../../../worker/navigation/stacks/NewTriageStack"
+import LeafScreen from "../LeafScreen"
 
 interface Props {
-    stacks: LeafStack[]
+    stacks: LeafStack[];
 }
 
+const DrawerNavigator: React.FC<Props> = ({ 
+    stacks 
+}) => {
+    const [sidebar, setSidebar] = useState<JSX.Element | undefined>(undefined);
+    const [screens, setScreens] = useState<LeafScreen[]>([]);
 
-const CustomDrawerContent = (props) => {
+    const Stack = createStackNavigator();
+
+    useEffect(() => {
+        NavigationStateManager.sidebarComponentChanged.subscribe(() => {
+            setSidebar(NavigationEnvironment.inst.sidebarComponent);
+        });
+
+        NavigationStateManager.newScreenAdded.subscribe(() => {
+            setScreens([...NavigationEnvironment.inst.screens]);
+        });
+    }, []);
+
+    useEffect(() => {
+        NavigationEnvironment.inst.loadedNavigation();
+        NavigationEnvironment.inst.loadedNavigation = () => {};
+    }, [screens]);
+
     return (
-        <DrawerContentScrollView {...props}>
-            <HStack paddingLeft={5}>
-                <LeafIcon 
-                    icon="clipboard-list" 
-                    color={LeafTypography.header.leafColor} 
-                    size={LeafIconSize.header} 
-                    style={{alignSelf: 'center'}} 
-                />
+        <HStack 
+            style={{ 
+                flex: 1,
+            }}
+        >
+            <VStack 
+                style={{
+                    height: "100%",
+                    width: "20%",
+                    borderRightWidth: 0.5,
+                    borderRightColor: 'gray',
+                    padding: 16,
+                }}
+            >
+                <SafeAreaView style={{ flex: 1 }}>
+                    <LeafText typography={LeafTypography.body}> Hello World </LeafText>
 
-                <LeafText typography={LeafTypography.header}> {strings("appName")} </LeafText>
-            </HStack>
+                    <LeafButton 
+                        label={"1"}
+                        icon="arrow-right-circle"
+                        typography={LeafTypography.primaryButton}
+                        type={LeafButtonType.filled} 
+                        color={LeafColors.accent}
+                        onPress={() => {
+                            NavigationEnvironment.inst.clearScreens();
+                            NavigationEnvironment.inst.setSidebarComponent(<YourPatientsScreen />, "Your Patients");
+                        }}
+                    />
 
-            <DrawerItemList {...props} />
-        </DrawerContentScrollView>
+                    <LeafButton 
+                        label={"test"}
+                        icon="arrow-right-circle"
+                        typography={LeafTypography.primaryButton}
+                        type={LeafButtonType.filled} 
+                        color={LeafColors.accent}
+                        onPress={() => {
+                            NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
+                            NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
+                        }}
+                    />
+
+                    <LeafButton 
+                        label={"3"}
+                        icon="arrow-right-circle"
+                        typography={LeafTypography.primaryButton}
+                        type={LeafButtonType.filled} 
+                        color={LeafColors.accent}
+                        onPress={() => {
+                            NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
+                            NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
+                        }}
+                    />
+
+                </SafeAreaView>
+            </VStack>
+
+            {
+                sidebar == undefined ? undefined : 
+                (
+                    <VStack
+                        style={{
+                            height: "100%",
+                            width: "25%",
+                            borderRightWidth: 0.5,
+                            borderRightColor: 'gray',
+                        }}
+                    >
+                        <SafeAreaView style={{ flex: 1 }}>
+                            {
+                                sidebar == undefined 
+                                    ? 
+                                undefined 
+                                    : 
+                                <VStack flex={1}>
+                                    <LeafText
+                                        typography={LeafTypography.body}
+                                    >
+                                        {NavigationEnvironment.inst.sidebarHeader}
+                                    </LeafText>
+
+                                    {sidebar}
+                                </VStack>
+                                
+                            }
+                        </SafeAreaView>
+                    </VStack>
+                )
+            }
+
+            <View
+                style={{
+                    height: "100%",
+                    width: sidebar == undefined ? "80%" : "55%",
+                }}
+            >
+                {
+                        screens.length == 0
+                            ?
+                        <EmptyScreen />
+                            :
+                        <Stack.Navigator>
+                            {
+                                screens.map((screen, index) => {
+                                    return (
+                                        <Stack.Screen 
+                                            // Yes, key/name are both id
+                                            key={screen.id}
+                                            name={screen.id}
+                                            component={screen.component}
+                                            options={({ navigation }) => ({
+                                                ...screen.options,
+                                                animationEnabled: index > 0,
+                                                header: () => (
+                                                    <CustomLeafHeader
+                                                        title={screen.title}
+                                                        buttonProps={
+                                                            {
+                                                                canGoBack: index > 0,
+                                                                navigation: navigation,
+                                                            }
+                                                        }
+                                                    />
+                                            )})}
+                                        />
+                                    )
+                                })
+                            }
+                        </Stack.Navigator>
+                    }
+            </View>
+        </HStack>
     );
 }
 
-const Drawer = createDrawerNavigator()
-  
-export const DrawerNavigator: React.FC<Props> = ({ stacks }) => {
-
-    const getDrawerType = (): 'front' | 'slide' | 'back' | 'permanent' => {
-        return Environment.instance.getScreenOrientation() == LeafScreenOrientation.Landscape ? 'permanent' : 'front';
-    }
-    const [ drawerType, setDrawerType ] = useState(getDrawerType());
-    const navigation = useNavigation();
-
-    // We only want to add the listener once, when the drawer is mounted
-    useEffect(() => {
-        const handleDimensionChange = () => {
-            const newDrawerType = getDrawerType();
-            setDrawerType(newDrawerType);
-
-            if (newDrawerType !== 'permanent') {
-                navigation.dispatch(DrawerActions.openDrawer());
-            }
-        };
-
-        Dimensions.addEventListener('change', handleDimensionChange)
-    }, []);
-
-    // Update StateManager.drawerItemChanged
-    React.useEffect(() => {
-        const unsubscribe = navigation.addListener('state', () => {
-            let state = navigation.getState();
-            if (state != undefined && state.index != StateManager.drawerItemChanged.read()) {
-                StateManager.drawerItemChanged.publish(state.index);
-            }
-        });
-        return unsubscribe;
-    }, []);
-
-    let drawerLabelTypograhy = LeafTypography.body;
-    drawerLabelTypograhy.weight = LeafFontWeight.semiBold;
-    drawerLabelTypograhy.leafColor = undefined; // Allow drawer to decide
-
-    return (
-        <Drawer.Navigator
-            screenOptions={{
-                headerShown: false,
-                drawerType: drawerType,
-                drawerStyle: {
-                    backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                    width: Environment.instance.getScreenOrientation() == LeafScreenOrientation.Landscape ? Environment.instance.getScreenWidth() * 0.2 : Environment.instance.getScreenWidth() * 0.3
-                },
-                drawerActiveBackgroundColor:  LeafColors.fillBackgroundAccent.getColor(),
-                drawerActiveTintColor: LeafColors.accent.getColor(),
-                drawerItemStyle: {
-                    borderRadius: LeafDimensions.fillRadius,
-                },
-                drawerLabelStyle: {
-                    ...drawerLabelTypograhy.getStylesheet(),
-                }
-            }}
-            drawerContent={props => <CustomDrawerContent {...props} />}
-        >
-            {
-                stacks.map(stack => 
-                    <Drawer.Screen 
-                        name={stack.stackName} 
-                        key={stack.stackName} 
-                        component={StackWrapper(stack)}
-                        options={{
-                            drawerIcon: ({ color, size, focused }) => (
-                                <Icon 
-                                    name={focused ? stack.focusedIcon : stack.icon} 
-                                    color={focused ? LeafColors.accent.getColor() : color} 
-                                    size={size}
-                                    style={{
-                                        // TODO: Not sure how this is supposed to be accomplished
-                                        // (A bit hacky)
-                                        paddingLeft: 8,
-                                        marginRight: -16,
-                                    }} 
-                                />
-                            )
-                        }}
-                    />
-                )
-            }
-        </Drawer.Navigator>
-    )
-}
+export default DrawerNavigator;

@@ -2,9 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import Environment from "../../../../state/environment/Environment";
 import { ScreenType } from "../../../../state/environment/types/ScreenType";
-import { DrawerNavigator } from "./DrawerNavigator";
 import { TabBarNavigator } from "./TabBarNavigator";
 import LeafInterface from "../LeafAccountUI";
+import DrawerNavigator from "./DrawerNavigator";
 
 interface Props {
     leafInterface: LeafInterface
