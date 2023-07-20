@@ -7,12 +7,12 @@ import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafText from "../base/LeafText/LeafText";
 import ActionsScreen from "./ActionsScreen";
-import { PatientsNavigationProp } from "../navigation/Params";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 interface Props {
-    navigation?: PatientsNavigationProp;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {

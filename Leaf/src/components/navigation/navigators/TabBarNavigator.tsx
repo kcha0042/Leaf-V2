@@ -15,6 +15,7 @@ import CustomLeafHeader from "../CustomHeader"
 import NavigationEnvironment from "./NavigationEnvironment"
 import NavigationStateManager from "./NavigationStateManager"
 import { EmptyScreen } from "../EmptyScreen"
+import VStack from "../../containers/VStack"
 
 interface Props {
     leafInterface: LeafInterface
@@ -48,11 +49,13 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     return (
         <VStack
-            flex={1}
+            style={{
+                flex: 1,
+            }}
         >
             <View
                 style={{
-                    flex: 1
+                    flex: 1,
                 }}
             >
                 {

@@ -8,16 +8,16 @@ import FormCard from "../custom/FormCard";
 import { SegmentedButtons } from "react-native-paper";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import { PatientsNavigationProp } from "../navigation/Params";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { ScrollView, View } from "react-native";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import Spacer from "../containers/layout/Spacer";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 interface Props {
-    navigation?: PatientsNavigationProp;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {

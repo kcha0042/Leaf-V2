@@ -3,14 +3,14 @@ import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 import { ScrollView, View } from "react-native";
 import LeafColors from "../styling/LeafColors";
-import { PatientsNavigationProp } from "../navigation/Params";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import LeafDimensions from "../styling/LeafDimensions";
 import VStack from "../containers/VStack";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 interface Props {
-    navigation?: PatientsNavigationProp;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {

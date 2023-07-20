@@ -5,16 +5,16 @@ import Patient from "../../model/patient/Patient";
 import PatientCard from "../custom/PatientCard";
 import { FlatList, ScrollView, View } from "react-native";
 import LeafColors from "../styling/LeafColors";
-import { PatientsNavigationProp } from "../navigation/Params";
 import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
 import PatientsScreen from "./PatientsScreen";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 interface Props {
-    navigation?: PatientsNavigationProp;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {

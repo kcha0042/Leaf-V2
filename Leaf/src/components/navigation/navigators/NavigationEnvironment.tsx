@@ -1,3 +1,4 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import UUID from "../../../model/core/UUID";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafScreen from "../LeafScreen";
@@ -44,7 +45,7 @@ class NavigationEnvironment {
         NavigationStateManager.newScreenAdded.publish();
     }
 
-    public navigationTo(component: React.FC, navigation: any, title: string) {
+    public navigationTo(component: React.FC, navigation: NavigationProp<ParamListBase>, title: string) {
         if (navigation == undefined) {
             this._screens = [];
         }
