@@ -1,39 +1,21 @@
-import React, { useEffect, useState } from "react"
-import { createDrawerNavigator } from "@react-navigation/drawer"
-import { EmptyScreen, StackWrapper } from "../impl/RenderStack"
-import LeafColors from "../../styles/LeafColors"
-import Environment from "../../../../state/environment/Environment"
-import { LeafScreenOrientation } from "../../../../state/environment/types/LeafScreenOrientation"
-import { Dimensions, View } from "react-native"
-import { DrawerActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import LeafStack from "../LeafStack";
-import StateManager from "../../../../state/publishers/StateManager";
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LeafText from "../../views/LeafText/LeafText"
-import LeafTypography from "../../styles/LeafTypography"
-import { LeafFontWeight } from "../../styles/typography/LeafFontWeight"
-import { strings } from "../../../../localisation/Strings"
-import LeafDimensions from "../../styles/LeafDimensions"
-import LeafIcon from "../../views/LeafIcon/LeafIcon"
-import { LeafIconSize } from "../../views/LeafIcon/LeafIconSize"
-import HStack from "../../containers/HStack"
+import { createStackNavigator } from "@react-navigation/stack"
 import { VStack } from "native-base"
+import React, { useEffect, useState } from "react"
+import { View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import YourPatientsScreen from "../../../worker/YourPatientsScreen"
+import HStack from "../../containers/HStack"
+import LeafColors from "../../styles/LeafColors"
+import LeafTypography from "../../styles/LeafTypography"
 import LeafButton from "../../views/LeafButton/LeafButton"
 import { LeafButtonType } from "../../views/LeafButton/LeafButtonType"
-import { createStackNavigator } from "@react-navigation/stack"
-import CustomLeafHeader from "../impl/CustomHeader"
-import NavigationStateManager from "./NavigationStateManager"
-import NavigationEnvironment from "./NavigationEnvironment"
-import YourPatientsScreen from "../../../worker/YourPatientsScreen"
-import useForceUpdate from "use-force-update"
-import { YourPatientsStack } from "../../../worker/navigation/stacks/YourPatientsStack"
-import { PatientsStack } from "../../../worker/navigation/stacks/PatientsStack"
-import { NewTriageStack } from "../../../worker/navigation/stacks/NewTriageStack"
-import LeafScreen from "../LeafScreen"
+import LeafText from "../../views/LeafText/LeafText"
 import LeafInterface from "../LeafInterface"
+import LeafScreen from "../LeafScreen"
+import CustomLeafHeader from "../impl/CustomHeader"
+import NavigationEnvironment from "./NavigationEnvironment"
+import NavigationStateManager from "./NavigationStateManager"
+import { EmptyScreen } from "../EmptyScreen"
 
 interface Props {
     leafInterface: LeafInterface

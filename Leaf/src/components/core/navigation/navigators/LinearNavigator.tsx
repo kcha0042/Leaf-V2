@@ -1,13 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import LeafStack from "../LeafStack";
 import { SafeAreaView, View } from "react-native";
 import { useSafeAreaFrame, useSafeAreaInsets } from "react-native-safe-area-context";
+import LeafScreen from "../LeafScreen";
 
 interface Props {
-    stack: LeafStack
+    screens: LeafScreen[]
 }
 
-export const LinearNavigator: React.FC<Props> = ({ stack }) => {
+export const LinearNavigator: React.FC<Props> = ({ screens }) => {
     const Stack = createStackNavigator();
 
     const { height, width } = useSafeAreaFrame();
@@ -24,7 +24,7 @@ export const LinearNavigator: React.FC<Props> = ({ stack }) => {
     return (
         <Stack.Navigator>
             {
-                stack.screens.map((screen, index) => {
+                screens.map((screen, index) => {
                     return (
                         <Stack.Screen 
                             key={screen.id}

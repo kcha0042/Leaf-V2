@@ -1,5 +1,4 @@
 import LeafPublisher from "../../../../state/publishers/impl/LeafPublisher";
-import LeafValuePublisher from "../../../../state/publishers/impl/LeafValuePublisher";
 
 class NavigationStateManager {
 

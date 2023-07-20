@@ -1,8 +1,6 @@
 import UUID from "../../../../model/core/UUID";
 import StateManager from "../../../../state/publishers/StateManager";
-import { PatientsNavigationProp } from "../../../worker/navigation/Params";
 import LeafScreen from "../LeafScreen";
-import LeafStack from "../LeafStack";
 import NavigationStateManager from "./NavigationStateManager";
 
 
