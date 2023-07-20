@@ -1,18 +1,18 @@
 import React from "react";
-import LeafText from "../core/views/LeafText/LeafText";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafTextInput from "../core/views/LeafTextInput/LeafTextInput";
-import LeafButton from "../core/views/LeafButton/LeafButton";
-import { LeafButtonType } from "../core/views/LeafButton/LeafButtonType";
-import LeafColors from "../core/styles/LeafColors";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTypography from "../styling/LeafTypography";
+import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import LeafButton from "../base/LeafButton/LeafButton";
+import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafColors from "../styling/LeafColors";
 import { strings } from "../../localisation/Strings";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import VStack from "../core/containers/VStack";
-import Spacer from "../core/containers/Spacer";
-import LeafDimensions from "../core/styles/LeafDimensions";
+import VStack from "../containers/VStack";
+import Spacer from "../containers/layout/Spacer";
+import LeafDimensions from "../styling/LeafDimensions";
 import { View } from "react-native";
-import VGap from "../core/containers/VGap";
+import VGap from "../containers/layout/VGap";
 
 const LoginScreen: React.FC = () => {
     const [username, setUsername] = React.useState("");

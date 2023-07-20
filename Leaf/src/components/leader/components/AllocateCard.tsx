@@ -1,8 +1,8 @@
 import { ViewStyle } from "react-native";
-import LeafColors from "../../core/styles/LeafColors";
-import LeafTypography from "../../core/styles/LeafTypography";
-import LeafText from "../../core/views/LeafText/LeafText";
-import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
+import LeafText from "../../base/LeafText/LeafText";
+import FloatingContainer from "../../containers/FloatingContainer";
 import { strings } from "../../../localisation/Strings";
 
 
@@ -16,7 +16,7 @@ const AllocateCard: React.FC<Props> = ({
     onPress
 }) => {
     return (
-        <LeafFloatingCard 
+        <FloatingContainer 
             color={LeafColors.textBackgroundLight}
             style={style}
             onPress={onPress}
@@ -26,7 +26,7 @@ const AllocateCard: React.FC<Props> = ({
                     {strings("button.allocate")}
                 </LeafText>
             </HStack>
-        </LeafFloatingCard>
+        </FloatingContainer>
     );
 }
 

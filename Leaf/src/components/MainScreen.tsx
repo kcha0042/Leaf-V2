@@ -4,10 +4,10 @@ import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import UUID from "../model/core/UUID";
 import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
-import { WorkerInterface } from "./core/navigation/AllLeafInterfaces";
-import LeafScreen from "./core/navigation/LeafScreen";
-import { InterfaceNavigator } from "./core/navigation/navigators/AppNavigator";
-import { LinearNavigator } from "./core/navigation/navigators/LinearNavigator";
+import { WorkerInterface } from "./navigation/AllLeafInterfaces";
+import LeafScreen from "./navigation/LeafScreen";
+import { InterfaceNavigator } from "./navigation/navigators/AppNavigator";
+import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
 import LoginScreen from "./login/LoginScreen";
 
 const MainScreen: React.FC = () => {

@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import MainScreen from './src/components/MainScreen';
-import { LeafFont } from './src/components/core/styles/typography/LeafFont';
+import { LeafFont } from './src/components/styling/typography/LeafFont';
 
 SplashScreen.preventAutoHideAsync();
 

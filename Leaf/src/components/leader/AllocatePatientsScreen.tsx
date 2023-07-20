@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import LeafText from "../core/views/LeafText/LeafText";
-import LeafTypography from "../core/styles/LeafTypography";
-import LeafDimensions from "../core/styles/LeafDimensions";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTypography from "../styling/LeafTypography";
+import LeafDimensions from "../styling/LeafDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
-import PatientCard from "../worker/components/PatientCard";
+import PatientCard from "../custom/PatientCard";
 import { strings } from "../../localisation/Strings";
 import AllocateCard from "./components/AllocateCard";
-import LeafColors from "../core/styles/LeafColors";
+import LeafColors from "../styling/LeafColors";
 import { FlatList, ScrollView } from "react-native";
-import VStack from "../core/containers/VStack";
-import Spacer from "../core/containers/Spacer";
-import VGap from "../core/containers/VGap";
+import VStack from "../containers/VStack";
+import Spacer from "../containers/layout/Spacer";
+import VGap from "../containers/layout/VGap";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());

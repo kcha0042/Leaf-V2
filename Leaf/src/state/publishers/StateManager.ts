@@ -1,4 +1,4 @@
-import LeafColors from "../../components/core/styles/LeafColors";
+import LeafColors from "../../components/styling/LeafColors";
 import LeafPublisher from "./impl/LeafPublisher";
 import LeafValuePublisher from "./impl/LeafValuePublisher"
 import { LoginStatus } from "./types/LoginStatus";

@@ -1,12 +1,12 @@
 import { View, ViewStyle } from "react-native";
-import LeafColors from "../../core/styles/LeafColors";
-import LeafTypography from "../../core/styles/LeafTypography";
-import LeafText from "../../core/views/LeafText/LeafText";
-import LeafFloatingCard from "../../core/containers/LeafFloatingCard/LeafFloatingCard";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
+import LeafText from "../../base/LeafText/LeafText";
+import FloatingContainer from "../../containers/FloatingContainer";
 import Worker from "../../../model/employee/Worker";
-import VGap from "../../core/containers/VGap";
-import VStack from "../../core/containers/VStack";
-import HStack from "../../core/containers/HStack";
+import VGap from "../../containers/layout/VGap";
+import VStack from "../../containers/VStack";
+import HStack from "../../containers/HStack";
 
 interface Props {
     worker: Worker;
@@ -22,7 +22,7 @@ const WorkerCard: React.FC<Props> = ({
     // TODO: Add Worker full name instead of First Name
     let idText = worker.id.toString();
     return (
-        <LeafFloatingCard 
+        <FloatingContainer 
             color={LeafColors.textBackgroundLight}
             style={style}
             onPress={onPress}
@@ -48,7 +48,7 @@ const WorkerCard: React.FC<Props> = ({
                     </LeafText>
                 </VStack>
             </HStack>
-        </LeafFloatingCard>
+        </FloatingContainer>
     );
 }
 
