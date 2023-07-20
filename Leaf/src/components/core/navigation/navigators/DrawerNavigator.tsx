@@ -62,42 +62,20 @@ const DrawerNavigator: React.FC<Props> = ({
                 <SafeAreaView style={{ flex: 1 }}>
                     <LeafText typography={LeafTypography.body}> Hello World </LeafText>
 
-                    <LeafButton 
-                        label={"1"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationEnvironment.inst.clearScreens();
-                            NavigationEnvironment.inst.setSidebarComponent(<YourPatientsScreen />, "Your Patients");
-                        }}
-                    />
-
-                    <LeafButton 
-                        label={"test"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
-                            NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
-                        }}
-                    />
-
-                    <LeafButton 
-                        label={"3"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Second Screen");
-                            NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
-                        }}
-                    />
-
+                    {
+                        leafInterface.roots.map((root, index) => {
+                            return (
+                                <LeafButton 
+                                    label={root.title}
+                                    icon={root.icon}
+                                    typography={LeafTypography.primaryButton}
+                                    type={LeafButtonType.filled} 
+                                    color={LeafColors.accent}
+                                    onPress={root.activateStack}
+                                />
+                            )
+                        })
+                    }
                 </SafeAreaView>
             </VStack>
 

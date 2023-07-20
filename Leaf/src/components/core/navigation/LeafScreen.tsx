@@ -4,6 +4,8 @@
  */
 class LeafScreen {
 
+    // TODO: Make id auto-generate
+
     /**
      * @param title the name of the screen, this will displayed in the header
      * @param id the id of the screen for navigation
