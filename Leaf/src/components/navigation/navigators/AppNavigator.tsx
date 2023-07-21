@@ -7,7 +7,7 @@ import LeafInterface from "../LeafInterface";
 import DrawerNavigator from "./DrawerNavigator";
 
 interface Props {
-    leafInterface: LeafInterface
+    leafInterface: LeafInterface;
 }
 
 export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
@@ -15,13 +15,11 @@ export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     return (
         <NavigationContainer>
-            {
-                deviceIsTablet 
-                    ? 
-                <DrawerNavigator leafInterface={leafInterface}/> 
-                    :
-                <TabBarNavigator leafInterface={leafInterface}/>
-            }
+            {deviceIsTablet ? (
+                <DrawerNavigator leafInterface={leafInterface} />
+            ) : (
+                <TabBarNavigator leafInterface={leafInterface} />
+            )}
         </NavigationContainer>
-    ) 
-}
+    );
+};

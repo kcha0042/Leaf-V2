@@ -1,4 +1,3 @@
-
 export enum LeafImageScale {
     none,
     scaleToFit,

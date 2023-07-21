@@ -1,20 +1,16 @@
-import React, { useEffect } from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import React from "react";
+import { ScrollView, View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import LeafColors from "../styling/LeafColors";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
-import FormCard from "../custom/FormCard";
-import { SegmentedButtons } from "react-native-paper";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import Session from "../../model/Session";
-import StateManager from "../../state/publishers/StateManager";
-import { ScrollView, View } from "react-native";
+import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
-import LeafDimensions from "../styling/LeafDimensions";
 import Spacer from "../containers/layout/Spacer";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import FormCard from "../custom/FormCard";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -22,27 +18,22 @@ interface Props {
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     return (
-        <View 
+        <View
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                 flex: 1,
                 width: "100%",
             }}
         >
-            <ScrollView 
+            <ScrollView
                 style={{
                     flex: 1,
                     padding: LeafDimensions.screenPadding,
                     width: "100%",
                 }}
             >
-                <VStack 
-                    spacing={LeafDimensions.screenSpacing}
-                >
-                    <FormCard
-                        icon="clipboard-account"
-                        title={strings("triageForm.title.identity")}
-                    >
+                <VStack spacing={LeafDimensions.screenSpacing}>
+                    <FormCard icon="clipboard-account" title={strings("triageForm.title.identity")}>
                         <LeafTextInput
                             label={strings("triageForm.textInput.givenName")}
                             textColor={LeafColors.textDark}
@@ -72,10 +63,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         />
                     </FormCard>
 
-                    <FormCard
-                        icon="file-document-edit"
-                        title={strings("triageForm.title.triage")}
-                    >
+                    <FormCard icon="file-document-edit" title={strings("triageForm.title.triage")}>
                         {/* Multiline Text */}
                         {/* For the following I should create a completely new wrapper over paper's button because then it doesn't have a dependency on button and I can set custom values such as height and whatever */}
                         <VStack>
@@ -99,7 +87,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                                 color={LeafColors.textDark}
                                 onPress={() => {}}
                                 style={{
-                                    borderRadius: 0
+                                    borderRadius: 0,
                                 }}
                             />
                             <LeafButton
@@ -123,6 +111,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
             </ScrollView>
         </View>
     );
-}
+};
 
 export default NewTriageScreen;

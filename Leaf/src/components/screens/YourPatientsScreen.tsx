@@ -1,17 +1,16 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import StateManager from "../../state/publishers/StateManager";
+import { FlatList, ScrollView, View } from "react-native";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
-import PatientCard from "../custom/PatientCard";
-import { FlatList, ScrollView, View } from "react-native";
-import LeafColors from "../styling/LeafColors";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
-import PatientsScreen from "./PatientsScreen";
+import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
-import LeafDimensions from "../styling/LeafDimensions";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import PatientCard from "../custom/PatientCard";
+import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";
 
 interface Props {
@@ -34,22 +33,22 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const onPressPatient = (patient: Patient) => {
         Session.instance.setActivePatient(patient);
         NavigationEnvironment.inst.navigationTo(PatientOptionsScreen, navigation, patient.fullName);
-    }
+    };
 
     return (
-        <View 
+        <View
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                 flex: 1,
             }}
         >
-            <ScrollView 
+            <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding
+                    padding: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack 
+                <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
                         flex: 1,
@@ -58,20 +57,20 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     <FlatList
                         data={patients}
                         renderItem={({ item: patient }) => (
-                            <PatientCard 
-                                patient={patient} 
-                                onPress={() => {onPressPatient(patient)}}
+                            <PatientCard
+                                patient={patient}
+                                onPress={() => {
+                                    onPressPatient(patient);
+                                }}
                             />
                         )}
                         keyExtractor={(patient) => patient.mrn.toString()}
-                        ItemSeparatorComponent={() => (
-                            <VGap size={LeafDimensions.cardSpacing} />
-                        )}
+                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                         scrollEnabled={false}
                         // Don't use overflow prop - doesn't work on web
-                        style={{ 
+                        style={{
                             width: "100%",
-                            overflow: 'visible', // Stop shadows getting clipped
+                            overflow: "visible", // Stop shadows getting clipped
                             flexGrow: 0, // Ensures the frame wraps only the FlatList content
                         }}
                     />
@@ -81,6 +80,6 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
             </ScrollView>
         </View>
     );
-}
+};
 
 export default YourPatientsScreen;

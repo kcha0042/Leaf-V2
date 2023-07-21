@@ -6,9 +6,4 @@ export const ViewPatientsStack = new LeafStack(
     strings("tabBar.leader.viewPatients"),
     "home-outline",
     "home",
-)
-.addNewScreen(
-    strings("header.leader.viewPatients"),
-    "VIEW_PATIENTS",
-    AllocatePatientsScreen
-);
+).addNewScreen(strings("header.leader.viewPatients"), "VIEW_PATIENTS", AllocatePatientsScreen);

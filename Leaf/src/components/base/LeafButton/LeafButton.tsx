@@ -1,15 +1,15 @@
-import React from 'react';
-import { Button } from 'react-native-paper';
-import { LeafButtonType } from './LeafButtonType';
-import LeafText from '../LeafText/LeafText';
-import Environment from '../../../state/environment/Environment';
-import { OS } from '../../../state/environment/types/OS';
-import { ViewStyle } from 'react-native';
-import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
-import LeafColor from '../../styling/color/LeafColor';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LeafColors from '../../styling/LeafColors';
-import LeafTypography from '../../styling/LeafTypography';
+import React from "react";
+import { Button } from "react-native-paper";
+import { LeafButtonType } from "./LeafButtonType";
+import LeafText from "../LeafText/LeafText";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
+import { ViewStyle } from "react-native";
+import LeafTypographyConfig from "../../styling/typography/LeafTypographyConfig";
+import LeafColor from "../../styling/color/LeafColor";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
 
 interface Props {
     label: string;
@@ -23,52 +23,41 @@ interface Props {
     onPress: () => void;
 }
 
-const LeafButton: React.FC<Props> = ({ 
-    label, 
-    type = LeafButtonType.filled, 
+const LeafButton: React.FC<Props> = ({
+    label,
+    type = LeafButtonType.filled,
     typography = LeafTypography.primaryButton,
     color = LeafColors.accent,
-    icon = null, 
-    disabled = false, 
+    icon = null,
+    disabled = false,
     wide = true,
     style,
     onPress,
 }) => {
     // TODO: Figure out a better way to centre the text
-    let labelStyle = {}
+    let labelStyle = {};
     if (Environment.instance.getOS() == OS.ios) {
-        labelStyle = { lineHeight: 0 } // Centres the text
+        labelStyle = { lineHeight: 0 }; // Centres the text
     }
 
     if (disabled) {
         // Override colour when disabled
         typography.leafColor = undefined;
     }
-    
+
     return (
-        <Button 
-            icon={({ size, color }) => (
-                <Icon name={icon} size={size + 8} color={color} />
-            )}
-            mode={type} 
+        <Button
+            icon={({ size, color }) => <Icon name={icon} size={size + 8} color={color} />}
+            mode={type}
             onPress={onPress}
             disabled={disabled}
-            labelStyle={[
-                { padding: 2 },
-                labelStyle,
-            ]}
-            style={[
-                { borderRadius: 50 },
-                wide ? { width: "100%" } : { alignSelf: 'center' },
-                style,
-            ]}
+            labelStyle={[{ padding: 2 }, labelStyle]}
+            style={[{ borderRadius: 50 }, wide ? { width: "100%" } : { alignSelf: "center" }, style]}
             buttonColor={color.getColor()}
         >
-            <LeafText typography={typography}>
-                {label}
-            </LeafText>
+            <LeafText typography={typography}>{label}</LeafText>
         </Button>
     );
-}
+};
 
 export default LeafButton;

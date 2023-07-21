@@ -1,10 +1,10 @@
-import React from 'react';
-import { SegmentedButtons } from 'react-native-paper';
-import { ViewStyle } from 'react-native';
-import LeafSegmentedValue from './LeafSegmentedValue';
-import LeafColors from '../../styling/LeafColors';
-import LeafTypography from '../../styling/LeafTypography';
-import LeafColor from '../../styling/color/LeafColor';
+import React from "react";
+import { SegmentedButtons } from "react-native-paper";
+import { ViewStyle } from "react-native";
+import LeafSegmentedValue from "./LeafSegmentedValue";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
+import LeafColor from "../../styling/color/LeafColor";
 
 /*
 // EXAMPLE
@@ -34,7 +34,7 @@ interface Props {
     onSetValue: (value: string) => void;
 }
 
-const LeafSegmentedButtons: React.FC<Props> = ({ 
+const LeafSegmentedButtons: React.FC<Props> = ({
     options,
     value,
     selectedLabelColor = LeafColors.textDark,
@@ -46,25 +46,25 @@ const LeafSegmentedButtons: React.FC<Props> = ({
         <SegmentedButtons
             value={value}
             onValueChange={onSetValue}
-            buttons={options.map(option => ({ 
-                value: option.value, 
-                label: option.label, 
-                icon: option.icon, 
+            buttons={options.map((option) => ({
+                value: option.value,
+                label: option.label,
+                icon: option.icon,
                 checkedColor: selectedLabelColor.getColor(),
                 uncheckedColor: LeafColors.textDark.getColor(),
                 style: {
                     backgroundColor: value == option.value ? selectedBackgroundColor.getColor() : null,
                     ...LeafTypography.body.getStylesheet(),
-                }
+                },
             }))}
             style={{
                 flex: 1,
-                alignItems: 'center',
+                alignItems: "center",
                 width: "100%",
                 ...style,
             }}
         />
     );
-}
+};
 
 export default LeafSegmentedButtons;

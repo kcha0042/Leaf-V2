@@ -22,24 +22,24 @@ const AdminScreen: React.FC = () => {
     const onPressNurse = (nurse) => {
         // TODO: Navigation
         console.log(nurse.firstName);
-    }
+    };
 
     return (
-        <VStack 
-            style={{ 
+        <VStack
+            style={{
                 flex: 1,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                padding: LeafDimensions.screenPadding
+                padding: LeafDimensions.screenPadding,
             }}
         >
             <ManageNurseScreen
                 nurse={nurse}
-                onPress={() => { onPressNurse(nurse) }}
+                onPress={() => {
+                    onPressNurse(nurse);
+                }}
             />
         </VStack>
     );
-
-}
-
+};
 
 export default AdminScreen;

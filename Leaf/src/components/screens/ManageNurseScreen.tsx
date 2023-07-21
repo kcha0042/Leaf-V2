@@ -21,22 +21,15 @@ interface Props {
     onPress: () => void;
 }
 
-const ManageNurseScreen: React.FC<Props> = ({
-    nurse,
-    style,
-    onPress,
-}) => {
-
+const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
     if (nurse == null) {
-        return <LeafText typography={LeafTypography.body}>
-            {strings("label.loading")}
-            </LeafText>
+        return <LeafText typography={LeafTypography.body}>{strings("label.loading")}</LeafText>;
     }
     return (
         <View
             style={{
                 flex: 1,
-                padding: LeafDimensions.screenPadding
+                padding: LeafDimensions.screenPadding,
             }}
         >
             <VStack
@@ -45,40 +38,26 @@ const ManageNurseScreen: React.FC<Props> = ({
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.header}>
-                    {nurse.firstName + " " + nurse.lastName}
-                </LeafText>
+                <LeafText typography={LeafTypography.header}>{nurse.firstName + " " + nurse.lastName}</LeafText>
 
                 <LeafText typography={LeafTypography.body}>
                     nurse
                     {/* todo: role is not available in Employee atm, fix it later */}
                 </LeafText>
 
-                <LeafText typography={LeafTypography.body}>
-                    {strings("label.details")}
-                </LeafText>
+                <LeafText typography={LeafTypography.body}>{strings("label.details")}</LeafText>
 
-                <FloatingContainer
-                    color={LeafColors.textBackgroundLight}
-                    style={style}
-                    onPress={onPress}
-                >
+                <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
                     <VStack>
-                        <View style={{ alignSelf: 'flex-start' }}>
-                            <LeafText
-                                typography={LeafTypography.cardTitle}
-                                verticalWrap={true}
-                            >
+                        <View style={{ alignSelf: "flex-start" }}>
+                            <LeafText typography={LeafTypography.cardTitle} verticalWrap={true}>
                                 {strings("label.id") + nurse.id.toString()}
                             </LeafText>
                         </View>
 
                         <VGap size={6} />
 
-                        <LeafText
-                            typography={LeafTypography.subscript}
-                            wide={false}
-                        >
+                        <LeafText typography={LeafTypography.subscript} wide={false}>
                             other information if we have - (temp text, fixed it later)
                             {/* TEMP Text */}
                         </LeafText>
@@ -98,17 +77,12 @@ const ManageNurseScreen: React.FC<Props> = ({
                     }}
                 />
 
-                <LeafText
-                    typography={LeafTypography.subscript}
-                    wide={false}
-                >
+                <LeafText typography={LeafTypography.subscript} wide={false}>
                     {strings("operation.removeAccount")}
                 </LeafText>
             </VStack>
         </View>
-
-
     );
-}
+};
 
 export default ManageNurseScreen;

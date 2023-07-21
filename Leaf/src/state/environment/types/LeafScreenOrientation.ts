@@ -1,5 +1,4 @@
-
 export enum LeafScreenOrientation {
     Potrait = "Potrait",
-    Landscape = "Landscape"
-};
+    Landscape = "Landscape",
+}

@@ -27,17 +27,17 @@ const YourWorkersScreen: React.FC = () => {
     const onPressWorker = (worker) => {
         // TODO: Navigation
         console.log(worker.firstName); // TODO: Add worker fullname instead of first name
-    }
+    };
 
     return (
-        <ScrollView 
+        <ScrollView
             style={{
                 flex: 1,
                 padding: LeafDimensions.screenPadding,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >
-            <VStack 
+            <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
@@ -46,19 +46,19 @@ const YourWorkersScreen: React.FC = () => {
                 <FlatList
                     data={workers}
                     renderItem={({ item: worker }) => (
-                        <WorkerCard 
-                            worker={worker} 
-                            onPress={() => {onPressWorker(worker)}}
+                        <WorkerCard
+                            worker={worker}
+                            onPress={() => {
+                                onPressWorker(worker);
+                            }}
                         />
                     )}
                     keyExtractor={(worker) => worker.id.toString()}
-                    ItemSeparatorComponent={() => (
-                        <VGap size={LeafDimensions.cardSpacing} />
-                    )}
+                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     // Don't use overflow prop - doesn't work on web
-                    style={{ 
-                        overflow: 'visible', // Stop shadows getting clipped
+                    style={{
+                        overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
@@ -67,6 +67,6 @@ const YourWorkersScreen: React.FC = () => {
             </VStack>
         </ScrollView>
     );
-}
+};
 
 export default YourWorkersScreen;

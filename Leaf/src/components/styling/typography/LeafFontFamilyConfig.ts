@@ -4,7 +4,6 @@ import { LeafFont } from "./LeafFont";
 import { LeafFontWeight } from "./LeafFontWeight";
 
 class LeafFontFamilyConfig {
-
     private readonly regular: LeafFont | null;
     private readonly semiBold: LeafFont | null;
     private readonly bold: LeafFont | null;
@@ -15,7 +14,7 @@ class LeafFontFamilyConfig {
     private readonly blackItalic: LeafFont | null;
 
     constructor(
-        regular: LeafFont | null, 
+        regular: LeafFont | null,
         semiBold: LeafFont | null,
         bold: LeafFont | null,
         black: LeafFont | null,
@@ -56,7 +55,6 @@ class LeafFontFamilyConfig {
                 throw new UnreachableCaseError(weight);
         }
     }
-
 }
 
 export default LeafFontFamilyConfig;

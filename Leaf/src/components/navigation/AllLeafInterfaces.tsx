@@ -12,60 +12,68 @@ export const WorkerInterface = new LeafInterface()
     .addRoot(
         new LeafStackRoot(
             "Home",
-            () => { // Tab bar
+            () => {
+                // Tab bar
                 NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Your Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
-            () => { // Drawer
+            () => {
+                // Drawer
                 NavigationEnvironment.inst.clearScreens();
                 NavigationEnvironment.inst.setSidebarComponent(<YourPatientsScreen />, "Your Patients");
             },
             "home-variant",
             "home-variant-outline",
-        )
+        ),
     )
     .addRoot(
         new LeafStackRoot(
             "Triage",
-            () => { // Tab bar
+            () => {
+                // Tab bar
                 NavigationEnvironment.inst.navigationTo(NewTriageScreen, undefined, "New Triage");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
-            () => { // Drawer
+            () => {
+                // Drawer
                 NavigationEnvironment.inst.navigationTo(NewTriageScreen, undefined, "New Triage");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "clipboard-account",
-            "clipboard-outline"
-        )
+            "clipboard-outline",
+        ),
     )
     .addRoot(
         new LeafStackRoot(
             "Patients",
-            () => { // Tab bar
+            () => {
+                // Tab bar
                 NavigationEnvironment.inst.navigationTo(PatientsScreen, undefined, "Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
-            () => { // Drawer
+            () => {
+                // Drawer
                 NavigationEnvironment.inst.navigationTo(PatientsScreen, undefined, "Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "account-injury",
-            "account-injury-outline"
-        )
+            "account-injury-outline",
+        ),
     )
     .addRoot(
         new LeafStackRoot(
             "Account",
-            () => { // Tab bar
+            () => {
+                // Tab bar
                 NavigationEnvironment.inst.navigationTo(AccountScreen, undefined, "Your Account");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
-            () => { // Drawer
+            () => {
+                // Drawer
                 NavigationEnvironment.inst.navigationTo(AccountScreen, undefined, "Your Account");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "account-circle",
-            "account-circle-outline"
-        )
-    )
+            "account-circle-outline",
+        ),
+    );

@@ -14,42 +14,28 @@ interface Props {
     onPress: () => void;
 }
 
-const WorkerCard: React.FC<Props> = ({ 
-    worker,
-    style,
-    onPress,
-}) => {
+const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     // TODO: Add Worker full name instead of First Name
     let idText = worker.id.toString();
     return (
-        <FloatingContainer 
-            color={LeafColors.textBackgroundLight}
-            style={style}
-            onPress={onPress}
-        >
+        <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
             <HStack>
                 <VStack>
-                    <View style={{ alignSelf: 'flex-start' }}>
-                        <LeafText
-                            typography={LeafTypography.cardTitle}
-                            verticalWrap={true}
-                        >
+                    <View style={{ alignSelf: "flex-start" }}>
+                        <LeafText typography={LeafTypography.cardTitle} verticalWrap={true}>
                             {worker.firstName}
                         </LeafText>
                     </View>
 
                     <VGap size={6} />
 
-                    <LeafText
-                        typography={LeafTypography.subscript}
-                        wide={false}
-                    >
+                    <LeafText typography={LeafTypography.subscript} wide={false}>
                         {"ID: " + idText}
                     </LeafText>
                 </VStack>
             </HStack>
         </FloatingContainer>
     );
-}
+};
 
 export default WorkerCard;

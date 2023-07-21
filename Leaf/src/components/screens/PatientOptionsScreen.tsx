@@ -20,80 +20,80 @@ interface Props {
 
 const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     return (
-        <View 
+        <View
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                flex: 1,
             }}
         >
-            <ScrollView 
+            <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding
+                    padding: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack 
+                <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
-                        flex: 1
+                        flex: 1,
                     }}
                 >
-                    <LeafText
-                        typography={LeafTypography.body}
-                    >
-                        TODO: Patient Options
-                    </LeafText>
+                    <LeafText typography={LeafTypography.body}>TODO: Patient Options</LeafText>
 
-                    <LeafButton 
+                    <LeafButton
                         label={"Actions"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
+                        type={LeafButtonType.filled}
                         color={LeafColors.accent}
-                        onPress={() => { 
-                            NavigationEnvironment.inst.navigationTo(ActionsScreen, navigation, "Actions"); 
+                        onPress={() => {
+                            NavigationEnvironment.inst.navigationTo(ActionsScreen, navigation, "Actions");
                         }}
                     />
 
-                    <LeafButton 
+                    <LeafButton
                         label={"Patient Preview"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
+                        type={LeafButtonType.filled}
                         color={LeafColors.accent}
-                        onPress={() => { 
-                            NavigationEnvironment.inst.navigationTo(PatientPreviewScreen, navigation, "Patient Preview"); 
+                        onPress={() => {
+                            NavigationEnvironment.inst.navigationTo(
+                                PatientPreviewScreen,
+                                navigation,
+                                "Patient Preview",
+                            );
                         }}
                     />
 
-                    <LeafButton 
+                    <LeafButton
                         label={"Edit"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
+                        type={LeafButtonType.filled}
                         color={LeafColors.accent}
-                        onPress={() => { 
-                            NavigationEnvironment.inst.navigationTo(NewTriageScreen, navigation, "Edit"); 
+                        onPress={() => {
+                            NavigationEnvironment.inst.navigationTo(NewTriageScreen, navigation, "Edit");
                         }}
                     />
 
-                    <LeafButton 
+                    <LeafButton
                         label={"Done"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled} 
+                        type={LeafButtonType.filled}
                         color={LeafColors.accent}
-                        onPress={() => { 
+                        onPress={() => {
                             // Add a method to NavigationStateManager
                             // If navigation == undefined
                             // then clear the screens
-                            navigation.goBack(); 
+                            navigation.goBack();
                         }}
                     />
                 </VStack>
             </ScrollView>
         </View>
     );
-}
+};
 
 export default PatientOptionsScreen;

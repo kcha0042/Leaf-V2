@@ -5,7 +5,6 @@ import UUID from "../core/UUID";
 import Ward from "../hospital/Ward";
 
 class TriageCase {
-
     public readonly id: UUID;
     protected _arrivalDate: Date;
     protected _dischargeDate: Date | null;
@@ -46,7 +45,7 @@ class TriageCase {
         hospital: Hospital,
         medicalUnit: MedicalUnit,
         triageText: string,
-        triageCode: TriageCode
+        triageCode: TriageCode,
     ) {
         this.id = UUID.generate();
         this._arrivalDate = arrivalDate;
@@ -58,7 +57,6 @@ class TriageCase {
         this._triageText = triageText;
         this._triageCode = triageCode;
     }
-
 }
 
 export default TriageCase;

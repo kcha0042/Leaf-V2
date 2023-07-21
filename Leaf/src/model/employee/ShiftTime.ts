@@ -1,4 +1,3 @@
-
 export enum ShiftTime {
     morning,
     afternoon,

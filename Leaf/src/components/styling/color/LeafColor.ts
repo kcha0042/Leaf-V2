@@ -4,7 +4,6 @@ import { ColorScheme } from "../../../state/environment/types/ColorScheme";
 import Environment from "../../../state/environment/Environment";
 
 class LeafColor {
-
     private readonly lightMode: string;
     private readonly darkMode: string;
 
@@ -20,7 +19,7 @@ class LeafColor {
 
     /**
      * Gets the color based on the user's active color scheme (light mode / dark mode)
-     * 
+     *
      * @returns Validated color string
      */
     public getColor(): string {
@@ -34,7 +33,6 @@ class LeafColor {
                 throw new UnreachableCaseError(colorScheme);
         }
     }
-
 }
 
 export default LeafColor;

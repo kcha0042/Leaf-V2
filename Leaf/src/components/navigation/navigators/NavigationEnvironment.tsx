@@ -4,10 +4,8 @@ import StateManager from "../../../state/publishers/StateManager";
 import LeafScreen from "../LeafScreen";
 import NavigationStateManager from "./NavigationStateManager";
 
-
 class NavigationEnvironment {
-
-    public static readonly inst = new NavigationEnvironment()
+    public static readonly inst = new NavigationEnvironment();
 
     private _focusedStackRoot: UUID | undefined = undefined;
     public get focusedStackRoot(): UUID | undefined {
@@ -21,7 +19,7 @@ class NavigationEnvironment {
 
     private _sidebarHeader: string | undefined = undefined;
     public get sidebarHeader(): string | undefined {
-        return this._sidebarHeader
+        return this._sidebarHeader;
     }
 
     private _screens: LeafScreen[] = [];
@@ -29,9 +27,9 @@ class NavigationEnvironment {
         return this._screens;
     }
 
-    public loadedNavigation = () => {}
+    public loadedNavigation = () => {};
 
-    private constructor() { }
+    private constructor() {}
 
     public prepareForNavigation() {
         StateManager.headerTitleOverride.publish(null);
@@ -54,20 +52,13 @@ class NavigationEnvironment {
         if (navigation == undefined) {
             this._screens = [];
         }
-        let id = UUID.generate().toString()
-        this._screens.push(
-            new LeafScreen(
-                title,
-                id,
-                component,
-                {},
-            )
-        )
+        let id = UUID.generate().toString();
+        this._screens.push(new LeafScreen(title, id, component, {}));
         this.loadedNavigation = () => {
             if (this._screens.length > 1 && navigation != undefined) {
                 navigation.navigate(id);
             }
-        }
+        };
         NavigationStateManager.newScreenAdded.publish();
     }
 
@@ -76,7 +67,6 @@ class NavigationEnvironment {
         // and if they do, unfocus the current stack root
         this._focusedStackRoot = id;
     }
-
 }
 
 export default NavigationEnvironment;

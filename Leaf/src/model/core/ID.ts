@@ -1,6 +1,4 @@
-
 class ID {
-
     private readonly _code: string;
 
     constructor(code: string) {
@@ -10,7 +8,6 @@ class ID {
     public toString(): string {
         return this._code;
     }
-
 }
 
 export default ID;

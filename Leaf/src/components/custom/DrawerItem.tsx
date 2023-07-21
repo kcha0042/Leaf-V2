@@ -1,32 +1,25 @@
-import { View, ViewStyle } from "react-native";
-import Patient from "../../model/patient/Patient";
-import FlatContainer from "../containers/FlatContainer";
-import LeafColors from "../styling/LeafColors";
-import LeafTypography from "../styling/LeafTypography";
-import LeafText from "../base/LeafText/LeafText";
-import TriageCodeBadge from "./TriageCodeBadge";
-import VStack from "../containers/VStack";
-import HStack from "../containers/HStack";
-import HGap from "../containers/layout/HGap";
-import VGap from "../containers/layout/VGap";
-import LeafStackRoot from "../navigation/LeafStackRoot";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafText from "../base/LeafText/LeafText";
+import FlatContainer from "../containers/FlatContainer";
+import HStack from "../containers/HStack";
+import HGap from "../containers/layout/HGap";
+import LeafStackRoot from "../navigation/LeafStackRoot";
+import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     leafStackRoot: LeafStackRoot;
 }
 
-const DrawerItem: React.FC<Props> = ({ 
-    leafStackRoot,
-}) => {
-    let isFocused = NavigationEnvironment.inst.focusedStackRoot != undefined && NavigationEnvironment.inst.focusedStackRoot.matches(leafStackRoot.id);
+const DrawerItem: React.FC<Props> = ({ leafStackRoot }) => {
+    let isFocused =
+        NavigationEnvironment.inst.focusedStackRoot != undefined &&
+        NavigationEnvironment.inst.focusedStackRoot.matches(leafStackRoot.id);
     let icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
     return (
-        <FlatContainer 
+        <FlatContainer
             color={isFocused ? LeafColors.fillBackgroundLight : LeafColors.screenBackgroundLight}
             onPress={leafStackRoot.activateOnDrawer}
         >
@@ -38,7 +31,7 @@ const DrawerItem: React.FC<Props> = ({
                         borderRadius: 10,
                     }}
                 >
-                    <LeafIcon 
+                    <LeafIcon
                         icon={icon}
                         color={isFocused ? LeafColors.screenBackgroundLight : LeafColors.textDark}
                         size={LeafIconSize.formCardTitle}
@@ -47,15 +40,12 @@ const DrawerItem: React.FC<Props> = ({
 
                 <HGap size={12} />
 
-                <LeafText
-                    typography={LeafTypography.drawerItem}
-                    wide={false}
-                >
+                <LeafText typography={LeafTypography.drawerItem} wide={false}>
                     {leafStackRoot.title}
                 </LeafText>
             </HStack>
         </FlatContainer>
     );
-}
+};
 
 export default DrawerItem;

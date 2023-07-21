@@ -38,9 +38,7 @@ const LeafDatePicker: React.FC<Props> = ({
 
     // Label typography
     let labelTypography = LeafTypography.body;
-    const [labelColor, setLabelColor] = React.useState(
-        LeafColors.textInputDescription
-    );
+    const [labelColor, setLabelColor] = React.useState(LeafColors.textInputDescription);
 
     const onFocus = () => {
         setLabelColor(textColor);
@@ -72,10 +70,7 @@ const LeafDatePicker: React.FC<Props> = ({
             }}
             onLayout={onLayout}
         >
-            <LeafText
-                typography={labelTypography}
-                style={{ color: labelColor.getColor() }}
-            >
+            <LeafText typography={labelTypography} style={{ color: labelColor.getColor() }}>
                 {label}
             </LeafText>
             <DatePickerInput
@@ -84,17 +79,12 @@ const LeafDatePicker: React.FC<Props> = ({
                 locale="en-GB"
                 onChange={onReceiveInputDate}
                 onChangeText={(text) => {
-                    const dateRegex =
-                        /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+                    const dateRegex = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
                     const isValid = dateRegex.test(text);
                     setTextIsValid(isValid);
                 }}
                 value={inputDate}
-                style={[
-                    { backgroundColor: color.getColor() },
-                    { width: width ?? "100%" },
-                    style,
-                ]}
+                style={[{ backgroundColor: color.getColor() }, { width: width ?? "100%" }, style]}
                 theme={{ colors: { primary: textColor.getColor() } }}
                 outlineStyle={{ borderRadius: 12 }}
                 onFocus={onFocus}

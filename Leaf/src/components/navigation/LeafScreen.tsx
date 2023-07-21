@@ -1,9 +1,7 @@
-
 /**
  * Our screen object
  */
 class LeafScreen {
-
     // TODO: Make id auto-generate
 
     /**
@@ -16,9 +14,8 @@ class LeafScreen {
         public readonly title: string,
         public readonly id: string,
         public readonly component: React.FC,
-        public readonly options?: object
-    ) { }
-
+        public readonly options?: object,
+    ) {}
 }
 
 export default LeafScreen;

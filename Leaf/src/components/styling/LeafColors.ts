@@ -9,7 +9,6 @@ import LeafColor from "./color/LeafColor";
  * To select colors, I recommend the resource: https://yeun.github.io/open-color/
  */
 class LeafColors {
-
     // Palette
 
     static get accent(): LeafColor {
@@ -98,12 +97,12 @@ class LeafColors {
 
     static get screenBackgroundLight(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#ffffff")
+        return new LeafColor("#ffffff");
     }
 
     static get screenBackgroundSemiLight(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#fafafa")
+        return new LeafColor("#fafafa");
     }
 
     static get fillBackgroundLight(): LeafColor {
@@ -115,12 +114,12 @@ class LeafColors {
         // TODO: Update for dark mode
         return new LeafColor("#f1edfc");
     }
-    
+
     // Outlines
 
     static get outlineTextBackgroundDark(): LeafColor {
         // TODO: Update for dark mode
-        return new LeafColor("#e9e3e5"); 
+        return new LeafColor("#e9e3e5");
     }
 
     static get outlineTextBackgroundAccent(): LeafColor {
@@ -157,7 +156,6 @@ class LeafColors {
         // At the moment all codes have light text overlays
         return LeafColors.textLight;
     }
-
 }
 
 export default LeafColors;

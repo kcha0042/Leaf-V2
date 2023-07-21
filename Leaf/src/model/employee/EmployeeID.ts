@@ -2,7 +2,6 @@ import ID from "../core/ID";
 import UUID from "../core/UUID";
 
 class EmployeeID extends ID {
-
     constructor(code: string) {
         // TODO: Validation
         super(code);
@@ -16,7 +15,6 @@ class EmployeeID extends ID {
     public matches(other: EmployeeID): boolean {
         return this.toString() == other.toString();
     }
-
 }
 
 export default EmployeeID;

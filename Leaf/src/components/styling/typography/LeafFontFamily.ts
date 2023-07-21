@@ -11,24 +11,15 @@ export enum LeafFontFamily {
 export namespace LeafFontFamily {
     export function getConfig(family: LeafFontFamily): LeafFontFamilyConfig {
         switch (family) {
-            case LeafFontFamily.gilroy: 
-                return new LeafFontFamilyConfig(
-                    null,
-                    null,
-                    null,
-                    LeafFont.gilroyExtraBold,
-                    null,
-                    null,
-                    null,
-                    null,
-                );
+            case LeafFontFamily.gilroy:
+                return new LeafFontFamilyConfig(null, null, null, LeafFont.gilroyExtraBold, null, null, null, null);
             case LeafFontFamily.poppins:
                 return new LeafFontFamilyConfig(
-                    LeafFont.poppinsMedium, 
+                    LeafFont.poppinsMedium,
                     LeafFont.poppinsSemiBold,
-                    LeafFont.poppinsBold, 
+                    LeafFont.poppinsBold,
                     null,
-                    LeafFont.poppinsMediumItalic, 
+                    LeafFont.poppinsMediumItalic,
                     LeafFont.poppinsSemiBoldItalic,
                     LeafFont.poppinsBoldItalic,
                     null,
@@ -44,7 +35,7 @@ export namespace LeafFontFamily {
                     LeafFont.circularBoldItalic,
                     LeafFont.circularBlackItalic,
                 );
-            default: 
+            default:
                 throw new UnreachableCaseError(family);
         }
     }

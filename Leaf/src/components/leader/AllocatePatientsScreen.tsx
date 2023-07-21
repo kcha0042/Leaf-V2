@@ -31,51 +31,51 @@ const AllocatePatientsScreen: React.FC = () => {
     const onPressPatient = (patient) => {
         // TODO: Navigation
         console.log(patient.fullName);
-    }
+    };
 
     const onPressNewAllocation = () => {
         // TODO: Patient Allocation Page
         console.log("new Allocation");
-    }
+    };
 
     return (
-        <ScrollView 
+        <ScrollView
             style={{
                 flex: 1,
                 padding: LeafDimensions.screenPadding,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >
-            <VStack 
+            <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.header}>
-                    Nabeeb
-                </LeafText>
+                <LeafText typography={LeafTypography.header}>Nabeeb</LeafText>
 
                 <AllocateCard
-                    onPress={() => {onPressNewAllocation}}
+                    onPress={() => {
+                        onPressNewAllocation;
+                    }}
                 />
-                    
+
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard 
-                            patient={patient} 
-                            onPress={() => {onPressPatient(patient)}}
+                        <PatientCard
+                            patient={patient}
+                            onPress={() => {
+                                onPressPatient(patient);
+                            }}
                         />
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}
-                    ItemSeparatorComponent={() => (
-                        <VGap size={LeafDimensions.cardSpacing} />
-                    )}
+                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     // Don't use overflow prop - doesn't work on web
-                    style={{ 
-                        overflow: 'visible', // Stop shadows getting clipped
+                    style={{
+                        overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
@@ -84,6 +84,6 @@ const AllocatePatientsScreen: React.FC = () => {
             </VStack>
         </ScrollView>
     );
-}
+};
 
 export default AllocatePatientsScreen;

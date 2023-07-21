@@ -90,3 +90,13 @@ $ npm run deploy
 ```
 
 The application will be built and published automatically from the `gh-pages` branch.
+
+## Linting
+
+Run the following in the project directory:
+
+```
+$ npx prettier . --write
+```
+
+To not lint specific code blocks, refer to the following: https://prettier.io/docs/en/ignore.html

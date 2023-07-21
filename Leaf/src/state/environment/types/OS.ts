@@ -6,25 +6,25 @@ export enum OS {
     web,
     windows,
     macos,
-    other
+    other,
 }
 
 export namespace OS {
     export function toString(os: OS): string {
         switch (os) {
-            case OS.ios: 
+            case OS.ios:
                 return "iOS";
-            case OS.android: 
+            case OS.android:
                 return "Android";
-            case OS.windows: 
+            case OS.windows:
                 return "Windows";
-            case OS.macos: 
+            case OS.macos:
                 return "macOS";
-            case OS.web: 
+            case OS.web:
                 return "Web";
-            case OS.other: 
+            case OS.other:
                 return "Unknown";
-            default: 
+            default:
                 throw new UnreachableCaseError(os);
         }
     }

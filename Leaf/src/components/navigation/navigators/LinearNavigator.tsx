@@ -4,7 +4,7 @@ import { useSafeAreaFrame, useSafeAreaInsets } from "react-native-safe-area-cont
 import LeafScreen from "../LeafScreen";
 
 interface Props {
-    screens: LeafScreen[]
+    screens: LeafScreen[];
 }
 
 export const LinearNavigator: React.FC<Props> = ({ screens }) => {
@@ -25,22 +25,19 @@ export const LinearNavigator: React.FC<Props> = ({ screens }) => {
 
     return (
         <Stack.Navigator>
-            {
-                screens.map((screen, index) => {
-                    return (
-                        <Stack.Screen 
-                            key={screen.id}
-                            name={screen.id}
-                            component={screen.component}
-                            options={({ navigation }) => ({
-                                ...screen.options,
-                                header: () => (
-                                    <></>
-                            )})}
-                        />
-                    );
-                })
-            }
+            {screens.map((screen, index) => {
+                return (
+                    <Stack.Screen
+                        key={screen.id}
+                        name={screen.id}
+                        component={screen.component}
+                        options={({ navigation }) => ({
+                            ...screen.options,
+                            header: () => <></>,
+                        })}
+                    />
+                );
+            })}
         </Stack.Navigator>
     );
-}
+};

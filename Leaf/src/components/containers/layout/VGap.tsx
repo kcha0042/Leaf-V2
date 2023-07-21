@@ -1,12 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
 
 interface Props {
-  size: number;
+    size: number;
 }
 
 const VGap: React.FC<Props> = ({ size }) => {
-  return <View style={{ height: size }} />;
+    return <View style={{ height: size }} />;
 };
 
 export default VGap;

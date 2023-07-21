@@ -1,5 +1,4 @@
-
 export enum LeafButtonType {
     filled = "contained",
-    outlined = "outlined"
+    outlined = "outlined",
 }

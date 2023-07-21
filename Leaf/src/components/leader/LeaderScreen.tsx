@@ -10,13 +10,13 @@ const LeaderScreen: React.FC = () => {
             <AllocatePatientsScreen />
         </SafeAreaView>
     );
-}
+};
 
 const style = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: LeafColors.screenBackgroundLight.getColor()
-    }
+        backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+    },
 });
 
 export default LeaderScreen;

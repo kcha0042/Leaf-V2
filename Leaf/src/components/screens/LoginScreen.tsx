@@ -20,11 +20,11 @@ const LoginScreen: React.FC = () => {
 
     const onUsernameInput = (text) => {
         setUsername(text);
-    }
+    };
 
     const onPasswordInput = (text) => {
         setPassword(text);
-    }
+    };
 
     const onLoginPressed = () => {
         // TODO: Obviously this entire thing will be reworked in time
@@ -42,33 +42,30 @@ const LoginScreen: React.FC = () => {
                 StateManager.loginStatus.publish(LoginStatus.admin);
                 break;
         }
-    }
+    };
 
     return (
-        <VStack 
-            spacing={LeafDimensions.screenSpacing} 
-            style={{ 
+        <VStack
+            spacing={LeafDimensions.screenSpacing}
+            style={{
                 flex: 1,
-                alignItems: 'center',
-                width: '100%',
+                alignItems: "center",
+                width: "100%",
                 padding: LeafDimensions.screenPadding,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >
             <Spacer />
 
-            <LeafText 
-                typography={LeafTypography.display} 
-                style={{ textAlign: 'center', paddingBottom: 20 }}
-            >
+            <LeafText typography={LeafTypography.display} style={{ textAlign: "center", paddingBottom: 20 }}>
                 {strings("login.title")}
             </LeafText>
 
-            <View 
+            <View
                 style={{
                     maxWidth: 400,
-                    alignItems: 'center',
-                    width: "100%"
+                    alignItems: "center",
+                    width: "100%",
                 }}
             >
                 <LeafTextInput
@@ -87,11 +84,11 @@ const LoginScreen: React.FC = () => {
                     onTextChange={onPasswordInput}
                 />
 
-                <LeafButton 
+                <LeafButton
                     label={strings("button.login")}
                     icon="arrow-right-circle"
                     typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled} 
+                    type={LeafButtonType.filled}
                     color={LeafColors.accent}
                     style={{ marginTop: 40 }}
                     onPress={onLoginPressed}
@@ -99,12 +96,12 @@ const LoginScreen: React.FC = () => {
             </View>
 
             <Spacer />
-            
+
             <Spacer />
 
             <Spacer />
         </VStack>
     );
-}
+};
 
 export default LoginScreen;

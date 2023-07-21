@@ -1,5 +1,5 @@
-import { Appearance, Dimensions, PlatformIOSStatic } from "react-native"
-import { Platform } from 'react-native';
+import { Appearance, Dimensions, PlatformIOSStatic } from "react-native";
+import { Platform } from "react-native";
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
 import { OS } from "./types/OS";
 import { ScreenType } from "./types/ScreenType";
@@ -7,18 +7,17 @@ import { ColorScheme } from "./types/ColorScheme";
 import { LeafScreenOrientation } from "./types/LeafScreenOrientation";
 
 class Environment {
+    public static readonly instance = new Environment();
 
-    public static readonly instance = new Environment()
-
-    private constructor() { }
+    private constructor() {}
 
     public getColorScheme(): ColorScheme {
         // TODO: I can't get this to change correctly
         const colorScheme = Appearance.getColorScheme();
         switch (colorScheme) {
-            case 'dark':
+            case "dark":
                 return ColorScheme.dark;
-            case 'light':
+            case "light":
                 return ColorScheme.light;
             default:
                 return ColorScheme.light;
@@ -27,15 +26,15 @@ class Environment {
 
     public getOS(): OS {
         switch (Platform.OS) {
-            case 'android':
+            case "android":
                 return OS.android;
-            case 'ios':
+            case "ios":
                 return OS.ios;
-            case 'windows':
+            case "windows":
                 return OS.windows;
-            case 'macos':
+            case "macos":
                 return OS.macos;
-            case 'web':
+            case "web":
                 return OS.web;
             default:
                 return OS.other;
@@ -69,28 +68,24 @@ class Environment {
 
     public getScreenOrientation(): LeafScreenOrientation {
         const dimensions = this.getScreenDimensions();
-        if (dimensions[0] > dimensions[1]){
+        if (dimensions[0] > dimensions[1]) {
             return LeafScreenOrientation.Landscape;
         }
-        
+
         return LeafScreenOrientation.Potrait;
     }
 
     public getScreenWidth(): number {
-        return Dimensions.get('window').width;
+        return Dimensions.get("window").width;
     }
 
     public getScreenHeight(): number {
-        return Dimensions.get('window').height;
+        return Dimensions.get("window").height;
     }
 
     private getScreenDimensions(): [number, number] {
-        return [
-            Dimensions.get("window").width,
-            Dimensions.get("window").height
-        ]
+        return [Dimensions.get("window").width, Dimensions.get("window").height];
     }
-
 }
 
 export default Environment;

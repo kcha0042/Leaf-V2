@@ -19,7 +19,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
         if (activePatient != null) {
             StateManager.headerTitleOverride.publish(activePatient.fullName);
         }
-    }
+    };
 
     useEffect(() => {
         matchHeaderToPatient();
@@ -30,42 +30,38 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
     });
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+        const unsubscribe = navigation.addListener("beforeRemove", (e) => {
             // Executed when a navigation event occurs
             // Reset header override
             StateManager.headerTitleOverride.publish(null);
         });
         return unsubscribe;
     }, [navigation]);
-    
+
     return (
-        <View 
+        <View
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                flex: 1,
             }}
         >
-            <ScrollView 
+            <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding
+                    padding: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack 
+                <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
-                        flex: 1
+                        flex: 1,
                     }}
                 >
-                    <LeafText
-                        typography={LeafTypography.body}
-                    >
-                        TODO: Patient Preview
-                    </LeafText>
+                    <LeafText typography={LeafTypography.body}>TODO: Patient Preview</LeafText>
                 </VStack>
             </ScrollView>
         </View>
     );
-}
+};
 
 export default PatientPreviewScreen;

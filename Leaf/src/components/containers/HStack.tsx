@@ -10,19 +10,16 @@ interface Props {
     style?: ViewStyle;
 }
 
-const HStack: React.FC<Props> = ({ 
-    children, 
-    spacing = 0,
-    verticalSpacing = null,
-    onLayout,
-    style, 
-}) => {
+const HStack: React.FC<Props> = ({ children, spacing = 0, verticalSpacing = null, onLayout, style }) => {
     return (
-        <View 
+        <View
             onLayout={onLayout}
             style={[
-                styles.container, 
-                { columnGap: spacing, rowGap: verticalSpacing == null ? spacing : verticalSpacing }, 
+                styles.container,
+                {
+                    columnGap: spacing,
+                    rowGap: verticalSpacing == null ? spacing : verticalSpacing,
+                },
                 style,
             ]}
         >
@@ -33,9 +30,9 @@ const HStack: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row', 
-        flexWrap: 'wrap',
-    }
+        flexDirection: "row",
+        flexWrap: "wrap",
+    },
 });
 
 HStack.propTypes = {

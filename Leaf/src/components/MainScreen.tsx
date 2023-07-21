@@ -22,27 +22,18 @@ const MainScreen: React.FC = () => {
             return (
                 <NavigationContainer>
                     {/* TODO: Fix this */}
-                    <LinearNavigator screens={
-                        [
-                            new LeafScreen(
-                                "Login",
-                                UUID.generate().toString(),
-                                LoginScreen,
-                                {}
-                            )
-                        ]
-                    } />
+                    <LinearNavigator screens={[new LeafScreen("Login", UUID.generate().toString(), LoginScreen, {})]} />
                 </NavigationContainer>
             );
         case LoginStatus.worker:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.leader:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.admin:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
         default:
             throw new UnreachableCaseError(loginStatus);
     }
-}
+};
 
 export default MainScreen;

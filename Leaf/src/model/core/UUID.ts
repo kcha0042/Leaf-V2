@@ -1,8 +1,7 @@
 import ID from "./ID";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 
 class UUID extends ID {
-
     constructor(uuid: string) {
         super(uuid);
     }
@@ -14,7 +13,6 @@ class UUID extends ID {
     public matches(other: UUID): boolean {
         return this.toString() == other.toString();
     }
-
 }
 
 export default UUID;

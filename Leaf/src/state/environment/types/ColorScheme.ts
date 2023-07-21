@@ -2,17 +2,17 @@ import { UnreachableCaseError } from "../../../language/errors/UnreachableCaseEr
 
 export enum ColorScheme {
     dark,
-    light
+    light,
 }
 
 export namespace ColorScheme {
     export function toString(scheme: ColorScheme): string {
         switch (scheme) {
             case ColorScheme.dark:
-                return "Dark Mode"
+                return "Dark Mode";
             case ColorScheme.light:
-                return "Light Mode"
-            default: 
+                return "Light Mode";
+            default:
                 throw new UnreachableCaseError(scheme);
         }
     }

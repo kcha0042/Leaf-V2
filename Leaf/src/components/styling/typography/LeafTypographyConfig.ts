@@ -1,11 +1,10 @@
 import LeafColor from "../color/LeafColor";
 import { LeafFontFamily } from "./LeafFontFamily";
 import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 import { LeafFontWeight } from "./LeafFontWeight";
 
 class LeafTypographyConfig {
-
     public size: number;
     public fontFamily: LeafFontFamily;
     // An undefined color allows the component handle the color
@@ -34,15 +33,15 @@ class LeafTypographyConfig {
                 result = (result + " line-through").trimStart();
             }
         }
-        return (result as "none" | "underline" | "line-through" | "underline line-through");
+        return result as "none" | "underline" | "line-through" | "underline line-through";
     }
 
     constructor(
-        size: number, 
-        fontFamily: LeafFontFamily, 
+        size: number,
+        fontFamily: LeafFontFamily,
         color: LeafColor | undefined,
-        weight: LeafFontWeight = LeafFontWeight.regular, 
-        italic: boolean = false, 
+        weight: LeafFontWeight = LeafFontWeight.regular,
+        italic: boolean = false,
         underlined: boolean = false,
         linedOut: boolean = false,
         kerning: number = 0,
@@ -95,10 +94,9 @@ class LeafTypographyConfig {
                 fontSize: this.size,
                 textDecorationLine: this.lineStyle,
                 letterSpacing: this.kerning,
-            }
+            },
         }).typography;
     }
-
 }
 
 export default LeafTypographyConfig;

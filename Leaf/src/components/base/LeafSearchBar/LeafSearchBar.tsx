@@ -1,20 +1,17 @@
-import React from 'react';
-import { Searchbar } from 'react-native-paper';
-import LeafColor from '../../styling/color/LeafColor';
-import { strings } from '../../../localisation/Strings';
-import LeafColors from '../../styling/LeafColors';
-import LeafIcon from '../LeafIcon/LeafIcon';
-import LeafTypography from '../../styling/LeafTypography';
+import React from "react";
+import { Searchbar } from "react-native-paper";
+import LeafColor from "../../styling/color/LeafColor";
+import { strings } from "../../../localisation/Strings";
+import LeafColors from "../../styling/LeafColors";
+import LeafIcon from "../LeafIcon/LeafIcon";
+import LeafTypography from "../../styling/LeafTypography";
 
 interface Props {
     searchQuery: string;
     onSearch: (query: string) => void;
 }
 
-const LeafSearchBar: React.FC<Props> = ({ 
-    searchQuery,
-    onSearch,
-}) => {
+const LeafSearchBar: React.FC<Props> = ({ searchQuery, onSearch }) => {
     // Base the typography off body
     let searchTypography = LeafTypography.body;
     searchTypography.size = 18;
@@ -27,7 +24,7 @@ const LeafSearchBar: React.FC<Props> = ({
             value={searchQuery}
             theme={{ colors: { primary: LeafColors.textDark.getColor() } }}
             icon={({ size, color }) => (
-                <LeafIcon icon="magnify" color={new LeafColor(color)} size={size} style={{paddingLeft: 8}} />
+                <LeafIcon icon="magnify" color={new LeafColor(color)} size={size} style={{ paddingLeft: 8 }} />
             )}
             iconColor={LeafColors.textDark.getColor()}
             inputStyle={{
@@ -44,6 +41,6 @@ const LeafSearchBar: React.FC<Props> = ({
             }}
         />
     );
-}
+};
 
 export default LeafSearchBar;

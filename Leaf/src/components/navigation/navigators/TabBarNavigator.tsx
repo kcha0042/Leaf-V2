@@ -1,25 +1,25 @@
-import { createStackNavigator } from "@react-navigation/stack"
-import React, { useEffect, useState } from "react"
-import { View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import YourPatientsScreen from "../../screens/YourPatientsScreen"
-import HStack from "../../containers/HStack"
-import LeafColors from "../../styling/LeafColors"
-import LeafTypography from "../../styling/LeafTypography"
-import LeafButton from "../../base/LeafButton/LeafButton"
-import { LeafButtonType } from "../../base/LeafButton/LeafButtonType"
-import LeafText from "../../base/LeafText/LeafText"
-import LeafInterface from "../LeafInterface"
-import LeafScreen from "../LeafScreen"
-import CustomLeafHeader from "../CustomHeader"
-import NavigationEnvironment from "./NavigationEnvironment"
-import NavigationStateManager from "./NavigationStateManager"
-import { EmptyScreen } from "../EmptyScreen"
-import VStack from "../../containers/VStack"
-import TabBarItem from "../../custom/TabBarItem"
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import YourPatientsScreen from "../../screens/YourPatientsScreen";
+import HStack from "../../containers/HStack";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
+import LeafButton from "../../base/LeafButton/LeafButton";
+import { LeafButtonType } from "../../base/LeafButton/LeafButtonType";
+import LeafText from "../../base/LeafText/LeafText";
+import LeafInterface from "../LeafInterface";
+import LeafScreen from "../LeafScreen";
+import CustomLeafHeader from "../CustomHeader";
+import NavigationEnvironment from "./NavigationEnvironment";
+import NavigationStateManager from "./NavigationStateManager";
+import { EmptyScreen } from "../EmptyScreen";
+import VStack from "../../containers/VStack";
+import TabBarItem from "../../custom/TabBarItem";
 
 interface Props {
-    leafInterface: LeafInterface
+    leafInterface: LeafInterface;
 }
 
 /**
@@ -61,67 +61,56 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                 }}
             >
                 <SafeAreaView
-                    edges={['top']}
-                    style={{ 
+                    edges={["top"]}
+                    style={{
                         flex: 1,
                     }}
                 >
-                {
-                        screens.length == 0
-                            ?
+                    {screens.length == 0 ? (
                         <EmptyScreen />
-                            :
+                    ) : (
                         <Stack.Navigator>
-                            {
-                                screens.map((screen, index) => {
-                                    return (
-                                        <Stack.Screen 
-                                            // Yes, key/name are both id
-                                            key={screen.id}
-                                            name={screen.id}
-                                            component={screen.component}
-                                            options={({ navigation }) => ({
-                                                ...screen.options,
-                                                animationEnabled: index > 0,
-                                                header: () => (
-                                                    <CustomLeafHeader
-                                                        title={screen.title}
-                                                        buttonProps={
-                                                            {
-                                                                canGoBack: index > 0,
-                                                                navigation: navigation,
-                                                            }
-                                                        }
-                                                    />
-                                            )})}
-                                        />
-                                    )
-                                })
-                            }
+                            {screens.map((screen, index) => {
+                                return (
+                                    <Stack.Screen
+                                        // Yes, key/name are both id
+                                        key={screen.id}
+                                        name={screen.id}
+                                        component={screen.component}
+                                        options={({ navigation }) => ({
+                                            ...screen.options,
+                                            animationEnabled: index > 0,
+                                            header: () => (
+                                                <CustomLeafHeader
+                                                    title={screen.title}
+                                                    buttonProps={{
+                                                        canGoBack: index > 0,
+                                                        navigation: navigation,
+                                                    }}
+                                                />
+                                            ),
+                                        })}
+                                    />
+                                );
+                            })}
                         </Stack.Navigator>
-                    }
-                    </SafeAreaView>
+                    )}
+                </SafeAreaView>
             </View>
 
-            <SafeAreaView 
-          edges={['bottom']}
-        >
-            <HStack style={{ width: "100%", justifyContent: 'space-around', paddingHorizontal: 8 }}>
-                {
-                    leafInterface.roots.map((root, index) => {
-                        return (
-                            <TabBarItem
-                                leafStackRoot={root}
-                                key={root.id.toString()}
-                            />
-                        )
-                    })
-                }
-            </HStack>
+            <SafeAreaView edges={["bottom"]}>
+                <HStack
+                    style={{
+                        width: "100%",
+                        justifyContent: "space-around",
+                        paddingHorizontal: 8,
+                    }}
+                >
+                    {leafInterface.roots.map((root, index) => {
+                        return <TabBarItem leafStackRoot={root} key={root.id.toString()} />;
+                    })}
+                </HStack>
             </SafeAreaView>
         </VStack>
-
-    )
+    );
 };
-
-

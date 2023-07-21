@@ -1,9 +1,9 @@
-import React from 'react';
-import { TouchableOpacity, ViewStyle } from 'react-native';
-import LeafColor from '../../styling/color/LeafColor';
-import LeafImage from '../LeafImage/LeafImage';
-import { LeafImageScale } from '../LeafImage/LeafImageScale';
-import LeafIcon from '../LeafIcon/LeafIcon';
+import React from "react";
+import { TouchableOpacity, ViewStyle } from "react-native";
+import LeafColor from "../../styling/color/LeafColor";
+import LeafImage from "../LeafImage/LeafImage";
+import { LeafImageScale } from "../LeafImage/LeafImageScale";
+import LeafIcon from "../LeafIcon/LeafIcon";
 
 interface Props {
     color: LeafColor;
@@ -16,9 +16,9 @@ interface Props {
     onPress: () => void;
 }
 
-const LeafIconButton: React.FC<Props> = ({ 
+const LeafIconButton: React.FC<Props> = ({
     color,
-    icon = null, 
+    icon = null,
     iconColor = null,
     fileName = null,
     size,
@@ -27,43 +27,41 @@ const LeafIconButton: React.FC<Props> = ({
     onPress,
 }) => {
     return (
-        <TouchableOpacity 
-            onPress={onPress} 
-            disabled={onPress == null} 
-            style={{ 
+        <TouchableOpacity
+            onPress={onPress}
+            disabled={onPress == null}
+            style={{
                 backgroundColor: color.getColor(),
                 borderRadius: 50,
                 width: onlyIcon ? 0 : size,
                 height: onlyIcon ? 0 : size,
-                justifyContent: 'center',
+                justifyContent: "center",
                 ...style,
             }}
         >
-            {
-                (icon == null) 
-                    ?
-                <LeafImage 
+            {icon == null ? (
+                <LeafImage
                     fileName={fileName}
-                    width={size*1.8/3.0}
-                    height={size*1.8/3.0}
+                    width={(size * 1.8) / 3.0}
+                    height={(size * 1.8) / 3.0}
                     scale={LeafImageScale.scaleToFit}
                     style={{
-                        alignSelf: 'center',
+                        alignSelf: "center",
                         tintColor: iconColor?.getColor(),
                     }}
                 />
-                    :
-                <LeafIcon 
+            ) : (
+                <LeafIcon
                     icon={icon}
-                    size={size*2.2/3.0}
-                    color={iconColor ?? new LeafColor('#ffffff')}
+                    size={(size * 2.2) / 3.0}
+                    color={iconColor ?? new LeafColor("#ffffff")}
                     style={{
-                        alignSelf: 'center',
+                        alignSelf: "center",
                     }}
-                /> 
-            }
+                />
+            )}
         </TouchableOpacity>
     );
-}
+};
 
 export default LeafIconButton;

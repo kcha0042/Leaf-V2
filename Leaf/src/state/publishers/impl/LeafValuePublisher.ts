@@ -6,25 +6,24 @@ import { Draft, PayloadAction, configureStore, createSlice } from "@reduxjs/tool
  * To only be initialised within StateManager.
  */
 class LeafValuePublisher<Type> {
-
     private readonly slice;
     private readonly publisher;
 
     constructor(initialState: Type) {
         this.slice = createSlice({
-            name: 'LeafValuePublisher',
+            name: "LeafValuePublisher",
             initialState: {
-                value: initialState
+                value: initialState,
             },
             reducers: {
                 publishAction: (state, newValue: PayloadAction<Draft<Type>>) => {
                     state.value = newValue.payload;
-                }
-            }
+                },
+            },
         });
-        
+
         this.publisher = configureStore({
-            reducer: this.slice.reducer
+            reducer: this.slice.reducer,
         });
     }
 
@@ -39,7 +38,6 @@ class LeafValuePublisher<Type> {
     public read(): Type {
         return this.publisher.getState().value;
     }
-
 }
 
 export default LeafValuePublisher;

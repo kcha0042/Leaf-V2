@@ -13,33 +13,29 @@ interface Props {
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     return (
-        <View 
+        <View
             style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(), 
-                flex: 1
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                flex: 1,
             }}
         >
-            <ScrollView 
+            <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding
+                    padding: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack 
+                <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
-                        flex: 1
+                        flex: 1,
                     }}
                 >
-                    <LeafText
-                        typography={LeafTypography.body}
-                    >
-                        TODO: Actions
-                    </LeafText>
+                    <LeafText typography={LeafTypography.body}>TODO: Actions</LeafText>
                 </VStack>
             </ScrollView>
         </View>
     );
-}
+};
 
 export default ActionsScreen;

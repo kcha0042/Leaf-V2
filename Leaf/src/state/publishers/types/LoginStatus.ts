@@ -1,4 +1,3 @@
-
 export enum LoginStatus {
     worker,
     leader,

@@ -5,14 +5,8 @@ import { LeafFontWeight } from "./typography/LeafFontWeight";
 import LeafColor from "./color/LeafColor";
 
 class LeafTypography {
-
     static get display(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            70,
-            LeafFontFamily.gilroy,
-            LeafColors.textBlack,
-            LeafFontWeight.black,
-        );
+        return new LeafTypographyConfig(70, LeafFontFamily.gilroy, LeafColors.textBlack, LeafFontWeight.black);
     }
 
     static get header(): LeafTypographyConfig {
@@ -24,68 +18,36 @@ class LeafTypography {
             false,
             false,
             false,
-            -0.5
+            -0.5,
         );
     }
 
     static get cardTitle(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            20,
-            LeafFontFamily.poppins,
-            LeafColors.textDark,
-            LeafFontWeight.semiBold,
-        );
+        return new LeafTypographyConfig(20, LeafFontFamily.poppins, LeafColors.textDark, LeafFontWeight.semiBold);
     }
 
     static get formCardTitle(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            16,
-            LeafFontFamily.poppins,
-            LeafColors.textDark,
-            LeafFontWeight.bold,
-        );
+        return new LeafTypographyConfig(16, LeafFontFamily.poppins, LeafColors.textDark, LeafFontWeight.bold);
     }
 
     static get body(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            15,
-            LeafFontFamily.poppins,
-            LeafColors.textDark,
-        );
+        return new LeafTypographyConfig(15, LeafFontFamily.poppins, LeafColors.textDark);
     }
 
     static get subscript(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            13,
-            LeafFontFamily.poppins,
-            LeafColors.textSemiDark,
-        );
+        return new LeafTypographyConfig(13, LeafFontFamily.poppins, LeafColors.textSemiDark);
     }
 
     static get badge(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            18,
-            LeafFontFamily.poppins,
-            undefined,
-            LeafFontWeight.bold,
-        );
+        return new LeafTypographyConfig(18, LeafFontFamily.poppins, undefined, LeafFontWeight.bold);
     }
 
     static get primaryButton(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            18,
-            LeafFontFamily.poppins,
-            LeafColors.textLight,
-            LeafFontWeight.bold,
-        );
+        return new LeafTypographyConfig(18, LeafFontFamily.poppins, LeafColors.textLight, LeafFontWeight.bold);
     }
 
     static get drawerItem(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            15,
-            LeafFontFamily.poppins,
-            LeafColors.textDark,
-        );
+        return new LeafTypographyConfig(15, LeafFontFamily.poppins, LeafColors.textDark);
     }
 
     static get drawerTitle(): LeafTypographyConfig {
@@ -97,18 +59,13 @@ class LeafTypography {
             false,
             false,
             false,
-            -0.5
+            -0.5,
         );
     }
 
     static get subscriptLabel(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            10,
-            LeafFontFamily.poppins,
-            LeafColors.textSemiDark,
-        );
+        return new LeafTypographyConfig(10, LeafFontFamily.poppins, LeafColors.textSemiDark);
     }
-
 }
 
 export default LeafTypography;

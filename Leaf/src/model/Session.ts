@@ -12,15 +12,14 @@ import TriageCase from "./triage/TriageCase";
 import { TriageCode } from "./triage/TriageCode";
 
 class Session {
-
-    public static readonly instance = new Session()
+    public static readonly instance = new Session();
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
 
-    private constructor() { }
+    private constructor() {}
 
     public setActivePatient(patient: Patient | null) {
         this.activePatient = patient;
@@ -50,16 +49,8 @@ class Session {
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        let worker1 = new Worker(
-            new EmployeeID("123-123"),
-            "Spongebob",
-            "Squarepants"
-        )
-        let worker2 = new Worker(
-            new EmployeeID("456-456"),
-            "Charith",
-            "Jayasekara"
-        );
+        let worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants");
+        let worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara");
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers
@@ -80,19 +71,12 @@ class Session {
                 new Hospital("Hosptial123"),
                 new MedicalUnit("MedicalUnit123"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.immediate
+                TriageCode.immediate,
             ),
             "1234",
             new Date(),
             new EmployeeID("123-123"),
-            [
-                new PatientEvent(
-                    new Date(),
-                    "Take medication",
-                    "Take them drugs",
-                    PatientEventCategory.medication
-                )
-            ]
+            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
         );
         let patient2 = new Patient(
             new MRN("temp-222-222"),
@@ -105,26 +89,18 @@ class Session {
                 new Hospital("Hosptial456"),
                 new MedicalUnit("MedicalUnit456"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.semiUrgent
+                TriageCode.semiUrgent,
             ),
             "1234",
             new Date(),
             new EmployeeID("456-456"),
-            [
-                new PatientEvent(
-                    new Date(),
-                    "Eat pizza",
-                    "Yum Yum Yum",
-                    PatientEventCategory.other
-                )
-            ]
+            [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.other)],
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;
         // Notify subscribers
         StateManager.patientsFetched.publish();
     }
-
 }
 
 export default Session;

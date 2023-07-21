@@ -1,9 +1,9 @@
-import React from 'react';
-import { Text } from 'react-native-paper';
-import { TextStyle } from 'react-native';
-import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
-import { LeafFontFamily } from '../../styling/typography/LeafFontFamily';
-import LeafTypography from '../../styling/LeafTypography';
+import React from "react";
+import { Text } from "react-native-paper";
+import { TextStyle } from "react-native";
+import LeafTypographyConfig from "../../styling/typography/LeafTypographyConfig";
+import { LeafFontFamily } from "../../styling/typography/LeafFontFamily";
+import LeafTypography from "../../styling/LeafTypography";
 
 interface Props {
     // Text or other components to be embedded
@@ -18,8 +18,8 @@ interface Props {
     style?: TextStyle;
 }
 
-const LeafText: React.FC<Props> = ({ 
-    children, 
+const LeafText: React.FC<Props> = ({
+    children,
     typography = LeafTypography.body,
     verticalWrap = false,
     wide = true,
@@ -31,17 +31,19 @@ const LeafText: React.FC<Props> = ({
     return (
         <Text
             style={[
-                wide ? { width: "100%" } : { alignSelf: 'center' },
+                wide ? { width: "100%" } : { alignSelf: "center" },
                 typography.getStylesheet(),
-                verticalWrap ? { 
-                    lineHeight: typography.size*lineHeightMultiplier 
-                } : null,
+                verticalWrap
+                    ? {
+                          lineHeight: typography.size * lineHeightMultiplier,
+                      }
+                    : null,
                 style,
             ]}
         >
             {children}
         </Text>
     );
-}
+};
 
 export default LeafText;
