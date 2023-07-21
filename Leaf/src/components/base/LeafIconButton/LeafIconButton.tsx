@@ -6,13 +6,22 @@ import { LeafImageScale } from "../LeafImage/LeafImageScale";
 import LeafIcon from "../LeafIcon/LeafIcon";
 
 interface Props {
+    // The button (background) color
     color: LeafColor;
-    icon?: string; // https://pictogrammers.com/library/mdi/
+    // https://pictogrammers.com/library/mdi/
+    icon?: string;
+    // The icon color 
     iconColor?: LeafColor;
+    // File name found in assets/images
+    // REMEMBER TO REGISTER IMAGE (ImageMap, found in LeafImages.ts)
     fileName?: string;
+    // The size of the icon (use LeafIconSize where appropriate)
     size: number;
+    // True if the background button should not be visible (only the icon)
     onlyIcon?: boolean;
+    // Style props
     style?: ViewStyle;
+    // Callback on press
     onPress: () => void;
 }
 
@@ -31,10 +40,10 @@ const LeafIconButton: React.FC<Props> = ({
             onPress={onPress}
             disabled={onPress == null}
             style={{
-                backgroundColor: color.getColor(),
-                borderRadius: 50,
-                width: onlyIcon ? 0 : size,
-                height: onlyIcon ? 0 : size,
+                backgroundColor: onlyIcon ? "transparent" : color.getColor(),
+                borderRadius: onlyIcon ? 0 : 50,
+                width: size,
+                height: size,
                 justifyContent: "center",
                 ...style,
             }}

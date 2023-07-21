@@ -115,7 +115,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 alignItems: "center",
                                 width: "100%",
                                 paddingTop: 12,
-                                paddingLeft: LeafDimensions.screenPadding
+                                paddingLeft: LeafDimensions.screenPadding,
                             }}
                         >
                             {!drawerContracted ? undefined : (
@@ -127,7 +127,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                     color={LeafColors.textDark}
                                     onPress={toggleDrawer}
                                     style={{
-                                        marginLeft: -6 // To account for icon box
+                                        marginLeft: -6, // To account for icon box
                                     }}
                                 />
                             )}
@@ -162,7 +162,8 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                     <HStack
                         spacing={12}
                         style={{
-                            paddingLeft: LeafDimensions.screenPadding
+                            paddingLeft: LeafDimensions.screenPadding,
+                            alignItems: "center",
                         }}
                     >
                         {!(drawerContracted && sidebar == undefined) ? undefined : (
@@ -174,7 +175,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 color={LeafColors.textDark}
                                 onPress={toggleDrawer}
                                 style={{
-                                    marginLeft: -6 // To account for icon box
+                                    marginLeft: -6, // To account for icon box
                                 }}
                             />
                         )}

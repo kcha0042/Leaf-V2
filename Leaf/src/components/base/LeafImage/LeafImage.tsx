@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Image, ImageResizeMode, ImageStyle } from "react-native";
 import { UnreachableCaseError } from "../../../language/errors/UnreachableCaseError";
 import { LeafImageScale } from "./LeafImageScale";
+import { ImageMap } from "../../../assets/LeafImages";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
+    // File name found in assets/images
+    // REMEMBER TO REGISTER IMAGE (ImageMap, found in LeafImages.ts)
     fileName: string;
+    // The component width
     width?: number;
+    // The component height
     height?: number;
+    // The way the image scales into the provided width/height
     scale?: LeafImageScale;
+    // Style props
     style?: ImageStyle;
 }
 
@@ -21,30 +30,35 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
     });
 
     useEffect(() => {
-        if (fileName == undefined) { 
-            // Can trigger when component is used in condititional rendering
-            // (See LeafIconButton)
-            return 
-        }
-        const imagePath = require("/assets/images/" + fileName);
-        Image.getSize(
-            imagePath,
-            (width, height) => {
-                setImageSize({ width: width, height: height });
-            },
-            (error) => {
-                console.log("Error getting image dimensions:", error);
-            },
-        );
-
-        if (scale == LeafImageScale.scaleToFill) {
-            if (width > height) {
-                setSize({ width: width, height: undefined });
-            } else {
-                setSize({
-                    width: (imageSize.width * height) / imageSize.height,
-                    height: undefined,
-                });
+        if (Environment.instance.getOS() == OS.web) {
+            const image = new window.Image();
+            image.onload = function () {
+                setImageSize({ width: image.width, height: image.height });
+            };
+            image.src = ImageMap[fileName];
+            if (scale == LeafImageScale.scaleToFill) {
+                if (width > height) {
+                    setSize({ width: width, height: undefined });
+                } else {
+                    setSize({
+                        width: (imageSize.width * height) / imageSize.height,
+                        height: undefined,
+                    });
+                }
+            }
+        } else {
+            const source = ImageMap[fileName];
+            let image = Image.resolveAssetSource(source);
+            setImageSize({ width: image.width, height: image.height });
+            if (scale == LeafImageScale.scaleToFill) {
+                if (width > height) {
+                    setSize({ width: width, height: undefined });
+                } else {
+                    setSize({
+                        width: (imageSize.width * height) / imageSize.height,
+                        height: undefined,
+                    });
+                }
             }
         }
     }, []);
@@ -70,7 +84,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
 
     return (
         <Image
-            source={require("/assets/images/" + fileName)}
+            source={ImageMap[fileName]}
             resizeMode={resizeMode}
             style={{
                 width: size.width,
