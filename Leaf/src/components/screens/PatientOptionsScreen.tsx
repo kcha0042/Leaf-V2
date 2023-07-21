@@ -47,7 +47,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(ActionsScreen, navigation, "Actions");
+                            NavigationEnvironment.inst.navigateTo(ActionsScreen, navigation, "Actions");
                         }}
                     />
 
@@ -58,11 +58,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(
-                                PatientPreviewScreen,
-                                navigation,
-                                "Patient Preview",
-                            );
+                            NavigationEnvironment.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
                         }}
                     />
 
@@ -73,7 +69,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(NewTriageScreen, navigation, "Edit");
+                            NavigationEnvironment.inst.navigateTo(NewTriageScreen, navigation, "Edit");
                         }}
                     />
 
@@ -87,7 +83,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                             // Add a method to NavigationStateManager
                             // If navigation == undefined
                             // then clear the screens
-                            navigation.goBack();
+                            NavigationEnvironment.inst.navigateBack(navigation);
                         }}
                     />
                 </VStack>

@@ -48,7 +48,17 @@ class NavigationEnvironment {
         NavigationStateManager.newScreenAdded.publish();
     }
 
-    public navigationTo(component: React.FC, navigation: NavigationProp<ParamListBase>, title: string) {
+    public navigateBack(navigation: NavigationProp<ParamListBase>) {
+        if (navigation == undefined || !navigation.canGoBack()) {
+            this._screens = [];
+        } else {
+            this._screens.pop();
+            navigation.goBack();
+        }
+        NavigationStateManager.newScreenAdded.publish();
+    }
+
+    public navigateTo(component: React.FC, navigation: NavigationProp<ParamListBase>, title: string) {
         if (navigation == undefined) {
             this._screens = [];
         }

@@ -14,30 +14,6 @@ interface Props {
 }
 
 const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
-    const matchHeaderToPatient = () => {
-        let activePatient = Session.instance.getActivePatient();
-        if (activePatient != null) {
-            StateManager.headerTitleOverride.publish(activePatient.fullName);
-        }
-    };
-
-    useEffect(() => {
-        matchHeaderToPatient();
-    }, []);
-
-    StateManager.activePatientChanged.subscribe(() => {
-        matchHeaderToPatient();
-    });
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener("beforeRemove", (e) => {
-            // Executed when a navigation event occurs
-            // Reset header override
-            StateManager.headerTitleOverride.publish(null);
-        });
-        return unsubscribe;
-    }, [navigation]);
-
     return (
         <View
             style={{

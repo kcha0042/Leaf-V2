@@ -32,7 +32,7 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.instance.setActivePatient(patient);
-        NavigationEnvironment.inst.navigationTo(PatientOptionsScreen, navigation, patient.fullName);
+        NavigationEnvironment.inst.navigateTo(PatientOptionsScreen, navigation, patient.fullName);
     };
 
     return (

@@ -14,7 +14,7 @@ export const WorkerInterface = new LeafInterface()
             "Home",
             () => {
                 // Tab bar
-                NavigationEnvironment.inst.navigationTo(YourPatientsScreen, undefined, "Your Patients");
+                NavigationEnvironment.inst.navigateTo(YourPatientsScreen, undefined, "Your Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
@@ -31,12 +31,12 @@ export const WorkerInterface = new LeafInterface()
             "Triage",
             () => {
                 // Tab bar
-                NavigationEnvironment.inst.navigationTo(NewTriageScreen, undefined, "New Triage");
+                NavigationEnvironment.inst.navigateTo(NewTriageScreen, undefined, "New Triage");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
-                NavigationEnvironment.inst.navigationTo(NewTriageScreen, undefined, "New Triage");
+                NavigationEnvironment.inst.navigateTo(NewTriageScreen, undefined, "New Triage");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "clipboard-account",
@@ -48,12 +48,12 @@ export const WorkerInterface = new LeafInterface()
             "Patients",
             () => {
                 // Tab bar
-                NavigationEnvironment.inst.navigationTo(PatientsScreen, undefined, "Patients");
+                NavigationEnvironment.inst.navigateTo(PatientsScreen, undefined, "Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
-                NavigationEnvironment.inst.navigationTo(PatientsScreen, undefined, "Patients");
+                NavigationEnvironment.inst.navigateTo(PatientsScreen, undefined, "Patients");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "account-injury",
@@ -65,12 +65,12 @@ export const WorkerInterface = new LeafInterface()
             "Account",
             () => {
                 // Tab bar
-                NavigationEnvironment.inst.navigationTo(AccountScreen, undefined, "Your Account");
+                NavigationEnvironment.inst.navigateTo(AccountScreen, undefined, "Your Account");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
-                NavigationEnvironment.inst.navigationTo(AccountScreen, undefined, "Your Account");
+                NavigationEnvironment.inst.navigateTo(AccountScreen, undefined, "Your Account");
                 NavigationEnvironment.inst.setSidebarComponent(undefined, undefined);
             },
             "account-circle",

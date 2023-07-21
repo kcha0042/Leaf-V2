@@ -21,6 +21,11 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
     });
 
     useEffect(() => {
+        if (fileName == undefined) { 
+            // Can trigger when component is used in condititional rendering
+            // (See LeafIconButton)
+            return 
+        }
         const imagePath = require("/assets/images/" + fileName);
         Image.getSize(
             imagePath,

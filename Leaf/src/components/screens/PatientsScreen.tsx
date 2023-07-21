@@ -44,7 +44,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigationTo(ActionsScreen, navigation, "Actions Now");
+                            NavigationEnvironment.inst.navigateTo(ActionsScreen, navigation, "Actions Now");
                         }}
                     />
                 </VStack>

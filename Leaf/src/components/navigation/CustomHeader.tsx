@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import StateManager from "../../state/publishers/StateManager";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
+import NavigationEnvironment from "./navigators/NavigationEnvironment";
 
 type CustomLeafHeaderProps = {
     title: string;
@@ -70,7 +71,12 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
         >
             {/* Only have the button if we can go back */}
             {buttonProps.canGoBack ? (
-                <TouchableOpacity onPress={buttonProps.navigation.goBack} style={styles.backButton}>
+                <TouchableOpacity
+                    onPress={() => {
+                        NavigationEnvironment.inst.navigateBack(buttonProps.navigation);
+                    }}
+                    style={styles.backButton}
+                >
                     <Icon name={"chevron-left"} size={45} colour={"#007AFF"} style={{ marginLeft: -10 }} />
                 </TouchableOpacity>
             ) : null}
