@@ -20,6 +20,7 @@ import LeafColor from "../../styling/color/LeafColor";
 import LeafColors from "../../styling/LeafColors";
 import Environment from "../../../state/environment/Environment";
 import LeafDimensions from "../../styling/LeafDimensions";
+import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -32,6 +33,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     const Stack = createStackNavigator();
     const Insets = useSafeAreaInsets();
+    const PlatformIsWeb = Environment.instance.getOS() == OS.web;
 
     useEffect(() => {
         NavigationStateManager.sidebarComponentChanged.subscribe(() => {
@@ -202,7 +204,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                         component={screen.component}
                                         options={({ navigation }) => ({
                                             ...screen.options,
-                                            animationEnabled: index > 0,
+                                            animationEnabled: index > 0 && !PlatformIsWeb,
                                             header: () => (
                                                 <CustomLeafHeader
                                                     title={screen.title}
