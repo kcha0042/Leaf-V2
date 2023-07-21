@@ -10,8 +10,8 @@ import VStack from '../../containers/VStack';
 
 interface Props {
     label: string;
-    textColor: LeafColor;
-    color: LeafColor;
+    textColor?: LeafColor;
+    color?: LeafColor;
     wide?: boolean;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
@@ -19,8 +19,8 @@ interface Props {
 
 const LeafMultilineTextInput: React.FC<Props> = ({ 
     label, 
-    textColor,
-    color,
+    textColor = LeafColors.textDark,
+    color = LeafColors.textBackgroundDark,
     wide = true,
     style,
     onTextChange,

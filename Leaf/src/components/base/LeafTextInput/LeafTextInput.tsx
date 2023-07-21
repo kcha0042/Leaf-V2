@@ -7,8 +7,8 @@ import LeafTypography from '../../styling/LeafTypography';
 
 interface Props {
     label: string;
-    textColor: LeafColor;
-    color: LeafColor;
+    textColor?: LeafColor;
+    color?: LeafColor;
     wide?: boolean;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
@@ -16,8 +16,8 @@ interface Props {
 
 const LeafTextInput: React.FC<Props> = ({ 
     label, 
-    textColor,
-    color,
+    textColor = LeafColors.textDark,
+    color = LeafColors.textBackgroundDark,
     wide = true,
     style,
     onTextChange,

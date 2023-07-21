@@ -8,23 +8,14 @@ import { ViewStyle } from 'react-native';
 import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
 import LeafColor from '../../styling/color/LeafColor';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-/*
-<LeafButton 
-    label={"Button"}
-    icon="arrow-right-circle"
-    typography={LeafTypography.primaryButton}
-    type={LeafButtonType.filled} 
-    color={LeafColors.accent}
-    onPress={() => { console.log("Pressed") }}
-/>
-*/
+import LeafColors from '../../styling/LeafColors';
+import LeafTypography from '../../styling/LeafTypography';
 
 interface Props {
     label: string;
-    type: LeafButtonType;
-    typography: LeafTypographyConfig;
-    color: LeafColor;
+    type?: LeafButtonType;
+    typography?: LeafTypographyConfig;
+    color?: LeafColor;
     icon?: string; // https://pictogrammers.com/library/mdi/
     disabled?: boolean;
     wide?: boolean;
@@ -34,9 +25,9 @@ interface Props {
 
 const LeafButton: React.FC<Props> = ({ 
     label, 
-    type, 
-    typography,
-    color,
+    type = LeafButtonType.filled, 
+    typography = LeafTypography.primaryButton,
+    color = LeafColors.accent,
     icon = null, 
     disabled = false, 
     wide = true,

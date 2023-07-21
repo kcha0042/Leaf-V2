@@ -3,12 +3,13 @@ import { Text } from 'react-native-paper';
 import { TextStyle } from 'react-native';
 import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
 import { LeafFontFamily } from '../../styling/typography/LeafFontFamily';
+import LeafTypography from '../../styling/LeafTypography';
 
 interface Props {
     // Text or other components to be embedded
     children;
     // Typography applied
-    typography: LeafTypographyConfig;
+    typography?: LeafTypographyConfig;
     // If the component should expand to take up available horizontal space
     wide?: boolean;
     // If the frame should exactly match the text
@@ -19,7 +20,7 @@ interface Props {
 
 const LeafText: React.FC<Props> = ({ 
     children, 
-    typography,
+    typography = LeafTypography.body,
     verticalWrap = false,
     wide = true,
     style,

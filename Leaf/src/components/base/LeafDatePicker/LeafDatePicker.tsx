@@ -13,17 +13,16 @@ registerTranslation("en-GB", enGB);
 
 interface Props {
     label: string;
-    textColor: LeafColor;
-    color: LeafColor;
-    wide?: boolean;
+    textColor?: LeafColor;
+    color?: LeafColor;
     style?: ViewStyle;
     onDateReceived: (date: Date) => void;
 }
 
 const LeafDatePicker: React.FC<Props> = ({
     label,
-    textColor,
-    color,
+    textColor = LeafColors.textDark,
+    color = LeafColors.textBackgroundDark,
     style,
     onDateReceived,
 }) => {

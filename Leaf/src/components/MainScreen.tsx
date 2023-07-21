@@ -8,7 +8,7 @@ import { WorkerInterface } from "./navigation/AllLeafInterfaces";
 import LeafScreen from "./navigation/LeafScreen";
 import { InterfaceNavigator } from "./navigation/navigators/AppNavigator";
 import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
-import LoginScreen from "./login/LoginScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
