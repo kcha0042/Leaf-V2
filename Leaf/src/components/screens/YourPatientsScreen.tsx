@@ -12,6 +12,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import PatientOptionsScreen from "./PatientOptionsScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -32,7 +33,7 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.instance.setActivePatient(patient);
-        NavigationEnvironment.inst.navigationTo(PatientsScreen, navigation, patient.fullName);
+        NavigationEnvironment.inst.navigationTo(PatientOptionsScreen, navigation, patient.fullName);
     }
 
     return (
