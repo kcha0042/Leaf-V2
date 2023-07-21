@@ -3,12 +3,12 @@ import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 import { ScrollView, View } from "react-native";
 import LeafColors from "../styling/LeafColors";
-import { PatientsNavigationProp } from "../navigation/Params";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 interface Props {
-    navigation?: PatientsNavigationProp;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
