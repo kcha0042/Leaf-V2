@@ -17,7 +17,7 @@ module.exports = {
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "no-unused-vars": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
         "react/prop-types": "off",
         "react-native/split-platform-components": "off",
     },
