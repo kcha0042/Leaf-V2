@@ -27,11 +27,7 @@ export default {
     "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
     "header.worker.patients": "Patients",
-    "header.worker.account": "Account",
-    "header.worker.actions": "Code Response",
-    "header.worker.patientOptions": "Patient Options",
-    "header.worker.patientPreview": "Patient",
-    "header.leader.nurses": "Nurses",
+    "header.worker.account": "Your Account",
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
@@ -40,6 +36,7 @@ export default {
     "header.leader.viewNurses": "Nurses",
     "header.leader.viewPatients": "Patients",
     "header.leader.allocatePatient": "Allocate Patient",
+    "header.leader.nurses": "Nurses",
 
     // Buttons
     "button.login": "Login",
@@ -47,6 +44,7 @@ export default {
     "button.done": "Done",
     "button.cancel": "Cancel",
     "button.allocate": "New Allocation",
+    "button.deleteAccount": "Remove Account",
 
     // Login
     "login.title": "Login",

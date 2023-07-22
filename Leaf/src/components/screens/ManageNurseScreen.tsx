@@ -67,7 +67,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                 <Spacer />
 
                 <LeafButton
-                    label="Remove Account"
+                    label={strings("button.deleteAccount")}
                     icon="delete"
                     typography={LeafTypography.primaryButton}
                     type={LeafButtonType.filled}

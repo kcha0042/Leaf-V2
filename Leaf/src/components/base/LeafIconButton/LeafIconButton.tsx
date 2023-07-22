@@ -10,7 +10,7 @@ interface Props {
     color: LeafColor;
     // https://pictogrammers.com/library/mdi/
     icon?: string;
-    // The icon color 
+    // The icon color
     iconColor?: LeafColor;
     // File name found in assets/images
     // REMEMBER TO REGISTER IMAGE (ImageMap, found in LeafImages.ts)
