@@ -1,7 +1,6 @@
 import UUID from "../../model/core/UUID";
 
 class LeafScreen {
-
     public readonly id: UUID = UUID.generate();
 
     /**

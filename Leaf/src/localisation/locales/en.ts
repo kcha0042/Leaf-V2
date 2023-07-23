@@ -43,7 +43,7 @@ export default {
 
     // Buttons
     "button.login": "Login",
-    "button.logout": "Logot",
+    "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
     "button.allocate": "New Allocation",

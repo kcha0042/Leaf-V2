@@ -19,6 +19,10 @@ import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
 import NavigationEnvironment from "./NavigationEnvironment";
 import NavigationStateManager from "./NavigationStateManager";
+import Spacer from "../../containers/layout/Spacer";
+import LeafButton from "../../base/LeafButton/LeafButton";
+import StateManager from "../../../state/publishers/StateManager";
+import { LoginStatus } from "../../../state/publishers/types/LoginStatus";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -71,6 +75,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                         borderRightColor: LeafColors.divider.getColor(),
                         paddingHorizontal: 16,
                         paddingTop: Insets.top, // Hiding/showing a safe area causes flickering
+                        paddingBottom: LeafDimensions.screenPadding + Insets.bottom,
                     }}
                 >
                     <HStack
@@ -97,6 +102,19 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                     {leafInterface.roots.map((root) => {
                         return <DrawerItem leafStackRoot={root} key={root.id.toString()} />;
                     })}
+
+                    <Spacer />
+
+                    <LeafButton
+                        label={strings("button.logout")}
+                        color={LeafColors.fillBackgroundLight}
+                        typography={LeafTypography.body}
+                        wide={false}
+                        icon="logout"
+                        onPress={() => {
+                            StateManager.loginStatus.publish(LoginStatus.LoggedOut);
+                        }}
+                    />
                 </VStack>
             )}
 

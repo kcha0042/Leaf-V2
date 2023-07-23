@@ -47,7 +47,16 @@ const LeafButton: React.FC<Props> = ({
 
     return (
         <Button
-            icon={({ size, color }) => <Icon name={icon} size={size + 8} color={color} />}
+            icon={({ size }) => (
+                <Icon
+                    name={icon}
+                    size={size + 8}
+                    color={typography.color}
+                    style={{
+                        paddingLeft: 6,
+                    }}
+                />
+            )}
             mode={type}
             onPress={onPress}
             disabled={disabled}
