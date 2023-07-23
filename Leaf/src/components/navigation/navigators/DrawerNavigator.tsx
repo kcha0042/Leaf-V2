@@ -137,6 +137,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 width: "100%",
                                 paddingTop: 12,
                                 paddingLeft: LeafDimensions.screenPadding,
+                                paddingBottom: 10,
                             }}
                         >
                             {!drawerContracted ? undefined : (
@@ -158,7 +159,6 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 wide={false}
                                 style={{
                                     textAlign: "center",
-                                    paddingBottom: 10,
                                 }}
                             >
                                 {NavigationSession.inst.sidebarHeader}
