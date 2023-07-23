@@ -19,11 +19,6 @@ class LeafColors {
         return new LeafColor("black");
     }
 
-    // Used for dividing sections, such as the drawer and sidebar
-    static get divider(): LeafColor {
-        return new LeafColor("gray");
-    }
-
     // Palette
 
     static get accent(): LeafColor {
@@ -57,6 +52,10 @@ class LeafColors {
     static get textSemiDark(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#a6a8c5");
+    }
+
+    static get textWhite(): LeafColor {
+        return new LeafColor("white");
     }
 
     static get textLight(): LeafColor {
@@ -144,8 +143,9 @@ class LeafColors {
 
     // Borders
 
-    static get sideBarBorderLight(): LeafColor {
-        return new LeafColor("#cccccc");
+    // Used for dividing sections, such as the drawer and sidebar
+    static get divider(): LeafColor {
+        return new LeafColor("gray");
     }
 
     // Triage
