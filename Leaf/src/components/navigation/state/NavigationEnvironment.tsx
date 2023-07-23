@@ -7,9 +7,9 @@ import NavigationStateManager from "./NavigationStateManager";
 class NavigationEnvironment {
     public static readonly inst = new NavigationEnvironment();
 
-    private _focusedStackRoot: UUID | undefined = undefined;
-    public get focusedStackRoot(): UUID | undefined {
-        return this._focusedStackRoot;
+    private _focusedInterfaceSection: UUID | undefined = undefined;
+    public get focusedInterfaceSection(): UUID | undefined {
+        return this._focusedInterfaceSection;
     }
 
     private _sidebarComponent: JSX.Element | undefined = undefined;
@@ -76,10 +76,10 @@ class NavigationEnvironment {
         NavigationStateManager.newScreenAdded.publish();
     }
 
-    public setFocusedStackRoot(id: UUID | undefined) {
+    public setFocusedInterfaceSection(id: UUID | undefined) {
         // If we want in the future, we can check if the incoming id matches the current id
-        // and if they do, unfocus the current stack root
-        this._focusedStackRoot = id;
+        // and if they do, unfocus the current interface section
+        this._focusedInterfaceSection = id;
     }
 }
 

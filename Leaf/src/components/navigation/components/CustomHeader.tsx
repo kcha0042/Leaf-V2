@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import StateManager from "../../state/publishers/StateManager";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import NavigationEnvironment from "./navigators/NavigationEnvironment";
+import StateManager from "../../../state/publishers/StateManager";
+import LeafText from "../../base/LeafText/LeafText";
+import LeafTypography from "../../styling/LeafTypography";
+import NavigationEnvironment from "../state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 type CustomLeafHeaderProps = {

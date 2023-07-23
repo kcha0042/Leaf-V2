@@ -4,12 +4,12 @@ import NewTriageScreen from "../screens/NewTriageScreen";
 import PatientsScreen from "../screens/PatientsScreen";
 import YourPatientsScreen from "../screens/YourPatientsScreen";
 import LeafInterface from "../navigation/LeafInterface";
-import LeafStackRoot from "../navigation/LeafStackRoot";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import LeafInterfaceSection from "../navigation/LeafInterfaceSection";
+import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
 
 export const WorkerInterface = new LeafInterface()
-    .addRoot(
-        new LeafStackRoot(
+    .addSection(
+        new LeafInterfaceSection(
             strings("tabBar.worker.yourPatients"),
             () => {
                 // Tab bar
@@ -32,8 +32,8 @@ export const WorkerInterface = new LeafInterface()
             "home-variant-outline",
         ),
     )
-    .addRoot(
-        new LeafStackRoot(
+    .addSection(
+        new LeafInterfaceSection(
             strings("tabBar.worker.newTriage"),
             () => {
                 // Tab bar
@@ -49,8 +49,8 @@ export const WorkerInterface = new LeafInterface()
             "clipboard-outline",
         ),
     )
-    .addRoot(
-        new LeafStackRoot(
+    .addSection(
+        new LeafInterfaceSection(
             strings("tabBar.worker.patients"),
             () => {
                 // Tab bar
@@ -66,8 +66,8 @@ export const WorkerInterface = new LeafInterface()
             "account-injury-outline",
         ),
     )
-    .addRoot(
-        new LeafStackRoot(
+    .addSection(
+        new LeafInterfaceSection(
             strings("tabBar.worker.account"),
             () => {
                 // Tab bar

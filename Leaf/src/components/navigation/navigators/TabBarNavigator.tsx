@@ -4,13 +4,13 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
-import TabBarItem from "../../custom/TabBarItem";
-import CustomLeafHeader from "../CustomHeader";
-import { EmptyScreen } from "../EmptyScreen";
+import TabBarItem from "../components/TabBarItem";
+import CustomLeafHeader from "../components/CustomHeader";
+import { EmptyScreen } from "../components/EmptyScreen";
 import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
-import NavigationEnvironment from "./NavigationEnvironment";
-import NavigationStateManager from "./NavigationStateManager";
+import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationStateManager from "../state/NavigationStateManager";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -92,8 +92,8 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                         paddingHorizontal: 8,
                     }}
                 >
-                    {leafInterface.roots.map((root) => {
-                        return <TabBarItem leafStackRoot={root} key={root.id.toString()} />;
+                    {leafInterface.sections.map((section) => {
+                        return <TabBarItem interfaceSection={section} key={section.id.toString()} />;
                     })}
                 </HStack>
             </SafeAreaView>

@@ -8,7 +8,7 @@ import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import PatientCard from "../custom/PatientCard";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";

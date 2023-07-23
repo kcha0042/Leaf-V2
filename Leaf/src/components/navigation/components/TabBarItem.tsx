@@ -1,23 +1,23 @@
 import React from "react";
 import { View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
-import LeafText from "../base/LeafText/LeafText";
-import VStack from "../containers/VStack";
-import LeafStackRoot from "../navigation/LeafStackRoot";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
-import LeafColors from "../styling/LeafColors";
-import LeafTypography from "../styling/LeafTypography";
+import LeafIcon from "../../base/LeafIcon/LeafIcon";
+import LeafText from "../../base/LeafText/LeafText";
+import VStack from "../../containers/VStack";
+import LeafInterfaceSection from "../LeafInterfaceSection";
+import NavigationEnvironment from "../state/NavigationEnvironment";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
 
 interface Props {
-    leafStackRoot: LeafStackRoot;
+    interfaceSection: LeafInterfaceSection;
 }
 
-const TabBarItem: React.FC<Props> = ({ leafStackRoot }) => {
+const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
     const isFocused =
-        NavigationEnvironment.inst.focusedStackRoot != undefined &&
-        NavigationEnvironment.inst.focusedStackRoot.matches(leafStackRoot.id);
-    const icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
+        NavigationEnvironment.inst.focusedInterfaceSection != undefined &&
+        NavigationEnvironment.inst.focusedInterfaceSection.matches(interfaceSection.id);
+    const icon = isFocused ? interfaceSection.focusedIcon : interfaceSection.icon;
     const size = 30;
     const padding = 10;
     return (
@@ -30,7 +30,7 @@ const TabBarItem: React.FC<Props> = ({ leafStackRoot }) => {
             }}
         >
             <TouchableWithoutFeedback
-                onPress={leafStackRoot.activateOnTabBar}
+                onPress={interfaceSection.activateOnTabBar}
                 style={{ paddingVertical: padding, paddingHorizontal: 30 }}
             >
                 <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
@@ -47,7 +47,7 @@ const TabBarItem: React.FC<Props> = ({ leafStackRoot }) => {
                     typography={LeafTypography.subscriptLabel}
                     style={{ alignSelf: "center", textAlign: "center" }}
                 >
-                    {leafStackRoot.title}
+                    {interfaceSection.title}
                 </LeafText>
             </View>
         </VStack>

@@ -9,16 +9,16 @@ import LeafIconButton from "../../base/LeafIconButton/LeafIconButton";
 import LeafText from "../../base/LeafText/LeafText";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
-import DrawerItem from "../../custom/DrawerItem";
+import DrawerItem from "../components/DrawerItem";
 import LeafColors from "../../styling/LeafColors";
 import LeafDimensions from "../../styling/LeafDimensions";
 import LeafTypography from "../../styling/LeafTypography";
-import CustomLeafHeader from "../CustomHeader";
-import { EmptyScreen } from "../EmptyScreen";
+import CustomLeafHeader from "../components/CustomHeader";
+import { EmptyScreen } from "../components/EmptyScreen";
 import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
-import NavigationEnvironment from "./NavigationEnvironment";
-import NavigationStateManager from "./NavigationStateManager";
+import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationStateManager from "../state/NavigationStateManager";
 import Spacer from "../../containers/layout/Spacer";
 import LeafButton from "../../base/LeafButton/LeafButton";
 import StateManager from "../../../state/publishers/StateManager";
@@ -99,8 +99,8 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                         </LeafText>
                     </HStack>
 
-                    {leafInterface.roots.map((root) => {
-                        return <DrawerItem leafStackRoot={root} key={root.id.toString()} />;
+                    {leafInterface.sections.map((section) => {
+                        return <DrawerItem interfaceSection={section} key={section.id.toString()} />;
                     })}
 
                     <Spacer />

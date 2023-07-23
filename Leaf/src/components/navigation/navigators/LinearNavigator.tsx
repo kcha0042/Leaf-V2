@@ -2,8 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LeafScreen from "../LeafScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import NavigationEnvironment from "./NavigationEnvironment";
-import NavigationStateManager from "./NavigationStateManager";
+import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationStateManager from "../state/NavigationStateManager";
 
 interface Props {
     screen: LeafScreen;

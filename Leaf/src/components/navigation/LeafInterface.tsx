@@ -1,15 +1,15 @@
-import LeafStackRoot from "./LeafStackRoot";
+import LeafInterfaceSection from "./LeafInterfaceSection";
 
 class LeafInterface {
-    private _roots: LeafStackRoot[] = [];
-    public get roots(): LeafStackRoot[] {
-        return this._roots;
+    private _sections: LeafInterfaceSection[] = [];
+    public get sections(): LeafInterfaceSection[] {
+        return this._sections;
     }
 
     constructor() {}
 
-    public addRoot(root: LeafStackRoot): LeafInterface {
-        this.roots.push(root);
+    public addSection(section: LeafInterfaceSection): LeafInterface {
+        this.sections.push(section);
         return this;
     }
 }

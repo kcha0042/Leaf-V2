@@ -4,7 +4,7 @@ import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
 import { WorkerInterface } from "./interfaces/WorkerInterface";
 import LeafScreen from "./navigation/LeafScreen";
-import { InterfaceNavigator } from "./navigation/navigators/AppNavigator";
+import { InterfaceNavigator } from "./navigation/navigators/InterfaceNavigator";
 import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
 import LoginScreen from "./screens/LoginScreen";
 

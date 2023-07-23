@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import { strings } from "../../localisation/Strings";
+import LeafText from "../../base/LeafText/LeafText";
+import LeafTypography from "../../styling/LeafTypography";
+import { strings } from "../../../localisation/Strings";
 
 export const EmptyScreen: React.FC = () => {
     return (

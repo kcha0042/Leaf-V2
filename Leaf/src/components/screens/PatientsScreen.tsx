@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafButton from "../base/LeafButton/LeafButton";

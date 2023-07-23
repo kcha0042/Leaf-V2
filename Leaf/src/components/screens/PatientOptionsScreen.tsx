@@ -7,7 +7,7 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { ScrollView } from "react-native-gesture-handler";
 import LeafButton from "../base/LeafButton/LeafButton";
-import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
+import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import ActionsScreen from "./ActionsScreen";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
