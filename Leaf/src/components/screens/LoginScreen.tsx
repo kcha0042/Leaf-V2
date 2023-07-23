@@ -14,6 +14,7 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -73,16 +74,16 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     width: "100%",
                 }}
             >
-                <LeafTextInput
+                <LeafTextInputShort
                     label={strings("login.inputLabel.username")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onUsernameInput}
                 />
 
-                <VGap size={4} />
+                <VGap size={8} />
 
-                <LeafTextInput
+                <LeafTextInputShort
                     label={strings("login.inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
