@@ -14,10 +14,10 @@ interface Props {
 }
 
 const DrawerItem: React.FC<Props> = ({ leafStackRoot }) => {
-    let isFocused =
+    const isFocused =
         NavigationEnvironment.inst.focusedStackRoot != undefined &&
         NavigationEnvironment.inst.focusedStackRoot.matches(leafStackRoot.id);
-    let icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
+    const icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
     return (
         <FlatContainer
             color={isFocused ? LeafColors.fillBackgroundLight : LeafColors.screenBackgroundLight}

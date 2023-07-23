@@ -13,7 +13,7 @@ interface Props {
 
 const LeafSearchBar: React.FC<Props> = ({ searchQuery, onSearch }) => {
     // Base the typography off body
-    let searchTypography = LeafTypography.body;
+    const searchTypography = LeafTypography.body;
     searchTypography.size = 18;
 
     return (

@@ -62,7 +62,7 @@ class NavigationEnvironment {
         if (navigation == undefined) {
             this._screens = [];
         }
-        let id = UUID.generate().toString();
+        const id = UUID.generate().toString();
         this._screens.push(new LeafScreen(title, id, component, {}));
         this.loadedNavigation = () => {
             if (this._screens.length > 1 && navigation != undefined) {

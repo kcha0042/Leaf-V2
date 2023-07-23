@@ -1,6 +1,6 @@
 class LeafSegmentedValue {
     constructor(
-        public readonly value: any,
+        public readonly value: unknown,
         public readonly label: string | null = null,
         public readonly icon: string | null = null,
     ) {}

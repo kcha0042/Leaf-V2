@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewStyle } from "react-native";
+import { LayoutChangeEvent, ViewStyle } from "react-native";
 import { DatePickerInput } from "react-native-paper-dates";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColors from "../../styling/LeafColors";
@@ -37,7 +37,7 @@ const LeafDatePicker: React.FC<Props> = ({
     };
 
     // Label typography
-    let labelTypography = LeafTypography.body;
+    const labelTypography = LeafTypography.body;
     const [labelColor, setLabelColor] = React.useState(LeafColors.textInputDescription);
 
     const onFocus = () => {
@@ -55,7 +55,7 @@ const LeafDatePicker: React.FC<Props> = ({
 
     const [width, setWidth] = React.useState(undefined);
 
-    const onLayout = (event: any) => {
+    const onLayout = (event: LayoutChangeEvent) => {
         const layout = event.nativeEvent.layout;
         if (layout.width > 0) {
             // Only if this component is visible

@@ -1,24 +1,20 @@
 import React, { useEffect } from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafDimensions from "../styling/LeafDimensions";
-import StateManager from "../../state/publishers/StateManager";
+import { FlatList, ScrollView } from "react-native";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
-import PatientCard from "../custom/PatientCard";
-import { strings } from "../../localisation/Strings";
-import AllocateCard from "./components/AllocateCard";
-import LeafColors from "../styling/LeafColors";
-import { FlatList, ScrollView } from "react-native";
+import StateManager from "../../state/publishers/StateManager";
+import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
+import PatientCard from "../custom/PatientCard";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
+import AllocateCard from "./components/AllocateCard";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
-
-    //count how many patients the nurse is currently allocated to
-    let countPatients = Session.instance.getAllPatients().length;
 
     StateManager.patientsFetched.subscribe(() => {
         setPatients(Session.instance.getAllPatients());
@@ -52,7 +48,7 @@ const AllocatePatientsScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.header}>Nabeeb</LeafText>
+                <LeafText typography={LeafTypography.header}>TODO</LeafText>
 
                 <AllocateCard
                     onPress={() => {

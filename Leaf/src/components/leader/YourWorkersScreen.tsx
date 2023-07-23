@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafDimensions from "../styling/LeafDimensions";
-import StateManager from "../../state/publishers/StateManager";
+import { FlatList, ScrollView } from "react-native";
 import Session from "../../model/Session";
 import Worker from "../../model/employee/Worker";
-import { strings } from "../../localisation/Strings";
-import WorkerCard from "./components/WorkerCard";
-import LeafColors from "../styling/LeafColors";
-import { FlatList, ScrollView } from "react-native";
+import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import WorkerCard from "./components/WorkerCard";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());

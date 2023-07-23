@@ -4,6 +4,7 @@ import LeafColor from "../styling/color/LeafColor";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import LeafDimensions from "../styling/LeafDimensions";
+import LeafColors from "../styling/LeafColors";
 
 interface Props {
     color: LeafColor;
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: LeafDimensions.fillRadius,
         padding: LeafDimensions.cardPadding,
-        shadowColor: "#000000",
+        shadowColor: LeafColors.shadow.getColor(),
         shadowOffset: {
             width: 0,
             height: 4,

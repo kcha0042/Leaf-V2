@@ -49,8 +49,8 @@ class Session {
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        let worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants");
-        let worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara");
+        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants");
+        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara");
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers
@@ -60,7 +60,7 @@ class Session {
     public fetchAllPatients() {
         // TODO: Asyncronously access database and update patientStore
         // Temporary:
-        let patient1 = new Patient(
+        const patient1 = new Patient(
             new MRN("temp-111-111"),
             new Date(),
             "Tony",
@@ -78,7 +78,7 @@ class Session {
             new EmployeeID("123-123"),
             [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
         );
-        let patient2 = new Patient(
+        const patient2 = new Patient(
             new MRN("temp-222-222"),
             new Date(),
             "Gordon",

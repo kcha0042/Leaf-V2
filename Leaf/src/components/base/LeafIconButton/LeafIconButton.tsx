@@ -4,6 +4,7 @@ import LeafColor from "../../styling/color/LeafColor";
 import LeafImage from "../LeafImage/LeafImage";
 import { LeafImageScale } from "../LeafImage/LeafImageScale";
 import LeafIcon from "../LeafIcon/LeafIcon";
+import LeafColors from "../../styling/LeafColors";
 
 interface Props {
     // The button (background) color
@@ -40,7 +41,7 @@ const LeafIconButton: React.FC<Props> = ({
             onPress={onPress}
             disabled={onPress == null}
             style={{
-                backgroundColor: onlyIcon ? "transparent" : color.getColor(),
+                backgroundColor: onlyIcon ? LeafColors.transparent.getColor() : color.getColor(),
                 borderRadius: onlyIcon ? 0 : 50,
                 width: size,
                 height: size,

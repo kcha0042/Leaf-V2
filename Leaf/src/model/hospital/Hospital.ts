@@ -1,5 +1,4 @@
 import UUID from "../core/UUID";
-import Ward from "./Ward";
 
 class Hospital {
     public readonly id: UUID;

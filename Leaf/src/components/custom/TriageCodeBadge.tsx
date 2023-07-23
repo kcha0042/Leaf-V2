@@ -13,10 +13,10 @@ interface Props {
 }
 
 const TriageCodeBadge: React.FC<Props> = ({ code, fillSpace, style }) => {
-    let typography = LeafTypography.badge;
+    const typography = LeafTypography.badge;
     typography.leafColor = LeafColors.textTriageCode(code);
     // Padding renders differntly on web
-    let platformIsWeb = Environment.instance.getOS() == OS.web;
+    const platformIsWeb = Environment.instance.getOS() == OS.web;
     return (
         <View
             style={[

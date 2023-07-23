@@ -14,12 +14,12 @@ interface Props {
 }
 
 const TabBarItem: React.FC<Props> = ({ leafStackRoot }) => {
-    let isFocused =
+    const isFocused =
         NavigationEnvironment.inst.focusedStackRoot != undefined &&
         NavigationEnvironment.inst.focusedStackRoot.matches(leafStackRoot.id);
-    let icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
-    let size = 30;
-    let padding = 10;
+    const icon = isFocused ? leafStackRoot.focusedIcon : leafStackRoot.icon;
+    const size = 30;
+    const padding = 10;
     return (
         <VStack
             spacing={5}

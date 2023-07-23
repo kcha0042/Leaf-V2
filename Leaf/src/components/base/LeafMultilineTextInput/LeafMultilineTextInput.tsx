@@ -30,10 +30,10 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     const [text, setText] = React.useState("");
 
     // Input typography
-    let typography = LeafTypography.body;
+    const typography = LeafTypography.body;
 
     // Label typography
-    let labelTypography = LeafTypography.body;
+    const labelTypography = LeafTypography.body;
     const [labelColor, setLabelColor] = React.useState(LeafColors.textInputDescription);
 
     const onFocus = () => {

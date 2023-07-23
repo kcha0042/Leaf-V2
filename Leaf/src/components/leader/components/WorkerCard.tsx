@@ -16,7 +16,7 @@ interface Props {
 
 const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     // TODO: Add Worker full name instead of First Name
-    let idText = worker.id.toString();
+    const idText = worker.id.toString();
     return (
         <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
             <HStack>

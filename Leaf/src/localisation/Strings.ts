@@ -22,7 +22,7 @@ const locale = locales[language] || locales.en;
  * @returns The translated string
  */
 export function strings(path: string, ...interpolations: string[]): string {
-    let localisedString = locale[path];
+    const localisedString = locale[path];
     assert(localisedString != undefined, `Invalid string path provided: ${path}`);
     return (localisedString as string).replace(/{(\d+)}/g, function (match, number) {
         return typeof interpolations[number] != "undefined" ? interpolations[number] : match;

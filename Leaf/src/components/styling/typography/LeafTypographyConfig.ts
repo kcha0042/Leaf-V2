@@ -1,7 +1,7 @@
 import LeafColor from "../color/LeafColor";
 import { LeafFontFamily } from "./LeafFontFamily";
 import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextStyle } from "react-native";
 import { LeafFontWeight } from "./LeafFontWeight";
 
 class LeafTypographyConfig {
@@ -15,7 +15,7 @@ class LeafTypographyConfig {
     public linedOut: boolean;
     public kerning: number;
     get font(): string {
-        let config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
+        const config: LeafFontFamilyConfig = LeafFontFamily.getConfig(this.fontFamily);
         return config.getFont(this.weight, this.italic);
     }
     get color(): string | undefined {
@@ -86,11 +86,11 @@ class LeafTypographyConfig {
         return this;
     }
 
-    public getStylesheet(): {} {
+    public getStylesheet(): TextStyle {
         return StyleSheet.create({
             typography: {
-                fontFamily: this.font,
                 color: this.color,
+                fontFamily: this.font,
                 fontSize: this.size,
                 textDecorationLine: this.lineStyle,
                 letterSpacing: this.kerning,

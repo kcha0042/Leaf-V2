@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import { ScrollView, View } from "react-native";
-import LeafColors from "../styling/LeafColors";
-import StateManager from "../../state/publishers/StateManager";
-import Session from "../../model/Session";
-import LeafDimensions from "../styling/LeafDimensions";
-import VStack from "../containers/VStack";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import React from "react";
+import { ScrollView, View } from "react-native";
+import LeafText from "../base/LeafText/LeafText";
+import VStack from "../containers/VStack";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

@@ -1,9 +1,7 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
-import LeafColor from "../styling/color/LeafColor";
-import Environment from "../../state/environment/Environment";
-import { OS } from "../../state/environment/types/OS";
+import { StyleSheet, View, ViewStyle } from "react-native";
 import LeafDimensions from "../styling/LeafDimensions";
+import LeafColor from "../styling/color/LeafColor";
 
 interface Props {
     color: LeafColor;
@@ -18,8 +16,8 @@ const OutlinedContainer: React.FC<Props> = ({ color, children, style }) => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: LeafDimensions.fillRadius,
-        padding: LeafDimensions.cardPadding,
         borderWidth: 4,
+        padding: LeafDimensions.cardPadding,
     },
 });
 

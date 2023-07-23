@@ -10,6 +10,9 @@ export default {
     // Main
     appName: "Intake",
 
+    // Navigation
+    "navigation.noScreen": "No item selected",
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",

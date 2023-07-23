@@ -23,7 +23,7 @@ const LeafTextInput: React.FC<Props> = ({
     onTextChange,
 }) => {
     const [text, setText] = React.useState("");
-    let typography = LeafTypography.body;
+    const typography = LeafTypography.body;
 
     return (
         <TextInput

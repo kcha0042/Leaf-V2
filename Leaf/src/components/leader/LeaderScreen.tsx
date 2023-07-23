@@ -14,8 +14,8 @@ const LeaderScreen: React.FC = () => {
 
 const style = StyleSheet.create({
     safeArea: {
-        flex: 1,
         backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+        flex: 1,
     },
 });
 

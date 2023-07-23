@@ -9,6 +9,21 @@ import LeafColor from "./color/LeafColor";
  * To select colors, I recommend the resource: https://yeun.github.io/open-color/
  */
 class LeafColors {
+    // General
+
+    static get transparent(): LeafColor {
+        return new LeafColor("transparent");
+    }
+
+    static get shadow(): LeafColor {
+        return new LeafColor("black");
+    }
+
+    // Used for dividing sections, such as the drawer and sidebar
+    static get divider(): LeafColor {
+        return new LeafColor("gray");
+    }
+
     // Palette
 
     static get accent(): LeafColor {

@@ -11,6 +11,12 @@ class LeafDimensions {
     static readonly screenSpacing = 8;
 
     static readonly cardSpacing = 14;
+
+    static readonly borderWidth = 0.5;
+
+    static readonly drawerWidth = 250;
+
+    static readonly sidebarWidth = 350;
 }
 
 export default LeafDimensions;

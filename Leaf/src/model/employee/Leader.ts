@@ -1,5 +1,4 @@
 import Employee from "./Employee";
-import MRN from "../patient/MRN";
 import { Role } from "./Role";
 
 class Leader extends Employee {

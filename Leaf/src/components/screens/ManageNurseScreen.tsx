@@ -41,7 +41,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                 <LeafText typography={LeafTypography.header}>{nurse.firstName + " " + nurse.lastName}</LeafText>
 
                 <LeafText typography={LeafTypography.body}>
-                    nurse
+                    TODO: Nurse
                     {/* todo: role is not available in Employee atm, fix it later */}
                 </LeafText>
 
@@ -58,8 +58,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                         <VGap size={6} />
 
                         <LeafText typography={LeafTypography.subscript} wide={false}>
-                            other information if we have - (temp text, fixed it later)
-                            {/* TEMP Text */}
+                            TODO: other information if we have - (temp text, fixed it later)
                         </LeafText>
                     </VStack>
                 </FloatingContainer>

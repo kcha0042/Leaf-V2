@@ -16,15 +16,15 @@ interface Props {
 }
 
 const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
-    let timeText = patient.triageCase.arrivalDate
+    const timeText = patient.triageCase.arrivalDate
         .toLocaleTimeString("en-AU", {
             hour: "numeric",
             minute: "numeric",
             hour12: true,
         })
         .toUpperCase();
-    let dateText = patient.triageCase.arrivalDate.toDateString();
-    let datetimeText = `${timeText}  |  ${dateText}`;
+    const dateText = patient.triageCase.arrivalDate.toDateString();
+    const datetimeText = `${timeText}  |  ${dateText}`;
     return (
         <FlatContainer
             color={LeafColors.fillBackgroundLight}

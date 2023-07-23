@@ -1,8 +1,7 @@
 import EmployeeID from "../employee/EmployeeID";
+import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
-import UUID from "../core/UUID";
-import TriageCase from "../triage/TriageCase";
 
 class Patient {
     protected _mrn: MRN;

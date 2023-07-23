@@ -22,16 +22,11 @@ interface Props {
  * @returns a JSX tab bar
  */
 export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
-    const [sidebar, setSidebar] = useState<JSX.Element | undefined>(undefined);
     const [screens, setScreens] = useState<LeafScreen[]>([]);
 
     const Stack = createStackNavigator();
 
     useEffect(() => {
-        NavigationStateManager.sidebarComponentChanged.subscribe(() => {
-            setSidebar(NavigationEnvironment.inst.sidebarComponent);
-        });
-
         NavigationStateManager.newScreenAdded.subscribe(() => {
             setScreens([...NavigationEnvironment.inst.screens]);
         });
@@ -100,7 +95,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                         paddingHorizontal: 8,
                     }}
                 >
-                    {leafInterface.roots.map((root, index) => {
+                    {leafInterface.roots.map((root) => {
                         return <TabBarItem leafStackRoot={root} key={root.id.toString()} />;
                     })}
                 </HStack>

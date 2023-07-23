@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { StyleSheet, View, ViewStyle } from "react-native";
+import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from "react-native";
 
 interface Props {
     children;
     spacing?: number;
     verticalSpacing?: number;
-    onLayout?: (event: any) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
     style?: ViewStyle;
 }
 

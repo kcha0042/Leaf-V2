@@ -48,7 +48,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
             }
         } else {
             const source = ImageMap[fileName];
-            let image = Image.resolveAssetSource(source);
+            const image = Image.resolveAssetSource(source);
             setImageSize({ width: image.width, height: image.height });
             if (scale == LeafImageScale.scaleToFill) {
                 if (width > height) {

@@ -5,6 +5,7 @@ import StateManager from "../../state/publishers/StateManager";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 import NavigationEnvironment from "./navigators/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
 type CustomLeafHeaderProps = {
     title: string;
@@ -13,7 +14,7 @@ type CustomLeafHeaderProps = {
 
 type LeftButtonProps = {
     canGoBack: boolean;
-    navigation: any;
+    navigation: NavigationProp<ParamListBase>;
 };
 
 /**
@@ -36,7 +37,7 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
     });
 
     const reflectTitleOverride = () => {
-        let titleOverride = StateManager.headerTitleOverride.read();
+        const titleOverride = StateManager.headerTitleOverride.read();
         if (titleOverride != null) {
             setHeaderTitle(titleOverride);
         } else {
@@ -86,26 +87,16 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
 };
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 22,
-        paddingTop: 10,
-    },
-    safeAreaWrapper: {
-        // None
-    },
-    titleWrapper: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 30,
-        fontWeight: "bold",
-    },
     backButton: {
         alignItems: "center",
         paddingRight: 6,
+    },
+    header: {
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 22,
+        paddingTop: 10,
     },
 });
 

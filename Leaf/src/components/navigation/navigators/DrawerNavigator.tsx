@@ -1,12 +1,17 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { strings } from "../../../localisation/Strings";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
+import LeafIconButton from "../../base/LeafIconButton/LeafIconButton";
 import LeafText from "../../base/LeafText/LeafText";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
 import DrawerItem from "../../custom/DrawerItem";
+import LeafColors from "../../styling/LeafColors";
+import LeafDimensions from "../../styling/LeafDimensions";
 import LeafTypography from "../../styling/LeafTypography";
 import CustomLeafHeader from "../CustomHeader";
 import { EmptyScreen } from "../EmptyScreen";
@@ -14,13 +19,6 @@ import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
 import NavigationEnvironment from "./NavigationEnvironment";
 import NavigationStateManager from "./NavigationStateManager";
-import LeafButton from "../../base/LeafButton/LeafButton";
-import LeafIconButton from "../../base/LeafIconButton/LeafIconButton";
-import LeafColor from "../../styling/color/LeafColor";
-import LeafColors from "../../styling/LeafColors";
-import Environment from "../../../state/environment/Environment";
-import LeafDimensions from "../../styling/LeafDimensions";
-import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -66,9 +64,9 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                 <VStack
                     style={{
                         height: "100%",
-                        width: 250,
-                        borderRightWidth: 0.5,
-                        borderRightColor: "gray",
+                        width: LeafDimensions.drawerWidth,
+                        borderRightWidth: LeafDimensions.borderWidth,
+                        borderRightColor: LeafColors.divider.getColor(),
                         paddingHorizontal: 16,
                         paddingTop: Insets.top, // Hiding/showing a safe area causes flickering
                     }}
@@ -94,7 +92,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                         </LeafText>
                     </HStack>
 
-                    {leafInterface.roots.map((root, index) => {
+                    {leafInterface.roots.map((root) => {
                         return <DrawerItem leafStackRoot={root} key={root.id.toString()} />;
                     })}
                 </VStack>
@@ -104,9 +102,9 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                 <VStack
                     style={{
                         height: "100%",
-                        width: 350,
-                        borderRightWidth: 0.5,
-                        borderRightColor: "gray",
+                        width: LeafDimensions.sidebarWidth,
+                        borderRightWidth: LeafDimensions.borderWidth,
+                        borderRightColor: LeafColors.divider.getColor(),
                         paddingTop: Insets.top, // Hiding/showing a safe area causes flickering
                     }}
                 >
@@ -184,7 +182,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
 
                         <LeafText typography={LeafTypography.subscript} wide={false}>
                             {screens
-                                .map((screen, index) => {
+                                .map((screen) => {
                                     return screen.title;
                                 })
                                 .join(" / ")}

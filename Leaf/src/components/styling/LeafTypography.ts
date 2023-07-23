@@ -1,8 +1,7 @@
-import { LeafFontFamily } from "./typography/LeafFontFamily";
-import LeafTypographyConfig from "./typography/LeafTypographyConfig";
 import LeafColors from "./LeafColors";
+import { LeafFontFamily } from "./typography/LeafFontFamily";
 import { LeafFontWeight } from "./typography/LeafFontWeight";
-import LeafColor from "./color/LeafColor";
+import LeafTypographyConfig from "./typography/LeafTypographyConfig";
 
 class LeafTypography {
     static get display(): LeafTypographyConfig {
