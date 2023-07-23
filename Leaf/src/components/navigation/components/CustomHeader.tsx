@@ -6,6 +6,7 @@ import LeafText from "../../base/LeafText/LeafText";
 import LeafTypography from "../../styling/LeafTypography";
 import NavigationEnvironment from "../state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import LeafColors from "../../styling/LeafColors";
 
 type CustomLeafHeaderProps = {
     title: string;
@@ -17,56 +18,11 @@ type LeftButtonProps = {
     navigation: NavigationProp<ParamListBase>;
 };
 
-/**
- * A custom header that will be displayed at the top of our stacks, it takes in a button that allows navigation backwards
- * @param param0 {@link CustomLeafHeaderProps}
- * @returns custom JSX element
- */
 const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps }) => {
-    // Use a hook to define background color
-    // Otherwise state updates won't redraw the component
-    const [backgroundColor, setBackgroundColor] = React.useState<string>(StateManager.headerColor.read());
-
-    const [headerTitle, setHeaderTitle] = React.useState<string>(title);
-
-    // TODO: I don't think header title callbacks are necessary anymore
-    // (I need to check this, but we pass it from the previous controller so...)
-
-    StateManager.headerColor.subscribe(() => {
-        setBackgroundColor(StateManager.headerColor.read());
-    });
-
-    const reflectTitleOverride = () => {
-        const titleOverride = StateManager.headerTitleOverride.read();
-        if (titleOverride != null) {
-            setHeaderTitle(titleOverride);
-        } else {
-            setHeaderTitle(title);
-        }
-    };
-
-    // Cannot use subscriber pattern here because it will redraw the previous screen's header
-    // (Before it has transitoned away)
-    // useEffect ensures only the page appearing has its header changed
-    useEffect(() => {
-        reflectTitleOverride();
-    }, []);
-
-    // Side bar item changes don't trigger remounts
-    StateManager.sideBarItemPressed.subscribe(() => {
-        reflectTitleOverride();
-    });
-
-    // Drawer changes don't trigger remounts
-    StateManager.drawerItemChanged.subscribe(() => {
-        StateManager.headerTitleOverride.publish(null);
-        reflectTitleOverride();
-    });
-
     return (
         <View
             style={{
-                backgroundColor: backgroundColor,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                 ...styles.header,
             }}
         >
@@ -81,7 +37,7 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
                     <Icon name={"chevron-left"} size={45} colour={"#007AFF"} style={{ marginLeft: -10 }} />
                 </TouchableOpacity>
             ) : null}
-            <LeafText typography={LeafTypography.header}>{headerTitle}</LeafText>
+            <LeafText typography={LeafTypography.header}>{title}</LeafText>
         </View>
     );
 };

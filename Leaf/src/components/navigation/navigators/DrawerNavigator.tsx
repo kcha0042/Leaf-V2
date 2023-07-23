@@ -44,7 +44,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
             setSidebar(NavigationEnvironment.inst.sidebarComponent);
         });
 
-        NavigationStateManager.newScreenAdded.subscribe(() => {
+        NavigationStateManager.screenStackUpdated.subscribe(() => {
             setScreens([...NavigationEnvironment.inst.screens]);
         });
     }, []);

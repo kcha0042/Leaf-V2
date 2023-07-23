@@ -39,16 +39,6 @@ class StateManager {
     public static readonly patientsFetched = new LeafPublisher();
 
     public static readonly activePatientChanged = new LeafPublisher();
-
-    public static readonly drawerShowStack = new LeafValuePublisher(false);
-
-    public static readonly headerColor = new LeafValuePublisher(LeafColors.screenBackgroundLight.getColor());
-
-    public static readonly headerTitleOverride = new LeafValuePublisher<string | null>(null);
-
-    public static readonly drawerItemChanged = new LeafValuePublisher(0);
-
-    public static readonly sideBarItemPressed = new LeafPublisher();
 }
 
 export default StateManager;

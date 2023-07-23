@@ -17,7 +17,7 @@ export const LinearNavigator: React.FC<Props> = ({ screen }) => {
     useEffect(() => {
         NavigationEnvironment.inst.setStartingScreen(screen);
 
-        NavigationStateManager.newScreenAdded.subscribe(() => {
+        NavigationStateManager.screenStackUpdated.subscribe(() => {
             setScreens([...NavigationEnvironment.inst.screens]);
         });
     }, []);

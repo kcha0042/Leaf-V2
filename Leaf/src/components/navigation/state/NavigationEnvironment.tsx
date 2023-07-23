@@ -31,21 +31,15 @@ class NavigationEnvironment {
 
     private constructor() {}
 
-    public prepareForNavigation() {
-        StateManager.headerTitleOverride.publish(null);
-    }
-
     public setSidebarComponent(component: JSX.Element, header: string) {
         this._sidebarComponent = component;
         this._sidebarHeader = header;
-        StateManager.headerTitleOverride.publish(null);
         NavigationStateManager.sidebarComponentChanged.publish();
-        NavigationStateManager.headerShouldUpdate.publish();
     }
 
     public clearScreens() {
         this._screens = [];
-        NavigationStateManager.newScreenAdded.publish();
+        NavigationStateManager.screenStackUpdated.publish();
     }
 
     public setStartingScreen(to: LeafScreen) {
@@ -59,7 +53,7 @@ class NavigationEnvironment {
             this._screens.pop();
             navigation.goBack();
         }
-        NavigationStateManager.newScreenAdded.publish();
+        NavigationStateManager.screenStackUpdated.publish();
     }
 
     public navigateTo(component: React.FC, navigation: NavigationProp<ParamListBase>, title: string) {
@@ -73,7 +67,7 @@ class NavigationEnvironment {
                 navigation.navigate(newScreen.id.toString());
             }
         };
-        NavigationStateManager.newScreenAdded.publish();
+        NavigationStateManager.screenStackUpdated.publish();
     }
 
     public setFocusedInterfaceSection(id: UUID | undefined) {

@@ -24,7 +24,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     useEffect(() => {
         NavigationEnvironment.inst.clearScreens();
 
-        NavigationStateManager.newScreenAdded.subscribe(() => {
+        NavigationStateManager.screenStackUpdated.subscribe(() => {
             setScreens([...NavigationEnvironment.inst.screens]);
         });
     }, []);
