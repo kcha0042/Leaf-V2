@@ -25,9 +25,9 @@ class LeafColor {
     public getColor(): string {
         const colorScheme: ColorScheme = Environment.instance.getColorScheme();
         switch (colorScheme) {
-            case ColorScheme.dark:
+            case ColorScheme.Dark:
                 return this.darkMode;
-            case ColorScheme.light:
+            case ColorScheme.Light:
                 return this.lightMode;
             default:
                 throw new UnreachableCaseError(colorScheme);

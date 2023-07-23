@@ -71,12 +71,12 @@ class Session {
                 new Hospital("Hosptial123"),
                 new MedicalUnit("MedicalUnit123"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.immediate,
+                TriageCode.Immediate,
             ),
             "1234",
             new Date(),
             new EmployeeID("123-123"),
-            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
+            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.Medication)],
         );
         const patient2 = new Patient(
             new MRN("temp-222-222"),
@@ -89,12 +89,12 @@ class Session {
                 new Hospital("Hosptial456"),
                 new MedicalUnit("MedicalUnit456"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.semiUrgent,
+                TriageCode.SemiUrgent,
             ),
             "1234",
             new Date(),
             new EmployeeID("456-456"),
-            [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.other)],
+            [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.Other)],
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;

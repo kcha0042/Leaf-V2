@@ -16,7 +16,7 @@ const TriageCodeBadge: React.FC<Props> = ({ code, fillSpace, style }) => {
     const typography = LeafTypography.badge;
     typography.leafColor = LeafColors.textTriageCode(code);
     // Padding renders differntly on web
-    const platformIsWeb = Environment.instance.getOS() == OS.web;
+    const platformIsWeb = Environment.instance.getOS() == OS.Web;
     return (
         <View
             style={[

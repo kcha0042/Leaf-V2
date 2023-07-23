@@ -18,18 +18,18 @@ const MainScreen: React.FC = () => {
     });
 
     switch (loginStatus) {
-        case LoginStatus.loggedOut:
+        case LoginStatus.LoggedOut:
             return (
                 <NavigationContainer>
                     {/* TODO: Fix this */}
                     <LinearNavigator screens={[new LeafScreen("Login", UUID.generate().toString(), LoginScreen, {})]} />
                 </NavigationContainer>
             );
-        case LoginStatus.worker:
+        case LoginStatus.Worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
-        case LoginStatus.leader:
+        case LoginStatus.Leader:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
-        case LoginStatus.admin:
+        case LoginStatus.Admin:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
         default:
             throw new UnreachableCaseError(loginStatus);

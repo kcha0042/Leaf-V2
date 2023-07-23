@@ -10,19 +10,19 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [fontsLoaded] = useFonts({
-        [LeafFont.gilroyExtraBold]: require("./assets/fonts/Gilroy-ExtraBold.otf"),
-        [LeafFont.poppinsMedium]: require("./assets/fonts/Poppins-Medium.ttf"),
-        [LeafFont.poppinsSemiBold]: require("./assets/fonts/Poppins-SemiBold.ttf"),
-        [LeafFont.poppinsBold]: require("./assets/fonts/Poppins-Bold.ttf"),
-        [LeafFont.poppinsMediumItalic]: require("./assets/fonts/Poppins-MediumItalic.ttf"),
-        [LeafFont.poppinsSemiBoldItalic]: require("./assets/fonts/Poppins-SemiBoldItalic.ttf"),
-        [LeafFont.poppinsBoldItalic]: require("./assets/fonts/Poppins-BoldItalic.ttf"),
-        [LeafFont.circularMedium]: require("./assets/fonts/CircularStd-Medium.otf"),
-        [LeafFont.circularBold]: require("./assets/fonts/CircularStd-Bold.otf"),
-        [LeafFont.circularBlack]: require("./assets/fonts/CircularStd-Black.otf"),
-        [LeafFont.circularMediumItalic]: require("./assets/fonts/CircularStd-MediumItalic.otf"),
-        [LeafFont.circularBoldItalic]: require("./assets/fonts/CircularStd-BoldItalic.otf"),
-        [LeafFont.circularBlackItalic]: require("./assets/fonts/CircularStd-BlackItalic.otf"),
+        [LeafFont.GilroyExtraBold]: require("./assets/fonts/Gilroy-ExtraBold.otf"),
+        [LeafFont.PoppinsMedium]: require("./assets/fonts/Poppins-Medium.ttf"),
+        [LeafFont.PoppinsSemiBold]: require("./assets/fonts/Poppins-SemiBold.ttf"),
+        [LeafFont.PoppinsBold]: require("./assets/fonts/Poppins-Bold.ttf"),
+        [LeafFont.PoppinsMediumItalic]: require("./assets/fonts/Poppins-MediumItalic.ttf"),
+        [LeafFont.PoppinsSemiBoldItalic]: require("./assets/fonts/Poppins-SemiBoldItalic.ttf"),
+        [LeafFont.PoppinsBoldItalic]: require("./assets/fonts/Poppins-BoldItalic.ttf"),
+        [LeafFont.CircularMedium]: require("./assets/fonts/CircularStd-Medium.otf"),
+        [LeafFont.CircularBold]: require("./assets/fonts/CircularStd-Bold.otf"),
+        [LeafFont.CircularBlack]: require("./assets/fonts/CircularStd-Black.otf"),
+        [LeafFont.CircularMediumItalic]: require("./assets/fonts/CircularStd-MediumItalic.otf"),
+        [LeafFont.CircularBoldItalic]: require("./assets/fonts/CircularStd-BoldItalic.otf"),
+        [LeafFont.CircularBlackItalic]: require("./assets/fonts/CircularStd-BlackItalic.otf"),
     });
 
     const onLayoutRootView = useCallback(async () => {

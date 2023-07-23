@@ -152,15 +152,15 @@ class LeafColors {
 
     public static triageCode(code: TriageCode): LeafColor {
         switch (code) {
-            case TriageCode.immediate:
+            case TriageCode.Immediate:
                 return new LeafColor("#e03131");
-            case TriageCode.emergency:
+            case TriageCode.Emergency:
                 return new LeafColor("#fd7e14");
-            case TriageCode.urgent:
+            case TriageCode.Urgent:
                 return new LeafColor("#fab005");
-            case TriageCode.semiUrgent:
+            case TriageCode.SemiUrgent:
                 return new LeafColor("#74b816");
-            case TriageCode.nonUrgent:
+            case TriageCode.NonUrgent:
                 return new LeafColor("#2f9e44");
             default:
                 throw new UnreachableCaseError(code);

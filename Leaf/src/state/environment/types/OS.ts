@@ -1,28 +1,28 @@
 import { UnreachableCaseError } from "../../../language/errors/UnreachableCaseError";
 
 export enum OS {
-    ios,
-    android,
-    web,
-    windows,
-    macos,
-    other,
+    IOS,
+    Android,
+    Web,
+    Windows,
+    MacOS,
+    Other,
 }
 
 export namespace OS {
     export function toString(os: OS): string {
         switch (os) {
-            case OS.ios:
+            case OS.IOS:
                 return "iOS";
-            case OS.android:
+            case OS.Android:
                 return "Android";
-            case OS.windows:
+            case OS.Windows:
                 return "Windows";
-            case OS.macos:
+            case OS.MacOS:
                 return "macOS";
-            case OS.web:
+            case OS.Web:
                 return "Web";
-            case OS.other:
+            case OS.Other:
                 return "Unknown";
             default:
                 throw new UnreachableCaseError(os);

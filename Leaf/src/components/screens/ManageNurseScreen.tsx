@@ -69,10 +69,10 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                     label={strings("button.deleteAccount")}
                     icon="delete"
                     typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled}
+                    type={LeafButtonType.Filled}
                     color={LeafColors.textError}
                     onPress={() => {
-                        StateManager.loginStatus.publish(LoginStatus.loggedOut); // should change to delete account method later.
+                        StateManager.loginStatus.publish(LoginStatus.LoggedOut); // should change to delete account method later.
                     }}
                 />
 

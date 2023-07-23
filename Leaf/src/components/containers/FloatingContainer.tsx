@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
             height: 4,
         },
         // Shadows appear sligntly differnt on web
-        shadowOpacity: Environment.instance.getOS() == OS.web ? 0.16 : 0.12,
-        shadowRadius: Environment.instance.getOS() == OS.web ? 12 : 7,
+        shadowOpacity: Environment.instance.getOS() == OS.Web ? 0.16 : 0.12,
+        shadowRadius: Environment.instance.getOS() == OS.Web ? 12 : 7,
     },
 });
 

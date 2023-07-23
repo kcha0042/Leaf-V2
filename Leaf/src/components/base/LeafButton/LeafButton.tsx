@@ -25,7 +25,7 @@ interface Props {
 
 const LeafButton: React.FC<Props> = ({
     label,
-    type = LeafButtonType.filled,
+    type = LeafButtonType.Filled,
     typography = LeafTypography.primaryButton,
     color = LeafColors.accent,
     icon = null,
@@ -36,7 +36,7 @@ const LeafButton: React.FC<Props> = ({
 }) => {
     // TODO: Figure out a better way to centre the text
     let labelStyle = {};
-    if (Environment.instance.getOS() == OS.ios) {
+    if (Environment.instance.getOS() == OS.IOS) {
         labelStyle = { lineHeight: 0 }; // Centres the text
     }
 

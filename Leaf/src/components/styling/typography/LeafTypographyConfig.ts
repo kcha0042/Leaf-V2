@@ -40,7 +40,7 @@ class LeafTypographyConfig {
         size: number,
         fontFamily: LeafFontFamily,
         color: LeafColor | undefined,
-        weight: LeafFontWeight = LeafFontWeight.regular,
+        weight: LeafFontWeight = LeafFontWeight.Regular,
         italic: boolean = false,
         underlined: boolean = false,
         linedOut: boolean = false,
@@ -92,8 +92,8 @@ class LeafTypographyConfig {
                 color: this.color,
                 fontFamily: this.font,
                 fontSize: this.size,
-                textDecorationLine: this.lineStyle,
                 letterSpacing: this.kerning,
+                textDecorationLine: this.lineStyle,
             },
         }).typography;
     }

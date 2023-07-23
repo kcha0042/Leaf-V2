@@ -41,7 +41,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Button"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled}
+                        type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
                             NavigationEnvironment.inst.navigateTo(ActionsScreen, navigation, "Actions Now");

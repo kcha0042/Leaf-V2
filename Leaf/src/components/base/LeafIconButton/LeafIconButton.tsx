@@ -54,7 +54,7 @@ const LeafIconButton: React.FC<Props> = ({
                     fileName={fileName}
                     width={(size * 1.8) / 3.0}
                     height={(size * 1.8) / 3.0}
-                    scale={LeafImageScale.scaleToFit}
+                    scale={LeafImageScale.ScaleToFit}
                     style={{
                         alignSelf: "center",
                         tintColor: iconColor?.getColor(),

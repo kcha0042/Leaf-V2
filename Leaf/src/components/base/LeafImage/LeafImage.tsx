@@ -20,7 +20,7 @@ interface Props {
     style?: ImageStyle;
 }
 
-const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = LeafImageScale.none, style }) => {
+const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = LeafImageScale.None, style }) => {
     const [size, setSize] = useState({ width: width, height: height });
     const [resizeMode, setResizeMode] = useState<ImageResizeMode>(null);
     const [imageSize, setImageSize] = useState({
@@ -30,13 +30,13 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
     });
 
     useEffect(() => {
-        if (Environment.instance.getOS() == OS.web) {
+        if (Environment.instance.getOS() == OS.Web) {
             const image = new window.Image();
             image.onload = function () {
                 setImageSize({ width: image.width, height: image.height });
             };
             image.src = ImageMap[fileName];
-            if (scale == LeafImageScale.scaleToFill) {
+            if (scale == LeafImageScale.ScaleToFill) {
                 if (width > height) {
                     setSize({ width: width, height: undefined });
                 } else {
@@ -50,7 +50,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
             const source = ImageMap[fileName];
             const image = Image.resolveAssetSource(source);
             setImageSize({ width: image.width, height: image.height });
-            if (scale == LeafImageScale.scaleToFill) {
+            if (scale == LeafImageScale.ScaleToFill) {
                 if (width > height) {
                     setSize({ width: width, height: undefined });
                 } else {
@@ -65,16 +65,16 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
 
     useEffect(() => {
         switch (scale) {
-            case LeafImageScale.none:
+            case LeafImageScale.None:
                 setResizeMode("stretch");
                 break;
-            case LeafImageScale.scaleToFit:
+            case LeafImageScale.ScaleToFit:
                 setResizeMode("contain");
                 break;
-            case LeafImageScale.scaleToFill:
+            case LeafImageScale.ScaleToFill:
                 setResizeMode("cover");
                 break;
-            case LeafImageScale.scaleToFillCrop:
+            case LeafImageScale.ScaleToFillCrop:
                 setResizeMode("cover");
                 break;
             default:
@@ -89,7 +89,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
             style={{
                 width: size.width,
                 height: size.height,
-                aspectRatio: scale == LeafImageScale.none ? null : 1,
+                aspectRatio: scale == LeafImageScale.None ? null : 1,
                 ...style,
             }}
         />

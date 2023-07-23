@@ -16,51 +16,51 @@ class Environment {
         const colorScheme = Appearance.getColorScheme();
         switch (colorScheme) {
             case "dark":
-                return ColorScheme.dark;
+                return ColorScheme.Dark;
             case "light":
-                return ColorScheme.light;
+                return ColorScheme.Light;
             default:
-                return ColorScheme.light;
+                return ColorScheme.Light;
         }
     }
 
     public getOS(): OS {
         switch (Platform.OS) {
             case "android":
-                return OS.android;
+                return OS.Android;
             case "ios":
-                return OS.ios;
+                return OS.IOS;
             case "windows":
-                return OS.windows;
+                return OS.Windows;
             case "macos":
-                return OS.macos;
+                return OS.MacOS;
             case "web":
-                return OS.web;
+                return OS.Web;
             default:
-                return OS.other;
+                return OS.Other;
         }
     }
 
     public getScreenType(): ScreenType {
         const os = this.getOS();
         switch (os) {
-            case OS.ios:
-                return (Platform as PlatformIOSStatic).isPad ? ScreenType.large : ScreenType.mobile;
-            case OS.android:
+            case OS.IOS:
+                return (Platform as PlatformIOSStatic).isPad ? ScreenType.Large : ScreenType.Mobile;
+            case OS.Android:
                 // TODO: Figure out how to detect Android tablets
-                return ScreenType.mobile;
-            case OS.windows:
-            case OS.macos:
-                return ScreenType.large;
-            case OS.web:
-            case OS.other:
+                return ScreenType.Mobile;
+            case OS.Windows:
+            case OS.MacOS:
+                return ScreenType.Large;
+            case OS.Web:
+            case OS.Other:
                 const dimensions = this.getScreenDimensions();
                 if (dimensions[1] > dimensions[0]) {
                     // Height > width, assume mobile
-                    return ScreenType.mobile;
+                    return ScreenType.Mobile;
                 }
                 // Any landscape screen on a web client can be assumed to be on a large screen
-                return ScreenType.large;
+                return ScreenType.Large;
             default:
                 throw new UnreachableCaseError(os);
         }

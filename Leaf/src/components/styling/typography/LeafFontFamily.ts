@@ -3,37 +3,37 @@ import { LeafFont } from "./LeafFont";
 import LeafFontFamilyConfig from "./LeafFontFamilyConfig";
 
 export enum LeafFontFamily {
-    gilroy,
-    poppins,
-    circular,
+    Gilroy,
+    Poppins,
+    Circular,
 }
 
 export namespace LeafFontFamily {
     export function getConfig(family: LeafFontFamily): LeafFontFamilyConfig {
         switch (family) {
-            case LeafFontFamily.gilroy:
-                return new LeafFontFamilyConfig(null, null, null, LeafFont.gilroyExtraBold, null, null, null, null);
-            case LeafFontFamily.poppins:
+            case LeafFontFamily.Gilroy:
+                return new LeafFontFamilyConfig(null, null, null, LeafFont.GilroyExtraBold, null, null, null, null);
+            case LeafFontFamily.Poppins:
                 return new LeafFontFamilyConfig(
-                    LeafFont.poppinsMedium,
-                    LeafFont.poppinsSemiBold,
-                    LeafFont.poppinsBold,
+                    LeafFont.PoppinsMedium,
+                    LeafFont.PoppinsSemiBold,
+                    LeafFont.PoppinsBold,
                     null,
-                    LeafFont.poppinsMediumItalic,
-                    LeafFont.poppinsSemiBoldItalic,
-                    LeafFont.poppinsBoldItalic,
+                    LeafFont.PoppinsMediumItalic,
+                    LeafFont.PoppinsSemiBoldItalic,
+                    LeafFont.PoppinsBoldItalic,
                     null,
                 );
-            case LeafFontFamily.circular:
+            case LeafFontFamily.Circular:
                 return new LeafFontFamilyConfig(
-                    LeafFont.circularMedium,
+                    LeafFont.CircularMedium,
                     null,
-                    LeafFont.circularBold,
-                    LeafFont.circularBlack,
-                    LeafFont.circularMediumItalic,
+                    LeafFont.CircularBold,
+                    LeafFont.CircularBlack,
+                    LeafFont.CircularMediumItalic,
                     null,
-                    LeafFont.circularBoldItalic,
-                    LeafFont.circularBlackItalic,
+                    LeafFont.CircularBoldItalic,
+                    LeafFont.CircularBlackItalic,
                 );
             default:
                 throw new UnreachableCaseError(family);

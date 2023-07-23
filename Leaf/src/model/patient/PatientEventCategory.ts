@@ -1,4 +1,4 @@
 export enum PatientEventCategory {
-    medication,
-    other,
+    Medication,
+    Other,
 }

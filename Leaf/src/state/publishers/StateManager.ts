@@ -32,7 +32,7 @@ import { LoginStatus } from "./types/LoginStatus";
  * ```
  */
 class StateManager {
-    public static readonly loginStatus = new LeafValuePublisher(LoginStatus.loggedOut);
+    public static readonly loginStatus = new LeafValuePublisher(LoginStatus.LoggedOut);
 
     public static readonly workersFetched = new LeafPublisher();
 

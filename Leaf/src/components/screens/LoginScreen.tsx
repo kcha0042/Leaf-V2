@@ -31,15 +31,15 @@ const LoginScreen: React.FC = () => {
         switch (username.toLowerCase()) {
             case "worker":
             case "w":
-                StateManager.loginStatus.publish(LoginStatus.worker);
+                StateManager.loginStatus.publish(LoginStatus.Worker);
                 break;
             case "leader":
             case "l":
-                StateManager.loginStatus.publish(LoginStatus.leader);
+                StateManager.loginStatus.publish(LoginStatus.Leader);
                 break;
             case "admin":
             case "a":
-                StateManager.loginStatus.publish(LoginStatus.admin);
+                StateManager.loginStatus.publish(LoginStatus.Admin);
                 break;
         }
     };
@@ -88,7 +88,7 @@ const LoginScreen: React.FC = () => {
                     label={strings("button.login")}
                     icon="arrow-right-circle"
                     typography={LeafTypography.primaryButton}
-                    type={LeafButtonType.filled}
+                    type={LeafButtonType.Filled}
                     color={LeafColors.accent}
                     style={{ marginTop: 40 }}
                     onPress={onLoginPressed}

@@ -31,7 +31,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     const Stack = createStackNavigator();
     const Insets = useSafeAreaInsets();
-    const PlatformIsWeb = Environment.instance.getOS() == OS.web;
+    const PlatformIsWeb = Environment.instance.getOS() == OS.Web;
 
     useEffect(() => {
         NavigationStateManager.sidebarComponentChanged.subscribe(() => {

@@ -27,7 +27,7 @@ const LeafText: React.FC<Props> = ({
 }) => {
     // For some reason the poppins font is slightly offset
     // This is a workaround
-    const lineHeightMultiplier = typography.fontFamily == LeafFontFamily.poppins ? 1.15 : 1.0;
+    const lineHeightMultiplier = typography.fontFamily == LeafFontFamily.Poppins ? 1.15 : 1.0;
     return (
         <Text
             style={[

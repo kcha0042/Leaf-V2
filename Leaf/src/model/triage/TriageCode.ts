@@ -1,7 +1,7 @@
 export enum TriageCode {
-    immediate = 1,
-    emergency = 2,
-    urgent = 3,
-    semiUrgent = 4,
-    nonUrgent = 5,
+    Immediate = 1,
+    Emergency = 2,
+    Urgent = 3,
+    SemiUrgent = 4,
+    NonUrgent = 5,
 }

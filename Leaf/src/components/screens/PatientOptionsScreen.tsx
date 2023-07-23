@@ -44,7 +44,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Actions"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled}
+                        type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
                             NavigationEnvironment.inst.navigateTo(ActionsScreen, navigation, "Actions");
@@ -55,7 +55,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Patient Preview"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled}
+                        type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
                             NavigationEnvironment.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
@@ -66,7 +66,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Edit"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled}
+                        type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
                             NavigationEnvironment.inst.navigateTo(NewTriageScreen, navigation, "Edit");
@@ -77,7 +77,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Done"}
                         icon="arrow-right-circle"
                         typography={LeafTypography.primaryButton}
-                        type={LeafButtonType.filled}
+                        type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
                             // Add a method to NavigationStateManager

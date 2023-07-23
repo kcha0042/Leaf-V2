@@ -69,7 +69,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         <VStack>
                             <LeafButton
                                 label="1: Immediate"
-                                type={LeafButtonType.filled}
+                                type={LeafButtonType.Filled}
                                 typography={LeafTypography.primaryButton}
                                 color={LeafColors.accent}
                                 onPress={() => {}}
@@ -82,7 +82,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             />
                             <LeafButton
                                 label="1: Immediate"
-                                type={LeafButtonType.filled}
+                                type={LeafButtonType.Filled}
                                 typography={LeafTypography.primaryButton}
                                 color={LeafColors.textDark}
                                 onPress={() => {}}
@@ -92,7 +92,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             />
                             <LeafButton
                                 label="1: Immediate"
-                                type={LeafButtonType.filled}
+                                type={LeafButtonType.Filled}
                                 typography={LeafTypography.primaryButton}
                                 color={LeafColors.accent}
                                 onPress={() => {}}

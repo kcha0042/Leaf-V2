@@ -35,19 +35,19 @@ class LeafFontFamilyConfig {
 
     public getFont(weight: LeafFontWeight, isItalic: boolean): LeafFont {
         switch (weight) {
-            case LeafFontWeight.regular:
+            case LeafFontWeight.Regular:
                 const regular = isItalic ? this.italic : this.regular;
                 assert(regular != null, "Font requested not provided/available");
                 return regular;
-            case LeafFontWeight.semiBold:
+            case LeafFontWeight.SemiBold:
                 const semiBold = isItalic ? this.semiBoldItalic : this.semiBold;
                 assert(semiBold != null, "Font requested not provided/available");
                 return semiBold;
-            case LeafFontWeight.bold:
+            case LeafFontWeight.Bold:
                 const bold = isItalic ? this.boldItalic : this.bold;
                 assert(bold != null, "Font requested not provided/available");
                 return bold;
-            case LeafFontWeight.black:
+            case LeafFontWeight.Black:
                 const black = isItalic ? this.blackItalic : this.black;
                 assert(black != null, "Font requested not provided/available");
                 return black;

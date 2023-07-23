@@ -1,6 +1,6 @@
 export enum LeafImageScale {
-    none,
-    scaleToFit,
-    scaleToFill,
-    scaleToFillCrop,
+    None,
+    ScaleToFit,
+    ScaleToFill,
+    ScaleToFillCrop,
 }

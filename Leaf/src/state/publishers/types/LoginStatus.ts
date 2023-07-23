@@ -1,6 +1,6 @@
 export enum LoginStatus {
-    worker,
-    leader,
-    admin,
-    loggedOut,
+    Worker,
+    Leader,
+    Admin,
+    LoggedOut,
 }

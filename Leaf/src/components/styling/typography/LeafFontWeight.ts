@@ -1,6 +1,6 @@
 export enum LeafFontWeight {
-    regular,
-    semiBold,
-    bold,
-    black,
+    Regular,
+    SemiBold,
+    Bold,
+    Black,
 }

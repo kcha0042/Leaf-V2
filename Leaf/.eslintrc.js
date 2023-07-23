@@ -21,6 +21,21 @@ module.exports = {
         "react/prop-types": "off",
         "react-native/split-platform-components": "off",
         "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "typeLike",
+                "format": ["PascalCase"]
+            },
+            {
+                "selector": "enum",
+                "format": ["PascalCase"]
+            },
+            {
+                "selector": "enumMember",
+                "format": ["PascalCase"]
+            }
+        ]
     },
     settings: {
         react: {
