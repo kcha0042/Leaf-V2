@@ -41,7 +41,15 @@ const LeafTextInputShort: React.FC<Props> = ({
             ]}
         >
             <TouchableWithoutFeedback
-                style={{ position: "absolute", flexDirection: "row", height: "100%", paddingHorizontal: 16 }}
+                style={{
+                    position: "absolute",
+                    flexDirection: "row",
+                    height: "100%",
+                    paddingHorizontal: 16,
+                    ...Platform.select({
+                        web: { cursor: "text" },
+                    }),
+                }}
                 onPress={() => {
                     textInputRef.current.focus();
                 }}
