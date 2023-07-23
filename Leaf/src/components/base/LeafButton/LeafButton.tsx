@@ -26,7 +26,7 @@ interface Props {
 const LeafButton: React.FC<Props> = ({
     label,
     type = LeafButtonType.Filled,
-    typography = LeafTypography.primaryButton,
+    typography = LeafTypography.button,
     color = LeafColors.accent,
     icon = null,
     disabled = false,

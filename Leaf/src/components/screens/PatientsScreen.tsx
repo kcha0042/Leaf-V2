@@ -40,7 +40,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton
                         label={"Button"}
                         icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
+                        typography={LeafTypography.button}
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {

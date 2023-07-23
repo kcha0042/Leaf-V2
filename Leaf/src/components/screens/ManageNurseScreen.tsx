@@ -38,7 +38,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.header}>{nurse.firstName + " " + nurse.lastName}</LeafText>
+                <LeafText typography={LeafTypography.headerScreen}>{nurse.firstName + " " + nurse.lastName}</LeafText>
 
                 <LeafText typography={LeafTypography.body}>
                     TODO: Nurse
@@ -50,7 +50,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                 <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
                     <VStack>
                         <View style={{ alignSelf: "flex-start" }}>
-                            <LeafText typography={LeafTypography.cardTitle} verticalWrap={true}>
+                            <LeafText typography={LeafTypography.title3} verticalWrap={true}>
                                 {strings("label.id") + nurse.id.toString()}
                             </LeafText>
                         </View>
@@ -68,7 +68,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                 <LeafButton
                     label={strings("button.deleteAccount")}
                     icon="delete"
-                    typography={LeafTypography.primaryButton}
+                    typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.textError}
                     onPress={() => {

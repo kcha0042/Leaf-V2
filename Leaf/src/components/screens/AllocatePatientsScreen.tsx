@@ -48,7 +48,7 @@ const AllocatePatientsScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.header}>TODO</LeafText>
+                <LeafText typography={LeafTypography.headerScreen}>TODO</LeafText>
 
                 <AllocateCard
                     onPress={() => {

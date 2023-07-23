@@ -30,9 +30,9 @@ const FormCard: React.FC<Props> = ({ icon, title, children, style }) => {
         >
             <VStack spacing={1.5} style={{ width: "100%" }}>
                 <HStack spacing={1} style={{ width: "100%" }}>
-                    <LeafIcon icon={icon} color={LeafColors.textDark} size={LeafIconSize.FormCardTitle} />
+                    <LeafIcon icon={icon} color={LeafColors.textDark} size={LeafIconSize.Small} />
 
-                    <LeafText typography={LeafTypography.formCardTitle} wide={false}>
+                    <LeafText typography={LeafTypography.title4} wide={false}>
                         {title}
                     </LeafText>
                 </HStack>

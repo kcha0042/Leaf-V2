@@ -15,7 +15,7 @@ const AllocateCard: React.FC<Props> = ({ style, onPress }) => {
     return (
         <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
             <HStack>
-                <LeafText typography={LeafTypography.cardTitle} style={{ textAlign: "center" }}>
+                <LeafText typography={LeafTypography.title3} style={{ textAlign: "center" }}>
                     {strings("button.allocate")}
                 </LeafText>
             </HStack>

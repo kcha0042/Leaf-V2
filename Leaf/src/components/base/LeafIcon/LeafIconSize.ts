@@ -1,4 +1,5 @@
 export enum LeafIconSize {
-    FormCardTitle = 22,
-    Header = 40,
+    Small = 22,
+    Medium = 30,
+    Large = 40,
 }

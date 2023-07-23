@@ -37,7 +37,7 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
                     <Icon name={"chevron-left"} size={45} colour={"#007AFF"} style={{ marginLeft: -10 }} />
                 </TouchableOpacity>
             ) : null}
-            <LeafText typography={LeafTypography.header}>{title}</LeafText>
+            <LeafText typography={LeafTypography.headerScreen}>{title}</LeafText>
         </View>
     );
 };

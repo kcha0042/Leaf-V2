@@ -43,7 +43,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton
                         label={"Actions"}
                         icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
+                        typography={LeafTypography.button}
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
@@ -54,7 +54,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton
                         label={"Patient Preview"}
                         icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
+                        typography={LeafTypography.button}
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
@@ -65,7 +65,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton
                         label={"Edit"}
                         icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
+                        typography={LeafTypography.button}
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
@@ -76,7 +76,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton
                         label={"Done"}
                         icon="arrow-right-circle"
-                        typography={LeafTypography.primaryButton}
+                        typography={LeafTypography.button}
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {

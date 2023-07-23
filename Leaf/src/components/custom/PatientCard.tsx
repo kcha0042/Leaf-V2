@@ -45,14 +45,14 @@ const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
 
                 <VStack style={{ flexShrink: 1 }}>
                     <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.cardTitle} verticalWrap={true}>
+                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
                             {patient.fullName}
                         </LeafText>
                     </View>
 
                     <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false}>
+                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         {datetimeText}
                     </LeafText>
                 </VStack>

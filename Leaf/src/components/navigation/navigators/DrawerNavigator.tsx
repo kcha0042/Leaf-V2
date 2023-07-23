@@ -23,6 +23,7 @@ import Spacer from "../../containers/layout/Spacer";
 import LeafButton from "../../base/LeafButton/LeafButton";
 import StateManager from "../../../state/publishers/StateManager";
 import { LoginStatus } from "../../../state/publishers/types/LoginStatus";
+import { LeafIconSize } from "../../base/LeafIcon/LeafIconSize";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -86,7 +87,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                             icon="book-open-outline"
                             onlyIcon={true}
                             iconColor={LeafColors.textDark}
-                            size={40}
+                            size={LeafIconSize.Large}
                             color={LeafColors.textDark}
                             onPress={toggleDrawer}
                             style={{
@@ -94,7 +95,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                             }}
                         />
 
-                        <LeafText typography={LeafTypography.header.withSize(24)} wide={false} style={{}}>
+                        <LeafText typography={LeafTypography.headerSection} wide={false} style={{}}>
                             {strings("appName")}
                         </LeafText>
                     </HStack>
@@ -108,7 +109,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                     <LeafButton
                         label={strings("button.logout")}
                         color={LeafColors.fillBackgroundLight}
-                        typography={LeafTypography.body}
+                        typography={LeafTypography.buttonSmall}
                         wide={false}
                         icon="logout"
                         onPress={() => {
@@ -143,7 +144,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                     icon="book-open-outline"
                                     onlyIcon={true}
                                     iconColor={LeafColors.textDark}
-                                    size={40}
+                                    size={LeafIconSize.Large}
                                     color={LeafColors.textDark}
                                     onPress={toggleDrawer}
                                     style={{
@@ -153,7 +154,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                             )}
 
                             <LeafText
-                                typography={LeafTypography.header.withSize(24)}
+                                typography={LeafTypography.headerSection}
                                 wide={false}
                                 style={{
                                     textAlign: "center",
@@ -191,7 +192,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 icon="book-open-outline"
                                 onlyIcon={true}
                                 iconColor={LeafColors.textDark}
-                                size={40}
+                                size={LeafIconSize.Large}
                                 color={LeafColors.textDark}
                                 onPress={toggleDrawer}
                                 style={{

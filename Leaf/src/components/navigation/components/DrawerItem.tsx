@@ -34,7 +34,7 @@ const DrawerItem: React.FC<Props> = ({ interfaceSection }) => {
                     <LeafIcon
                         icon={icon}
                         color={isFocused ? LeafColors.screenBackgroundLight : LeafColors.textDark}
-                        size={LeafIconSize.FormCardTitle}
+                        size={LeafIconSize.Small}
                     />
                 </FlatContainer>
 

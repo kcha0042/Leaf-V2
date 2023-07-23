@@ -8,6 +8,7 @@ import LeafInterfaceSection from "../LeafInterfaceSection";
 import NavigationSession from "../state/NavigationEnvironment";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
+import { LeafIconSize } from "../../base/LeafIcon/LeafIconSize";
 
 interface Props {
     interfaceSection: LeafInterfaceSection;
@@ -18,7 +19,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
         NavigationSession.inst.focusedInterfaceSection != undefined &&
         NavigationSession.inst.focusedInterfaceSection.matches(interfaceSection.id);
     const icon = isFocused ? interfaceSection.focusedIcon : interfaceSection.icon;
-    const size = 30;
+    const size = LeafIconSize.Medium;
     const padding = 10;
     return (
         <VStack
