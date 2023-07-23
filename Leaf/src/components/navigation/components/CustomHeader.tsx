@@ -18,11 +18,12 @@ type LeftButtonProps = {
     navigation: NavigationProp<ParamListBase>;
 };
 
-const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps }) => {
+const LeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps }) => {
     return (
         <View
             style={{
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                paddingBottom: 10,
                 ...styles.header,
             }}
         >
@@ -56,4 +57,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CustomLeafHeader;
+export default LeafHeader;

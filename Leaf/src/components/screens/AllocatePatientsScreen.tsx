@@ -38,7 +38,8 @@ const AllocatePatientsScreen: React.FC = () => {
         <ScrollView
             style={{
                 flex: 1,
-                padding: LeafDimensions.screenPadding,
+                paddingTop: LeafDimensions.screenTopPadding,
+                paddingHorizontal: LeafDimensions.screenPadding,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
             }}
         >

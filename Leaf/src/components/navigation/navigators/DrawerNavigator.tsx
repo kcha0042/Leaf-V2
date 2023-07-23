@@ -13,7 +13,7 @@ import DrawerItem from "../components/DrawerItem";
 import LeafColors from "../../styling/LeafColors";
 import LeafDimensions from "../../styling/LeafDimensions";
 import LeafTypography from "../../styling/LeafTypography";
-import CustomLeafHeader from "../components/CustomHeader";
+import LeafHeader from "../components/CustomHeader";
 import { EmptyScreen } from "../components/EmptyScreen";
 import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
@@ -158,6 +158,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 wide={false}
                                 style={{
                                     textAlign: "center",
+                                    paddingBottom: 10,
                                 }}
                             >
                                 {NavigationSession.inst.sidebarHeader}
@@ -225,7 +226,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                                             ...screen.options,
                                             animationEnabled: index > 0 && !PlatformIsWeb,
                                             header: () => (
-                                                <CustomLeafHeader
+                                                <LeafHeader
                                                     title={screen.title}
                                                     buttonProps={{
                                                         canGoBack: index > 0,

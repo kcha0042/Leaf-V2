@@ -37,8 +37,8 @@ const LeafDatePicker: React.FC<Props> = ({
     };
 
     // Label typography
-    const labelTypography = LeafTypography.body;
-    const [labelColor, setLabelColor] = React.useState(LeafColors.textInputDescription);
+    const labelTypography = LeafTypography.subscript;
+    const [labelColor, setLabelColor] = React.useState(LeafColors.textSemiDark);
 
     const onFocus = () => {
         setLabelColor(textColor);
@@ -70,9 +70,10 @@ const LeafDatePicker: React.FC<Props> = ({
             }}
             onLayout={onLayout}
         >
-            <LeafText typography={labelTypography} style={{ color: labelColor.getColor() }}>
+            <LeafText typography={labelTypography} style={{ color: labelColor.getColor(), paddingBottom: 4 }}>
                 {label}
             </LeafText>
+
             <DatePickerInput
                 inputMode="start"
                 mode="flat"
@@ -85,6 +86,9 @@ const LeafDatePicker: React.FC<Props> = ({
                 }}
                 value={inputDate}
                 style={[{ backgroundColor: color.getColor() }, { width: width ?? "100%" }, style]}
+                contentStyle={{
+                    ...LeafTypography.body.getStylesheet(),
+                }}
                 theme={{ colors: { primary: textColor.getColor() } }}
                 outlineStyle={{ borderRadius: 12 }}
                 onFocus={onFocus}

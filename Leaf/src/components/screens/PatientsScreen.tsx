@@ -26,7 +26,8 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
             <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding,
+                    paddingTop: LeafDimensions.screenTopPadding,
+                    paddingHorizontal: LeafDimensions.screenPadding,
                 }}
             >
                 <VStack

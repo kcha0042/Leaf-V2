@@ -72,4 +72,12 @@ export default {
 
     // Search
     "search.underlying": "Search",
+
+    // Triage Codes
+    "triageCode.none": "None",
+    "triageCode.1": "Immediate",
+    "triageCode.2": "Emergency",
+    "triageCode.3": "Urgent",
+    "triageCode.4": "Semi-Urgent",
+    "triageCode.5": "Non-Urgent",
 };

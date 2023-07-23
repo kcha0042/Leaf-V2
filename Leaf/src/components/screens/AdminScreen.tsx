@@ -29,7 +29,8 @@ const AdminScreen: React.FC = () => {
             style={{
                 flex: 1,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                padding: LeafDimensions.screenPadding,
+                paddingTop: LeafDimensions.screenTopPadding,
+                paddingHorizontal: LeafDimensions.screenPadding,
             }}
         >
             <ManageNurseScreen

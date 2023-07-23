@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
 import TabBarItem from "../components/TabBarItem";
-import CustomLeafHeader from "../components/CustomHeader";
+import LeafHeader from "../components/CustomHeader";
 import { EmptyScreen } from "../components/EmptyScreen";
 import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
@@ -67,7 +67,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                                             ...screen.options,
                                             animationEnabled: index > 0,
                                             header: () => (
-                                                <CustomLeafHeader
+                                                <LeafHeader
                                                     title={screen.title}
                                                     buttonProps={{
                                                         canGoBack: index > 0,

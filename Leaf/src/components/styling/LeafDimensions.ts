@@ -6,6 +6,8 @@ class LeafDimensions {
 
     static readonly fillRadius = 16;
 
+    static readonly screenTopPadding = 8;
+
     static readonly screenPadding = 22;
 
     static readonly screenSpacing = 8;

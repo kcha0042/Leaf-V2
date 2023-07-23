@@ -11,6 +11,17 @@ import FormCard from "../custom/FormCard";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
+import FlatContainer from "../containers/FlatContainer";
+import HStack from "../containers/HStack";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
+import LeafText from "../base/LeafText/LeafText";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import VGap from "../containers/layout/VGap";
+import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
+import LeafDatePicker from "../base/LeafDatePicker/LeafDatePicker";
+import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
+import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
+import TriageCodePicker from "../custom/TriageCodePicker";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -28,12 +39,21 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
             <ScrollView
                 style={{
                     flex: 1,
-                    padding: LeafDimensions.screenPadding,
+                    paddingTop: LeafDimensions.screenTopPadding,
+                    paddingHorizontal: LeafDimensions.screenPadding,
                     width: "100%",
                 }}
             >
-                <VStack spacing={LeafDimensions.screenSpacing}>
-                    <FormCard icon="clipboard-account" title={strings("triageForm.title.identity")}>
+                <VStack>
+                    <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                        <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+
+                        <LeafText typography={LeafTypography.title4} wide={false}>
+                            {strings("triageForm.title.identity")}
+                        </LeafText>
+                    </HStack>
+
+                    <VStack spacing={8} style={{ width: "100%" }}>
                         <LeafTextInput
                             label={strings("triageForm.textInput.givenName")}
                             textColor={LeafColors.textDark}
@@ -61,52 +81,19 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             color={LeafColors.textBackgroundDark}
                             onTextChange={() => {}}
                         />
-                    </FormCard>
+                    </VStack>
 
-                    <FormCard icon="file-document-edit" title={strings("triageForm.title.triage")}>
-                        {/* Multiline Text */}
-                        {/* For the following I should create a completely new wrapper over paper's button because then it doesn't have a dependency on button and I can set custom values such as height and whatever */}
-                        <VStack>
-                            <LeafButton
-                                label="1: Immediate"
-                                type={LeafButtonType.Filled}
-                                typography={LeafTypography.button}
-                                color={LeafColors.accent}
-                                onPress={() => {}}
-                                style={{
-                                    borderBottomLeftRadius: 0,
-                                    borderBottomRightRadius: 0,
-                                    borderTopLeftRadius: 12,
-                                    borderTopRightRadius: 12,
-                                }}
-                            />
-                            <LeafButton
-                                label="1: Immediate"
-                                type={LeafButtonType.Filled}
-                                typography={LeafTypography.button}
-                                color={LeafColors.textDark}
-                                onPress={() => {}}
-                                style={{
-                                    borderRadius: 0,
-                                }}
-                            />
-                            <LeafButton
-                                label="1: Immediate"
-                                type={LeafButtonType.Filled}
-                                typography={LeafTypography.button}
-                                color={LeafColors.accent}
-                                onPress={() => {}}
-                                style={{
-                                    borderBottomLeftRadius: 12,
-                                    borderBottomRightRadius: 12,
-                                    borderTopLeftRadius: 0,
-                                    borderTopRightRadius: 0,
-                                }}
-                            />
-                        </VStack>
-                    </FormCard>
+                    <VGap size={32} />
 
-                    <Spacer />
+                    <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                        <LeafIcon icon={"file-document-edit"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+
+                        <LeafText typography={LeafTypography.title4} wide={false}>
+                            {strings("triageForm.title.triage")}
+                        </LeafText>
+                    </HStack>
+
+                    <TriageCodePicker onSelection={(code) => {}} />
                 </VStack>
             </ScrollView>
         </View>
