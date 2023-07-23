@@ -9,6 +9,7 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
@@ -27,14 +28,7 @@ const YourWorkersScreen: React.FC = () => {
     };
 
     return (
-        <ScrollView
-            style={{
-                flex: 1,
-                paddingTop: LeafDimensions.screenTopPadding,
-                paddingHorizontal: LeafDimensions.screenPadding,
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-            }}
-        >
+        <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
@@ -63,7 +57,7 @@ const YourWorkersScreen: React.FC = () => {
 
                 <Spacer />
             </VStack>
-        </ScrollView>
+        </DefaultScreenContainer>
     );
 };
 

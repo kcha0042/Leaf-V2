@@ -22,6 +22,7 @@ import LeafDatePicker from "../base/LeafDatePicker/LeafDatePicker";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import TriageCodePicker from "../custom/TriageCodePicker";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -29,74 +30,59 @@ interface Props {
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     return (
-        <View
-            style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                flex: 1,
-                width: "100%",
-            }}
-        >
-            <ScrollView
-                style={{
-                    flex: 1,
-                    paddingTop: LeafDimensions.screenTopPadding,
-                    paddingHorizontal: LeafDimensions.screenPadding,
-                    width: "100%",
-                }}
-            >
-                <VStack>
-                    <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                        <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+        <DefaultScreenContainer>
+            <VStack>
+                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                    <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
 
-                        <LeafText typography={LeafTypography.title4} wide={false}>
-                            {strings("triageForm.title.identity")}
-                        </LeafText>
-                    </HStack>
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {strings("triageForm.title.identity")}
+                    </LeafText>
+                </HStack>
 
-                    <VStack spacing={8} style={{ width: "100%" }}>
-                        <LeafTextInput
-                            label={strings("triageForm.textInput.givenName")}
-                            textColor={LeafColors.textDark}
-                            color={LeafColors.textBackgroundDark}
-                            onTextChange={() => {}}
-                        />
+                <VStack spacing={8} style={{ width: "100%" }}>
+                    <LeafTextInput
+                        label={strings("triageForm.textInput.givenName")}
+                        textColor={LeafColors.textDark}
+                        color={LeafColors.textBackgroundDark}
+                        onTextChange={() => {}}
+                    />
 
-                        <LeafTextInput
-                            label={strings("triageForm.textInput.surname")}
-                            textColor={LeafColors.textDark}
-                            color={LeafColors.textBackgroundDark}
-                            onTextChange={() => {}}
-                        />
+                    <LeafTextInput
+                        label={strings("triageForm.textInput.surname")}
+                        textColor={LeafColors.textDark}
+                        color={LeafColors.textBackgroundDark}
+                        onTextChange={() => {}}
+                    />
 
-                        <LeafTextInput
-                            label={strings("triageForm.textInput.mrn")}
-                            textColor={LeafColors.textDark}
-                            color={LeafColors.textBackgroundDark}
-                            onTextChange={() => {}}
-                        />
+                    <LeafTextInput
+                        label={strings("triageForm.textInput.mrn")}
+                        textColor={LeafColors.textDark}
+                        color={LeafColors.textBackgroundDark}
+                        onTextChange={() => {}}
+                    />
 
-                        <LeafTextInput
-                            label={strings("triageForm.textInput.postcode")}
-                            textColor={LeafColors.textDark}
-                            color={LeafColors.textBackgroundDark}
-                            onTextChange={() => {}}
-                        />
-                    </VStack>
-
-                    <VGap size={32} />
-
-                    <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                        <LeafIcon icon={"file-document-edit"} color={LeafColors.textDark} size={LeafIconSize.Small} />
-
-                        <LeafText typography={LeafTypography.title4} wide={false}>
-                            {strings("triageForm.title.triage")}
-                        </LeafText>
-                    </HStack>
-
-                    <TriageCodePicker onSelection={(code) => {}} />
+                    <LeafTextInput
+                        label={strings("triageForm.textInput.postcode")}
+                        textColor={LeafColors.textDark}
+                        color={LeafColors.textBackgroundDark}
+                        onTextChange={() => {}}
+                    />
                 </VStack>
-            </ScrollView>
-        </View>
+
+                <VGap size={32} />
+
+                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                    <LeafIcon icon={"file-document-edit"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {strings("triageForm.title.triage")}
+                    </LeafText>
+                </HStack>
+
+                <TriageCodePicker onSelection={(code) => {}} />
+            </VStack>
+        </DefaultScreenContainer>
     );
 };
 

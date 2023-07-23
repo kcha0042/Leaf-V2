@@ -14,6 +14,7 @@ import FloatingContainer from "../containers/FloatingContainer";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     nurse: Nurse;
@@ -26,13 +27,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
         return <LeafText typography={LeafTypography.body}>{strings("label.loading")}</LeafText>;
     }
     return (
-        <View
-            style={{
-                flex: 1,
-                paddingTop: LeafDimensions.screenTopPadding,
-                paddingHorizontal: LeafDimensions.screenPadding,
-            }}
-        >
+        <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
@@ -81,7 +76,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                     {strings("operation.removeAccount")}
                 </LeafText>
             </VStack>
-        </View>
+        </DefaultScreenContainer>
     );
 };
 

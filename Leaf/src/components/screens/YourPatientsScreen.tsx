@@ -12,6 +12,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -34,50 +35,37 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     return (
-        <View
-            style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                flex: 1,
-            }}
-        >
-            <ScrollView
+        <DefaultScreenContainer>
+            <VStack
+                spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
-                    paddingTop: LeafDimensions.screenTopPadding,
-                    paddingHorizontal: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack
-                    spacing={LeafDimensions.screenSpacing}
+                <FlatList
+                    data={patients}
+                    renderItem={({ item: patient }) => (
+                        <PatientCard
+                            patient={patient}
+                            onPress={() => {
+                                onPressPatient(patient);
+                            }}
+                        />
+                    )}
+                    keyExtractor={(patient) => patient.mrn.toString()}
+                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                    scrollEnabled={false}
+                    // Don't use overflow prop - doesn't work on web
                     style={{
-                        flex: 1,
+                        width: "100%",
+                        overflow: "visible", // Stop shadows getting clipped
+                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
-                >
-                    <FlatList
-                        data={patients}
-                        renderItem={({ item: patient }) => (
-                            <PatientCard
-                                patient={patient}
-                                onPress={() => {
-                                    onPressPatient(patient);
-                                }}
-                            />
-                        )}
-                        keyExtractor={(patient) => patient.mrn.toString()}
-                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                        scrollEnabled={false}
-                        // Don't use overflow prop - doesn't work on web
-                        style={{
-                            width: "100%",
-                            overflow: "visible", // Stop shadows getting clipped
-                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                        }}
-                    />
+                />
 
-                    <Spacer />
-                </VStack>
-            </ScrollView>
-        </View>
+                <Spacer />
+            </VStack>
+        </DefaultScreenContainer>
     );
 };
 

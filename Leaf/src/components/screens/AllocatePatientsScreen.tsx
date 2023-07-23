@@ -12,6 +12,7 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import AllocateCard from "../custom/AllocateCard";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
@@ -35,14 +36,7 @@ const AllocatePatientsScreen: React.FC = () => {
     };
 
     return (
-        <ScrollView
-            style={{
-                flex: 1,
-                paddingTop: LeafDimensions.screenTopPadding,
-                paddingHorizontal: LeafDimensions.screenPadding,
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-            }}
-        >
+        <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
@@ -79,7 +73,7 @@ const AllocatePatientsScreen: React.FC = () => {
 
                 <Spacer />
             </VStack>
-        </ScrollView>
+        </DefaultScreenContainer>
     );
 };
 

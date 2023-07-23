@@ -13,6 +13,7 @@ import ActionsScreen from "./ActionsScreen";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import NewTriageScreen from "./NewTriageScreen";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -20,73 +21,60 @@ interface Props {
 
 const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     return (
-        <View
-            style={{
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                flex: 1,
-            }}
-        >
-            <ScrollView
+        <DefaultScreenContainer>
+            <VStack
+                spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
-                    paddingTop: LeafDimensions.screenTopPadding,
-                    paddingHorizontal: LeafDimensions.screenPadding,
                 }}
             >
-                <VStack
-                    spacing={LeafDimensions.screenSpacing}
-                    style={{
-                        flex: 1,
+                <LeafText typography={LeafTypography.body}>TODO: Patient Options</LeafText>
+
+                <LeafButton
+                    label={"Actions"}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(ActionsScreen, navigation, "Actions");
                     }}
-                >
-                    <LeafText typography={LeafTypography.body}>TODO: Patient Options</LeafText>
+                />
 
-                    <LeafButton
-                        label={"Actions"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.button}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationSession.inst.navigateTo(ActionsScreen, navigation, "Actions");
-                        }}
-                    />
+                <LeafButton
+                    label={"Patient Preview"}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
+                    }}
+                />
 
-                    <LeafButton
-                        label={"Patient Preview"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.button}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationSession.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
-                        }}
-                    />
+                <LeafButton
+                    label={"Edit"}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(NewTriageScreen, navigation, "Edit");
+                    }}
+                />
 
-                    <LeafButton
-                        label={"Edit"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.button}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationSession.inst.navigateTo(NewTriageScreen, navigation, "Edit");
-                        }}
-                    />
-
-                    <LeafButton
-                        label={"Done"}
-                        icon="arrow-right-circle"
-                        typography={LeafTypography.button}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.accent}
-                        onPress={() => {
-                            NavigationSession.inst.navigateBack(navigation);
-                        }}
-                    />
-                </VStack>
-            </ScrollView>
-        </View>
+                <LeafButton
+                    label={"Done"}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    onPress={() => {
+                        NavigationSession.inst.navigateBack(navigation);
+                    }}
+                />
+            </VStack>
+        </DefaultScreenContainer>
     );
 };
 
