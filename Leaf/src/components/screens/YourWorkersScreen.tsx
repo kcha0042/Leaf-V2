@@ -8,7 +8,7 @@ import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
-import WorkerCard from "./components/WorkerCard";
+import WorkerCard from "../custom/WorkerCard";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());

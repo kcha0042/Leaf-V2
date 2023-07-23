@@ -93,7 +93,7 @@ The application will be built and published automatically from the `gh-pages` br
 
 ## Prettify
 
-Run the following in the project directory:
+To prettify (format) all code, run the following in the project directory:
 
 ```
 $ npx prettier . --write
@@ -103,9 +103,17 @@ To not lint specific code blocks, refer to the following: https://prettier.io/do
 
 ## Linting
 
-Run the following in the project directory:
+To identify lint errors, run the following in the project directory:
 
 ```
 $ npm run lint
+```
+
+## Pruning
+
+To identify unused types, run the following in the project directory:
+
+```
+$ npm run prune
 ```
 

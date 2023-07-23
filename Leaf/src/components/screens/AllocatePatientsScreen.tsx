@@ -11,7 +11,7 @@ import PatientCard from "../custom/PatientCard";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import AllocateCard from "./components/AllocateCard";
+import AllocateCard from "../custom/AllocateCard";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());

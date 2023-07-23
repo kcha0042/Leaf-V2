@@ -5,7 +5,7 @@ interface Props {
     style?: StyleProp<ViewStyle>;
 }
 
-export const Spacer: React.FC<Props> = ({ style }) => {
+const Spacer: React.FC<Props> = ({ style }) => {
     return <View style={[{ flex: 1 }, style]} />;
 };
 

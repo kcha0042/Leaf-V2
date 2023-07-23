@@ -1,12 +1,12 @@
 import { View, ViewStyle } from "react-native";
-import LeafColors from "../../styling/LeafColors";
-import LeafTypography from "../../styling/LeafTypography";
-import LeafText from "../../base/LeafText/LeafText";
-import FloatingContainer from "../../containers/FloatingContainer";
-import Worker from "../../../model/employee/Worker";
-import VGap from "../../containers/layout/VGap";
-import VStack from "../../containers/VStack";
-import HStack from "../../containers/HStack";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
+import LeafText from "../base/LeafText/LeafText";
+import FloatingContainer from "../containers/FloatingContainer";
+import Worker from "../../model/employee/Worker";
+import VGap from "../containers/layout/VGap";
+import VStack from "../containers/VStack";
+import HStack from "../containers/HStack";
 
 interface Props {
     worker: Worker;

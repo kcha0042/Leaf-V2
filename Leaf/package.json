@@ -10,7 +10,8 @@
         "web": "expo start --web",
         "deploy": "gh-pages -d web-build",
         "predeploy": "expo export:web",
-        "lint": "eslint . --ext .ts,.tsx"
+        "lint": "eslint . --ext .ts,.tsx",
+        "prune": "ts-prune"
     },
     "dependencies": {
         "@expo/webpack-config": "^18.0.1",
@@ -50,7 +51,8 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-native": "^4.0.0",
         "gh-pages": "^5.0.0",
-        "prettier": "3.0.0"
+        "prettier": "3.0.0",
+        "ts-prune": "^0.10.3"
     },
     "private": true
 }

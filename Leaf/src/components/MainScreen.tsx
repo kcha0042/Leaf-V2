@@ -1,6 +1,5 @@
 import React from "react";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
-import UUID from "../model/core/UUID";
 import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
 import { WorkerInterface } from "./interfaces/WorkerInterface";
