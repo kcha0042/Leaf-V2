@@ -24,18 +24,18 @@ module.exports = {
         "@typescript-eslint/naming-convention": [
             "error",
             {
-                "selector": "typeLike",
-                "format": ["PascalCase"]
+                selector: "typeLike",
+                format: ["PascalCase"],
             },
             {
-                "selector": "enum",
-                "format": ["PascalCase"]
+                selector: "enum",
+                format: ["PascalCase"],
             },
             {
-                "selector": "enumMember",
-                "format": ["PascalCase"]
-            }
-        ]
+                selector: "enumMember",
+                format: ["PascalCase"],
+            },
+        ],
     },
     settings: {
         react: {

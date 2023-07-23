@@ -1,30 +1,49 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import LeafScreen from "../LeafScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import NavigationEnvironment from "./NavigationEnvironment";
+import NavigationStateManager from "./NavigationStateManager";
 
 interface Props {
-    screens: LeafScreen[];
+    screen: LeafScreen;
 }
 
-export const LinearNavigator: React.FC<Props> = ({ screens }) => {
+export const LinearNavigator: React.FC<Props> = ({ screen }) => {
+    const [screens, setScreens] = useState<LeafScreen[]>([screen]);
+
     const Stack = createStackNavigator();
 
-    // TODO: Clean up whatever this is supposed to be
+    useEffect(() => {
+        NavigationEnvironment.inst.setStartingScreen(screen);
+
+        NavigationStateManager.newScreenAdded.subscribe(() => {
+            setScreens([...NavigationEnvironment.inst.screens]);
+        });
+    }, []);
+
+    useEffect(() => {
+        NavigationEnvironment.inst.loadedNavigation();
+        NavigationEnvironment.inst.loadedNavigation = () => {};
+    }, [screens]);
 
     return (
-        <Stack.Navigator>
-            {screens.map((screen) => {
-                return (
-                    <Stack.Screen
-                        key={screen.id}
-                        name={screen.id}
-                        component={screen.component}
-                        options={({ navigation }) => ({
-                            ...screen.options,
-                            header: () => <></>,
-                        })}
-                    />
-                );
-            })}
-        </Stack.Navigator>
+        <NavigationContainer>
+            <Stack.Navigator>
+                {screens.map((screen) => {
+                    return (
+                        <Stack.Screen
+                            key={screen.id}
+                            name={screen.id}
+                            component={screen.component}
+                            options={({ navigation }) => ({
+                                ...screen.options,
+                                header: () => <></>,
+                            })}
+                        />
+                    );
+                })}
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };

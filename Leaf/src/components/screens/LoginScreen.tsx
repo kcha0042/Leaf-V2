@@ -1,20 +1,25 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafColors from "../styling/LeafColors";
+import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import LeafButton from "../base/LeafButton/LeafButton";
+import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
-import LeafDimensions from "../styling/LeafDimensions";
-import { View } from "react-native";
 import VGap from "../containers/layout/VGap";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 
-const LoginScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 

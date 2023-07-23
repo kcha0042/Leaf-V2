@@ -34,6 +34,8 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
     const PlatformIsWeb = Environment.instance.getOS() == OS.Web;
 
     useEffect(() => {
+        NavigationEnvironment.inst.clearScreens();
+
         NavigationStateManager.sidebarComponentChanged.subscribe(() => {
             setSidebar(NavigationEnvironment.inst.sidebarComponent);
         });

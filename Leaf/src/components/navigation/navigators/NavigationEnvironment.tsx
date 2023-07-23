@@ -48,6 +48,10 @@ class NavigationEnvironment {
         NavigationStateManager.newScreenAdded.publish();
     }
 
+    public setStartingScreen(to: LeafScreen) {
+        this._screens = [to];
+    }
+
     public navigateBack(navigation: NavigationProp<ParamListBase>) {
         if (navigation == undefined || !navigation.canGoBack()) {
             this._screens = [];

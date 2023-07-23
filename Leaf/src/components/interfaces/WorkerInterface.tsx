@@ -3,11 +3,9 @@ import AccountScreen from "../screens/AccountScreen";
 import NewTriageScreen from "../screens/NewTriageScreen";
 import PatientsScreen from "../screens/PatientsScreen";
 import YourPatientsScreen from "../screens/YourPatientsScreen";
-import LeafInterface from "./LeafInterface";
-import LeafStackRoot from "./LeafStackRoot";
-import NavigationEnvironment from "./navigators/NavigationEnvironment";
-
-// TODO: Use string resources
+import LeafInterface from "../navigation/LeafInterface";
+import LeafStackRoot from "../navigation/LeafStackRoot";
+import NavigationEnvironment from "../navigation/navigators/NavigationEnvironment";
 
 export const WorkerInterface = new LeafInterface()
     .addRoot(

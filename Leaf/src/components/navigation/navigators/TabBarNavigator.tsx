@@ -16,17 +16,14 @@ interface Props {
     leafInterface: LeafInterface;
 }
 
-/**
- * Our custom tab bar
- * @param param0 {@link Props}
- * @returns a JSX tab bar
- */
 export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     const [screens, setScreens] = useState<LeafScreen[]>([]);
 
     const Stack = createStackNavigator();
 
     useEffect(() => {
+        NavigationEnvironment.inst.clearScreens();
+
         NavigationStateManager.newScreenAdded.subscribe(() => {
             setScreens([...NavigationEnvironment.inst.screens]);
         });

@@ -1,10 +1,9 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import UUID from "../model/core/UUID";
 import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
-import { WorkerInterface } from "./navigation/AllLeafInterfaces";
+import { WorkerInterface } from "./interfaces/WorkerInterface";
 import LeafScreen from "./navigation/LeafScreen";
 import { InterfaceNavigator } from "./navigation/navigators/AppNavigator";
 import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
@@ -19,12 +18,7 @@ const MainScreen: React.FC = () => {
 
     switch (loginStatus) {
         case LoginStatus.LoggedOut:
-            return (
-                <NavigationContainer>
-                    {/* TODO: Fix this */}
-                    <LinearNavigator screens={[new LeafScreen("Login", UUID.generate().toString(), LoginScreen, {})]} />
-                </NavigationContainer>
-            );
+            return <LinearNavigator screen={new LeafScreen("", UUID.generate().toString(), LoginScreen)} />;
         case LoginStatus.Worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.Leader:
