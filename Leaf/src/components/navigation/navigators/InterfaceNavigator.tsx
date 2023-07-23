@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
-    const deviceIsTablet = Environment.instance.getScreenType() == ScreenType.Large;
+    const deviceIsTablet = Environment.inst.getScreenType() == ScreenType.Large;
 
     return (
         <NavigationContainer>

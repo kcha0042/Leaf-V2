@@ -9,14 +9,14 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 
 const AdminScreen: React.FC = () => {
-    const [nurse, setNurse] = React.useState<Nurse | null>(Session.instance.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
+    const [nurse, setNurse] = React.useState<Nurse | null>(Session.inst.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
-            setNurse(Session.instance.getWorker(new EmployeeID("456-456")));
+            setNurse(Session.inst.getWorker(new EmployeeID("456-456")));
         });
-        
-        Session.instance.fetchAllWorkers();
+
+        Session.inst.fetchAllWorkers();
     }, []);
 
     const onPressNurse = (nurse) => {

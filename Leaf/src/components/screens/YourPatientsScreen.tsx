@@ -8,7 +8,7 @@ import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import PatientCard from "../custom/PatientCard";
-import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";
@@ -18,19 +18,19 @@ interface Props {
 }
 
 const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
-    const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
+    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
-            setPatients(Session.instance.getAllPatients());
+            setPatients(Session.inst.getAllPatients());
         });
 
-        Session.instance.fetchAllPatients();
+        Session.inst.fetchAllPatients();
     }, []);
 
     const onPressPatient = (patient: Patient) => {
-        Session.instance.setActivePatient(patient);
-        NavigationEnvironment.inst.navigateTo(PatientOptionsScreen, navigation, patient.fullName);
+        Session.inst.setActivePatient(patient);
+        NavigationSession.inst.navigateTo(PatientOptionsScreen, navigation, patient.fullName);
     };
 
     return (

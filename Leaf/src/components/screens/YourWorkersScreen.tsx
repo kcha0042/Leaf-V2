@@ -11,14 +11,14 @@ import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
 
 const YourWorkersScreen: React.FC = () => {
-    const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());
+    const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
-            setWorkers(Session.instance.getAllWorkers());
+            setWorkers(Session.inst.getAllWorkers());
         });
-        
-        Session.instance.fetchAllWorkers();
+
+        Session.inst.fetchAllWorkers();
     }, []);
 
     const onPressWorker = (worker) => {

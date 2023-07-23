@@ -14,14 +14,14 @@ import LeafTypography from "../styling/LeafTypography";
 import AllocateCard from "../custom/AllocateCard";
 
 const AllocatePatientsScreen: React.FC = () => {
-    const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
+    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
-            setPatients(Session.instance.getAllPatients());
+            setPatients(Session.inst.getAllPatients());
         });
-        
-        Session.instance.fetchAllPatients();
+
+        Session.inst.fetchAllPatients();
     }, []);
 
     const onPressPatient = (patient) => {

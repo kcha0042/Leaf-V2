@@ -7,7 +7,7 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { ScrollView } from "react-native-gesture-handler";
 import LeafButton from "../base/LeafButton/LeafButton";
-import NavigationEnvironment from "../navigation/state/NavigationEnvironment";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import ActionsScreen from "./ActionsScreen";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
@@ -47,7 +47,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigateTo(ActionsScreen, navigation, "Actions");
+                            NavigationSession.inst.navigateTo(ActionsScreen, navigation, "Actions");
                         }}
                     />
 
@@ -58,7 +58,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
+                            NavigationSession.inst.navigateTo(PatientPreviewScreen, navigation, "Patient Preview");
                         }}
                     />
 
@@ -69,7 +69,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            NavigationEnvironment.inst.navigateTo(NewTriageScreen, navigation, "Edit");
+                            NavigationSession.inst.navigateTo(NewTriageScreen, navigation, "Edit");
                         }}
                     />
 
@@ -83,7 +83,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                             // Add a method to NavigationStateManager
                             // If navigation == undefined
                             // then clear the screens
-                            NavigationEnvironment.inst.navigateBack(navigation);
+                            NavigationSession.inst.navigateBack(navigation);
                         }}
                     />
                 </VStack>

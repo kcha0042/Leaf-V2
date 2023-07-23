@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LeafScreen from "../LeafScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationSession from "../state/NavigationEnvironment";
 import NavigationStateManager from "../state/NavigationStateManager";
 
 interface Props {
@@ -15,16 +15,16 @@ export const LinearNavigator: React.FC<Props> = ({ screen }) => {
     const Stack = createStackNavigator();
 
     useEffect(() => {
-        NavigationEnvironment.inst.setStartingScreen(screen);
+        NavigationSession.inst.setStartingScreen(screen);
 
         NavigationStateManager.screenStackUpdated.subscribe(() => {
-            setScreens([...NavigationEnvironment.inst.screens]);
+            setScreens([...NavigationSession.inst.screens]);
         });
     }, []);
 
     useEffect(() => {
-        NavigationEnvironment.inst.loadedNavigation();
-        NavigationEnvironment.inst.loadedNavigation = () => {};
+        NavigationSession.inst.loadedNavigation();
+        NavigationSession.inst.loadedNavigation = () => {};
     }, [screens]);
 
     return (

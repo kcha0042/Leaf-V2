@@ -5,7 +5,7 @@ import FlatContainer from "../../containers/FlatContainer";
 import HStack from "../../containers/HStack";
 import HGap from "../../containers/layout/HGap";
 import LeafInterfaceSection from "../LeafInterfaceSection";
-import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationSession from "../state/NavigationEnvironment";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 
@@ -15,8 +15,8 @@ interface Props {
 
 const DrawerItem: React.FC<Props> = ({ interfaceSection }) => {
     const isFocused =
-        NavigationEnvironment.inst.focusedInterfaceSection != undefined &&
-        NavigationEnvironment.inst.focusedInterfaceSection.matches(interfaceSection.id);
+        NavigationSession.inst.focusedInterfaceSection != undefined &&
+        NavigationSession.inst.focusedInterfaceSection.matches(interfaceSection.id);
     const icon = isFocused ? interfaceSection.focusedIcon : interfaceSection.icon;
     return (
         <FlatContainer

@@ -4,8 +4,8 @@ import StateManager from "../../../state/publishers/StateManager";
 import LeafScreen from "../LeafScreen";
 import NavigationStateManager from "./NavigationStateManager";
 
-class NavigationEnvironment {
-    public static readonly inst = new NavigationEnvironment();
+class NavigationSession {
+    public static readonly inst = new NavigationSession();
 
     private _focusedInterfaceSection: UUID | undefined = undefined;
     public get focusedInterfaceSection(): UUID | undefined {
@@ -77,4 +77,4 @@ class NavigationEnvironment {
     }
 }
 
-export default NavigationEnvironment;
+export default NavigationSession;

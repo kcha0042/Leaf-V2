@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafText from "../../base/LeafText/LeafText";
 import LeafTypography from "../../styling/LeafTypography";
-import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationSession from "../state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import LeafColors from "../../styling/LeafColors";
 
@@ -30,7 +30,7 @@ const CustomLeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps 
             {buttonProps.canGoBack ? (
                 <TouchableOpacity
                     onPress={() => {
-                        NavigationEnvironment.inst.navigateBack(buttonProps.navigation);
+                        NavigationSession.inst.navigateBack(buttonProps.navigation);
                     }}
                     style={styles.backButton}
                 >

@@ -30,7 +30,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
     });
 
     useEffect(() => {
-        if (Environment.instance.getOS() == OS.Web) {
+        if (Environment.inst.getOS() == OS.Web) {
             const image = new window.Image();
             image.onload = function () {
                 setImageSize({ width: image.width, height: image.height });

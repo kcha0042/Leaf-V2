@@ -1,16 +1,16 @@
 import UUID from "../../model/core/UUID";
-import NavigationEnvironment from "./state/NavigationEnvironment";
+import NavigationSession from "./state/NavigationEnvironment";
 
 class LeafInterfaceSection {
     public readonly id: UUID = UUID.generate();
     private readonly _activateOnTabBar: () => void;
     public readonly activateOnTabBar = () => {
-        NavigationEnvironment.inst.setFocusedInterfaceSection(this.id);
+        NavigationSession.inst.setFocusedInterfaceSection(this.id);
         this._activateOnTabBar();
     };
     private readonly _activateOnDrawer: () => void;
     public readonly activateOnDrawer = () => {
-        NavigationEnvironment.inst.setFocusedInterfaceSection(this.id);
+        NavigationSession.inst.setFocusedInterfaceSection(this.id);
         this._activateOnDrawer();
     };
 

@@ -9,7 +9,7 @@ import CustomLeafHeader from "../components/CustomHeader";
 import { EmptyScreen } from "../components/EmptyScreen";
 import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
-import NavigationEnvironment from "../state/NavigationEnvironment";
+import NavigationSession from "../state/NavigationEnvironment";
 import NavigationStateManager from "../state/NavigationStateManager";
 
 interface Props {
@@ -22,16 +22,16 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     const Stack = createStackNavigator();
 
     useEffect(() => {
-        NavigationEnvironment.inst.clearScreens();
+        NavigationSession.inst.clearScreens();
 
         NavigationStateManager.screenStackUpdated.subscribe(() => {
-            setScreens([...NavigationEnvironment.inst.screens]);
+            setScreens([...NavigationSession.inst.screens]);
         });
     }, []);
 
     useEffect(() => {
-        NavigationEnvironment.inst.loadedNavigation();
-        NavigationEnvironment.inst.loadedNavigation = () => {};
+        NavigationSession.inst.loadedNavigation();
+        NavigationSession.inst.loadedNavigation = () => {};
     }, [screens]);
 
     return (

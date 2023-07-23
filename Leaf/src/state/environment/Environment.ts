@@ -7,7 +7,7 @@ import { ColorScheme } from "./types/ColorScheme";
 import { LeafScreenOrientation } from "./types/LeafScreenOrientation";
 
 class Environment {
-    public static readonly instance = new Environment();
+    public static readonly inst = new Environment();
 
     private constructor() {}
 

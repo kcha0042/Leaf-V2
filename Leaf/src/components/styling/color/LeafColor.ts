@@ -23,7 +23,7 @@ class LeafColor {
      * @returns Validated color string
      */
     public getColor(): string {
-        const colorScheme: ColorScheme = Environment.instance.getColorScheme();
+        const colorScheme: ColorScheme = Environment.inst.getColorScheme();
         switch (colorScheme) {
             case ColorScheme.Dark:
                 return this.darkMode;

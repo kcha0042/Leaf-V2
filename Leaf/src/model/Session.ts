@@ -12,7 +12,7 @@ import TriageCase from "./triage/TriageCase";
 import { TriageCode } from "./triage/TriageCode";
 
 class Session {
-    public static readonly instance = new Session();
+    public static readonly inst = new Session();
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
