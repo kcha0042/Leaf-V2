@@ -13,11 +13,11 @@ import WorkerCard from "../custom/WorkerCard";
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.instance.getAllWorkers());
 
-    StateManager.workersFetched.subscribe(() => {
-        setWorkers(Session.instance.getAllWorkers());
-    });
-
     useEffect(() => {
+        StateManager.workersFetched.subscribe(() => {
+            setWorkers(Session.instance.getAllWorkers());
+        });
+        
         Session.instance.fetchAllWorkers();
     }, []);
 

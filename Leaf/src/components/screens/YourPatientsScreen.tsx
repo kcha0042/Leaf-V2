@@ -24,9 +24,7 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.instance.getAllPatients());
         });
-    }, []);
 
-    useEffect(() => {
         Session.instance.fetchAllPatients();
     }, []);
 

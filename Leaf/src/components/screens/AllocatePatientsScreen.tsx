@@ -16,11 +16,11 @@ import AllocateCard from "../custom/AllocateCard";
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.instance.getAllPatients());
 
-    StateManager.patientsFetched.subscribe(() => {
-        setPatients(Session.instance.getAllPatients());
-    });
-
     useEffect(() => {
+        StateManager.patientsFetched.subscribe(() => {
+            setPatients(Session.instance.getAllPatients());
+        });
+        
         Session.instance.fetchAllPatients();
     }, []);
 

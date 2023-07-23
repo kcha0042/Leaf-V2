@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
@@ -11,9 +11,11 @@ import LoginScreen from "./screens/LoginScreen";
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
 
-    StateManager.loginStatus.subscribe(() => {
-        setLoginStatus(StateManager.loginStatus.read());
-    });
+    useEffect(() => {
+        StateManager.loginStatus.subscribe(() => {
+            setLoginStatus(StateManager.loginStatus.read());
+        });
+    }, []);
 
     switch (loginStatus) {
         case LoginStatus.LoggedOut:

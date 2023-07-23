@@ -16,6 +16,7 @@ import { LoginStatus } from "./types/LoginStatus";
  *     // React to the state change, e.g. update hooks or call forceUpdate()
  * });
  * ```
+ * ALl subscriptions should occur in useEffect hooks, since we only want the the component to subscribe on mount.
  *
  * To define a state with value, statically instantiate a LeafValuePublisher.
  * ``` public static readonly loginStatus = new LeafValuePublisher(LoginStatus.loggedOut); ```
