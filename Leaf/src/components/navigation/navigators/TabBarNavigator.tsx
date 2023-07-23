@@ -11,6 +11,8 @@ import LeafInterface from "../LeafInterface";
 import LeafScreen from "../LeafScreen";
 import NavigationSession from "../state/NavigationEnvironment";
 import NavigationStateManager from "../state/NavigationStateManager";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -18,6 +20,7 @@ interface Props {
 
 export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     const [screens, setScreens] = useState<LeafScreen[]>([]);
+    const PlatformIsWeb = Environment.inst.getOS() == OS.Web;
 
     const Stack = createStackNavigator();
 
@@ -65,7 +68,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                                         component={screen.component}
                                         options={({ navigation }) => ({
                                             ...screen.options,
-                                            animationEnabled: index > 0,
+                                            animationEnabled: index > 0 && !PlatformIsWeb,
                                             header: () => (
                                                 <LeafHeader
                                                     title={screen.title}

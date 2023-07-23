@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import NavigationSession from "../state/NavigationEnvironment";
 import NavigationStateManager from "../state/NavigationStateManager";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
 
 interface Props {
     screen: LeafScreen;
@@ -11,6 +13,7 @@ interface Props {
 
 export const LinearNavigator: React.FC<Props> = ({ screen }) => {
     const [screens, setScreens] = useState<LeafScreen[]>([screen]);
+    const PlatformIsWeb = Environment.inst.getOS() == OS.Web;
 
     const Stack = createStackNavigator();
 
@@ -30,7 +33,7 @@ export const LinearNavigator: React.FC<Props> = ({ screen }) => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {screens.map((screen) => {
+                {screens.map((screen, index) => {
                     return (
                         <Stack.Screen
                             key={screen.id.toString()}
@@ -38,6 +41,7 @@ export const LinearNavigator: React.FC<Props> = ({ screen }) => {
                             component={screen.component}
                             options={({ navigation }) => ({
                                 ...screen.options,
+                                animationEnabled: index > 0 && !PlatformIsWeb,
                                 header: () => <></>,
                             })}
                         />

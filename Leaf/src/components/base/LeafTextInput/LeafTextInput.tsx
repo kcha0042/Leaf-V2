@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { TextInput, ViewStyle } from "react-native";
+import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import VStack from "../../containers/VStack";
 import LeafColors from "../../styling/LeafColors";
@@ -64,6 +64,9 @@ const LeafTextInput: React.FC<Props> = ({
                     style={[
                         {
                             backgroundColor: color.getColor(),
+                            ...Platform.select({
+                                web: { outlineStyle: "none" },
+                            }),
                         },
                         typography.getStylesheet(),
                         style,
