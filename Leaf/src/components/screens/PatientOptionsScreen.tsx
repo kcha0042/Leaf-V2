@@ -81,9 +81,6 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         type={LeafButtonType.Filled}
                         color={LeafColors.accent}
                         onPress={() => {
-                            // Add a method to NavigationStateManager
-                            // If navigation == undefined
-                            // then clear the screens
                             NavigationSession.inst.navigateBack(navigation);
                         }}
                     />
