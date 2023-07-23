@@ -18,7 +18,7 @@ const MainScreen: React.FC = () => {
 
     switch (loginStatus) {
         case LoginStatus.LoggedOut:
-            return <LinearNavigator screen={new LeafScreen("", UUID.generate().toString(), LoginScreen)} />;
+            return <LinearNavigator screen={new LeafScreen("", LoginScreen)} />;
         case LoginStatus.Worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.Leader:

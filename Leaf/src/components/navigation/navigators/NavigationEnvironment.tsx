@@ -66,11 +66,11 @@ class NavigationEnvironment {
         if (navigation == undefined) {
             this._screens = [];
         }
-        const id = UUID.generate().toString();
-        this._screens.push(new LeafScreen(title, id, component, {}));
+        const newScreen = new LeafScreen(title, component);
+        this._screens.push(newScreen);
         this.loadedNavigation = () => {
             if (this._screens.length > 1 && navigation != undefined) {
-                navigation.navigate(id);
+                navigation.navigate(newScreen.id.toString());
             }
         };
         NavigationStateManager.newScreenAdded.publish();

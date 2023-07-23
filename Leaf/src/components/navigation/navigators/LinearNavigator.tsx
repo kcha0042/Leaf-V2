@@ -33,8 +33,8 @@ export const LinearNavigator: React.FC<Props> = ({ screen }) => {
                 {screens.map((screen) => {
                     return (
                         <Stack.Screen
-                            key={screen.id}
-                            name={screen.id}
+                            key={screen.id.toString()}
+                            name={screen.id.toString()}
                             component={screen.component}
                             options={({ navigation }) => ({
                                 ...screen.options,

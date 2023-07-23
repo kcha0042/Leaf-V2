@@ -60,8 +60,8 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                                 return (
                                     <Stack.Screen
                                         // Yes, key/name are both id
-                                        key={screen.id}
-                                        name={screen.id}
+                                        key={screen.id.toString()}
+                                        name={screen.id.toString()}
                                         component={screen.component}
                                         options={({ navigation }) => ({
                                             ...screen.options,
