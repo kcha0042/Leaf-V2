@@ -58,6 +58,7 @@ const LeafTextInput: React.FC<Props> = ({
                 <LeafText typography={labelTypography} style={{ color: labelColor }}>
                     {label}
                 </LeafText>
+
                 <TextInput
                     ref={textInputRef}
                     style={[

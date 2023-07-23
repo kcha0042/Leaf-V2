@@ -1,18 +1,18 @@
-import React from "react";
-import { TextInput } from "react-native-paper";
-import { ViewStyle } from "react-native";
-import LeafColor from "../../styling/color/LeafColor";
+import React, { useRef } from "react";
+import { TextInput, ViewStyle } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import VStack from "../../containers/VStack";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
+import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
-import useForceUpdate from "use-force-update";
-import VStack from "../../containers/VStack";
 
 interface Props {
     label: string;
     textColor?: LeafColor;
     color?: LeafColor;
     wide?: boolean;
+    valid?: boolean;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
 }
@@ -22,62 +22,68 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     textColor = LeafColors.textDark,
     color = LeafColors.textBackgroundDark,
     wide = true,
+    valid = undefined,
     style,
     onTextChange,
 }) => {
-    const forceUpdate = useForceUpdate();
-
     const [text, setText] = React.useState("");
-
-    // Input typography
-    const typography = LeafTypography.body;
-
-    // Label typography
-    const labelTypography = LeafTypography.body;
-    const [labelColor, setLabelColor] = React.useState(LeafColors.textInputDescription);
-
-    const onFocus = () => {
-        setLabelColor(textColor);
-        forceUpdate();
-    };
-
-    const onUnfocus = () => {
-        setLabelColor(LeafColors.textInputDescription);
-        forceUpdate();
-    };
+    const textInputRef = useRef(null);
+    const typography = LeafTypography.body.withColor(textColor);
+    const labelTypography = LeafTypography.subscript;
+    const labelColor =
+        valid == undefined
+            ? labelTypography.color
+            : valid
+            ? LeafColors.textSuccess.getColor()
+            : LeafColors.textError.getColor();
 
     return (
-        <VStack style={{ width: "100%" }}>
-            <LeafText typography={labelTypography} style={{ color: labelColor.getColor() }}>
-                {label}
-            </LeafText>
+        <TouchableWithoutFeedback
+            style={[wide ? { width: "100%" } : { alignSelf: "center" }, { flexDirection: "row" }]}
+            onPress={() => {
+                textInputRef.current.focus();
+            }}
+        >
+            <VStack
+                spacing={2}
+                style={{
+                    width: wide ? "100%" : undefined,
+                    alignSelf: wide ? undefined : "center",
+                    backgroundColor: color.getColor(),
+                    paddingVertical: 12,
+                    paddingHorizontal: 16,
+                    borderRadius: 12,
+                }}
+            >
+                <LeafText typography={labelTypography} style={{ color: labelColor }}>
+                    {label}
+                </LeafText>
 
-            <TextInput
-                label={""}
-                value={text}
-                mode="outlined"
-                style={[
-                    wide ? { width: "100%" } : { alignSelf: "center" },
-                    { borderRadius: 30 },
-                    { backgroundColor: color.getColor() },
-                    { height: 130 },
-                    style,
-                ]}
-                contentStyle={{
-                    ...typography.getStylesheet(),
-                }}
-                onFocus={onFocus}
-                onBlur={onUnfocus}
-                multiline={true}
-                outlineColor={LeafColors.outlineTextBackgroundDark.getColor()}
-                theme={{ colors: { primary: textColor.getColor() } }}
-                outlineStyle={{ borderRadius: 12 }}
-                onChangeText={(text) => {
-                    setText(text);
-                    onTextChange(text);
-                }}
-            />
-        </VStack>
+                <TextInput
+                    ref={textInputRef}
+                    multiline={true}
+                    style={[
+                        {
+                            backgroundColor: color.getColor(),
+                        },
+                        typography.getStylesheet(),
+                        style,
+                    ]}
+                    onChangeText={(text) => {
+                        setText(text);
+                        onTextChange(text);
+                    }}
+                    value={text}
+                />
+
+                <LeafText
+                    typography={labelTypography}
+                    style={{ color: labelColor, fontSize: labelTypography.size - 2, paddingTop: 2 }}
+                >
+                    {"• • •"}
+                </LeafText>
+            </VStack>
+        </TouchableWithoutFeedback>
     );
 };
 
