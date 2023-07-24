@@ -8,6 +8,7 @@ import { InterfaceNavigator } from "./navigation/navigators/InterfaceNavigator";
 import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
 import LoginScreen from "./screens/LoginScreen";
 import { AdminInterface } from "./interfaces/AdminInterface";
+import { LeaderInterface } from "./interfaces/LeaderInterface";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
@@ -24,7 +25,7 @@ const MainScreen: React.FC = () => {
         case LoginStatus.Worker:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.Leader:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />;
+            return <InterfaceNavigator leafInterface={LeaderInterface} />;
         case LoginStatus.Admin:
             return <InterfaceNavigator leafInterface={AdminInterface} />;
         default:

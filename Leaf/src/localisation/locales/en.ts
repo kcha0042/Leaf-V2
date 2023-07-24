@@ -28,6 +28,7 @@ export default {
     // Leader Tab Bar
     "tabBar.leader.viewNurses": "Home",
     "tabBar.leader.viewPatients": "Patients",
+    "tabBar.leader.account": "Account",
 
     // Worker Headers
     "header.worker.yourPatients": "Your Patients",

@@ -33,9 +33,7 @@ const AdminScreen: React.FC = () => {
                 paddingHorizontal: LeafDimensions.screenPadding,
             }}
         >
-            <ManageNurseScreen
-                
-            />
+            <ManageNurseScreen />
         </VStack>
     );
 };
