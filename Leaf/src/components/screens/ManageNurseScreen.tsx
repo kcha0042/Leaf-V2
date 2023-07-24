@@ -15,17 +15,15 @@ import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import EmployeeID from "../../model/employee/EmployeeID";
 
 interface Props {
-    nurse: Nurse;
-    style?: ViewStyle;
-    onPress: () => void;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
-const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
-    if (nurse == null) {
-        return <LeafText typography={LeafTypography.body}>{strings("label.loading")}</LeafText>;
-    }
+const ManageNurseScreen: React.FC<Props> = ({ navigation }) => {
+    const nurse = new Nurse(EmployeeID.generate(), "Jason", "Something");
     return (
         <DefaultScreenContainer>
             <VStack
@@ -34,8 +32,6 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.headerScreen}>{nurse.firstName + " " + nurse.lastName}</LeafText>
-
                 <LeafText typography={LeafTypography.body}>
                     TODO: Nurse
                     {/* todo: role is not available in Employee atm, fix it later */}
@@ -43,7 +39,7 @@ const ManageNurseScreen: React.FC<Props> = ({ nurse, style, onPress }) => {
 
                 <LeafText typography={LeafTypography.body}>{strings("label.details")}</LeafText>
 
-                <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
+                <FloatingContainer color={LeafColors.textBackgroundLight}>
                     <VStack>
                         <View style={{ alignSelf: "flex-start" }}>
                             <LeafText typography={LeafTypography.title3} verticalWrap={true}>

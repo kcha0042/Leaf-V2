@@ -1,27 +1,16 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import { ScrollView, View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
-import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
-import FormCard from "../custom/FormCard";
-import LeafColors from "../styling/LeafColors";
-import LeafDimensions from "../styling/LeafDimensions";
-import LeafTypography from "../styling/LeafTypography";
-import FlatContainer from "../containers/FlatContainer";
-import HStack from "../containers/HStack";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
-import LeafText from "../base/LeafText/LeafText";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import HStack from "../containers/HStack";
+import VStack from "../containers/VStack";
 import VGap from "../containers/layout/VGap";
-import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
-import LeafDatePicker from "../base/LeafDatePicker/LeafDatePicker";
-import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
-import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import TriageCodePicker from "../custom/TriageCodePicker";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {

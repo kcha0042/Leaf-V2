@@ -1,8 +1,7 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { strings } from "../../localisation/Strings";
 import Session from "../../model/Session";
-import Environment from "../../state/environment/Environment";
-import { ScreenType } from "../../state/environment/types/ScreenType";
 import StateManager from "../../state/publishers/StateManager";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
@@ -13,7 +12,6 @@ import ActionsScreen from "./ActionsScreen";
 import NewTriageScreen from "./NewTriageScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

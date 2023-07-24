@@ -1,9 +1,7 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import { ScrollView, View } from "react-native";
 import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";

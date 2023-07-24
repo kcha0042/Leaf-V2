@@ -20,7 +20,10 @@ export default {
     "tabBar.worker.account": "Account",
 
     // Admin Tab Bar
-    "tabBar.admin.manageNurses": "Home",
+    "tabBar.admin.nurses": "Nurses",
+    "tabBar.admin.leaders": "Leaders",
+    "tabBar.admin.new": "New",
+    "tabBar.admin.export": "Export",
 
     // Leader Tab Bar
     "tabBar.leader.viewNurses": "Home",

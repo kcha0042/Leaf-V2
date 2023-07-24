@@ -7,6 +7,7 @@ import LeafScreen from "./navigation/LeafScreen";
 import { InterfaceNavigator } from "./navigation/navigators/InterfaceNavigator";
 import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
 import LoginScreen from "./screens/LoginScreen";
+import { AdminInterface } from "./interfaces/AdminInterface";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
@@ -25,7 +26,7 @@ const MainScreen: React.FC = () => {
         case LoginStatus.Leader:
             return <InterfaceNavigator leafInterface={WorkerInterface} />;
         case LoginStatus.Admin:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />;
+            return <InterfaceNavigator leafInterface={AdminInterface} />;
         default:
             throw new UnreachableCaseError(loginStatus);
     }

@@ -34,10 +34,7 @@ const AdminScreen: React.FC = () => {
             }}
         >
             <ManageNurseScreen
-                nurse={nurse}
-                onPress={() => {
-                    onPressNurse(nurse);
-                }}
+                
             />
         </VStack>
     );
