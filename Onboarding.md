@@ -182,7 +182,7 @@ assertionFailure(`No day matched current day: ${currentDay}`)
 Navigation is pretty simple. Let's say you want to navigate to `ActionsScreen`. You would run the following:
 
 ```tsx
-NavigationSession.inst.navigateTo(ActionsScreen, navigation, "My Title"));
+NavigationSession.inst.navigateTo(ActionsScreen, navigation, "My Title");
 ```
 
 You would replace `"My Title"` with a `strings` call or with whatever string is relevant.
