@@ -1,38 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
 import StateManager from "../state/publishers/StateManager";
 import { LoginStatus } from "../state/publishers/types/LoginStatus";
-import { UnreachableCaseError } from "../language/errors/UnreachableCaseError";
-import { NavigationContainer } from "@react-navigation/native";
-import { WorkerInterface } from "./worker/navigation/WorkerInterface";
-import { LinearNavigator } from "./core/navigation/navigators/LinearNavigator";
-import { loginStack } from "./login/navigation/LoginStack";
-import { InterfaceNavigator } from "./core/navigation/navigators/AppNavigator";
-import { AdminInterface } from "./admin/navigation/AdminInterface";
-import { LeaderInterface } from "./leader/navigation/LeaderInterface";
+import { WorkerInterface } from "./interfaces/WorkerInterface";
+import LeafScreen from "./navigation/LeafScreen";
+import { InterfaceNavigator } from "./navigation/navigators/InterfaceNavigator";
+import { LinearNavigator } from "./navigation/navigators/LinearNavigator";
+import LoginScreen from "./screens/LoginScreen";
 
 const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
 
-    StateManager.loginStatus.subscribe(() => {
-        setLoginStatus(StateManager.loginStatus.read());
-    });
+    useEffect(() => {
+        StateManager.loginStatus.subscribe(() => {
+            setLoginStatus(StateManager.loginStatus.read());
+        });
+    }, []);
 
     switch (loginStatus) {
-        case LoginStatus.loggedOut:
-            return (
-                <NavigationContainer>
-                    <LinearNavigator stack={loginStack} />
-                </NavigationContainer>
-            );
-        case LoginStatus.worker:
-            return <InterfaceNavigator leafInterface={WorkerInterface} />
-        case LoginStatus.leader:
-            return <InterfaceNavigator leafInterface={LeaderInterface} />
-        case LoginStatus.admin:
-            return <InterfaceNavigator leafInterface={AdminInterface} />
+        case LoginStatus.LoggedOut:
+            return <LinearNavigator screen={new LeafScreen("", LoginScreen)} />;
+        case LoginStatus.Worker:
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
+        case LoginStatus.Leader:
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
+        case LoginStatus.Admin:
+            return <InterfaceNavigator leafInterface={WorkerInterface} />;
         default:
             throw new UnreachableCaseError(loginStatus);
     }
-}
+};
 
 export default MainScreen;

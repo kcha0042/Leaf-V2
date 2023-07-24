@@ -1,0 +1,15 @@
+export enum LeafFont {
+    GilroyExtraBold = "Gilroy-ExtraBold",
+    PoppinsMedium = "Poppins-Medium",
+    PoppinsSemiBold = "Poppins-SemiBold",
+    PoppinsBold = "Poppins-Bold",
+    PoppinsMediumItalic = "Poppins-MediumItalic",
+    PoppinsSemiBoldItalic = "Poppins-SemiBoldItalic",
+    PoppinsBoldItalic = "Poppins-BoldItalic",
+    CircularMedium = "CircularStd-Medium",
+    CircularBold = "CircularStd-Bold",
+    CircularBlack = "CircularStd-Black",
+    CircularMediumItalic = "CircularStd-MediumItalic",
+    CircularBoldItalic = "CircularStd-BoldItalic",
+    CircularBlackItalic = "CircularStd-BlackItalic",
+}

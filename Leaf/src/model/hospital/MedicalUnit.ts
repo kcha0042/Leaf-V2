@@ -1,7 +1,6 @@
 import UUID from "../core/UUID";
 
 class MedicalUnit {
-
     public readonly id: UUID;
     public readonly name: string;
 
@@ -9,7 +8,6 @@ class MedicalUnit {
         this.id = UUID.generate();
         this.name = name;
     }
-
 }
 
 export default MedicalUnit;

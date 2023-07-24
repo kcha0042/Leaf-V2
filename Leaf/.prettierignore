@@ -1,0 +1,2 @@
+# Don't lint the following files.
+# (To not lint specific code blocks, refer to: https://prettier.io/docs/en/ignore.html)

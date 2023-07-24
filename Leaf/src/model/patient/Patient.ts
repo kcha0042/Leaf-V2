@@ -1,11 +1,9 @@
 import EmployeeID from "../employee/EmployeeID";
+import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
-import UUID from "../core/UUID";
-import TriageCase from "../triage/TriageCase";
 
 class Patient {
-
     protected _mrn: MRN;
     protected _dob: Date;
     protected _firstName: string;
@@ -28,7 +26,7 @@ class Patient {
         return this._lastName;
     }
     get fullName(): string {
-        return `${this._firstName} ${this._lastName}`
+        return `${this._firstName} ${this._lastName}`;
     }
     get postCode(): string {
         return this._postCode;
@@ -64,7 +62,6 @@ class Patient {
         this._allocatedTo = allocatedTo;
         this._events = events;
     }
-
 }
 
 export default Patient;

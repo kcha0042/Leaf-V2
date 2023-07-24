@@ -19,7 +19,7 @@ More documentation can be found in `Strings.ts` and `en.ts` located in the `/loc
 
 ## Components
 
-When using components, use our wrapped components that start with the prefix `Leaf` over importing external components. The only exception is containers, such as `View`, `VStack`, etc.
+When using components, use our wrapped components that start with the prefix `Leaf` over importing external components. The only exception is some containers containers, such as `View` and `ScrollView` (for our containers, see `components/containers`).
 
 ```tsx
 // Correct
@@ -44,17 +44,17 @@ This ensures:
 
 If a wrapped component doesn't already exist, create it. Even if it does nothing but wrap an externally imported component, it makes it so much easier to maintain and track its implementations.
 
-When creating components, core components to be used throughout the application (e.g. `LeafButton`) should be created in the `components/core` directory in the relevant folder. Components used for a specified part of the app, e.g. `LoginScreen`, would be stored in its relevant directory, not in `components/core`.
+When creating components, base components to be used throughout the application (e.g. `LeafButton`) should be created in the `components/base` directory in the relevant folder. Custom components used for a specified part of the app, e.g. `PatientCard`, would be stored in `components/custom`, or `components/screens` if it's a full page component, not in `components/base`.
 
 Naming conventions:
 
 * Core components have the prefix `Leaf`, e.g. `LeafButton`
-* Components that represent an entire screen (that would be pushed to the navigation stack) have the prefix `Screen`, e.g. `LoginScreen`
+* Components that represent an entire screen (that would be pushed to the navigation stack) have the suffix `Screen`, e.g. `LoginScreen`
 * Child components of screen components don't have a prefix, e.g. `PatientCard`
 
 ## Style Presets
 
-We define presets for styling our components so our app can feel consistent and be more maintainable. These are found in `components/core/styles`.
+We define presets for styling our components so our app can feel consistent and be more maintainable. These are found in `components/styling`.
 
 * `LeafTypography` has all the preset typography (font, size, color) of the app
 * `LeafDimensions` has all the preset dimensions of the app
@@ -123,6 +123,8 @@ StateManager.myState.subscribe(() => {
 });
 ```
 
+**It's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+
 #### State With Value
 
 To define a state with value, statically instantiate a LeafValuePublisher.
@@ -150,6 +152,8 @@ StateManager.loginStatus.subscribe(() => {
 });
 ```
 
+Again, **it's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+
 ## Assertions
 
 Assertions should be used throughout the application to aid in debugging. Using them to check conditions that should be true saves time finding out where a logic error came from. Make sure the message provided is helpful.
@@ -175,162 +179,19 @@ assertionFailure(`No day matched current day: ${currentDay}`)
 
 ## Navigation
 
-Navigation is managed in stacks, a stack is made up of screen components. To create the UI for your account you must call `createAccountUI()`, to add this account to the application you must add it to `LeafAppUserInterfaces`.
+Navigation is pretty simple. Let's say you want to navigate to `ActionsScreen`. You would run the following:
 
-### Creating Screens
-
-Stacks are made from screen objects.
-
-```typescript
-export interface LeafScreen {
-    name: string,
-    component: React.FC,
-    options?: object
-};
+```tsx
+NavigationSession.inst.navigateTo(ActionsScreen, navigation, "My Title"));
 ```
 
-To create a screen object you can call:
+You would replace `"My Title"` with a `strings` call or with whatever string is relevant.
 
-```typescript
-function createLeafScreen(name: string, component: React.FC, options?: object): LeafScreen 
-```
+We provide the title in the call because many titles depend on the previous screen, e.g. when selecting a patient you can set the title to be the patient name, or if you're navigating to the triage screen that can be to do a new triage or edit an existing patient.
 
-The `options` param will be passed to the screen options of the [react native stack](https://reactnavigation.org/docs/stack-navigator)
+The navigation system automatically renders a back button, but if you need to provide your own, you can call the following code:
 
-### Creating Stacks
-
-Stacks are groups of screens that can be navigated between, you can only navigate between screens if they are in the same stack.
-
-```typescript
-export interface LeafStack {
-    stackName: string,
-    initialRouteName: string,
-    sideBarItemList: LeafSideBarItem[],
-    screens: LeafScreen[],
-    icon: string,
-    focusedIcon: string,
-    options?: object
-};
-```
-
-To create a stack object you can call:
-
-```typescript
-function createLeafStack(stackName: string, initialRouteName: string, screens: LeafScreen[], icon: string, focusedIcon: string, options?: object, sideBarItemList: LeafSideBarItem[]= []): LeafStack
-```
-
-If the first screen in the stack is a scrollable list of items, then you should add these to the stack as a list of `SideBarItem`, this will allow us to render a sidebar on tablets.
-
-`passProps` should update the props for the next screen, this will involve updating state using our publisher subscriber model.
-
-```typescript
-export interface LeafSideBarItem {
-    component: React.FC,
-    searchString?: string,
-    passProps: () => void
-};
-```
-
-### Creating Account UI
-
-```typescript
-const yourAccountUI = createLeafAccountUI(stacks: LeafStack[], name: string) 
-```
-
-Then add to:
-
-```typescript
-const LeafAppUserInterfaces = {
-	YourAccountUI: yourAccountUI
-};
-```
-
-Our app navigator will render the correct account interface based on who the user logs in as.
-
-### Best Practice
-
-#### Stacks Enum
-
-You should create an enum with the stack names for your account UI, use this enum anytime you want to access stack names, e.g:
-
-```typescript
-enum NurseUIStacks {
-    YourPatients = "Your Patients",
-    Patients = "Patients",
-    NewTriage = "New Triage",
-    YourAccount = "Your Account",
-};
-```
-
-#### Screens Enum
-
-Each stack should have an enum with the screen names:
-
-```typescript
-// Patients stack
-enum PatientScreens {
-    Patients = "Patients",
-    Patient = "Patient"
-}
-
-// creating item list for sidebar
-const items: LeafSideBarItem[] = [] 
-dummyPatients.forEach(patient => items.push({ component: SidebarItemWrapper(patient), passProps: () => null }))
-
-const patientsScreen1 = createLeafScreen(PatientScreens.Patients, SideBarScreen);
-const patientsScreen2 = createLeafScreen(PatientScreens.Patient, Patients);
-
-// If you want to render a sidebar on tablets you must provide the sidebar items to the stack as seen below.
-const patientsStack = createLeafStack(NurseUIStacks.Patients, PatientScreens.Patients, [patientsScreen1, patientsScreen2], "clipboard-outline", "clipboard-account-outline", {}, items);
-```
-
-#### Type Safe Navigation
-
-For type safe navigation you should implement a navigation prop:
-
-```typescript
-// Define the screens in the stack
-type PatientsStackParamList = {
-    Patients: undefined; 
-    Patient: undefined; 
-}
-
-// Create a navigation prop with the param list and initial route (in this case Patients)
-export type PatientsNavigationProp = StackNavigationProp<PatientsStackParamList, 'Patients'>
-```
-
-This is how you pass into your screens:
-
-```typescript
-// The props for the sidebar
-interface SidebarProps {
-    navigation?: PatientsNavigationProp
-}
-
-// A wrapper that returns a React.FC element, in this case a patient card. You will need to wrap your sidebar item component if you want to pass parameters as our sideBarItem object requires a React.FC component, if you try to pass any parameters to your sidebar Item component it will return a React Element. To solve this you can create a wrapper that takes in your required params and returns a React.FC component that uses the params as shown below.
-export const SidebarItemWrapper = (patient: Patient, navigation?: PatientsNavigationProp): React.FC => {
-    const SideBarItem: React.FC<SidebarProps> = () => {
-        return (
-            <View key={"${patient.mrn} view"} style={{padding: 10}}>
-                <PatientCard key={"${patient.mrn} card"}  patient={patient} onPress={() =>  navigation.navigate('Patient')}/>
-            </View>
-        )
-    }
-
-    return SideBarItem;
-}
-    
-// The screen that renders your side bar items
-// If you provide a sidebar item list to the stack it will not render this screen, instead it will render a screen containing the sidebar items.
-export const SideBarScreen: React.FC<SidebarProps> = ({ navigation }) => {
-
-    return (
-        <ScrollView>
-        {
-            dummyPatients.map(patient => SidebarItemWrapper(patient, navigation)({}))
-        }
-        </ScrollView>
-    )
-}
+```tsx
+NavigationSession.inst.navigateBack(navigation);
 ```
 
