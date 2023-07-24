@@ -182,6 +182,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
             <View
                 style={{
                     flex: 1,
+                    minWidth: LeafDimensions.sidebarWidth,
                     paddingTop: 12,
                 }}
                 onLayout={onLayout}

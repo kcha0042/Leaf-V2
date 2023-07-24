@@ -22,7 +22,7 @@ interface Props {
 const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
     const buttonSpacing = LeafDimensions.screenPadding;
-    const columnCount = Environment.inst.getScreenType() == ScreenType.Mobile ? 2 : 3;
+    const columnCount = componentWidth < 450 ? 2 : 3;
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     useEffect(() => {
@@ -68,6 +68,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                         icon="exclamation-thick"
                     />
+
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.editPatient")}
@@ -81,6 +82,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                         icon="clipboard-edit"
                     />
+
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.deletePatient")}

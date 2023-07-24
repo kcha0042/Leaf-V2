@@ -16,7 +16,7 @@ class LeafDimensions {
 
     static readonly borderWidth = 0.5;
 
-    static readonly drawerWidth = 250;
+    static readonly drawerWidth = 220;
 
     static readonly sidebarWidth = 350;
 }

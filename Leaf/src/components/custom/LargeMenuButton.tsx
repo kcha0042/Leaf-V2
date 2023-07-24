@@ -14,7 +14,7 @@ interface Props {
 }
 
 const LargeMenuButton: React.FC<Props> = ({ label, size, icon = null, style, onPress }) => {
-    const typography = LeafTypography.title2;
+    const typography = LeafTypography.title3;
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -33,7 +33,7 @@ const LargeMenuButton: React.FC<Props> = ({ label, size, icon = null, style, onP
                 style,
             ]}
         >
-            {icon && <Icon name={icon} size={size / 2.5} color={typography.color} style={{ paddingBottom: 12 }} />}
+            {icon && <Icon name={icon} size={size / 3} color={typography.color} style={{ paddingBottom: 16 }} />}
 
             <LeafText typography={typography} wide={false}>
                 {label}

@@ -54,13 +54,7 @@ class Environment {
                 return ScreenType.Large;
             case OS.Web:
             case OS.Other:
-                const dimensions = this.getScreenDimensions();
-                if (dimensions[1] > dimensions[0]) {
-                    // Height > width, assume mobile
-                    return ScreenType.Mobile;
-                }
-                // Any landscape screen on a web client can be assumed to be on a large screen
-                return ScreenType.Large;
+                return this.getScreenWidth() <= 925 ? ScreenType.Mobile : ScreenType.Large;
             default:
                 throw new UnreachableCaseError(os);
         }

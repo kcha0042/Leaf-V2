@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
 import TabBarItem from "../components/TabBarItem";
@@ -25,6 +25,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     const PlatformIsWeb = Environment.inst.getOS() == OS.Web;
 
     const Stack = createStackNavigator();
+    const Insets = useSafeAreaInsets();
 
     useEffect(() => {
         NavigationSession.inst.clearScreens();
@@ -105,6 +106,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
                         width: "100%",
                         justifyContent: "space-around",
                         paddingHorizontal: 8,
+                        paddingBottom: Insets.bottom > 0 ? 0 : 12,
                     }}
                 >
                     {leafInterface.sections.map((section) => {
