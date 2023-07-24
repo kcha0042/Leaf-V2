@@ -31,6 +31,9 @@ export default {
     "header.worker.newTriage": "New Triage",
     "header.worker.patients": "Patients",
     "header.worker.account": "Your Account",
+    "header.worker.view1Param": "{0} History",
+    "header.worker.actions1Param": "Code {0} Responses",
+    "header.worker.edit1Param": "Edit {0}",
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
@@ -48,6 +51,10 @@ export default {
     "button.cancel": "Cancel",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
+    "button.viewPatient": "View",
+    "button.patientActions": "Actions",
+    "button.editPatient": "Edit",
+    "button.deletePatient": "Remove",
 
     // Login
     "login.title": "Login",

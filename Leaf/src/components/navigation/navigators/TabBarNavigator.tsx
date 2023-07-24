@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { LayoutChangeEvent, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
@@ -13,6 +13,8 @@ import NavigationSession from "../state/NavigationEnvironment";
 import NavigationStateManager from "../state/NavigationStateManager";
 import Environment from "../../../state/environment/Environment";
 import { OS } from "../../../state/environment/types/OS";
+import StateManager from "../../../state/publishers/StateManager";
+import LeafDimensions from "../../styling/LeafDimensions";
 
 interface Props {
     leafInterface: LeafInterface;
@@ -37,6 +39,15 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
         NavigationSession.inst.loadedNavigation = () => {};
     }, [screens]);
 
+    const onLayout = (event: LayoutChangeEvent) => {
+        const layout = event.nativeEvent.layout;
+        if (layout.width > 0) {
+            // Only if this component is visible
+            // Assume the content component has screen padding
+            StateManager.contentWidth.publish(layout.width - LeafDimensions.screenPadding * 2);
+        }
+    };
+
     return (
         <VStack
             style={{
@@ -44,6 +55,7 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
             }}
         >
             <View
+                onLayout={onLayout}
                 style={{
                     flex: 1,
                     width: "100%",

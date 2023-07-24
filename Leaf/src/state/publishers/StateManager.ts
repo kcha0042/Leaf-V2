@@ -33,13 +33,20 @@ import { LoginStatus } from "./types/LoginStatus";
  * ```
  */
 class StateManager {
+    // The login status of the user (logged out, or what account type is logged in)
     public static readonly loginStatus = new LeafValuePublisher(LoginStatus.LoggedOut);
 
+    // Notifies when workers are done async fetching and can be retrieved from Session
     public static readonly workersFetched = new LeafPublisher();
 
+    // Notifies when patients are done async fetching and can be retrieved from Session
     public static readonly patientsFetched = new LeafPublisher();
 
+    // Notifies when the active patient has changed so components can update
     public static readonly activePatientChanged = new LeafPublisher();
+
+    // The continuously-updated width of the main content (where Screen components go)
+    public static readonly contentWidth = new LeafValuePublisher(0.0);
 }
 
 export default StateManager;

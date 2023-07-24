@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { LayoutChangeEvent, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { strings } from "../../../localisation/Strings";
 import Environment from "../../../state/environment/Environment";
@@ -57,6 +57,15 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     const toggleDrawer = () => {
         setDrawerContracted(!drawerContracted);
+    };
+
+    const onLayout = (event: LayoutChangeEvent) => {
+        const layout = event.nativeEvent.layout;
+        if (layout.width > 0) {
+            // Only if this component is visible
+            // Assume the content component has screen padding
+            StateManager.contentWidth.publish(layout.width - LeafDimensions.screenPadding * 2);
+        }
     };
 
     // TODO: Clean this entire file up, it's a messr
@@ -175,6 +184,7 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                     flex: 1,
                     paddingTop: 12,
                 }}
+                onLayout={onLayout}
             >
                 <SafeAreaView
                     style={{

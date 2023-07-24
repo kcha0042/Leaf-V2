@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import StateManager from "../../../state/publishers/StateManager";
 import LeafText from "../../base/LeafText/LeafText";
+import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import NavigationSession from "../state/NavigationEnvironment";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import LeafColors from "../../styling/LeafColors";
 
 type CustomLeafHeaderProps = {
     title: string;
@@ -38,7 +37,9 @@ const LeafHeader: React.FC<CustomLeafHeaderProps> = ({ title, buttonProps }) => 
                     <Icon name={"chevron-left"} size={45} colour={"#007AFF"} style={{ marginLeft: -10 }} />
                 </TouchableOpacity>
             ) : null}
-            <LeafText typography={LeafTypography.headerScreen}>{title}</LeafText>
+            <LeafText style={{ flex: 1 }} typography={LeafTypography.headerScreen}>
+                {title}
+            </LeafText>
         </View>
     );
 };
