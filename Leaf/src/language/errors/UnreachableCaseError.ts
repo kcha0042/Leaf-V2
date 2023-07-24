@@ -1,8 +1,7 @@
-
 /**
  * Throw this error in the case where an area of code shouldn't be capable of being reached.
  * For instance, in the default block of a switch statement that should be exhaustively checking an enum.
- * 
+ *
  * ```
  * switch (primaryColor) {
  *     case PrimaryColor.red:

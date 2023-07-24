@@ -19,7 +19,7 @@ More documentation can be found in `Strings.ts` and `en.ts` located in the `/loc
 
 ## Components
 
-When using components, use our wrapped components that start with the prefix `Leaf` over importing external components. The only exception is containers, such as `View`, `VStack`, etc.
+When using components, use our wrapped components that start with the prefix `Leaf` over importing external components. The only exception is some containers containers, such as `View` and `ScrollView` (for our containers, see `components/containers`).
 
 ```tsx
 // Correct
@@ -44,17 +44,17 @@ This ensures:
 
 If a wrapped component doesn't already exist, create it. Even if it does nothing but wrap an externally imported component, it makes it so much easier to maintain and track its implementations.
 
-When creating components, core components to be used throughout the application (e.g. `LeafButton`) should be created in the `components/core` directory in the relevant folder. Components used for a specified part of the app, e.g. `LoginScreen`, would be stored in its relevant directory, not in `components/core`.
+When creating components, base components to be used throughout the application (e.g. `LeafButton`) should be created in the `components/base` directory in the relevant folder. Custom components used for a specified part of the app, e.g. `PatientCard`, would be stored in `components/custom`, or `components/screens` if it's a full page component, not in `components/base`.
 
 Naming conventions:
 
 * Core components have the prefix `Leaf`, e.g. `LeafButton`
-* Components that represent an entire screen (that would be pushed to the navigation stack) have the prefix `Screen`, e.g. `LoginScreen`
+* Components that represent an entire screen (that would be pushed to the navigation stack) have the suffix `Screen`, e.g. `LoginScreen`
 * Child components of screen components don't have a prefix, e.g. `PatientCard`
 
 ## Style Presets
 
-We define presets for styling our components so our app can feel consistent and be more maintainable. These are found in `components/core/styles`.
+We define presets for styling our components so our app can feel consistent and be more maintainable. These are found in `components/styling`.
 
 * `LeafTypography` has all the preset typography (font, size, color) of the app
 * `LeafDimensions` has all the preset dimensions of the app
@@ -123,6 +123,8 @@ StateManager.myState.subscribe(() => {
 });
 ```
 
+**It's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+
 #### State With Value
 
 To define a state with value, statically instantiate a LeafValuePublisher.
@@ -150,6 +152,8 @@ StateManager.loginStatus.subscribe(() => {
 });
 ```
 
+Again, **it's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+
 ## Assertions
 
 Assertions should be used throughout the application to aid in debugging. Using them to check conditions that should be true saves time finding out where a logic error came from. Make sure the message provided is helpful.
@@ -173,5 +177,21 @@ for (let day of weekdays) {
 assertionFailure(`No day matched current day: ${currentDay}`)
 ```
 
+## Navigation
 
+Navigation is pretty simple. Let's say you want to navigate to `ActionsScreen`. You would run the following:
+
+```tsx
+NavigationSession.inst.navigateTo(ActionsScreen, navigation, "My Title"));
+```
+
+You would replace `"My Title"` with a `strings` call or with whatever string is relevant.
+
+We provide the title in the call because many titles depend on the previous screen, e.g. when selecting a patient you can set the title to be the patient name, or if you're navigating to the triage screen that can be to do a new triage or edit an existing patient.
+
+The navigation system automatically renders a back button, but if you need to provide your own, you can call the following code:
+
+```tsx
+NavigationSession.inst.navigateBack(navigation);
+```
 

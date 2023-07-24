@@ -5,22 +5,21 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
  * To only be initialised within StateManager.
  */
 class LeafPublisher {
-
     private readonly slice = createSlice({
-        name: 'LeafPublisher',
+        name: "LeafPublisher",
         initialState: {
-            value: 0
+            value: 0,
         },
         reducers: {
-            newForm: state => {
-                state.value = (state.value + 1)%10;
-            }
-        }
-    })
+            newForm: (state) => {
+                state.value = (state.value + 1) % 10;
+            },
+        },
+    });
 
     private readonly publisher = configureStore({
-        reducer: this.slice.reducer
-    })
+        reducer: this.slice.reducer,
+    });
 
     public subscribe(callback: () => void) {
         this.publisher.subscribe(callback);
@@ -29,7 +28,6 @@ class LeafPublisher {
     public publish() {
         this.publisher.dispatch(this.slice.actions.newForm());
     }
-
 }
 
 export default LeafPublisher;
