@@ -18,8 +18,8 @@ const FloatingContainer: React.FC<Props> = ({ color, onPress = null, children, s
     return onPress == null ? (
         <View style={[styles.container, { backgroundColor: color.getColor() }, style]}>{children}</View>
     ) : (
-        <TouchableOpacity onPress={onPress} disabled={onPress == null}>
-            <View style={[styles.container, { backgroundColor: color.getColor() }, style]}>{children}</View>
+        <TouchableOpacity style={[styles.container, { backgroundColor: color.getColor() }, style]} onPress={onPress} disabled={onPress == null}>
+            {children}
         </TouchableOpacity>
     );
 };

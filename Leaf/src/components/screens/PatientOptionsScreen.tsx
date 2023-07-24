@@ -20,7 +20,10 @@ interface Props {
 const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
     const buttonSpacing = LeafDimensions.screenPadding;
-    const columnCount = componentWidth < 450 ? 2 : 3;
+    let columnCount = componentWidth < 520 ? 2 : 3;
+    if (componentWidth < 365) {
+        columnCount = 1;
+    }
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     useEffect(() => {
@@ -42,6 +45,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.viewPatient")}
+                        description={strings("label.viewPatient")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
                             NavigationSession.inst.navigateTo(
@@ -56,6 +60,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.patientActions")}
+                        description={strings("label.patientActions")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
                             NavigationSession.inst.navigateTo(
@@ -70,6 +75,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.editPatient")}
+                        description={strings("label.editPatient")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
                             NavigationSession.inst.navigateTo(
@@ -84,6 +90,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.deletePatient")}
+                        description={strings("label.removePatient")}
                         onPress={() => {
                             // TODO: Delete patient, then navigate back when activePatient is none
                         }}
@@ -93,6 +100,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.done")}
+                        description={strings("label.done")}
                         onPress={() => {
                             NavigationSession.inst.navigateBack(navigation);
                         }}

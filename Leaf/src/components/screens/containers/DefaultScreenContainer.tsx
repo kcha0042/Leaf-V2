@@ -30,7 +30,14 @@ const DefaultScreenContainer: React.FC<Props> = ({
                     paddingHorizontal: LeafDimensions.screenPadding,
                 }}
             >
-                {children}
+                <View
+                    style={{
+                        width: "100%",
+                        paddingBottom: LeafDimensions.screenPadding,
+                    }}
+                >
+                    {children}
+                </View>
             </ScrollView>
         </View>
     );

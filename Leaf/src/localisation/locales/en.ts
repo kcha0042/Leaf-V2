@@ -72,6 +72,11 @@ export default {
     "label.id": "ID: ",
     "label.loading": "Loading",
     "label.details": "Details",
+    "label.viewPatient": "View patient information and medical history.",
+    "label.patientActions": "View immediate actions relevant to triage.",
+    "label.editPatient": "Edit patient information and triage.",
+    "label.removePatient": "Delete patient from the system.",
+    "label.done": "Exit patient options.",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
