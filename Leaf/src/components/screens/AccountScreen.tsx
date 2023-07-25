@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 import VStack from "../containers/VStack";
@@ -16,8 +16,9 @@ import Session from "../../model/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Worker from "../../model/employee/Worker";
 import HStack from "../containers/HStack";
-import LeafTypographyConfig from "../styling/typography/LeafTypographyConfig";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -29,7 +30,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const tmpID = new EmployeeID("123-123");
 
     const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(tmpID));
-
+    
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
             setWorker(Session.inst.getWorker(tmpID));
@@ -46,6 +47,28 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);
     }
     
+    // Pop ups
+    const [editNameVisible, setEditNameVisible] = useState(false);
+    const onNameDone = () => {
+
+    }
+
+    const [editEmailVisible, setEditEmailVisible] = useState(false);
+    const onEmailDone = () => {
+
+    }
+
+    const [editHospitalVisible, setEditHospitalVisible] = useState(false);
+    const onHospitalDone = () => {
+
+    }
+
+    const onCancel = () => {
+        setEditNameVisible(false);
+        setEditEmailVisible(false);
+        setEditHospitalVisible(false);
+    }
+
     return (
         <View
             style={{
@@ -67,13 +90,13 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}> {worker?.fullName || ""} </LeafText>
                         <Spacer />
-                        <LeafTextButton label={"edit"} onPress={() => null}/>
+                        <LeafTextButton label={"edit"} onPress={() => setEditNameVisible(true)}/>
                     </HStack>
                     
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}> {worker?.email || ""} </LeafText>
                         <Spacer />
-                        <LeafTextButton label={"edit"} onPress={() => null}/>
+                        <LeafTextButton label={"edit"} onPress={() => setEditEmailVisible(true)}/>
                     </HStack>
                 </FlatContainer>
 
@@ -90,7 +113,33 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     onPress={logOut}
                 />
             </VStack>
-            
+
+            {/* Edit name */}
+            <LeafPopUp
+                visible={editNameVisible}
+                title={"Edit name"}
+                onDone={onNameDone}
+                onCancel={onCancel}
+            >
+                <LeafTextInputShort 
+                    label={"Name"}
+                    onTextChange={() => null}
+                />
+            </LeafPopUp>
+
+            {/* Edit email */}
+            <LeafPopUp
+                visible={editEmailVisible}
+                title={"Edit email"}
+                onDone={onEmailDone}
+                onCancel={onCancel}
+            >
+                <LeafTextInputShort 
+                    label={"Email"}
+                    onTextChange={() => null}
+                />
+            </LeafPopUp>
+
         </View>
     );
 };
