@@ -10,13 +10,13 @@ export const AdminInterface = new LeafInterface()
             strings("tabBar.admin.nurses"),
             () => {
                 // Tab bar
-                NavigationSession.inst.navigateTo(AllNursesScreen, undefined, "TODO: All Nurses");
+                NavigationSession.inst.navigateTo(AllNursesScreen, undefined, strings("header.admin.viewNurses"));
                 NavigationSession.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
                 NavigationSession.inst.clearScreens();
-                NavigationSession.inst.setSidebarComponent(<AllNursesScreen />, "TODO: All Nurses");
+                NavigationSession.inst.setSidebarComponent(<AllNursesScreen />, strings("header.admin.viewNurses"));
             },
             "hospital-box",
             "hospital-box-outline",

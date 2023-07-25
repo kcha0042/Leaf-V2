@@ -41,6 +41,8 @@ export default {
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
+    "header.admin.viewNurses": "Nurses",
+    "header.admin.viewLeaders": "Leaders",
 
     // Leader Headers
     "header.leader.viewNurses": "Nurses",
