@@ -33,7 +33,7 @@ const ManageNurseScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafText typography={LeafTypography.body}>
-                    TODO: Nurse
+                    Nurse
                     {/* todo: role is not available in Employee atm, fix it later */}
                 </LeafText>
 

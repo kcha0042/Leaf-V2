@@ -45,6 +45,9 @@ class StateManager {
     // Notifies when the active patient has changed so components can update
     public static readonly activePatientChanged = new LeafPublisher();
 
+    // Notifies when the active worker has changed so compunents can update
+    public static readonly activeWorkerChanged = new LeafPublisher();
+
     // The continuously-updated width of the main content (where Screen components go)
     public static readonly contentWidth = new LeafValuePublisher(0.0);
 }
