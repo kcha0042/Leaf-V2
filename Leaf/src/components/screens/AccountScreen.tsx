@@ -17,6 +17,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import Worker from "../../model/employee/Worker";
 import HStack from "../containers/HStack";
 import LeafTypographyConfig from "../styling/typography/LeafTypographyConfig";
+import TextButton from "../base/LeafTextButton/LeafTextButton";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -93,24 +94,5 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         </View>
     );
 };
-
-// TODO: make this a base component
-interface ButtonProps {
-    label: string;
-    onPress: () => any;
-    typography?: LeafTypographyConfig;
-}
-
-const TextButton: React.FC<ButtonProps> = ({
-    typography = LeafTypography.textButton,
-    label,
-    onPress
-}) => {
-    return (
-        <TouchableOpacity onPress={onPress}>
-            <LeafText typography={typography}> { label } </LeafText>
-        </TouchableOpacity>
-    )
-}
 
 export default AccountScreen;
