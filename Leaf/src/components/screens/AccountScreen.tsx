@@ -17,7 +17,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import Worker from "../../model/employee/Worker";
 import HStack from "../containers/HStack";
 import LeafTypographyConfig from "../styling/typography/LeafTypographyConfig";
-import TextButton from "../base/LeafTextButton/LeafTextButton";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -67,13 +67,13 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}> {worker?.fullName || ""} </LeafText>
                         <Spacer />
-                        <TextButton label={"edit"} onPress={() => null}/>
+                        <LeafTextButton label={"edit"} onPress={() => null}/>
                     </HStack>
                     
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}> {worker?.email || ""} </LeafText>
                         <Spacer />
-                        <TextButton label={"edit"} onPress={() => null}/>
+                        <LeafTextButton label={"edit"} onPress={() => null}/>
                     </HStack>
                 </FlatContainer>
 

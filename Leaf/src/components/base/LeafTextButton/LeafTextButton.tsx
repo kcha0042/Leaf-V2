@@ -10,7 +10,7 @@ interface ButtonProps {
     typography?: LeafTypographyConfig;
 }
 
-const TextButton: React.FC<ButtonProps> = ({
+const LeafTextButton: React.FC<ButtonProps> = ({
     typography = LeafTypography.textButton,
     label,
     onPress
@@ -22,4 +22,4 @@ const TextButton: React.FC<ButtonProps> = ({
     )
 }
 
-export default TextButton;
+export default LeafTextButton;
