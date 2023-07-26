@@ -23,15 +23,17 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
                         <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {worker.firstName}
+                            {worker.fullName}
                         </LeafText>
                     </View>
 
                     <VGap size={6} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false}>
-                        {"ID: " + idText}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{"ID: " + idText}</LeafText>
+
+                    <VGap size={6} />
+
+                    <LeafText typography={LeafTypography.subscript}>{"TO DO: Allocated Patients"}</LeafText>
                 </VStack>
             </HStack>
         </FloatingContainer>
