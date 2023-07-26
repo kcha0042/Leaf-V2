@@ -10,8 +10,17 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import AllocateToNurseScreen from "./AllocateToNurseScreen";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTypography from "../styling/LeafTypography";
 
-const YourWorkersScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
@@ -23,8 +32,8 @@ const YourWorkersScreen: React.FC = () => {
     }, []);
 
     const onPressWorker = (worker) => {
-        // TODO: Navigation
-        console.log(worker.firstName); // TODO: Add worker fullname instead of first name
+        Session.inst.setActivePatient(worker);
+        NavigationSession.inst.navigateTo(AllocateToNurseScreen, navigation, worker.fullName);
     };
 
     return (
@@ -35,6 +44,10 @@ const YourWorkersScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
+                <LeafText typography={LeafTypography.body}>TODO: Search Bar</LeafText>
+
+                <VGap size={10} />
+
                 <FlatList
                     data={workers}
                     renderItem={({ item: worker }) => (
@@ -61,4 +74,4 @@ const YourWorkersScreen: React.FC = () => {
     );
 };
 
-export default YourWorkersScreen;
+export default AllWorkersScreen;

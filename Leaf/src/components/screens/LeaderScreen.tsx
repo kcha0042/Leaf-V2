@@ -1,13 +1,13 @@
 import React from "react";
 import LeafColors from "../styling/LeafColors";
-import AllocatePatientsScreen from "./AllocatePatientsScreen";
+import AllWorkersScreen from "./AllWorkersScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
 
 const LeaderScreen: React.FC = () => {
     return (
         <SafeAreaView style={style.safeArea}>
-            <AllocatePatientsScreen />
+            <AllWorkersScreen />
         </SafeAreaView>
     );
 };

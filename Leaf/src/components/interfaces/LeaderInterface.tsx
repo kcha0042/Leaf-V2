@@ -6,8 +6,8 @@ import YourPatientsScreen from "../screens/YourPatientsScreen";
 import LeafInterface from "../navigation/LeafInterface";
 import LeafInterfaceSection from "../navigation/LeafInterfaceSection";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import YourWorkersScreen from "../screens/YourWorkersScreen";
-import AllocatePatientsScreen from "../screens/AllocatePatientsScreen";
+import AllWorkersScreen from "../screens/AllWorkersScreen";
+import AllPatientsScreen from "../screens/AllPatientsScreen";
 
 export const LeaderInterface = new LeafInterface()
     .addSection(
@@ -15,13 +15,13 @@ export const LeaderInterface = new LeafInterface()
             strings("tabBar.leader.viewNurses"),
             () => {
                 // Tab bar
-                NavigationSession.inst.navigateTo(YourWorkersScreen, undefined, strings("header.leader.viewNurses"));
+                NavigationSession.inst.navigateTo(AllWorkersScreen, undefined, strings("header.leader.viewNurses"));
                 NavigationSession.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
                 NavigationSession.inst.clearScreens();
-                NavigationSession.inst.setSidebarComponent(<YourWorkersScreen />, strings("header.leader.viewNurses"));
+                NavigationSession.inst.setSidebarComponent(<AllWorkersScreen />, strings("header.leader.viewNurses"));
             },
             "hospital-box",
             "hospital-box-outline",
@@ -33,7 +33,7 @@ export const LeaderInterface = new LeafInterface()
             () => {
                 // Tab bar
                 NavigationSession.inst.navigateTo(
-                    AllocatePatientsScreen,
+                    AllPatientsScreen,
                     undefined,
                     strings("header.leader.viewPatients"),
                 );
@@ -43,7 +43,7 @@ export const LeaderInterface = new LeafInterface()
                 // Drawer
                 NavigationSession.inst.clearScreens();
                 NavigationSession.inst.setSidebarComponent(
-                    <AllocatePatientsScreen />,
+                    <AllPatientsScreen />,
                     strings("header.leader.viewPatients"),
                 );
             },

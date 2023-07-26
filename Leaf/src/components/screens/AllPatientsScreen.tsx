@@ -14,7 +14,7 @@ import LeafTypography from "../styling/LeafTypography";
 import AllocateCard from "../custom/AllocateCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
-const AllocatePatientsScreen: React.FC = () => {
+const AllPatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
@@ -30,11 +30,6 @@ const AllocatePatientsScreen: React.FC = () => {
         console.log(patient.fullName);
     };
 
-    const onPressNewAllocation = () => {
-        // TODO: Patient Allocation Page
-        console.log("new Allocation");
-    };
-
     return (
         <DefaultScreenContainer>
             <VStack
@@ -43,14 +38,8 @@ const AllocatePatientsScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.headerScreen}>TODO</LeafText>
-
-                <AllocateCard
-                    onPress={() => {
-                        onPressNewAllocation;
-                    }}
-                />
-
+                <LeafText typography={LeafTypography.body}>TODO: Search Bar</LeafText>
+                <VGap size={10} />
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
@@ -77,4 +66,4 @@ const AllocatePatientsScreen: React.FC = () => {
     );
 };
 
-export default AllocatePatientsScreen;
+export default AllPatientsScreen;
