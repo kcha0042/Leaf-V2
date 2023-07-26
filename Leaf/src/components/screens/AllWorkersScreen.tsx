@@ -15,6 +15,8 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import AllocateToNurseScreen from "./AllocateToNurseScreen";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -42,9 +44,10 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
+                    width: "100%",
                 }}
             >
-                <LeafText typography={LeafTypography.body}>TODO: Search Bar</LeafText>
+                <LeafSearchBar searchQuery={strings("search.underlying")} onSearch={() => {}}></LeafSearchBar>
 
                 <VGap size={10} />
 
