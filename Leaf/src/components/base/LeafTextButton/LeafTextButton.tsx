@@ -10,16 +10,12 @@ interface ButtonProps {
     typography?: LeafTypographyConfig;
 }
 
-const LeafTextButton: React.FC<ButtonProps> = ({
-    typography = LeafTypography.textButton,
-    label,
-    onPress
-}) => {
+const LeafTextButton: React.FC<ButtonProps> = ({ typography = LeafTypography.textButton, label, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress}>
-            <LeafText typography={typography}> { label } </LeafText>
+            <LeafText typography={typography}> {label} </LeafText>
         </TouchableOpacity>
-    )
-}
+    );
+};
 
 export default LeafTextButton;
