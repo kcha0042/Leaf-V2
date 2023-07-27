@@ -74,7 +74,8 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             style={{
                 flex: 1,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                padding: LeafDimensions.screenPadding
+                padding: LeafDimensions.screenPadding,
+                paddingTop: LeafDimensions.screenTopPadding,
             }}
         >
             <VStack
