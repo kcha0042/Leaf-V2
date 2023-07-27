@@ -22,7 +22,7 @@ export const LeafPopUp: React.FC<Props> = ({
     visible,
     onCancel,
     onDone,
-    backgroundColour = LeafColors.fillBackgroundLight,
+    backgroundColour = LeafColors.fillBackgroundLightPopUp,
     title,
     titleTypography = LeafTypography.title2,
     children

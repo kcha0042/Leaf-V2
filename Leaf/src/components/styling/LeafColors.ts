@@ -124,9 +124,18 @@ class LeafColors {
         return new LeafColor("#f2f3f9");
     }
 
+    
     static get fillBackgroundAccent(): LeafColor {
         // TODO: Update for dark mode
         return new LeafColor("#f1edfc");
+    }
+    
+    /**
+     * The dialog from react-native-paper changes the colour slightly, so I made this to more closly match the {@link fillBackgroundLight}
+    */
+    static get fillBackgroundLightPopUp(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#e2e2e8");
     }
 
     // Outlines

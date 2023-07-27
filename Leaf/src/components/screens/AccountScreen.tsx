@@ -48,14 +48,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     }
     
     // Pop ups
+    // I assume we are going to have an active account or something in the model? That we can 
     const [editNameVisible, setEditNameVisible] = useState(false);
     const onNameDone = () => {
-
+        // TODO: change name
     }
 
     const [editEmailVisible, setEditEmailVisible] = useState(false);
     const onEmailDone = () => {
-
+        // TODO: change name
     }
 
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
@@ -125,6 +126,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 <LeafTextInputShort 
                     label={"Name"}
                     onTextChange={() => null}
+                    color={LeafColors.textBackgroundDark}
                 />
             </LeafPopUp>
 
