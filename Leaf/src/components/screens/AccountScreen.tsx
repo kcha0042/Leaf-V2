@@ -30,10 +30,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const tmpID = new EmployeeID("123-123");
 
     const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(tmpID));
+    const [name, setName] = React.useState<string>(worker?.fullName || "...loading");
+    const [email, setEmail] = React.useState<string>(worker?.email || "...loading"); 
     
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
-            setWorker(Session.inst.getWorker(tmpID));
+            const tmpWorker = Session.inst.getWorker(tmpID);
+            setWorker(tmpWorker);
+            setName(tmpWorker?.fullName || "");
+            setEmail(tmpWorker?.email || "");
         })
 
         Session.inst.fetchAllWorkers();
@@ -47,21 +52,36 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);
     }
     
+    // Text change 
+    let newName = "";
+    const onNameChange = (name: string) => {
+        newName = name;
+    }
+
+    let newEmail = "";
+    const onEmailChange = (email: string) => {
+        newEmail = email;
+    }
+
     // Pop ups
     // I assume we are going to have an active account or something in the model? That we can 
     const [editNameVisible, setEditNameVisible] = useState(false);
     const onNameDone = () => {
-        // TODO: change name
+        setName(newName);
+        setEditNameVisible(false);
+        // TODO: change name in model
     }
 
     const [editEmailVisible, setEditEmailVisible] = useState(false);
     const onEmailDone = () => {
-        // TODO: change name
+        setEmail(newEmail);
+        setEditEmailVisible(false);
+        // TODO: change name in model
     }
 
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
     const onHospitalDone = () => {
-
+        setEditHospitalVisible(false);
     }
 
     const onCancel = () => {
@@ -90,13 +110,13 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafText typography={LeafTypography.title3}> {strings("label.details")} </LeafText>
 
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}> {worker?.fullName || ""} </LeafText>
+                        <LeafText typography={LeafTypography.body} wide={false}> {name} </LeafText>
                         <Spacer />
                         <LeafTextButton label={"edit"} onPress={() => setEditNameVisible(true)}/>
                     </HStack>
                     
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}> {worker?.email || ""} </LeafText>
+                        <LeafText typography={LeafTypography.body} wide={false}> {email} </LeafText>
                         <Spacer />
                         <LeafTextButton label={"edit"} onPress={() => setEditEmailVisible(true)}/>
                     </HStack>
@@ -125,8 +145,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             >
                 <LeafTextInputShort 
                     label={"Name"}
-                    onTextChange={() => null}
-                    color={LeafColors.textBackgroundDark}
+                    onTextChange={onNameChange}
                 />
             </LeafPopUp>
 
@@ -139,7 +158,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             >
                 <LeafTextInputShort 
                     label={"Email"}
-                    onTextChange={() => null}
+                    onTextChange={onEmailChange}
                 />
             </LeafPopUp>
 
