@@ -6,6 +6,22 @@ import LeafColors from "../../styling/LeafColors";
 import LeafIcon from "../LeafIcon/LeafIcon";
 import LeafTypography from "../../styling/LeafTypography";
 
+/*
+// EXAMPLE
+
+const [searchQuery, setSearchQuery] = React.useState("");
+const onSearch = (query: string) => {
+    setSearchQuery(query);
+
+    // Do something with query
+    // ...
+}
+
+// ...
+
+<LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+ */
+
 interface Props {
     searchQuery: string;
     onSearch: (query: string) => void;
