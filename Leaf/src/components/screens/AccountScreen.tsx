@@ -75,7 +75,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const onEmailDone = () => {
         setEmail(newEmail);
         setEditEmailVisible(false);
-        // TODO: change name in model
+        // TODO: change email in model
     };
 
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);

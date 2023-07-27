@@ -16,6 +16,7 @@ class Session {
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
+    private hospitalStore: { [key: string]: Hospital } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
 
@@ -49,7 +50,7 @@ class Session {
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", "spongebob@gmail.com");
+        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", "spongebob@gmail.com", );
         const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", "charith.jayasekara@monash.edu");
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
@@ -100,6 +101,13 @@ class Session {
         this.patientStore[patient2.mrn.toString()] = patient2;
         // Notify subscribers
         StateManager.patientsFetched.publish();
+    }
+
+    public fetchAllHospitals(){
+        const hospital1 = new Hospital("Monash Hospital");
+        const hospital2 = new Hospital("Prince Alfred Hospital");
+        this.hospitalStore[hospital1.name] = hospital1;
+        this.hospitalStore[hospital2.name] = hospital2;
     }
 }
 
