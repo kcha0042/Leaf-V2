@@ -54,8 +54,20 @@ class Session {
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", "spongebob@gmail.com", new Hospital("Monash Hospital"));
-        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", "charith.jayasekara@monash.edu", new Hospital("Prince Alfred Hospital"));
+        const worker1 = new Worker(
+            new EmployeeID("123-123"),
+            "Spongebob",
+            "Squarepants",
+            "spongebob@gmail.com",
+            new Hospital("Monash Hospital"),
+        );
+        const worker2 = new Worker(
+            new EmployeeID("456-456"),
+            "Charith",
+            "Jayasekara",
+            "charith.jayasekara@monash.edu",
+            new Hospital("Prince Alfred Hospital"),
+        );
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers
@@ -107,7 +119,7 @@ class Session {
         StateManager.patientsFetched.publish();
     }
 
-    public fetchAllHospitals(){
+    public fetchAllHospitals() {
         const hospital1 = new Hospital("Monash Hospital");
         const hospital2 = new Hospital("Prince Alfred Hospital");
         this.hospitalStore[hospital1.name] = hospital1;

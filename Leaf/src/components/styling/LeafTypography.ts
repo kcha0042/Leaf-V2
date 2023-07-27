@@ -109,7 +109,7 @@ class LeafTypography {
     }
 
     static get error(): LeafTypographyConfig {
-        return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textError, LeafFontWeight.Bold, true);
+        return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textError, LeafFontWeight.Regular, true);
     }
 }
 

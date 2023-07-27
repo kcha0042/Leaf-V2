@@ -18,7 +18,7 @@ abstract class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email; // TODO: move this to seperate class, this will make validation easier
-        this.currentHospital = currentHospital
+        this.currentHospital = currentHospital;
     }
 }
 

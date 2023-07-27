@@ -86,13 +86,14 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         // TODO: change email in model
     };
 
+    const [errTextVisible, setErrTextVisible] = useState(false);
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
     const onHospitalDone = () => {
         const hospitals = Session.inst.getAllHospitals();
         // Checking hospital exists
         let hospitalExists = false;
-        for (let hospital of hospitals){
-            if (hospital.name == newHospital){
+        for (let hospital of hospitals) {
+            if (hospital.name == newHospital) {
                 hospitalExists = true;
                 setHospital(newHospital);
                 setEditHospitalVisible(false);
@@ -100,22 +101,19 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             }
         }
 
-        if (!hospitalExists){
-            // TODO: handle error
-        }
+        setErrTextVisible(!hospitalExists);
     };
 
     const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
     const onPasswordDone = () => {
         // TODO: replace with password validation
-        if (true){
+        const validPassword = true;
+        if (validPassword) {
             setEditHospitalVisible(true);
             setEnterPasswordVisible(false);
-        }else{
-            // TODO: snackbar? I was thinking we could wrap the app in a provider that creates snackbars for user messages (similar to spotify)
-            // TODO: you could then create a new status message which publishes state with a message, the wrapper then subscribes to this state and reacts.
-            // Could also just have a message above the text input.
         }
+
+        setErrTextVisible(!validPassword);
     };
 
     const onCancel = () => {
@@ -123,6 +121,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         setEditEmailVisible(false);
         setEditHospitalVisible(false);
         setEnterPasswordVisible(false);
+        setErrTextVisible(false);
     };
 
     return (
@@ -192,14 +191,38 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 <LeafTextInputShort label={"Email"} onTextChange={onEmailChange} />
             </LeafPopUp>
 
-            {/* Edit email */}
-            <LeafPopUp visible={editHospitalVisible} title={"Edit hospital"} onDone={onHospitalDone} onCancel={onCancel}>
+            {/* Edit hospital */}
+            <LeafPopUp
+                visible={editHospitalVisible}
+                title={"Edit hospital"}
+                onDone={onHospitalDone}
+                onCancel={onCancel}
+            >
                 <LeafTextInputShort label={"Hospital"} onTextChange={onHospitalChange} />
+                <LeafText
+                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    {" "}
+                    Hospital does not exist{" "}
+                </LeafText>
             </LeafPopUp>
 
             {/* Check password */}
-            <LeafPopUp visible={enterPasswordVisible} title={"Enter password"} onDone={onPasswordDone} onCancel={onCancel}>
+            <LeafPopUp
+                visible={enterPasswordVisible}
+                title={"Enter password"}
+                onDone={onPasswordDone}
+                onCancel={onCancel}
+            >
                 <LeafTextInputShort label={"Password"} onTextChange={() => null /* TODO */} />
+                <LeafText
+                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    {" "}
+                    Incorrect password{" "}
+                </LeafText>
             </LeafPopUp>
         </View>
     );
