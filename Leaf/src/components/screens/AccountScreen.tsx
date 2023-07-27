@@ -31,6 +31,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(tmpID));
     const [name, setName] = React.useState<string>(worker?.fullName || "...loading");
     const [email, setEmail] = React.useState<string>(worker?.email || "...loading");
+    const [hospital, setHospital] = React.useState<string>(worker?.currentHospital.name || "...loading");
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
@@ -38,9 +39,11 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             setWorker(tmpWorker);
             setName(tmpWorker?.fullName || "");
             setEmail(tmpWorker?.email || "");
+            setHospital(tmpWorker?.currentHospital.name || "");
         });
 
         Session.inst.fetchAllWorkers();
+        Session.inst.fetchAllHospitals();
     }, []);
 
     StateManager.workersFetched.subscribe(() => {
@@ -62,6 +65,11 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         newEmail = email;
     };
 
+    let newHospital = "";
+    const onHospitalChange = (hospital: string) => {
+        newHospital = hospital;
+    };
+
     // Pop ups
     // I assume we are going to have an active account or something in the model? That we can
     const [editNameVisible, setEditNameVisible] = useState(false);
@@ -80,13 +88,41 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
     const onHospitalDone = () => {
-        setEditHospitalVisible(false);
+        const hospitals = Session.inst.getAllHospitals();
+        // Checking hospital exists
+        let hospitalExists = false;
+        for (let hospital of hospitals){
+            if (hospital.name == newHospital){
+                hospitalExists = true;
+                setHospital(newHospital);
+                setEditHospitalVisible(false);
+                break;
+            }
+        }
+
+        if (!hospitalExists){
+            // TODO: handle error
+        }
+    };
+
+    const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
+    const onPasswordDone = () => {
+        // TODO: replace with password validation
+        if (true){
+            setEditHospitalVisible(true);
+            setEnterPasswordVisible(false);
+        }else{
+            // TODO: snackbar? I was thinking we could wrap the app in a provider that creates snackbars for user messages (similar to spotify)
+            // TODO: you could then create a new status message which publishes state with a message, the wrapper then subscribes to this state and reacts.
+            // Could also just have a message above the text input.
+        }
     };
 
     const onCancel = () => {
         setEditNameVisible(false);
         setEditEmailVisible(false);
         setEditHospitalVisible(false);
+        setEnterPasswordVisible(false);
     };
 
     return (
@@ -130,7 +166,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 {/* Hospital */}
                 <FlatContainer>
                     <LeafText typography={LeafTypography.title3}> {strings("label.hospital")} </LeafText>
-                    <LeafText typography={LeafTypography.body}> TODO: Hospital name </LeafText>
+
+                    <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
+                        <LeafText typography={LeafTypography.body} wide={false}>
+                            {" "}
+                            {hospital}{" "}
+                        </LeafText>
+                        <Spacer />
+                        <LeafTextButton label={"edit"} onPress={() => setEnterPasswordVisible(true)} />
+                    </HStack>
                 </FlatContainer>
 
                 <Spacer />
@@ -146,6 +190,16 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Edit email */}
             <LeafPopUp visible={editEmailVisible} title={"Edit email"} onDone={onEmailDone} onCancel={onCancel}>
                 <LeafTextInputShort label={"Email"} onTextChange={onEmailChange} />
+            </LeafPopUp>
+
+            {/* Edit email */}
+            <LeafPopUp visible={editHospitalVisible} title={"Edit hospital"} onDone={onHospitalDone} onCancel={onCancel}>
+                <LeafTextInputShort label={"Hospital"} onTextChange={onHospitalChange} />
+            </LeafPopUp>
+
+            {/* Check password */}
+            <LeafPopUp visible={enterPasswordVisible} title={"Enter password"} onDone={onPasswordDone} onCancel={onCancel}>
+                <LeafTextInputShort label={"Password"} onTextChange={() => null /* TODO */} />
             </LeafPopUp>
         </View>
     );
