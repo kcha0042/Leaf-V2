@@ -47,11 +47,15 @@ class Session {
         return this.patientStore[id.toString()] || null;
     }
 
+    public getAllHospitals(): Hospital[] {
+        return Object.values(this.hospitalStore);
+    }
+
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", "spongebob@gmail.com", );
-        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", "charith.jayasekara@monash.edu");
+        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", "spongebob@gmail.com", new Hospital("Monash Hospital"));
+        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", "charith.jayasekara@monash.edu", new Hospital("Prince Alfred Hospital"));
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers
@@ -108,6 +112,7 @@ class Session {
         const hospital2 = new Hospital("Prince Alfred Hospital");
         this.hospitalStore[hospital1.name] = hospital1;
         this.hospitalStore[hospital2.name] = hospital2;
+        StateManager.hospitalsFetched.publish();
     }
 }
 
