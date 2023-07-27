@@ -15,6 +15,8 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import NurseAllocationScreen from "./NurseAllocationScreen";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -36,15 +38,22 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
         NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
 
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+        // TODO: Search for worker using query
+    };
+
     return (
         <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
+                    width: "100%",
                 }}
             >
-                <LeafText typography={LeafTypography.body}>TODO: Search Bar</LeafText>
+                <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
 
                 <VGap size={10} />
 
