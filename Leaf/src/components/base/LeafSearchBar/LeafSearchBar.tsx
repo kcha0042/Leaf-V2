@@ -23,7 +23,10 @@ const onSearch = (query: string) => {
  */
 
 interface Props {
+    // The search query (what text is being searched)
+    // (Passed in so parent components can manage the search query - e.g. a "clear filters" button may want to clear the search query)
     searchQuery: string;
+    // Callback for when the user changes the search text
     onSearch: (query: string) => void;
 }
 
