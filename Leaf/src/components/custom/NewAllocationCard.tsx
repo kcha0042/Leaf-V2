@@ -11,7 +11,7 @@ interface Props {
     onPress: () => void;
 }
 
-const AllocateCard: React.FC<Props> = ({ style, onPress }) => {
+const NewAllocationCard: React.FC<Props> = ({ style, onPress }) => {
     return (
         <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
             <HStack>
@@ -23,4 +23,4 @@ const AllocateCard: React.FC<Props> = ({ style, onPress }) => {
     );
 };
 
-export default AllocateCard;
+export default NewAllocationCard;

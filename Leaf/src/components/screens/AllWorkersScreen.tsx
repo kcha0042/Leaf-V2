@@ -12,7 +12,7 @@ import WorkerCard from "../custom/WorkerCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import AllocateToNurseScreen from "./AllocateToNurseScreen";
+import NurseAllocationScreen from "./NurseAllocationScreen";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 
@@ -33,7 +33,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressWorker = (worker) => {
         Session.inst.setActivePatient(worker);
-        NavigationSession.inst.navigateTo(AllocateToNurseScreen, navigation, worker.fullName);
+        NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
 
     return (

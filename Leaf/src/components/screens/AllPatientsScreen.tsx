@@ -7,14 +7,23 @@ import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import PatientCard from "../custom/PatientCard";
+import PatientCard2 from "../custom/PatientCard2";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import AllocateCard from "../custom/AllocateCard";
+import NewAllocationCard from "../custom/NewAllocationCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import AllocateToPatientScreen from "../screens/AllocateToPatientScreen";
+import { strings } from "../../localisation/Strings";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
-const AllPatientsScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
@@ -27,7 +36,8 @@ const AllPatientsScreen: React.FC = () => {
 
     const onPressPatient = (patient) => {
         // TODO: Navigation
-        console.log(patient.fullName);
+        Session.inst.setActivePatient(patient);
+        NavigationSession.inst.navigateTo(AllocateToPatientScreen, navigation, strings("header.leader.AllocateTo"));
     };
 
     return (
@@ -38,12 +48,12 @@ const AllPatientsScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.body}>TODO: Search Bar</LeafText>
+                <LeafSearchBar searchQuery={strings("search.underlying")} onSearch={() => {}}></LeafSearchBar>
                 <VGap size={10} />
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard
+                        <PatientCard2
                             patient={patient}
                             onPress={() => {
                                 onPressPatient(patient);
