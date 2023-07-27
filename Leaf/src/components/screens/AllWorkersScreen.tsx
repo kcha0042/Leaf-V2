@@ -38,6 +38,12 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
         NavigationSession.inst.navigateTo(AllocateToNurseScreen, navigation, worker.fullName);
     };
 
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+        // TODO: Search for worker using query
+    };
+
     return (
         <DefaultScreenContainer>
             <VStack
@@ -47,7 +53,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     width: "100%",
                 }}
             >
-                <LeafSearchBar searchQuery={strings("search.underlying")} onSearch={() => {}}></LeafSearchBar>
+                <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
 
                 <VGap size={10} />
 

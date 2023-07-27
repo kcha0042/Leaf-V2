@@ -49,8 +49,15 @@ class Session {
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
-        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants");
-        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara");
+        const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", [
+            new MRN("temp1-123-456"),
+            new MRN("temp2-123-456"),
+        ]);
+        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", [
+            new MRN("temp3-123-456"),
+            new MRN("temp4-123-456"),
+            new MRN("temp5-123-456"),
+        ]);
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers

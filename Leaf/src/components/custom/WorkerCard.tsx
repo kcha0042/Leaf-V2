@@ -33,7 +33,9 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
 
                     <VGap size={6} />
 
-                    <LeafText typography={LeafTypography.subscript}>{"TO DO: Allocated Patients"}</LeafText>
+                    <LeafText typography={LeafTypography.subscript}>
+                        {worker.allocatedPatients.length + " allocated"}
+                    </LeafText>
                 </VStack>
             </HStack>
         </FloatingContainer>
