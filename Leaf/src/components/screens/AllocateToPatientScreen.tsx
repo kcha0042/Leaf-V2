@@ -20,11 +20,16 @@ interface Props {
 
 const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+        // TODO: Search for worker using query
+    };
 
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafSearchBar searchQuery={strings("search.underlying")} onSearch={() => {}}></LeafSearchBar>
+            <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
 
                 <VGap size={20} />
 
