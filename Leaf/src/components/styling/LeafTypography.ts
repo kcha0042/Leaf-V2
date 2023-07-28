@@ -15,7 +15,7 @@ class LeafTypography {
     // Headers
 
     static get display(): LeafTypographyConfig {
-        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textBlack, LeafFontWeight.Black);
+        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textDark, LeafFontWeight.Black);
     }
 
     static get headerScreen(): LeafTypographyConfig {

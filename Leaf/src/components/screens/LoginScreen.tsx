@@ -6,15 +6,18 @@ import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import LeafText from "../base/LeafText/LeafText";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -81,7 +84,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     onTextChange={onUsernameInput}
                 />
 
-                <VGap size={8} />
+                <VGap size={12} />
 
                 <LeafTextInputShort
                     label={strings("login.inputLabel.password")}
@@ -90,13 +93,42 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     onTextChange={onPasswordInput}
                 />
 
+                <VGap size={12} />
+
+                <HStack
+                    style={{
+                        alignItems: "center",
+                    }}
+                >
+                    <LeafCheckbox
+                        initialValue={true}
+                        onValueChange={(isTicked) => {}}
+                        color={LeafColors.textSemiDark}
+                        style={{
+                            marginRight: 8,
+                        }}
+                    />
+
+                    <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
+                        {strings("label.rememberMe")}
+                    </LeafText>
+
+                    <Spacer />
+
+                    <LeafTextButton
+                        label={strings("button.activateAccount")}
+                        onPress={() => {}}
+                        typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                    />
+                </HStack>
+
                 <LeafButton
                     label={strings("button.login")}
                     icon="arrow-right-circle"
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
-                    style={{ marginTop: 40 }}
+                    style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
                 />
             </View>

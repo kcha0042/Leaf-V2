@@ -39,9 +39,9 @@ const LeafTextInputShort: React.FC<Props> = ({
         <View
             style={[
                 wide ? { width: "100%" } : { alignSelf: "center" },
-                { 
-                    flexDirection: "row", 
-                    backgroundColor: color.getColor(), 
+                {
+                    flexDirection: "row",
+                    backgroundColor: color.getColor(),
                     borderRadius: 12,
                     borderColor: isFocused ? typography.color : color.getColor(),
                     borderWidth: borderWidth,

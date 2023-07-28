@@ -59,6 +59,7 @@ export default {
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
+    "button.activateAccount": "Activate Account",
 
     // Login
     "login.title": "Login",
@@ -78,6 +79,7 @@ export default {
     "label.removePatient": "Delete patient from the system.",
     "label.done": "Exit patient options.",
     "label.hospital": "Hospital",
+    "label.rememberMe": "Remember Me",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
