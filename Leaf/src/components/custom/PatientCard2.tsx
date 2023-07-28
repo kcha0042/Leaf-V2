@@ -15,16 +15,14 @@ interface Props {
     onPress: () => void;
 }
 
-const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
+const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
         <FlatContainer
             color={LeafColors.fillBackgroundLight}
-            style={{
-                ...style,
-            }}
+            style={style}
             onPress={onPress}
         >
             <HStack>
@@ -63,4 +61,4 @@ const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
     );
 };
 
-export default PatientCard;
+export default PatientCard2;

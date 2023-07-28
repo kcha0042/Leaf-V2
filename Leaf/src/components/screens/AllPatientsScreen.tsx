@@ -34,7 +34,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
         Session.inst.fetchAllPatients();
     }, []);
 
-    const onPressPatient = (patient) => {
+    const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
         Session.inst.setActivePatient(patient);
         NavigationSession.inst.navigateTo(AllocateToPatientScreen, navigation, strings("header.leader.allocateTo"));
@@ -54,8 +54,10 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBar searchQuery={strings("search.underlying")} onSearch={() => {}}></LeafSearchBar>
+                <LeafSearchBar searchQuery={searchQuery} onSearch={() => {}}></LeafSearchBar>
+
                 <VGap size={10} />
+
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
@@ -71,6 +73,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     scrollEnabled={false}
                     // Don't use overflow prop - doesn't work on web
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
