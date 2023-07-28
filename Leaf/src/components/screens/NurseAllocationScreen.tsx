@@ -16,7 +16,6 @@ import StateManager from "../../state/publishers/StateManager";
 import AllocatedPatientsCard from "../custom/AllocatedPatientsCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList } from "react-native";
-import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -26,12 +25,6 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     const onPressNewAllocation = () => {
         // TODO: New Allocation
         NavigationSession.inst.navigateTo(AllocateToNurseScreen, navigation, strings("header.leader.viewPatients"));
-    };
-
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onSearch = (query: string) => {
-        setSearchQuery(query);
-        // TODO: Search for worker using query
     };
 
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
@@ -58,7 +51,9 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+                <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                    {"NURSE | " + worker.allocatedPatients.length + " patients allocated"}
+                </LeafText>
 
                 <VGap size={20} />
                 <NewAllocationCard
