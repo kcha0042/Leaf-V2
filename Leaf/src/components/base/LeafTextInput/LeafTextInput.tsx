@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import VStack from "../../containers/VStack";
@@ -26,7 +26,9 @@ const LeafTextInput: React.FC<Props> = ({
     style,
     onTextChange,
 }) => {
-    const [text, setText] = React.useState("");
+    const [text, setText] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+    const borderWidth = 2.0;
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     const labelTypography = LeafTypography.subscript;
@@ -50,9 +52,11 @@ const LeafTextInput: React.FC<Props> = ({
                     width: wide ? "100%" : undefined,
                     alignSelf: wide ? undefined : "center",
                     backgroundColor: color.getColor(),
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
+                    paddingVertical: 12 - borderWidth,
+                    paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
                 }}
             >
                 <LeafText typography={labelTypography} style={{ color: labelColor }}>
@@ -76,6 +80,8 @@ const LeafTextInput: React.FC<Props> = ({
                         onTextChange(text);
                     }}
                     value={text}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                 />
             </VStack>
         </TouchableWithoutFeedback>
