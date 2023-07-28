@@ -18,6 +18,7 @@ class Session {
     private patientStore: { [key: string]: Patient } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
+    private activeWorker: Worker | null = null;
 
     private constructor() {}
 
@@ -28,6 +29,15 @@ class Session {
 
     public getActivePatient(): Patient | null {
         return this.activePatient;
+    }
+
+    public setActiveWorker(worker: Worker | null) {
+        this.activeWorker = worker;
+        StateManager.activeWorkerChanged.publish();
+    }
+
+    public getActiveWorker(): Worker | null {
+        return this.activeWorker;
     }
 
     public getAllWorkers(): Worker[] {
@@ -50,14 +60,10 @@ class Session {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
         const worker1 = new Worker(new EmployeeID("123-123"), "Spongebob", "Squarepants", [
-            new MRN("temp1-123-456"),
-            new MRN("temp2-123-456"),
+            new MRN("temp-111-111"),
+            new MRN("temp-222-222"),
         ]);
-        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", [
-            new MRN("temp3-123-456"),
-            new MRN("temp4-123-456"),
-            new MRN("temp5-123-456"),
-        ]);
+        const worker2 = new Worker(new EmployeeID("456-456"), "Charith", "Jayasekara", []);
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers

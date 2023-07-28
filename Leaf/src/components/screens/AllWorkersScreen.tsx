@@ -34,7 +34,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     }, []);
 
     const onPressWorker = (worker) => {
-        Session.inst.setActivePatient(worker);
+        Session.inst.setActiveWorker(worker);
         NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
 
