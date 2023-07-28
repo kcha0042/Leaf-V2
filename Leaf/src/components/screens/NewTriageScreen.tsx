@@ -12,6 +12,7 @@ import TriageCodePicker from "../custom/TriageCodePicker";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafDimensions from "../styling/LeafDimensions";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -29,30 +30,30 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     </LeafText>
                 </HStack>
 
-                <VStack spacing={8} style={{ width: "100%" }}>
+                <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <LeafTextInput
-                        label={strings("triageForm.textInput.givenName")}
+                        label={strings("inputLabel.givenName")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={() => {}}
                     />
 
                     <LeafTextInput
-                        label={strings("triageForm.textInput.surname")}
+                        label={strings("inputLabel.surname")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={() => {}}
                     />
 
                     <LeafTextInput
-                        label={strings("triageForm.textInput.mrn")}
+                        label={strings("inputLabel.mrn")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={() => {}}
                     />
 
                     <LeafTextInput
-                        label={strings("triageForm.textInput.postcode")}
+                        label={strings("inputLabel.postcode")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={() => {}}

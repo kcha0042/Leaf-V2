@@ -18,6 +18,8 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import ActivateAccountScreen from "./ActivateAccountScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -78,22 +80,22 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.username")}
+                    label={strings("inputLabel.username")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onUsernameInput}
                 />
 
-                <VGap size={12} />
+                <VGap size={LeafDimensions.textInputSpacing} />
 
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.password")}
+                    label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onPasswordInput}
                 />
 
-                <VGap size={12} />
+                <VGap size={LeafDimensions.textInputSpacing} />
 
                 <HStack
                     style={{
@@ -117,7 +119,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafTextButton
                         label={strings("button.activateAccount")}
-                        onPress={() => {}}
+                        onPress={() => {
+                            NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                        }}
                         typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
                     />
                 </HStack>

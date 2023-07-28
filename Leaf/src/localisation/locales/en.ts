@@ -60,11 +60,11 @@ export default {
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
     "button.activateAccount": "Activate Account",
+    "button.activate": "Activate",
 
     // Login
     "login.title": "Login",
-    "login.inputLabel.username": "Username",
-    "login.inputLabel.password": "Password",
+    "login.activateAccount": "Activate Account",
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
@@ -81,13 +81,19 @@ export default {
     "label.hospital": "Hospital",
     "label.rememberMe": "Remember Me",
 
+    // Input Labels
+    "inputLabel.username": "Username",
+    "inputLabel.password": "Password",
+    "inputLabel.setPassword": "Set Password",
+    "inputLabel.confirmPassword": "Confirm Password",
+    "inputLabel.givenName": "Name",
+    "inputLabel.surname": "Surname",
+    "inputLabel.mrn": "MRN",
+    "inputLabel.postcode": "Postcode",
+
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
     "triageForm.title.triage": "Triage",
-    "triageForm.textInput.givenName": "Name",
-    "triageForm.textInput.surname": "Surname",
-    "triageForm.textInput.mrn": "MRN",
-    "triageForm.textInput.postcode": "Postcode",
 
     // Search
     "search.underlying": "Search",
