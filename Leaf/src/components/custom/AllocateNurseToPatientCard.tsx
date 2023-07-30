@@ -12,7 +12,7 @@ import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import { strings } from "../../localisation/Strings";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafColor from "../styling/color/LeafColor";
-import { useEffect } from "react";
+import { useState } from "react";
 
 interface Props {
     worker: Worker;
@@ -20,10 +20,13 @@ interface Props {
 }
 
 const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
+    // check if allocate button is clicked (false=white, true=green)
+    const [active, setActive] = useState(false);
     const idText = worker.id.toString();
 
     const onPressAllocate = (worker) => {
         //TODO: set allocate nurse to patient
+        //TODO: Update patient allocated counter
     };
 
     return (
@@ -55,6 +58,8 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                     type={LeafButtonType.Filled}
                     color={LeafColors.transparent}
                     onPress={() => {
+                        // change background color of allocate button to green (active = true)
+                        setActive(!active);
                         onPressAllocate(worker);
                     }}
                     style={{
@@ -62,6 +67,7 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                         marginRight: 12,
                         borderWidth: 3,
                         borderColor: "#3f4169",
+                        backgroundColor: active ? "#7fff00": "white"
                     }}
                 />
             </HStack>
