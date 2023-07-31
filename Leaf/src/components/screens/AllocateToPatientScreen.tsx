@@ -15,6 +15,7 @@ import StateManager from "../../state/publishers/StateManager";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
 import NewAllocationCard from "../custom/NewAllocationCard";
+import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -41,7 +42,7 @@ const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
         <DefaultScreenContainer>
             <VStack>
 
-            <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+            <LeafSearchBarNew></LeafSearchBarNew>
 
                 <VGap size={25} />
 

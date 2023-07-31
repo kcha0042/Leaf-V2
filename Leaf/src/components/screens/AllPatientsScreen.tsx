@@ -17,7 +17,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import AllocateToPatientScreen from "../screens/AllocateToPatientScreen";
 import { strings } from "../../localisation/Strings";
-import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -54,7 +54,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBar searchQuery={searchQuery} onSearch={() => {}}></LeafSearchBar>
+                <LeafSearchBarNew></LeafSearchBarNew>
 
                 <VGap size={10} />
 
