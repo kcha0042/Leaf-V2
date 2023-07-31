@@ -22,11 +22,6 @@ interface Props {
 }
 
 const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
-    const onPressNewAllocation = () => {
-        // TODO: New Allocation
-        NavigationSession.inst.navigateTo(AllocateToNurseScreen, navigation, strings("header.leader.viewPatients"));
-    };
-
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
@@ -58,7 +53,11 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                 <VGap size={20} />
                 <NewAllocationCard
                     onPress={() => {
-                        onPressNewAllocation;
+                        NavigationSession.inst.navigateTo(
+                            AllocateToNurseScreen,
+                            navigation,
+                            strings("header.leader.viewPatients"),
+                        );
                     }}
                 />
 
