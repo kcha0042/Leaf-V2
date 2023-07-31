@@ -15,6 +15,9 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import Session from "../../model/Session";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import ActivateAccountScreen from "./ActivateAccountScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -48,6 +51,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 StateManager.loginStatus.publish(LoginStatus.Admin);
                 break;
         }
+    };
+
+    const onActivatePressed = () => {
+        NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, "Account Activation");
+    
     };
 
     return (
@@ -98,6 +106,15 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     color={LeafColors.accent}
                     style={{ marginTop: 40 }}
                     onPress={onLoginPressed}
+                />
+                
+                <LeafButton
+                    label={strings("button.activateAccount")}
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    style={{ marginTop: 40 }}
+                    onPress={onActivatePressed}
                 />
             </View>
 

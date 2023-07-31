@@ -22,7 +22,7 @@ interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
+const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
@@ -72,4 +72,4 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
     );
 };
 
-export default AllNursesScreen;
+export default AllLeadersScreen;

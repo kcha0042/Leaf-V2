@@ -43,6 +43,8 @@ export default {
     "header.admin.manageNurses": "Home",
     "header.admin.viewNurses": "Nurses",
     "header.admin.viewLeaders": "Leaders",
+    "header.admin.newAccount": "New Acount",
+    "header.admin.exportPatient": "Export Patient",
 
     // Leader Headers
     "header.leader.viewNurses": "Nurses",
@@ -57,10 +59,12 @@ export default {
     "button.cancel": "Cancel",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
+    "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
+    "button.exportPatient": "Export Patient",
 
     // Login
     "login.title": "Login",
@@ -69,6 +73,7 @@ export default {
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
+    "operation.activeAccount": "\n\nTO ACTIVE THE ACCOUNT ON THE LOGIN SCREEN.",
 
     // Labels
     "label.id": "ID: ",
