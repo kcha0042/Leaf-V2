@@ -5,6 +5,8 @@ import { TriageCode } from "../../model/triage/TriageCode";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import { useState } from "react";
+import { Role } from "../../model/employee/Role";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     style?: ViewStyle;
@@ -22,9 +24,9 @@ const RolePicker: React.FC<Props> = ({ style, onSelection }) => {
             <VStack spacing={8}>
                 <LeafSegmentedButtons
                     options={[
-                        new LeafSegmentedValue(1, "Nurse"),
-                        new LeafSegmentedValue(2, "Leader"),
-                        new LeafSegmentedValue(3, "Admin"),
+                        new LeafSegmentedValue(Role.Worker, strings("role.worker")),
+                        new LeafSegmentedValue(Role.Leader, strings("role.leader")),
+                        new LeafSegmentedValue(Role.Admin, strings("role.admin")),
                     ]}
                     value={segmentedValue}
                     selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.accent}

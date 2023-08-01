@@ -105,4 +105,9 @@ export default {
     "triageCode.3": "Urgent",
     "triageCode.4": "Semi-Urgent",
     "triageCode.5": "Non-Urgent",
+
+    // Roles
+    "role.admin": "Admin",
+    "role.leader": "Leader",
+    "role.worker": "Nurse",
 };
