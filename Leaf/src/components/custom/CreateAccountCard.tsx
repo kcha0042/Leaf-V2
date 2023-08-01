@@ -2,12 +2,13 @@ import { View, ViewStyle } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
-import FloatingContainer from "../containers/FloatingContainer";
+import FlatContainer from "../containers/FlatContainer";
 import Worker from "../../model/employee/Worker";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
 import { strings } from "../../localisation/Strings";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
 
 interface Props {
     worker: Worker;
@@ -22,7 +23,7 @@ const CreateAccountCard: React.FC<Props> = ({ worker, display, onPress }) => {
         return null;
     }
     return (
-        <FloatingContainer color={LeafColors.textBackgroundLight} onPress={onPress}>
+        <FlatContainer color={LeafColors.textBackgroundLight} onPress={onPress}>
             <HStack>
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
@@ -37,8 +38,14 @@ const CreateAccountCard: React.FC<Props> = ({ worker, display, onPress }) => {
                         {"ID: " + idText + strings("operation.activeAccount")}
                     </LeafText>
                 </VStack>
+                <LeafIcon
+                    icon="check-circle"
+                    color={LeafColors.textSuccess}
+                    size={32}
+                    style={{ position: "absolute", right: "0" }}
+                />
             </HStack>
-        </FloatingContainer>
+        </FlatContainer>
     );
 };
 

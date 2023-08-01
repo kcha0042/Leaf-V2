@@ -58,23 +58,12 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafIcon 
-                icon="export"
-                color={LeafColors.accent}
-                size={32}
-                style={{position: "absolute", right:"0"}}/>
-
-                {/* <LeafButton 
-                 label={strings("button.exportPatient")}
-                 icon="export"
-                 typography={LeafTypography.button}
-                 type={LeafButtonType.Filled}
-                 color={LeafColors.accent}
-                 onPress={() => {
-                    alert("Patient data is exported")
-                     // TODO: should change to export patient function.
-                 }}
-                 style={{position: "absolute", width:"70%", right:"0"}}/> */}
+                <LeafIcon
+                    icon="export"
+                    color={LeafColors.accent}
+                    size={32}
+                    style={{ position: "absolute", right: "0" }}
+                />
             </HStack>
         </FlatContainer>
     );

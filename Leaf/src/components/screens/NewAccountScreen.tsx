@@ -7,8 +7,12 @@ import { strings } from "../../localisation/Strings";
 import VGap from "../containers/layout/VGap";
 import EmployeeID from "../../model/employee/EmployeeID";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
+import HStack from "../containers/HStack";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import RolePicker from "../custom/RolePicker";
 import CreateAccountCard from "../custom/CreateAccountCard";
@@ -23,9 +27,25 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
+                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                    <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {strings("label.selectRole")}
+                    </LeafText>
+                </HStack>
+
                 <RolePicker onSelection={(code) => {}} />
 
                 <VGap size={32} />
+
+                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
+                    <LeafIcon icon={"rename-box"} color={LeafColors.textDark} size={LeafIconSize.Small} />
+
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {strings("label.enterName")}
+                    </LeafText>
+                </HStack>
 
                 <VStack spacing={8} style={{ width: "100%" }}>
                     <LeafTextInput
@@ -47,7 +67,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafButton
                     label={strings("button.createAccount")}
-                    icon="delete"
+                    icon="account-plus"
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}

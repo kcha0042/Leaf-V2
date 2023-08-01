@@ -84,6 +84,8 @@ export default {
     "label.editPatient": "Edit patient information and triage.",
     "label.removePatient": "Delete patient from the system.",
     "label.done": "Exit patient options.",
+    "label.selectRole": "Select Role",
+    "label.enterName": "Enter Name",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
