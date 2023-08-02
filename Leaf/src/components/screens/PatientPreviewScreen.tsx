@@ -34,7 +34,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafIcon icon={"account"} size={iconSize} color={LeafColors.textDark} />
                     <LeafText wide={false}> {strings("patientHistory.title.identity")} </LeafText>
                 </HStack>
-                <FlatContainer style={{ flex: 1, width: "100%" }}>
+                <FlatContainer style={{ width: "100%" }}>
                     <VStack spacing={5}>
                         <LabeledText label={strings("patientHistory.descriptor.name")} text={patient.fullName} />
                         <LabeledText label={strings("patientHistory.descriptor.mrn")} text={patient.mrn.toString()} />
@@ -46,7 +46,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafIcon icon={"information"} size={iconSize} color={LeafColors.textDark} />
                     <LeafText wide={false}> {strings("patientHistory.title.bio")} </LeafText>
                 </HStack>
-                <FlatContainer style={{ flex: 1, width: "100%" }}>
+                <FlatContainer style={{ width: "100%" }}>
                     <VStack spacing={5}>
                         <LabeledText
                             label={strings("patientHistory.descriptor.dob")}
@@ -60,7 +60,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafIcon icon={"file-document-edit"} size={iconSize} color={LeafColors.textDark} />
                     <LeafText wide={false}> {strings("patientHistory.title.triage")} </LeafText>
                 </HStack>
-                <FlatContainer style={{ flex: 1, width: "100%" }}>
+                <FlatContainer style={{ width: "100%" }}>
                     <VStack spacing={5}>
                         <LabeledText
                             label={strings("patientHistory.descriptor.code")}
@@ -114,7 +114,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 </HStack>
                 {patient.events.map((event) => {
                     return (
-                        <FlatContainer key={event.id.toString()} style={{ flex: 1, width: "100%" }}>
+                        <FlatContainer key={event.id.toString()} style={{ width: "100%" }}>
                             <VStack spacing={5}>
                                 <LeafText typography={LeafTypography.title3}>{event.title}</LeafText>
                                 <LeafText typography={LeafTypography.body}>{event.description}</LeafText>

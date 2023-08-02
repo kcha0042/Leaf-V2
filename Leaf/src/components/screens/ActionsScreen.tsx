@@ -1,12 +1,11 @@
 import React from "react";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import FlatContainer from "../containers/FlatContainer";
 import Session from "../../model/Session";
 import Spacer from "../containers/layout/Spacer";
