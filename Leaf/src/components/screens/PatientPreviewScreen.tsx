@@ -102,7 +102,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                 {patient.triageCase.arrivalDate.toDateString() || ""}
                             </LeafText>
                             <LeafText typography={LeafTypography.subscript}>
-                                {strings("patientHistory.descriptor.arrivalDate")}
+                                {strings("patientHistory.descriptor.arrivalWard")}
                             </LeafText>
                             <LeafText typography={LeafTypography.title4}>
                                 {patient.triageCase.arrivalWard.name}
