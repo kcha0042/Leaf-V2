@@ -100,6 +100,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 <HStack
                     style={{
                         alignItems: "center",
+                        width: "100%",
                     }}
                 >
                     <LeafCheckbox
