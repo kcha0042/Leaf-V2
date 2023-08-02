@@ -17,6 +17,7 @@ import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import { strings } from "../../localisation/Strings";
+import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -50,10 +51,9 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
-                    width: "100%",
                 }}
             >
-                <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+                <LeafSearchBarNew></LeafSearchBarNew>
 
                 <VGap size={10} />
 
@@ -72,6 +72,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     scrollEnabled={false}
                     // Don't use overflow prop - doesn't work on web
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}

@@ -5,6 +5,8 @@ import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
+import Icon from "react-native-paper/lib/typescript/src/components/Icon";
+import LeafIcon from "../LeafIcon/LeafIcon";
 
 interface Props {
     label?: string;
@@ -63,6 +65,8 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     textInputRef.current.focus();
                 }}
             >
+                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{alignSelf: "center"}}/>
+
                 <LeafText
                     typography={labelTypography}
                     style={{
@@ -76,7 +80,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
             <TextInput
                 ref={textInputRef}
                 style={[
-                    wide ? { width: "100%" } : { alignSelf: "center" },
+                    wide ? { width: "100%" } : { alignSelf: "center"},
                     {
                         paddingVertical: 12,
                         paddingHorizontal: 16,

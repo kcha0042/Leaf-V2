@@ -13,6 +13,7 @@ class Patient {
     protected _timeLastAllocated: Date;
     protected _allocatedTo: EmployeeID;
     protected _events: PatientEvent[];
+    protected _sessionAllocated?: string;
     get mrn(): MRN {
         return this._mrn;
     }
@@ -40,6 +41,9 @@ class Patient {
     get events(): PatientEvent[] {
         return this._events;
     }
+    get sessionAllocated(): string {
+        return this._sessionAllocated;
+    }
 
     constructor(
         mrn: MRN,
@@ -51,6 +55,7 @@ class Patient {
         timeLastAllocated: Date,
         allocatedTo: EmployeeID,
         events: PatientEvent[],
+        sessionAllocated?: string,
     ) {
         this._mrn = mrn;
         this._dob = dob;
@@ -61,6 +66,7 @@ class Patient {
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
+        this._sessionAllocated = sessionAllocated;
     }
 }
 

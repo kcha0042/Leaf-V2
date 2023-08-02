@@ -26,7 +26,7 @@ export default {
     "tabBar.admin.export": "Export",
 
     // Leader Tab Bar
-    "tabBar.leader.viewNurses": "Home",
+    "tabBar.leader.viewNurses": "Nurses",
     "tabBar.leader.viewPatients": "Patients",
     "tabBar.leader.account": "Account",
 
@@ -54,6 +54,7 @@ export default {
     "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.newAllocation": "New Allocation",
     "button.allocate": "Allocate",
     "button.deleteAccount": "Remove Account",
     "button.viewPatient": "View",

@@ -17,6 +17,7 @@ interface Props {
 
 const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
+    const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
@@ -53,7 +54,7 @@ const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        Allocated: Session Allocated
+                        Allocated: {session}
                     </LeafText>
                 </VStack>
             </HStack>

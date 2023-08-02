@@ -19,16 +19,8 @@ interface Props {
 }
 
 const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
-    const timeText = patient.triageCase.arrivalDate
-        .toLocaleTimeString("en-AU", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-        })
-        .toUpperCase();
-    const dateText = patient.triageCase.arrivalDate.toDateString();
-    const datetimeText = `${timeText}  |  ${dateText}`;
     const idText = patient.mrn.toString();
+    const dateText = patient.triageCase.arrivalDate.toDateString();
     return (
         <FlatContainer
             color={LeafColors.fillBackgroundLight}
@@ -58,13 +50,12 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         </LeafText>
                     </View>
 
-                    <VGap size={16} />
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         ID: {idText}
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        {datetimeText}
+                        Date: {dateText}
                     </LeafText>
                 </VStack>
                 <LeafButton
@@ -77,7 +68,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         //TODO: REMOVE MRN FROM WORKER
                     }}
                     style={{
-                        alignSelf: "flex-end",
+                        alignSelf: "center",
                         marginRight: 12,
                         borderWidth: 3,
                         borderColor: "#3f4169",

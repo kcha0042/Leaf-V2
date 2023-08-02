@@ -20,24 +20,20 @@ interface Props {
 }
 
 const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
-    // check if allocate button is clicked (false=white, true=green)
     const [active, setActive] = useState(false);
-    const timeText = patient.triageCase.arrivalDate
-        .toLocaleTimeString("en-AU", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-        })
-        .toUpperCase();
-    const dateText = patient.triageCase.arrivalDate.toDateString();
-    const datetimeText = `${timeText}  |  ${dateText}`;
     const idText = patient.mrn.toString();
+    const session = patient.sessionAllocated.toString();
+    const dateText = patient.triageCase.arrivalDate.toDateString();
+
+    const onPressAllocate = (patient) => {
+        //TODO: set allocate patient to nurse
+        //TODO: Update patient allocated counter
+    };
+
     return (
         <FlatContainer
             color={LeafColors.fillBackgroundLight}
-            style={{
-                ...style,
-            }}
+            style={style}
         >
             <HStack>
                 <TriageCodeBadge
@@ -49,45 +45,45 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                     }}
                 />
 
-                <VStack
-                    spacing={LeafDimensions.screenSpacing}
-                    style={{
-                        flex: 1,
-                    }}
-                >
+                <VStack style={{ flex: 1 }}>
                     <View style={{ alignSelf: "flex-start" }}>
                         <LeafText typography={LeafTypography.title3} verticalWrap={true}>
                             {patient.fullName}
                         </LeafText>
                     </View>
 
-                    <VGap size={16} />
+                    <VGap size={10} />
+
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         ID: {idText}
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        {datetimeText}
+                        Date: {dateText}
+                    </LeafText>
+
+                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
+                    Allocated: {session}
                     </LeafText>
                 </VStack>
+
                 <LeafButton
-                    label={""}
-                    wide={false}
+                    label={strings("button.allocate")}
+                    wide={false}    
                     typography={LeafTypography.title3}
                     type={LeafButtonType.Filled}
                     color={LeafColors.transparent}
-                    icon={"plus"}
                     onPress={() => {
                         // change background color of allocate button to green (active = true)
                         setActive(!active);
-                        //TODO: allocate patient to selected nurse
+                        onPressAllocate(patient);
                     }}
                     style={{
-                        alignSelf: "flex-end",
-                        marginRight: 12,
+                        alignSelf: "center",
+                        marginRight: 1,
                         borderWidth: 3,
                         borderColor: "#3f4169",
-                        backgroundColor: active ? "#7fff00" : "white",
+                        backgroundColor: active ? "#7fff00": "white"
                     }}
                 />
             </HStack>

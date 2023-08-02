@@ -35,8 +35,7 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                 <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
-                        flex: 1,
-                    }}
+                        flex: 1,}}
                 >
                     <View style={{ alignSelf: "flex-start" }}>
                         <LeafText typography={LeafTypography.title3} verticalWrap={true}>
@@ -48,6 +47,9 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
 
                     <LeafText style={{ alignSelf: "flex-start" }} typography={LeafTypography.subscript} wide={false}>
                         {"ID: " + idText}
+                    </LeafText>
+                    <LeafText typography={LeafTypography.subscript}>
+                        {worker.allocatedPatients.length + " allocated"}
                     </LeafText>
                 </VStack>
 
@@ -63,7 +65,7 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                         onPressAllocate(worker);
                     }}
                     style={{
-                        alignSelf: "flex-end",
+                        alignSelf: "center",
                         marginRight: 12,
                         borderWidth: 3,
                         borderColor: "#3f4169",

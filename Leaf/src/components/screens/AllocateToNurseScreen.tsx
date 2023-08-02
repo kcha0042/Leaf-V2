@@ -11,8 +11,9 @@ import Patient from "../../model/patient/Patient";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { FlatList } from "react-native";
-import AllocateToNurseCard from "../custom/AllocateToNurseCard";
+import AllocateToNurseCard from "../custom/AllocatePatientToNurseCard";
 import LeafDimensions from "../styling/LeafDimensions";
+import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -38,7 +39,7 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+            <LeafSearchBarNew></LeafSearchBarNew>
                 <VGap size={20} />
                 <FlatList
                     data={patients}
