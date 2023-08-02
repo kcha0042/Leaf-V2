@@ -113,7 +113,7 @@ export default {
     "patientHistory.descriptor.dischargeDate": "Discharge date",
     "patientHistory.descriptor.dischargeWard": "Discharge ward",
     "patientHistory.descriptor.hospital": "Hospital",
-    "patientHistory.descriptor.medicalUnit": "Medical Unit", 
+    "patientHistory.descriptor.medicalUnit": "Medical Unit",
 
     // Search
     "search.underlying": "Search",

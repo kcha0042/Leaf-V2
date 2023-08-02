@@ -37,15 +37,21 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatContainer style={{ flex: 1, width: "100%" }}>
                     <VStack spacing={5}>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.name")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.name")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.fullName}</LeafText>
                         </View>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.mrn")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.mrn")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.mrn.toString()}</LeafText>
                         </View>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.postcode")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.postcode")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.postCode}</LeafText>
                         </View>
                     </VStack>
@@ -58,11 +64,15 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatContainer style={{ flex: 1, width: "100%" }}>
                     <VStack spacing={5}>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.dob")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.dob")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.dob.toDateString()}</LeafText>
                         </View>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.sex")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.sex")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.sex}</LeafText>
                         </View>
                     </VStack>
@@ -75,7 +85,9 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatContainer style={{ flex: 1, width: "100%" }}>
                     <VStack spacing={5}>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.code")}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.code")}
+                            </LeafText>
                             <LeafText typography={LeafTypography.title3}>{patient.triageCase.triageCode}</LeafText>
                             <LeafText typography={LeafTypography.body}>{patient.triageCase.triageText}</LeafText>
                         </View>
@@ -83,17 +95,33 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                         <Spacer />
 
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.arrivalDate")}</LeafText>
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.arrivalDate.toDateString() || ""}</LeafText>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.arrivalDate")}</LeafText>
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.arrivalWard.name}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.arrivalDate")}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.title4}>
+                                {patient.triageCase.arrivalDate.toDateString() || ""}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.arrivalDate")}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.title4}>
+                                {patient.triageCase.arrivalWard.name}
+                            </LeafText>
                         </View>
 
                         <View>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.dischargeDate")}</LeafText>    
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeDate?.toDateString() || "-"}</LeafText>
-                            <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.dischargeWard")}</LeafText>
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeWard?.name || "-"}</LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.dischargeDate")}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.title4}>
+                                {patient.triageCase.dischargeDate?.toDateString() || "-"}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("patientHistory.descriptor.dischargeWard")}
+                            </LeafText>
+                            <LeafText typography={LeafTypography.title4}>
+                                {patient.triageCase.dischargeWard?.name || "-"}
+                            </LeafText>
                         </View>
 
                         <Spacer />
@@ -102,7 +130,9 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                             <LeafText typography={LeafTypography.subscript}>Hospital</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.hospital.name}</LeafText>
                             <LeafText typography={LeafTypography.subscript}>Medical unit</LeafText>
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.medicalUnit.name}</LeafText>
+                            <LeafText typography={LeafTypography.title4}>
+                                {patient.triageCase.medicalUnit.name}
+                            </LeafText>
                         </View>
                     </VStack>
                 </FlatContainer>
@@ -121,12 +151,14 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                 <Spacer />
 
                                 <View>
-                                    <LeafText typography={LeafTypography.subscript}>Category</LeafText>    
+                                    <LeafText typography={LeafTypography.subscript}>Category</LeafText>
                                     <LeafText typography={LeafTypography.title4}>{event.category}</LeafText>
                                 </View>
                                 <View>
                                     <LeafText typography={LeafTypography.subscript}>Trigger time</LeafText>
-                                    <LeafText typography={LeafTypography.title4}>{event.triggerTime.toDateString() || ""}</LeafText>
+                                    <LeafText typography={LeafTypography.title4}>
+                                        {event.triggerTime.toDateString() || ""}
+                                    </LeafText>
                                 </View>
                             </VStack>
                         </FlatContainer>
