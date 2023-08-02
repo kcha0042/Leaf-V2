@@ -3,7 +3,6 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
-import Spacer from "../containers/layout/Spacer";
 import NewAllocationCard from "../custom/NewAllocationCard";
 import VGap from "../containers/layout/VGap";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
@@ -33,6 +32,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     }, []);
 
     let allocatedPatients: Patient[] = [];
+
     const worker = Session.inst.getActiveWorker();
 
     for (let i = 0; i < patients.length; i++) {

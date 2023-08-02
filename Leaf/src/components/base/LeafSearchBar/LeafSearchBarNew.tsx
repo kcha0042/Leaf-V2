@@ -65,7 +65,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     textInputRef.current.focus();
                 }}
             >
-                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{alignSelf: "center"}}/>
+                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{ alignSelf: "center" }} />
 
                 <LeafText
                     typography={labelTypography}
@@ -80,7 +80,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
             <TextInput
                 ref={textInputRef}
                 style={[
-                    wide ? { width: "100%" } : { alignSelf: "center"},
+                    wide ? { width: "100%" } : { alignSelf: "center" },
                     {
                         paddingVertical: 12,
                         paddingHorizontal: 16,

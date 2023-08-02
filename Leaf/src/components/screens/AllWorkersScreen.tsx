@@ -6,17 +6,12 @@ import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import NurseAllocationScreen from "./NurseAllocationScreen";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
-import { strings } from "../../localisation/Strings";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
 interface Props {
@@ -37,12 +32,6 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     const onPressWorker = (worker) => {
         Session.inst.setActiveWorker(worker);
         NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
-    };
-
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onSearch = (query: string) => {
-        setSearchQuery(query);
-        // TODO: Search for worker using query
     };
 
     return (

@@ -11,7 +11,6 @@ import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import { strings } from "../../localisation/Strings";
 import LeafDimensions from "../styling/LeafDimensions";
-import LeafColor from "../styling/color/LeafColor";
 import { useState } from "react";
 
 interface Props {
@@ -35,7 +34,8 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                 <VStack
                     spacing={LeafDimensions.screenSpacing}
                     style={{
-                        flex: 1,}}
+                        flex: 1,
+                    }}
                 >
                     <View style={{ alignSelf: "flex-start" }}>
                         <LeafText typography={LeafTypography.title3} verticalWrap={true}>
@@ -69,7 +69,7 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                         marginRight: 12,
                         borderWidth: 3,
                         borderColor: "#3f4169",
-                        backgroundColor: active ? "#7fff00": "white"
+                        backgroundColor: active ? "#7fff00" : "white",
                     }}
                 />
             </HStack>

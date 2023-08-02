@@ -11,7 +11,6 @@ import TriageCodeBadge from "./TriageCodeBadge";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafDimensions from "../styling/LeafDimensions";
 import { useState } from "react";
 
 interface Props {
@@ -31,10 +30,7 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
     };
 
     return (
-        <FlatContainer
-            color={LeafColors.fillBackgroundLight}
-            style={style}
-        >
+        <FlatContainer color={LeafColors.fillBackgroundLight} style={style}>
             <HStack>
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
@@ -63,13 +59,13 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                    Allocated: {session}
+                        Allocated: {session}
                     </LeafText>
                 </VStack>
 
                 <LeafButton
                     label={strings("button.allocate")}
-                    wide={false}    
+                    wide={false}
                     typography={LeafTypography.title3}
                     type={LeafButtonType.Filled}
                     color={LeafColors.transparent}
@@ -83,7 +79,7 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                         marginRight: 1,
                         borderWidth: 3,
                         borderColor: "#3f4169",
-                        backgroundColor: active ? "#7fff00": "white"
+                        backgroundColor: active ? "#7fff00" : "white",
                     }}
                 />
             </HStack>

@@ -1,12 +1,8 @@
 import VStack from "../containers/VStack";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-
 import VGap from "../containers/layout/VGap";
 import React, { useEffect } from "react";
-import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import Patient from "../../model/patient/Patient";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
@@ -30,16 +26,10 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
         Session.inst.fetchAllPatients();
     }, []);
 
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onSearch = (query: string) => {
-        setSearchQuery(query);
-        // TODO: Search for worker using query
-    };
-
     return (
         <DefaultScreenContainer>
             <VStack>
-            <LeafSearchBarNew></LeafSearchBarNew>
+                <LeafSearchBarNew></LeafSearchBarNew>
                 <VGap size={20} />
                 <FlatList
                     data={patients}

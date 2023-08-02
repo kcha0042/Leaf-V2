@@ -32,11 +32,7 @@ export const LeaderInterface = new LeafInterface()
             strings("tabBar.leader.viewPatients"),
             () => {
                 // Tab bar
-                NavigationSession.inst.navigateTo(
-                    AllPatientsScreen,
-                    undefined,
-                    strings("header.leader.viewPatients"),
-                );
+                NavigationSession.inst.navigateTo(AllPatientsScreen, undefined, strings("header.leader.viewPatients"));
                 NavigationSession.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
