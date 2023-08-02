@@ -62,7 +62,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                         </View>
                         <View>
                             <LeafText typography={LeafTypography.subscript}>Sex</LeafText>
-                            <LeafText typography={LeafTypography.title4}>A lot (TODO)</LeafText>
+                            <LeafText typography={LeafTypography.title4}>{patient.sex}</LeafText>
                         </View>
                     </VStack>
                 </FlatContainer>
