@@ -13,6 +13,7 @@ import Spacer from "../containers/layout/Spacer";
 import LeafButton from "../base/LeafButton/LeafButton";
 import HStack from "../containers/HStack";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -44,12 +45,12 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <FlatContainer style={{ width: "100%" }}>
-                    <LeafText typography={LeafTypography.subscript}>Department</LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{strings("actions.department")}</LeafText>
                     <LeafText typography={LeafTypography.title3}>{patient.triageCase.medicalUnit.name}</LeafText>
                 </FlatContainer>
 
                 <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>Steps</LeafText>
+                    <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
                     <LeafText>TODO: where are the steps?</LeafText>
                 </FlatContainer>
 
@@ -69,7 +70,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark}/>
                         {/* TODO: is there supposed to be a phone number attatched to patient? */}
                         <Spacer/>
-                        <LeafText wide={false} typography={LeafTypography.title3}>Call X</LeafText>
+                        <LeafText wide={false} typography={LeafTypography.title3}>{strings("actions.call")} X</LeafText>
                     </FlatContainer>
 
                     <FlatContainer 
@@ -81,13 +82,13 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                     >
                         <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark}/>
                         <Spacer/>
-                        <LeafText wide={false} typography={LeafTypography.title3}>Emergency</LeafText>
+                        <LeafText wide={false} typography={LeafTypography.title3}>{strings("actions.emergency")}</LeafText>
                     </FlatContainer>
                 </HStack>
 
                 <Spacer/>
 
-                <LeafButton label={"Done"} onPress={onDone}/>
+                <LeafButton label={strings("button.done")} onPress={onDone}/>
             </VStack>
         </View>
     );

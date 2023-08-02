@@ -115,6 +115,12 @@ export default {
     "patientHistory.descriptor.hospital": "Hospital",
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
 
+    // Actions
+    "actions.emergency": "Emergency",
+    "actions.call": "Call",
+    "actions.steps": "Steps",
+    "actions.department": "Department",
+
     // Search
     "search.underlying": "Search",
 
