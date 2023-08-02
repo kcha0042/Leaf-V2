@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { ViewStyle, View } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
@@ -16,13 +16,13 @@ const NewAllocationCard: React.FC<Props> = ({ style, onPress }) => {
     return (
         <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
             <HStack style={{ justifyContent: "center" }}>
-                <view>
+                <View>
                     <LeafIcon icon="plus" size={40} color={LeafColors.textDark} style={{ alignSelf: "center" }} />
-                </view>
+                </View>
 
-                <view style={{ alignSelf: "center", marginLeft: 6 }}>
+                <View style={{ alignSelf: "center", marginLeft: 6 }}>
                     <LeafText typography={LeafTypography.title3}>{strings("button.newAllocation")}</LeafText>
-                </view>
+                </View>
             </HStack>
         </FloatingContainer>
     );
