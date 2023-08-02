@@ -29,11 +29,6 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafIcon icon={"clock"} size={iconSize} color={LeafColors.textDark} />
-                <FlatContainer style={{ flex: 1, width: "100%" }}>
-                    <LeafText> TODO </LeafText>
-                </FlatContainer>
-
                 <HStack>
                     <LeafIcon icon={"account"} size={iconSize} color={LeafColors.textDark} />
                     <LeafText wide={false}> Identity </LeafText>
@@ -66,7 +61,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                             <LeafText typography={LeafTypography.title4}>{patient.dob.toDateString()}</LeafText>
                         </View>
                         <View>
-                            <LeafText typography={LeafTypography.subscript}> Sex </LeafText>
+                            <LeafText typography={LeafTypography.subscript}>Sex</LeafText>
                             <LeafText typography={LeafTypography.title4}>A lot (TODO)</LeafText>
                         </View>
                     </VStack>
@@ -77,7 +72,6 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafText wide={false}> Triage case </LeafText>
                 </HStack>
                 <FlatContainer style={{ flex: 1, width: "100%" }}>
-                    {/* TODO: this looks kinda gross, fix */}
                     <VStack spacing={5}>
                         <View>
                             <LeafText typography={LeafTypography.subscript}>Code</LeafText>
@@ -90,31 +84,22 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                         <View>
                             <LeafText typography={LeafTypography.subscript}>Arrival date</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.arrivalDate.toDateString() || ""}</LeafText>
-                        </View>
-
-                        <View>
-                            <LeafText typography={LeafTypography.subscript}>Discharge date</LeafText>    
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeDate?.toDateString() || "Has not been discharged"}</LeafText>
-                        </View>
-
-                        <Spacer />
-
-                        <View>
                             <LeafText typography={LeafTypography.subscript}>Arrival ward</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.arrivalWard.name}</LeafText>
                         </View>
 
                         <View>
+                            <LeafText typography={LeafTypography.subscript}>Discharge date</LeafText>    
+                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeDate?.toDateString() || "Has not been discharged"}</LeafText>
                             <LeafText typography={LeafTypography.subscript}>Discharge ward</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeWard?.name || "Has not been discharged"}</LeafText>
                         </View>
 
+                        <Spacer />
+
                         <View>
                             <LeafText typography={LeafTypography.subscript}>Hospital</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.hospital.name}</LeafText>
-                        </View>
-
-                        <View>
                             <LeafText typography={LeafTypography.subscript}>Medical unit</LeafText>
                             <LeafText typography={LeafTypography.title4}>{patient.triageCase.medicalUnit.name}</LeafText>
                         </View>
