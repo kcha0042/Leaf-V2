@@ -15,23 +15,36 @@ interface Props {
 
 const FormHeader: React.FC<Props> = ({ title, icon, style }) => {
     return (
-        <HStack style={{ paddingBottom: 14, ...style }}>
+        <HStack style={{ ...style }}>
             <View
                 style={{
-                    borderRadius: 12,
-                    padding: 8,
+                    height: 2.2,
+                    flex: 1,
                     backgroundColor: LeafColors.accent.getColor(),
+                    borderRadius: 12,
                     alignSelf: "center",
                 }}
+            />
+
+            <LeafText
+                typography={LeafTypography.title4.withColor(LeafColors.accent)}
+                wide={false}
+                style={{
+                    paddingHorizontal: 12,
+                }}
             >
-                <LeafIcon icon={icon} color={LeafColors.textWhite} size={LeafIconSize.Small} />
-            </View>
-
-            <HGap size={10} />
-
-            <LeafText typography={LeafTypography.title1.withColor(LeafColors.accent)} wide={false}>
                 {title}
             </LeafText>
+
+            <View
+                style={{
+                    height: 2.2,
+                    flex: 1,
+                    backgroundColor: LeafColors.accent.getColor(),
+                    borderRadius: 12,
+                    alignSelf: "center",
+                }}
+            />
         </HStack>
     );
 };

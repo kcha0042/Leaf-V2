@@ -19,7 +19,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <FormHeader title={strings("triageForm.title.identity")} icon="clipboard-account" />
+                <FormHeader
+                    title={strings("triageForm.title.identity")}
+                    icon="clipboard-account"
+                    style={{ paddingBottom: 24 }}
+                />
 
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <LeafTextInput
@@ -51,9 +55,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     />
                 </VStack>
 
-                <VGap size={28} />
-
-                <FormHeader title={strings("triageForm.title.triage")} icon="file-document-edit" />
+                <FormHeader
+                    title={strings("triageForm.title.triage")}
+                    icon="file-document-edit"
+                    style={{ paddingVertical: 24 }}
+                />
 
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <TriageCodePicker onSelection={(code) => {}} style={{ paddingBottom: 8 }} />
