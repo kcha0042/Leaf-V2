@@ -20,24 +20,25 @@ interface Props {
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
-
     const patient = Session.inst.getActivePatient();
 
     const onDone = () => {
         // TODO: save
         navigation.goBack();
-    }
+    };
 
-    const onCallPress = () => {
+    const onCallPress = () => {};
 
-    }
-
-    const onEmergencyPress = () => {
-
-    }
+    const onEmergencyPress = () => {};
 
     return (
-        <View style={{ flex: 1, backgroundColor: LeafColors.screenBackgroundLight.getColor(), padding: LeafDimensions.screenPadding }}>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
+                padding: LeafDimensions.screenPadding,
+            }}
+        >
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
@@ -56,39 +57,43 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <HStack
                     spacing={LeafDimensions.screenSpacing}
-                    style={{ 
+                    style={{
                         flex: 1,
                     }}
                 >
-                    <FlatContainer 
+                    <FlatContainer
                         style={{
                             flex: 1,
-                            alignItems: "center"
+                            alignItems: "center",
                         }}
                         onPress={onCallPress}
                     >
-                        <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark}/>
+                        <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark} />
                         {/* TODO: is there supposed to be a phone number attatched to patient? */}
-                        <Spacer/>
-                        <LeafText wide={false} typography={LeafTypography.title3}>{strings("actions.call")} X</LeafText>
+                        <Spacer />
+                        <LeafText wide={false} typography={LeafTypography.title3}>
+                            {strings("actions.call")} X
+                        </LeafText>
                     </FlatContainer>
 
-                    <FlatContainer 
+                    <FlatContainer
                         style={{
                             flex: 1,
-                            alignItems: "center"
+                            alignItems: "center",
                         }}
                         onPress={onEmergencyPress}
                     >
-                        <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark}/>
-                        <Spacer/>
-                        <LeafText wide={false} typography={LeafTypography.title3}>{strings("actions.emergency")}</LeafText>
+                        <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark} />
+                        <Spacer />
+                        <LeafText wide={false} typography={LeafTypography.title3}>
+                            {strings("actions.emergency")}
+                        </LeafText>
                     </FlatContainer>
                 </HStack>
 
-                <Spacer/>
+                <Spacer />
 
-                <LeafButton label={strings("button.done")} onPress={onDone}/>
+                <LeafButton label={strings("button.done")} onPress={onDone} />
             </VStack>
         </View>
     );
