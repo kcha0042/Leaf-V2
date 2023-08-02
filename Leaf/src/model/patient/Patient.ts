@@ -10,6 +10,7 @@ class Patient {
     protected _firstName: string;
     protected _lastName: string;
     protected _sex: PatientSex;
+    protected _phoneNumber: string; // TODO: change this to a class with validation
     public readonly triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date;
@@ -33,6 +34,9 @@ class Patient {
     get sex(): PatientSex {
         return this._sex;
     }
+    get phoneNumber(): string {
+        return this._phoneNumber;
+    }
     get postCode(): string {
         return this._postCode;
     }
@@ -52,6 +56,7 @@ class Patient {
         firstName: string,
         lastName: string,
         sex: PatientSex,
+        phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
         timeLastAllocated: Date,
@@ -63,6 +68,7 @@ class Patient {
         this._firstName = firstName;
         this._lastName = lastName;
         this._sex = sex;
+        this._phoneNumber = phoneNumber;
         this.triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;

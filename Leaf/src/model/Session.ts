@@ -84,6 +84,7 @@ class Session {
             "Tony",
             "Stark",
             PatientSex.Male,
+            "0420696969",
             new TriageCase(
                 new Date(),
                 new Ward("Ward123"),
@@ -102,6 +103,7 @@ class Session {
             new Date(),
             "Gordon",
             "Ramsey",
+            "0471308217",
             PatientSex.Male,
             new TriageCase(
                 new Date(),
