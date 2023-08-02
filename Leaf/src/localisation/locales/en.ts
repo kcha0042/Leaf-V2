@@ -96,6 +96,7 @@ export default {
     "inputLabel.mrn": "MRN",
     "inputLabel.postcode": "Postcode",
     "inputLabel.email": "Email",
+    "inputLabel.triageCode": "Triage Code",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",
