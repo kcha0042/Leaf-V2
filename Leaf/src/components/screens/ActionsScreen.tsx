@@ -7,23 +7,89 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import FlatContainer from "../containers/FlatContainer";
+import Session from "../../model/Session";
+import Spacer from "../containers/layout/Spacer";
+import LeafButton from "../base/LeafButton/LeafButton";
+import HStack from "../containers/HStack";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
+
+    const patient = Session.inst.getActivePatient();
+
+    const onDone = () => {
+        // TODO: save
+        navigation.goBack();
+    }
+
+    const onCallPress = () => {
+
+    }
+
+    const onEmergencyPress = () => {
+
+    }
+
     return (
-        <DefaultScreenContainer>
+        <View style={{ flex: 1, backgroundColor: LeafColors.screenBackgroundLight.getColor(), padding: LeafDimensions.screenPadding }}>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.body}>TODO: Actions</LeafText>
+                <FlatContainer style={{ width: "100%" }}>
+                    <LeafText typography={LeafTypography.subscript}>Department</LeafText>
+                    <LeafText typography={LeafTypography.title3}>{patient.triageCase.medicalUnit.name}</LeafText>
+                </FlatContainer>
+
+                <FlatContainer>
+                    <LeafText typography={LeafTypography.title3}>Steps</LeafText>
+                    <LeafText>TODO: where are the steps?</LeafText>
+                </FlatContainer>
+
+                <HStack
+                    spacing={LeafDimensions.screenSpacing}
+                    style={{ 
+                        flex: 1,
+                    }}
+                >
+                    <FlatContainer 
+                        style={{
+                            flex: 1,
+                            alignItems: "center"
+                        }}
+                        onPress={onCallPress}
+                    >
+                        <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark}/>
+                        {/* TODO: is there supposed to be a phone number attatched to patient? */}
+                        <Spacer/>
+                        <LeafText wide={false} typography={LeafTypography.title3}>Call X</LeafText>
+                    </FlatContainer>
+
+                    <FlatContainer 
+                        style={{
+                            flex: 1,
+                            alignItems: "center"
+                        }}
+                        onPress={onEmergencyPress}
+                    >
+                        <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark}/>
+                        <Spacer/>
+                        <LeafText wide={false} typography={LeafTypography.title3}>Emergency</LeafText>
+                    </FlatContainer>
+                </HStack>
+
+                <Spacer/>
+
+                <LeafButton label={"Done"} onPress={onDone}/>
             </VStack>
-        </DefaultScreenContainer>
+        </View>
     );
 };
 
