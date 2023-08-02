@@ -72,7 +72,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                         {/* TODO: is there supposed to be a phone number attatched to patient? */}
                         <Spacer />
                         <LeafText wide={false} typography={LeafTypography.title3}>
-                            {strings("actions.call")} X
+                            {strings("actions.call")} {patient.phoneNumber}
                         </LeafText>
                     </FlatContainer>
 
