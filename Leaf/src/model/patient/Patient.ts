@@ -2,12 +2,14 @@ import EmployeeID from "../employee/EmployeeID";
 import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
+import { PatientSex } from "./PatientSex";
 
 class Patient {
     protected _mrn: MRN;
     protected _dob: Date;
     protected _firstName: string;
     protected _lastName: string;
+    protected _sex: PatientSex;
     public readonly triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date;
@@ -28,6 +30,9 @@ class Patient {
     get fullName(): string {
         return `${this._firstName} ${this._lastName}`;
     }
+    get sex(): PatientSex {
+        return this._sex;
+    }
     get postCode(): string {
         return this._postCode;
     }
@@ -46,6 +51,7 @@ class Patient {
         dob: Date,
         firstName: string,
         lastName: string,
+        sex: PatientSex,
         triageCase: TriageCase,
         postCode: string,
         timeLastAllocated: Date,
@@ -56,6 +62,7 @@ class Patient {
         this._dob = dob;
         this._firstName = firstName;
         this._lastName = lastName;
+        this._sex = sex;
         this.triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;

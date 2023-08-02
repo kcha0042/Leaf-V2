@@ -90,9 +90,9 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View>
                             <LeafText typography={LeafTypography.subscript}>Discharge date</LeafText>    
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeDate?.toDateString() || "Has not been discharged"}</LeafText>
+                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeDate?.toDateString() || "-"}</LeafText>
                             <LeafText typography={LeafTypography.subscript}>Discharge ward</LeafText>
-                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeWard?.name || "Has not been discharged"}</LeafText>
+                            <LeafText typography={LeafTypography.title4}>{patient.triageCase.dischargeWard?.name || "-"}</LeafText>
                         </View>
 
                         <Spacer />

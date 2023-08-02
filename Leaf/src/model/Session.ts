@@ -8,6 +8,7 @@ import MRN from "./patient/MRN";
 import Patient from "./patient/Patient";
 import PatientEvent from "./patient/PatientEvent";
 import { PatientEventCategory } from "./patient/PatientEventCategory";
+import { PatientSex } from "./patient/PatientSex";
 import TriageCase from "./triage/TriageCase";
 import { TriageCode } from "./triage/TriageCode";
 
@@ -82,6 +83,7 @@ class Session {
             new Date(),
             "Tony",
             "Stark",
+            PatientSex.Male,
             new TriageCase(
                 new Date(),
                 new Ward("Ward123"),
@@ -100,6 +102,7 @@ class Session {
             new Date(),
             "Gordon",
             "Ramsey",
+            PatientSex.Male,
             new TriageCase(
                 new Date(),
                 new Ward("Ward456"),
