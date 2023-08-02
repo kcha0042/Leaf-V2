@@ -53,6 +53,7 @@ export default {
     "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.edit": "edit",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.viewPatient": "View",
@@ -80,6 +81,10 @@ export default {
     "label.done": "Exit patient options.",
     "label.hospital": "Hospital",
     "label.rememberMe": "Remember Me",
+    "label.editHospital": "Edit hospital",
+    "label.editName": "Edit name",
+    "label.editEmail": "Edit email",
+    "label.enterPassword": "Enter password",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -90,6 +95,11 @@ export default {
     "inputLabel.surname": "Surname",
     "inputLabel.mrn": "MRN",
     "inputLabel.postcode": "Postcode",
+    "inputLabel.email": "Email",
+
+    // Error
+    "error.hospitalExists": "Hospital does not exist",
+    "error.incorrectPassword": "Incorrect password",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
