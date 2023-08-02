@@ -114,7 +114,9 @@ export default {
     "patientHistory.descriptor.dischargeWard": "Discharge ward",
     "patientHistory.descriptor.hospital": "Hospital",
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
-
+    "patientHistory.descriptor.category": "Category",
+    "patientHistory.descriptor.triggerTime": "Trigger time",
+    
     // Actions
     "actions.emergency": "Emergency",
     "actions.call": "Call",

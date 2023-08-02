@@ -122,11 +122,11 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                 <Spacer />
 
                                 <View>
-                                    <LeafText typography={LeafTypography.subscript}>Category</LeafText>
+                                    <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.category")}</LeafText>
                                     <LeafText typography={LeafTypography.title4}>{event.category}</LeafText>
                                 </View>
                                 <View>
-                                    <LeafText typography={LeafTypography.subscript}>Trigger time</LeafText>
+                                    <LeafText typography={LeafTypography.subscript}>{strings("patientHistory.descriptor.triggerTime")}</LeafText>
                                     <LeafText typography={LeafTypography.title4}>
                                         {event.triggerTime.toDateString() || ""}
                                     </LeafText>
