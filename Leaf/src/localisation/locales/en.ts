@@ -97,6 +97,7 @@ export default {
     "inputLabel.postcode": "Postcode",
     "inputLabel.email": "Email",
     "inputLabel.triageCode": "Triage Code",
+    "inputLabel.triageDescription": "Triage Description",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",
@@ -127,7 +128,7 @@ export default {
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
     "patientHistory.descriptor.category": "Category",
     "patientHistory.descriptor.triggerTime": "Trigger time",
-    
+
     // Actions
     "actions.emergency": "Emergency",
     "actions.call": "Call",

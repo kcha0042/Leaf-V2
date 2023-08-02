@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { TextInput, ViewStyle } from "react-native";
+import React, { useRef, useState } from "react";
+import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import VStack from "../../containers/VStack";
 import LeafColors from "../../styling/LeafColors";
@@ -27,7 +27,9 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     onTextChange,
 }) => {
     const [text, setText] = React.useState("");
+    const [isFocused, setIsFocused] = useState(false);
     const textInputRef = useRef(null);
+    const borderWidth = 2.0;
     const typography = LeafTypography.body.withColor(textColor);
     const labelTypography = LeafTypography.subscript;
     const labelColor =
@@ -50,9 +52,11 @@ const LeafMultilineTextInput: React.FC<Props> = ({
                     width: wide ? "100%" : undefined,
                     alignSelf: wide ? undefined : "center",
                     backgroundColor: color.getColor(),
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
+                    paddingVertical: 12 - borderWidth,
+                    paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
                 }}
             >
                 <LeafText typography={labelTypography} style={{ color: labelColor }}>
@@ -65,6 +69,12 @@ const LeafMultilineTextInput: React.FC<Props> = ({
                     style={[
                         {
                             backgroundColor: color.getColor(),
+                            ...Platform.select({
+                                web: {
+                                    outlineStyle: "none",
+                                    height: 64,
+                                },
+                            }),
                         },
                         typography.getStylesheet(),
                         style,
@@ -74,6 +84,8 @@ const LeafMultilineTextInput: React.FC<Props> = ({
                         onTextChange(text);
                     }}
                     value={text}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                 />
 
                 <LeafText

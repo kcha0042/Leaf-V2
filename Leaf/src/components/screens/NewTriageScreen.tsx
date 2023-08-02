@@ -9,6 +9,7 @@ import TriageCodePicker from "../custom/TriageCodePicker";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -54,7 +55,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FormHeader title={strings("triageForm.title.triage")} icon="file-document-edit" />
 
-                <TriageCodePicker onSelection={(code) => {}} />
+                <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
+                    <TriageCodePicker onSelection={(code) => {}} style={{ paddingBottom: 8 }} />
+
+                    <LeafMultilineTextInput label={strings("inputLabel.triageDescription")} onTextChange={() => {}} />
+                </VStack>
             </VStack>
         </DefaultScreenContainer>
     );

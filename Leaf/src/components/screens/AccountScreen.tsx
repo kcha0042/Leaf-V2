@@ -144,13 +144,17 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafText typography={LeafTypography.title3}>{strings("label.details")}</LeafText>
 
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}>{name}</LeafText>
+                        <LeafText typography={LeafTypography.body} wide={false}>
+                            {name}
+                        </LeafText>
                         <Spacer />
                         <LeafTextButton label={strings("button.edit")} onPress={() => setEditNameVisible(true)} />
                     </HStack>
 
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}>{email}</LeafText>
+                        <LeafText typography={LeafTypography.body} wide={false}>
+                            {email}
+                        </LeafText>
                         <Spacer />
                         <LeafTextButton label={strings("button.edit")} onPress={() => setEditEmailVisible(true)} />
                     </HStack>
@@ -161,7 +165,9 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafText typography={LeafTypography.title3}>{strings("label.hospital")}</LeafText>
 
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}>{hospital}</LeafText>
+                        <LeafText typography={LeafTypography.body} wide={false}>
+                            {hospital}
+                        </LeafText>
                         <Spacer />
                         <LeafTextButton label={strings("button.edit")} onPress={() => setEnterPasswordVisible(true)} />
                     </HStack>
@@ -173,12 +179,22 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             </VStack>
 
             {/* Edit name */}
-            <LeafPopUp visible={editNameVisible} title={strings("label.editName")} onDone={onNameDone} onCancel={onCancel}>
+            <LeafPopUp
+                visible={editNameVisible}
+                title={strings("label.editName")}
+                onDone={onNameDone}
+                onCancel={onCancel}
+            >
                 <LeafTextInputShort label={strings("inputLabel.givenName")} onTextChange={onNameChange} />
             </LeafPopUp>
 
             {/* Edit email */}
-            <LeafPopUp visible={editEmailVisible} title={strings("label.editEmail")} onDone={onEmailDone} onCancel={onCancel}>
+            <LeafPopUp
+                visible={editEmailVisible}
+                title={strings("label.editEmail")}
+                onDone={onEmailDone}
+                onCancel={onCancel}
+            >
                 <LeafTextInputShort label={strings("inputLabel.email")} onTextChange={onEmailChange} />
             </LeafPopUp>
 
@@ -190,7 +206,12 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 onCancel={onCancel}
             >
                 <LeafTextInputShort label={strings("label.hospital")} onTextChange={onHospitalChange} />
-                <LeafText style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }} typography={LeafTypography.error}>{strings("error.hospitalExists")}</LeafText>
+                <LeafText
+                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    {strings("error.hospitalExists")}
+                </LeafText>
             </LeafPopUp>
 
             {/* Check password */}
@@ -201,7 +222,12 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 onCancel={onCancel}
             >
                 <LeafTextInputShort label={strings("inputLabel.password")} onTextChange={() => null /* TODO */} />
-                <LeafText style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }} typography={LeafTypography.error}>Incorrect password</LeafText>
+                <LeafText
+                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    Incorrect password
+                </LeafText>
             </LeafPopUp>
         </View>
     );
