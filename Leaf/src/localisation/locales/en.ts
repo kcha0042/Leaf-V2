@@ -95,6 +95,26 @@ export default {
     "triageForm.title.identity": "Patient Identity",
     "triageForm.title.triage": "Triage",
 
+    // Patient History
+    "patientHistory.title.identity": "Identity",
+    "patientHistory.title.bio": "Bio",
+    "patientHistory.title.triage": "Triage case",
+    "patientHistory.title.events": "Events",
+
+    // TODO: some of these strings have already been created, should I use the other ones even though the label doesnt really make sense?
+    "patientHistory.descriptor.name": "Name",
+    "patientHistory.descriptor.mrn": "MRN",
+    "patientHistory.descriptor.postcode": "Postcode",
+    "patientHistory.descriptor.dob": "DOB",
+    "patientHistory.descriptor.sex": "Sex",
+    "patientHistory.descriptor.code": "Code",
+    "patientHistory.descriptor.arrivalDate": "Arrival date",
+    "patientHistory.descriptor.arrivalWard": "Arrival ward",
+    "patientHistory.descriptor.dischargeDate": "Discharge date",
+    "patientHistory.descriptor.dischargeWard": "Discharge ward",
+    "patientHistory.descriptor.hospital": "Hospital",
+    "patientHistory.descriptor.medicalUnit": "Medical Unit", 
+
     // Search
     "search.underlying": "Search",
 
