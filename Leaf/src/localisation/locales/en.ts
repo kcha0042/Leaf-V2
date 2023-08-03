@@ -110,7 +110,7 @@ export default {
     // Patient History
     "patientHistory.title.identity": "Identity",
     "patientHistory.title.bio": "Bio",
-    "patientHistory.title.triage": "Triage case",
+    "patientHistory.title.triage": "Triage Case",
     "patientHistory.title.events": "Events",
 
     // TODO: some of these strings have already been created, should I use the other ones even though the label doesnt really make sense?
@@ -120,6 +120,7 @@ export default {
     "patientHistory.descriptor.dob": "DOB",
     "patientHistory.descriptor.sex": "Sex",
     "patientHistory.descriptor.code": "Code",
+    "patientHistory.descriptor.triageText": "Description",
     "patientHistory.descriptor.arrivalDate": "Arrival date",
     "patientHistory.descriptor.arrivalWard": "Arrival ward",
     "patientHistory.descriptor.dischargeDate": "Discharge date",

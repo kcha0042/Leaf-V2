@@ -103,8 +103,8 @@ class Session {
             new Date(),
             "Gordon",
             "Ramsey",
-            "0471308217",
             PatientSex.Male,
+            "0471308217",
             new TriageCase(
                 new Date(),
                 new Ward("Ward456"),
@@ -116,7 +116,10 @@ class Session {
             "1234",
             new Date(),
             new EmployeeID("456-456"),
-            [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.Other)],
+            [
+                new PatientEvent(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.Other),
+                new PatientEvent(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.Other),
+            ],
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;

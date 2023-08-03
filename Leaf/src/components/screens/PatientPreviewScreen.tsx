@@ -3,15 +3,17 @@ import React from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/Session";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
+import { TriageCode } from "../../model/triage/TriageCode";
 import LeafText from "../base/LeafText/LeafText";
-import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
-import Spacer from "../containers/layout/Spacer";
 import VStack from "../containers/VStack";
+import VGap from "../containers/layout/VGap";
+import LabeledText from "../custom/LabeledText";
+import PatientInfoCard from "../custom/PatientInfoCard";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
@@ -25,138 +27,108 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack
-                spacing={LeafDimensions.screenSpacing}
+                spacing={LeafDimensions.cardSpacing}
                 style={{
                     flex: 1,
                 }}
             >
-                <HStack>
-                    <LeafIcon icon={"account"} size={iconSize} color={LeafColors.textDark} />
-                    <LeafText wide={false}> {strings("patientHistory.title.identity")} </LeafText>
-                </HStack>
-                <FlatContainer style={{ width: "100%" }}>
-                    <VStack spacing={5}>
-                        <LabeledText label={strings("patientHistory.descriptor.name")} text={patient.fullName} />
-                        <LabeledText label={strings("patientHistory.descriptor.mrn")} text={patient.mrn.toString()} />
-                        <LabeledText label={strings("patientHistory.descriptor.postcode")} text={patient.postCode} />
-                    </VStack>
-                </FlatContainer>
+                <PatientInfoCard title={strings("patientHistory.title.identity")} icon="account">
+                    <LabeledText label={strings("patientHistory.descriptor.name")} text={patient.fullName} />
 
-                <HStack>
-                    <LeafIcon icon={"information"} size={iconSize} color={LeafColors.textDark} />
-                    <LeafText wide={false}> {strings("patientHistory.title.bio")} </LeafText>
-                </HStack>
-                <FlatContainer style={{ width: "100%" }}>
-                    <VStack spacing={5}>
-                        <LabeledText
-                            label={strings("patientHistory.descriptor.dob")}
-                            text={patient.dob.toDateString()}
-                        />
-                        <LabeledText label={strings("patientHistory.descriptor.sex")} text={patient.sex} />
-                    </VStack>
-                </FlatContainer>
+                    <LabeledText label={strings("patientHistory.descriptor.mrn")} text={patient.mrn.toString()} />
 
-                <HStack>
-                    <LeafIcon icon={"file-document-edit"} size={iconSize} color={LeafColors.textDark} />
-                    <LeafText wide={false}> {strings("patientHistory.title.triage")} </LeafText>
-                </HStack>
-                <FlatContainer style={{ width: "100%" }}>
-                    <VStack spacing={5}>
-                        <LabeledText
-                            label={strings("patientHistory.descriptor.code")}
-                            text={patient.triageCase.triageCode.toString()}
-                        >
-                            <LeafText typography={LeafTypography.body}>{patient.triageCase.triageText}</LeafText>
-                        </LabeledText>
+                    <LabeledText label={strings("patientHistory.descriptor.postcode")} text={patient.postCode} />
+                </PatientInfoCard>
 
-                        <Spacer />
+                <PatientInfoCard title={strings("patientHistory.title.bio")} icon="run">
+                    <LabeledText label={strings("patientHistory.descriptor.dob")} text={patient.dob.toDateString()} />
 
-                        <View>
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.arrivalDate")}
-                                text={patient.triageCase.arrivalDate.toDateString()}
-                            />
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.arrivalWard")}
-                                text={patient.triageCase.arrivalWard.name}
-                            />
-                        </View>
+                    <LabeledText label={strings("patientHistory.descriptor.sex")} text={patient.sex} />
+                </PatientInfoCard>
 
-                        <View>
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.dischargeDate")}
-                                text={patient.triageCase.dischargeDate?.toDateString() || "-"}
-                            />
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.dischargeWard")}
-                                text={patient.triageCase.dischargeWard?.name || "-"}
-                            />
-                        </View>
+                <PatientInfoCard title={strings("patientHistory.title.triage")} icon="clipboard-account-outline">
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.code")}
+                        text={TriageCode.toString(patient.triageCase.triageCode)}
+                    />
 
-                        <Spacer />
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.triageText")}
+                        text={patient.triageCase.triageText}
+                    />
 
-                        <View>
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.hospital")}
-                                text={patient.triageCase.hospital.name}
-                            />
-                            <LabeledText
-                                label={strings("patientHistory.descriptor.medicalUnit")}
-                                text={patient.triageCase.medicalUnit.name}
-                            />
-                        </View>
-                    </VStack>
-                </FlatContainer>
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.arrivalDate")}
+                        text={patient.triageCase.arrivalDate.toDateString()}
+                    />
 
-                <HStack>
-                    <LeafIcon icon={"clipboard-list"} size={iconSize} color={LeafColors.textDark} />
-                    <LeafText wide={false}> {strings("patientHistory.title.events")} </LeafText>
-                </HStack>
-                {patient.events.map((event) => {
-                    return (
-                        <FlatContainer key={event.id.toString()} style={{ width: "100%" }}>
-                            <VStack spacing={5}>
-                                <LeafText typography={LeafTypography.title3}>{event.title}</LeafText>
-                                <LeafText typography={LeafTypography.body}>{event.description}</LeafText>
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.arrivalWard")}
+                        text={patient.triageCase.arrivalWard.name}
+                    />
 
-                                <Spacer />
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.dischargeDate")}
+                        text={patient.triageCase.dischargeDate?.toDateString() || "-"}
+                    />
 
-                                <View>
-                                    <LeafText typography={LeafTypography.subscript}>
-                                        {strings("patientHistory.descriptor.category")}
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.dischargeWard")}
+                        text={patient.triageCase.dischargeWard?.name || "-"}
+                    />
+
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.hospital")}
+                        text={patient.triageCase.hospital.name}
+                    />
+
+                    <LabeledText
+                        label={strings("patientHistory.descriptor.medicalUnit")}
+                        text={patient.triageCase.medicalUnit.name}
+                    />
+                </PatientInfoCard>
+
+                <PatientInfoCard title={strings("patientHistory.title.events")} icon="calendar-clock" spacing={12}>
+                    {patient.events.map((event) => {
+                        return (
+                            <HStack key={event.id.toString()} spacing={12}>
+                                <View
+                                    style={{
+                                        backgroundColor: LeafColors.accent.getColor(),
+                                        width: 10,
+                                        borderRadius: 8,
+                                    }}
+                                />
+
+                                <VStack>
+                                    <LeafText typography={LeafTypography.body.withWeight(LeafFontWeight.Bold)}>
+                                        {event.title}
                                     </LeafText>
-                                    <LeafText typography={LeafTypography.title4}>{event.category}</LeafText>
-                                </View>
-                                <View>
-                                    <LeafText typography={LeafTypography.subscript}>
-                                        {strings("patientHistory.descriptor.triggerTime")}
+
+                                    <LeafText typography={LeafTypography.subscript.withItalic(true)}>
+                                        {event.description}
                                     </LeafText>
-                                    <LeafText typography={LeafTypography.title4}>
-                                        {event.triggerTime.toDateString() || ""}
-                                    </LeafText>
-                                </View>
-                            </VStack>
-                        </FlatContainer>
-                    );
-                })}
+
+                                    <VGap size={16} />
+
+                                    <VStack spacing={2}>
+                                        <LeafText typography={LeafTypography.subscript}>
+                                            {strings("patientHistory.descriptor.category") +
+                                                " " +
+                                                event.category.toString()}
+                                        </LeafText>
+
+                                        <LeafText typography={LeafTypography.subscript}>
+                                            {event.triggerTime.toDateString() || "-"}
+                                        </LeafText>
+                                    </VStack>
+                                </VStack>
+                            </HStack>
+                        );
+                    })}
+                </PatientInfoCard>
             </VStack>
         </DefaultScreenContainer>
-    );
-};
-
-interface LabeledTextProps {
-    label: string;
-    text: string;
-    children?: any;
-}
-
-const LabeledText: React.FC<LabeledTextProps> = ({ label, text, children }) => {
-    return (
-        <View>
-            <LeafText typography={LeafTypography.subscript}>{label}</LeafText>
-            <LeafText typography={LeafTypography.title4}>{text}</LeafText>
-            {children}
-        </View>
     );
 };
 
