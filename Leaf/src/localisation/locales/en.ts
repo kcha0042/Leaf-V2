@@ -73,7 +73,7 @@ export default {
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
-    "operation.activeAccount": "\n\nTO ACTIVE THE ACCOUNT ON THE LOGIN SCREEN.",
+    "operation.activeAccount": "\n\nFinalise the account creation by activate this account from login page.",
 
     // Labels
     "label.id": "ID: ",
@@ -86,6 +86,7 @@ export default {
     "label.done": "Exit patient options.",
     "label.selectRole": "Select Role",
     "label.enterName": "Enter Name",
+    "label.accountCreated": "Account Created",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",

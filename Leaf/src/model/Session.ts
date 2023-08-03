@@ -1,5 +1,6 @@
 import StateManager from "../state/publishers/StateManager";
 import EmployeeID from "./employee/EmployeeID";
+import Leader from "./employee/Leader";
 import Worker from "./employee/Worker";
 import Hospital from "./hospital/Hospital";
 import MedicalUnit from "./hospital/MedicalUnit";
@@ -16,9 +17,11 @@ class Session {
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
+    private leaderStore: { [key: string]: Leader } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
     private activeWorker: Worker | null = null;
+    private activeLeader: Leader | null = null;
 
     private constructor() {}
 
@@ -32,8 +35,21 @@ class Session {
         StateManager.activeWorkerChanged.publish();
     }
 
+    public setActiveLeader(leader: Leader | null) {
+        this.activeLeader = leader;
+        StateManager.activeWorkerChanged.publish();
+    }
+
     public getActivePatient(): Patient | null {
         return this.activePatient;
+    }
+
+    public getActiveWorker(): Worker | null {
+        return this.activeWorker;
+    }
+
+    public getActiveLeader(): Leader | null {
+        return this.activeLeader;
     }
 
     public getAllWorkers(): Worker[] {
@@ -42,6 +58,14 @@ class Session {
 
     public getWorker(id: EmployeeID): Worker | null {
         return this.workerStore[id.toString()] || null;
+    }
+
+    public getAllLeaders(): Leader[] {
+        return Object.values(this.leaderStore);
+    }
+
+    public getLeader(id: EmployeeID): Leader | null {
+        return this.leaderStore[id.toString()] || null;
     }
 
     public getAllPatients(): Patient[] {
@@ -61,6 +85,17 @@ class Session {
         this.workerStore[worker2.id.toString()] = worker2;
         // Notify subscribers
         StateManager.workersFetched.publish();
+    }
+
+    public fetchAllLeaders() {
+        // TODO: Asyncronously access database and update leaderStore
+        // Temporary:
+        const Leader1 = new Leader(new EmployeeID("abc-123"), "John", "Squarepants");
+        const Leader2 = new Leader(new EmployeeID("abc-456"), "Julius", "Squarepants");
+        this.leaderStore[Leader1.id.toString()] = Leader1;
+        this.leaderStore[Leader2.id.toString()] = Leader2;
+        // Notify subscribers
+        StateManager.leadersFetched.publish();
     }
 
     public fetchAllPatients() {

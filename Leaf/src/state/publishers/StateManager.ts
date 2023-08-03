@@ -39,6 +39,9 @@ class StateManager {
     // Notifies when workers are done async fetching and can be retrieved from Session
     public static readonly workersFetched = new LeafPublisher();
 
+    // Notifies when workers are done async fetching and can be retrieved from Session
+    public static readonly leadersFetched = new LeafPublisher();
+
     // Notifies when patients are done async fetching and can be retrieved from Session
     public static readonly patientsFetched = new LeafPublisher();
 

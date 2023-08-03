@@ -27,7 +27,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.inst.setActivePatient(patient);
-        alert("Patient data is exported"); // TODO: should change to export patient function.
+        // TODO: should add patient function.
     };
 
     return (

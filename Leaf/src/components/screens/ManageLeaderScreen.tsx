@@ -20,8 +20,8 @@ interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
-    const worker = Session.inst.getActiveWorker();
+const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
+    const leader = Session.inst.getActiveLeader();
     return (
         <DefaultScreenContainer>
             <VStack
@@ -30,7 +30,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.body}>{worker.role}</LeafText>
+                <LeafText typography={LeafTypography.body}>{leader.role}</LeafText>
 
                 <LeafText typography={LeafTypography.body}>{strings("label.details")}</LeafText>
 
@@ -38,7 +38,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
                     <VStack>
                         <View style={{ alignSelf: "flex-start" }}>
                             <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                                {strings("label.id") + worker.id.toString()}
+                                {strings("label.id") + leader.id.toString()}
                             </LeafText>
                         </View>
 
@@ -67,4 +67,4 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
     );
 };
 
-export default ManageWorkerScreen;
+export default ManageLeaderScreen;
