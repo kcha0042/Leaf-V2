@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import LeafTypography from "../styling/LeafTypography";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
@@ -24,6 +24,24 @@ interface Props {
 
 const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [hasCreate, setHasCreate] = React.useState(false);
+    const [pickerErrVisible, setPickerErrVisible] = useState(false);
+    const [errTextVisible, setErrTextVisible] = useState(false);
+    const [name, setName] = React.useState("");
+    const [surname, setSurname] = React.useState("");
+    const [role, setRole] = React.useState("");
+    
+    const onNameChange = (name: string) => {
+        setName(name);
+    };
+
+    const onSurnameChange = (name: string) => {
+        setSurname(name)
+    };
+
+    const onRoleChange = (role: string) => {
+        setRole(role)
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack>
@@ -35,7 +53,14 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     </LeafText>
                 </HStack>
 
-                <RolePicker onSelection={(code) => {}} />
+                <RolePicker onSelection={onRoleChange} />
+
+                <LeafText
+                    style={{ color: pickerErrVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    {strings("error.missingRole")}
+                </LeafText>
 
                 <VGap size={32} />
 
@@ -52,15 +77,22 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                         label={strings("triageForm.textInput.givenName")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={onNameChange}
                     />
 
                     <LeafTextInput
                         label={strings("triageForm.textInput.surname")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={onSurnameChange}
                     />
+
+                    <LeafText
+                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                    typography={LeafTypography.error}
+                >
+                    {strings("error.missingName")}
+                </LeafText>
                 </VStack>
 
                 <VGap size={32} />
@@ -72,7 +104,24 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
                     onPress={() => {
-                        setHasCreate(true);
+                        if (name != "" && surname != "" && role.toString() != "") {
+                            setHasCreate(true);
+                        }
+                        
+                        if (name == "" || surname == "") {
+                            setErrTextVisible(true);
+                        }
+                        else {
+                            setErrTextVisible(false);
+                        }
+
+                        if (role.toString() == "") {
+                            setPickerErrVisible(true);
+                        }
+                        else {
+                            setPickerErrVisible(false);
+                        }
+                        
                         // TODO: should change to create account method later.
                     }}
                 />

@@ -103,6 +103,10 @@ class LeafTypography {
     static get badge(): LeafTypographyConfig {
         return new LeafTypographyConfig(18, LeafFontFamily.Poppins, undefined, LeafFontWeight.Bold);
     }
+
+    static get error(): LeafTypographyConfig {
+        return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textError, LeafFontWeight.Regular, true);
+    }
 }
 
 export default LeafTypography;

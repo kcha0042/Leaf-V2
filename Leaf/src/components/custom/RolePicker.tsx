@@ -10,7 +10,7 @@ import { strings } from "../../localisation/Strings";
 
 interface Props {
     style?: ViewStyle;
-    onSelection: (code: TriageCode) => void;
+    onSelection: (role: Role) => void;
 }
 
 const RolePicker: React.FC<Props> = ({ style, onSelection }) => {

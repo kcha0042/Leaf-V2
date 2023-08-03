@@ -111,4 +111,8 @@ export default {
     "role.admin": "Admin",
     "role.leader": "Leader",
     "role.worker": "Nurse",
+
+    // Errors
+    "error.missingName": "Please enter both name and surname",
+    "error.missingRole": "Please select the role",
 };
