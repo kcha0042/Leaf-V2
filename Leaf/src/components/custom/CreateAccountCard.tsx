@@ -38,7 +38,7 @@ const CreateAccountCard: React.FC<Props> = ({ worker, display, onPress }) => {
                     icon="check-circle"
                     color={LeafColors.textSuccess}
                     size={32}
-                    style={{ position: "absolute", right: "0" }}
+                    style={{ position: "absolute", right: 0 }}
                 />
             </HStack>
         </FlatContainer>

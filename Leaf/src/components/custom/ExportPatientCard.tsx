@@ -62,7 +62,7 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
                     icon="export"
                     color={LeafColors.accent}
                     size={32}
-                    style={{ position: "absolute", right: "0" }}
+                    style={{ position: "absolute", right: 0 }}
                 />
             </HStack>
         </FlatContainer>
