@@ -37,6 +37,7 @@ interface Props {
     selectedLabelColor?: LeafColor;
     selectedBackgroundColor?: LeafColor;
     label: string;
+    labeled?: boolean;
     valueLabel?: string;
     style?: ViewStyle;
     onSetValue: (value: LeafSegmentedValue) => void;
@@ -48,6 +49,7 @@ const LeafSegmentedButtons: React.FC<Props> = ({
     selectedLabelColor = LeafColors.textLight,
     selectedBackgroundColor = LeafColors.textDark,
     label,
+    labeled = true,
     valueLabel,
     style,
     onSetValue,
@@ -61,21 +63,23 @@ const LeafSegmentedButtons: React.FC<Props> = ({
                 ...style,
             }}
         >
-            <HStack
-                style={{
-                    width: "100%",
-                }}
-            >
-                <LeafText typography={LeafTypography.subscript} wide={false}>
-                    {label}
-                </LeafText>
+            {labeled ? (
+                <HStack
+                    style={{
+                        width: "100%",
+                    }}
+                >
+                    <LeafText typography={LeafTypography.subscript} wide={false}>
+                        {label}
+                    </LeafText>
 
-                <Spacer />
+                    <Spacer />
 
-                <LeafText typography={LeafTypography.subscript.withColor(selectedBackgroundColor)} wide={false}>
-                    {valueLabel ?? selectedOption?.label ?? ""}
-                </LeafText>
-            </HStack>
+                    <LeafText typography={LeafTypography.subscript.withColor(selectedBackgroundColor)} wide={false}>
+                        {valueLabel ?? selectedOption?.label ?? ""}
+                    </LeafText>
+                </HStack>
+            ) : null}
 
             <VGap size={8} />
 

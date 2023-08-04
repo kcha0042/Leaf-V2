@@ -18,10 +18,7 @@ interface Props {
 }
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {
-
-    const onSelection = () => {
-
-    }
+    const onSelection = () => {};
 
     return (
         <DefaultScreenContainer>
@@ -29,12 +26,10 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
-                    backgroundColor: LeafColors.screenBackgroundLight.getColor()
+                    backgroundColor: LeafColors.screenBackgroundLight.getColor(),
                 }}
             >
-                <PatientsPicker
-                    onSelection={onSelection}
-                />
+                <PatientsPicker onSelection={onSelection} />
             </VStack>
         </DefaultScreenContainer>
     );
