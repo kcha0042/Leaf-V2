@@ -83,6 +83,11 @@ class LeafTypography {
         return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.accent, LeafFontWeight.Bold);
     }
 
+    // Same colour as text
+    static get plainTextButton(): LeafTypographyConfig {
+        return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.textDark, LeafFontWeight.Bold);
+    }
+
     // Drawer
 
     static get drawerTitle(): LeafTypographyConfig {
