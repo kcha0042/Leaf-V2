@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, View } from "react-native";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
@@ -12,13 +12,39 @@ import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import PatientsPicker from "../custom/PatientsPicker";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import HStack from "../containers/HStack";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import StateManager from "../../state/publishers/StateManager";
+import Session from "../../model/Session";
+import Patient from "../../model/patient/Patient";
+import PatientCard from "../custom/PatientCard";
+import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {
+    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+
+    useEffect(() => {
+        StateManager.patientsFetched.subscribe(() => {
+            setPatients(Session.inst.getAllPatients());
+        });
+
+        Session.inst.fetchAllPatients();
+    }, []);
+
     const onSelection = () => {};
+
+    const onSearch = () => {};
+
+    const onTime = () => {};
+
+    const onCode = () => {};
+
+    const onPatientPress = (patient: Patient) => {};
 
     return (
         <DefaultScreenContainer>
@@ -30,6 +56,22 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <PatientsPicker onSelection={onSelection} />
+                <LeafSearchBar searchQuery={""} onSearch={onSearch}/>
+                <HStack
+                    style={{
+                        width: "100%",
+                        borderBottomWidth: 2,
+                        borderBottomColor: LeafColors.divider.getColor()
+                    }}
+                >
+                    {/* TODO: add icon */}
+                    <LeafTextButton label={"Time"} onPress={onTime} style={{ flex: 1, paddingBottom: 5 }}/>
+                    <LeafTextButton label={"Code"} onPress={onCode} style={{ flex: 1, paddingBottom: 5 }}/>
+                </HStack>
+                <Spacer/>
+                {
+                    patients.map(patient => <PatientCard key={patient.mrn.toString()} patient={patient} onPress={() => onPatientPress(patient)}/>)
+                }
             </VStack>
         </DefaultScreenContainer>
     );

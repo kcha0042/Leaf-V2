@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PatientsPicker: React.FC<Props> = ({ style, onSelection }) => {
-    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | null>(null);
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | null>(new LeafSegmentedValue(strings("label.all"), strings("label.all")));
     const onSetSegmentedValue = (segmentedValue) => {
         setSegmentedValue(segmentedValue);
         onSelection(segmentedValue.value);
