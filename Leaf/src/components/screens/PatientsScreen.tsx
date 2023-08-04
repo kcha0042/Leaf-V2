@@ -60,7 +60,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <PatientsPicker onSelection={onSelection} />
-                <LeafSearchBar searchQuery={""} onSearch={onSearch} />
+                {/* <LeafSearchBar searchQuery={""} onSearch={onSearch} /> */}
                 <HStack
                     style={{
                         width: "100%",
