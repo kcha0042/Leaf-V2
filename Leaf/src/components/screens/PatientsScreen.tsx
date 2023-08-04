@@ -20,6 +20,7 @@ import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
 import PatientCard from "../custom/PatientCard";
 import Spacer from "../containers/layout/Spacer";
+import PatientPreviewScreen from "./PatientPreviewScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -44,7 +45,10 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onCode = () => {};
 
-    const onPatientPress = (patient: Patient) => {};
+    const onPatientPress = (patient: Patient) => {
+        Session.inst.setActivePatient(patient);
+        NavigationSession.inst.navigateTo(PatientPreviewScreen, navigation, patient.fullName);
+    };
 
     return (
         <DefaultScreenContainer>
@@ -56,22 +60,41 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <PatientsPicker onSelection={onSelection} />
-                <LeafSearchBar searchQuery={""} onSearch={onSearch}/>
+                <LeafSearchBar searchQuery={""} onSearch={onSearch} />
                 <HStack
                     style={{
                         width: "100%",
                         borderBottomWidth: 2,
-                        borderBottomColor: LeafColors.divider.getColor()
+                        borderBottomColor: LeafColors.divider.getColor(),
                     }}
                 >
-                    {/* TODO: add icon */}
-                    <LeafTextButton label={"Time"} typography={LeafTypography.plainTextButton} onPress={onTime} icon={"chevron-down"} iconColor={LeafColors.textDark} wide={false} style={{ flex: 1, paddingBottom: 5 }}/>
-                    <LeafTextButton label={"Code"} typography={LeafTypography.plainTextButton} onPress={onCode} icon={"chevron-down"} iconColor={LeafColors.textDark} wide={false} style={{ flex: 1, paddingBottom: 5 }}/>
+                    <LeafTextButton
+                        label={"Time"}
+                        typography={LeafTypography.plainTextButton}
+                        onPress={onTime}
+                        icon={"chevron-down"}
+                        iconColor={LeafColors.textDark}
+                        wide={false}
+                        style={{ flex: 1, paddingBottom: 5 }}
+                    />
+                    <LeafTextButton
+                        label={"Code"}
+                        typography={LeafTypography.plainTextButton}
+                        onPress={onCode}
+                        icon={"chevron-down"}
+                        iconColor={LeafColors.textDark}
+                        wide={false}
+                        style={{ flex: 1, paddingBottom: 5 }}
+                    />
                 </HStack>
-                <Spacer/>
-                {
-                    patients.map(patient => <PatientCard key={patient.mrn.toString()} patient={patient} onPress={() => onPatientPress(patient)}/>)
-                }
+                <Spacer />
+                {patients.map((patient) => (
+                    <PatientCard
+                        key={patient.mrn.toString()}
+                        patient={patient}
+                        onPress={() => onPatientPress(patient)}
+                    />
+                ))}
             </VStack>
         </DefaultScreenContainer>
     );

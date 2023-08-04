@@ -11,27 +11,39 @@ import LeafColors from "../../styling/LeafColors";
 interface ButtonProps {
     label: string;
     onPress: () => any;
-    wide?: boolean,
-    icon?: string,
+    wide?: boolean;
+    icon?: string;
     iconColor?: LeafColor;
-    iconSize?: number,
+    iconSize?: number;
     typography?: LeafTypographyConfig;
     style?: ViewStyle;
 }
 
-const LeafTextButton: React.FC<ButtonProps> = ({ typography = LeafTypography.textButton, wide=true, icon, iconSize, iconColor, label, onPress, style }) => {
+const LeafTextButton: React.FC<ButtonProps> = ({
+    typography = LeafTypography.textButton,
+    wide = true,
+    icon,
+    iconSize,
+    iconColor,
+    label,
+    onPress,
+    style,
+}) => {
     return (
         <TouchableOpacity onPress={onPress} style={style}>
             <HStack
                 style={{
                     width: "100%",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}
             >
-                <LeafText typography={typography} wide={wide}> {label} </LeafText>
-                {
-                    icon != undefined ? <LeafIcon icon={icon} color={iconColor || LeafColors.accent} size={iconSize || 20}/> : null
-                }
+                <LeafText typography={typography} wide={wide}>
+                    {" "}
+                    {label}{" "}
+                </LeafText>
+                {icon != undefined ? (
+                    <LeafIcon icon={icon} color={iconColor || LeafColors.accent} size={iconSize || 20} />
+                ) : null}
             </HStack>
         </TouchableOpacity>
     );
