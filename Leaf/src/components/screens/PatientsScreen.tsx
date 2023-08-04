@@ -65,8 +65,8 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                     }}
                 >
                     {/* TODO: add icon */}
-                    <LeafTextButton label={"Time"} typography={LeafTypography.plainTextButton} onPress={onTime} style={{ flex: 1, paddingBottom: 5 }}/>
-                    <LeafTextButton label={"Code"} typography={LeafTypography.plainTextButton} onPress={onCode} style={{ flex: 1, paddingBottom: 5 }}/>
+                    <LeafTextButton label={"Time"} typography={LeafTypography.plainTextButton} onPress={onTime} icon={"chevron-down"} iconColor={LeafColors.textDark} wide={false} style={{ flex: 1, paddingBottom: 5 }}/>
+                    <LeafTextButton label={"Code"} typography={LeafTypography.plainTextButton} onPress={onCode} icon={"chevron-down"} iconColor={LeafColors.textDark} wide={false} style={{ flex: 1, paddingBottom: 5 }}/>
                 </HStack>
                 <Spacer/>
                 {
