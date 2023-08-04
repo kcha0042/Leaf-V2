@@ -11,31 +11,29 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import PatientsPicker from "../custom/PatientsPicker";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {
+
+    const onSelection = () => {
+
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
+                    backgroundColor: LeafColors.screenBackgroundLight.getColor()
                 }}
             >
-                <LeafText typography={LeafTypography.body}>TODO: Patients Screen</LeafText>
-
-                <LeafButton
-                    label={"Button"}
-                    icon="arrow-right-circle"
-                    typography={LeafTypography.button}
-                    type={LeafButtonType.Filled}
-                    color={LeafColors.accent}
-                    onPress={() => {
-                        NavigationSession.inst.navigateTo(ActionsScreen, navigation, "Actions Now");
-                    }}
+                <PatientsPicker
+                    onSelection={onSelection}
                 />
             </VStack>
         </DefaultScreenContainer>

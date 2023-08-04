@@ -85,6 +85,8 @@ export default {
     "label.editName": "Edit name",
     "label.editEmail": "Edit email",
     "label.enterPassword": "Enter password",
+    "label.allocated": "Allocated",
+    "label.all": "All",
 
     // Input Labels
     "inputLabel.username": "Username",
