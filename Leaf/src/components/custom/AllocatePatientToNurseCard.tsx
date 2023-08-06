@@ -66,7 +66,7 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                 <LeafButton
                     label={strings("button.allocate")}
                     wide={false}
-                    typography={LeafTypography.title3}
+                    typography={LeafTypography.buttonSmall}
                     type={LeafButtonType.Filled}
                     color={LeafColors.transparent}
                     onPress={() => {
@@ -76,8 +76,9 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                     }}
                     style={{
                         alignSelf: "center",
+                        borderRadius: 15,
                         marginRight: 1,
-                        borderWidth: 3,
+                        borderWidth: 1,
                         borderColor: "#3f4169",
                         backgroundColor: active ? "#7fff00" : "white",
                     }}
