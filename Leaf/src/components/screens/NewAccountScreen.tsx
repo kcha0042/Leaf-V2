@@ -17,6 +17,7 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import RolePicker from "../custom/RolePicker";
 import CreateAccountCard from "../custom/CreateAccountCard";
 import Worker from "../../model/employee/Worker";
+import { Role } from "../../model/employee/Role";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -28,7 +29,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [errTextVisible, setErrTextVisible] = useState(false);
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
-    const [role, setRole] = React.useState("");
+    const [role, setRole] = React.useState(null);
 
     const onNameChange = (name: string) => {
         setName(name);
@@ -38,7 +39,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
         setSurname(name);
     };
 
-    const onRoleChange = (role: string) => {
+    const onRoleChange = (role: Role) => {
         setRole(role);
     };
 
@@ -104,7 +105,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
                     onPress={() => {
-                        if (name != "" && surname != "" && role.toString() != "") {
+                        if (name != "" && surname != "" && role != null) {
                             setHasCreate(true);
                         }
 
@@ -114,7 +115,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                             setErrTextVisible(false);
                         }
 
-                        if (role.toString() == "") {
+                        if (role == null) {
                             setPickerErrVisible(true);
                         } else {
                             setPickerErrVisible(false);

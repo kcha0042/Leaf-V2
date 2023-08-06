@@ -21,7 +21,7 @@ const LeaderCard: React.FC<Props> = ({ leader, style, onPress }) => {
             <HStack>
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        <LeafText typography={LeafTypography.title3}>
                             {leader.firstName}
                         </LeafText>
                     </View>
