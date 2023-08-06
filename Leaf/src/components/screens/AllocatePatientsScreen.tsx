@@ -64,7 +64,6 @@ const AllocatePatientsScreen: React.FC = () => {
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
-                    // Don't use overflow prop - doesn't work on web
                     style={{
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
