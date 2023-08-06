@@ -43,7 +43,7 @@ export default {
     "header.admin.manageNurses": "Home",
     "header.admin.viewNurses": "Nurses",
     "header.admin.viewLeaders": "Leaders",
-    "header.admin.newAccount": "New Acount",
+    "header.admin.newAccount": "New Account",
     "header.admin.exportPatient": "Export Patient",
 
     // Leader Headers
@@ -73,7 +73,8 @@ export default {
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
-    "operation.activeAccount": "\n\nFinalise the account creation by activate this account from login page.",
+    "operation.activeAccount":
+        "To activate the account and set the password, select 'Activate Account' on the login page.",
 
     // Labels
     "label.id": "ID: ",
