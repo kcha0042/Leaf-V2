@@ -12,6 +12,7 @@ import { strings } from "../../localisation/Strings";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
+import VGap from "../containers/layout/VGap";
 
 interface Props {
     patient: Patient;
@@ -36,7 +37,6 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                 />
 
                 <VStack
-                    spacing={LeafDimensions.screenSpacing}
                     style={{
                         flex: 1,
                     }}
@@ -46,6 +46,8 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                             {patient.fullName}
                         </LeafText>
                     </View>
+
+                    <VGap size={16} />
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         ID: {idText}

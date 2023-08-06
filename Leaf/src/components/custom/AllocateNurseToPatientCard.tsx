@@ -33,7 +33,6 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
         <FlatContainer>
             <HStack>
                 <VStack
-                    spacing={LeafDimensions.screenSpacing}
                     style={{
                         flex: 1,
                     }}
@@ -43,6 +42,8 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                             {worker.firstName}
                         </LeafText>
                     </View>
+
+                    <VGap size={16}/>
 
                     <LeafText style={{ alignSelf: "flex-start" }} typography={LeafTypography.subscript} wide={false}>
                         {"ID: " + idText}

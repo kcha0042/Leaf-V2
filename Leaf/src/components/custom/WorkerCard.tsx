@@ -28,11 +28,9 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
                         </LeafText>
                     </View>
 
-                    <VGap size={6} />
+                    <VGap size={16} />
 
                     <LeafText typography={LeafTypography.subscript}>{"ID: " + idText}</LeafText>
-
-                    <VGap size={6} />
 
                     <LeafText typography={LeafTypography.subscript}>
                         {worker.allocatedPatients.length + " allocated"}

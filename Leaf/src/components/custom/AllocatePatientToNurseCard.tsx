@@ -48,7 +48,7 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
                         </LeafText>
                     </View>
 
-                    <VGap size={10} />
+                    <VGap size={16} />
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         ID: {idText}
