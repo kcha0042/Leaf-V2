@@ -29,18 +29,18 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
     const [role, setRole] = React.useState("");
-    
+
     const onNameChange = (name: string) => {
         setName(name);
     };
 
     const onSurnameChange = (name: string) => {
-        setSurname(name)
+        setSurname(name);
     };
 
     const onRoleChange = (role: string) => {
-        setRole(role)
-    }
+        setRole(role);
+    };
 
     return (
         <DefaultScreenContainer>
@@ -88,11 +88,11 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     />
 
                     <LeafText
-                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    {strings("error.missingName")}
-                </LeafText>
+                        style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                        typography={LeafTypography.error}
+                    >
+                        {strings("error.missingName")}
+                    </LeafText>
                 </VStack>
 
                 <VGap size={32} />
@@ -107,21 +107,19 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                         if (name != "" && surname != "" && role.toString() != "") {
                             setHasCreate(true);
                         }
-                        
+
                         if (name == "" || surname == "") {
                             setErrTextVisible(true);
-                        }
-                        else {
+                        } else {
                             setErrTextVisible(false);
                         }
 
                         if (role.toString() == "") {
                             setPickerErrVisible(true);
-                        }
-                        else {
+                        } else {
                             setPickerErrVisible(false);
                         }
-                        
+
                         // TODO: should change to create account method later.
                     }}
                 />
