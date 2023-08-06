@@ -47,7 +47,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
         <DefaultScreenContainer>
             <VStack>
                 <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                    {"NURSE | " + worker.allocatedPatients.length + " patients allocated"}
+                    {"NURSE     " + worker.allocatedPatients.length + " patients allocated"}
                 </LeafText>
 
                 <VGap size={20} />
