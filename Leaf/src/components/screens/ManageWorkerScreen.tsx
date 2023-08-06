@@ -16,6 +16,7 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import Session from "../../model/Session";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import { Role } from "../../model/employee/Role";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -31,7 +32,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>{worker.role}</LeafText>
+                <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>{Role.toString(worker.role)}</LeafText>
 
                 <FlatContainer color={LeafColors.fillBackgroundLight}>
                     <LeafText typography={LeafTypography.body}>{strings("label.id") + worker.id.toString()}</LeafText>
