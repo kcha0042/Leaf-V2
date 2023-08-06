@@ -1,24 +1,20 @@
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { FlatList, ScrollView, View } from "react-native";
+import VGap from "../containers/layout/VGap";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import VStack from "../containers/VStack";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
 import StateManager from "../../state/publishers/StateManager";
-import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
-import VGap from "../containers/layout/VGap";
-import PatientCard from "../custom/PatientCard";
-import NavigationSession from "../navigation/state/NavigationEnvironment";
-import LeafColors from "../styling/LeafColors";
+import { FlatList, ScrollView, View } from "react-native";
 import LeafDimensions from "../styling/LeafDimensions";
-import PatientOptionsScreen from "./PatientOptionsScreen";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import ExportPatientCard from "../custom/ExportPatientCard";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
+const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
@@ -31,21 +27,16 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.inst.setActivePatient(patient);
-        NavigationSession.inst.navigateTo(PatientOptionsScreen, navigation, patient.fullName);
+        // TODO: should add patient function.
     };
 
     return (
         <DefaultScreenContainer>
-            <VStack
-                spacing={LeafDimensions.screenSpacing}
-                style={{
-                    flex: 1,
-                }}
-            >
+            <VStack>
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard
+                        <ExportPatientCard
                             patient={patient}
                             onPress={() => {
                                 onPressPatient(patient);
@@ -61,11 +52,9 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
-
-                <Spacer />
             </VStack>
         </DefaultScreenContainer>
     );
 };
 
-export default YourPatientsScreen;
+export default ExportPatientScreen;

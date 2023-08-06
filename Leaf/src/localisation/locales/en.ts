@@ -41,6 +41,10 @@ export default {
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
+    "header.admin.viewNurses": "Nurses",
+    "header.admin.viewLeaders": "Leaders",
+    "header.admin.newAccount": "New Account",
+    "header.admin.exportPatient": "Export Patient",
 
     // Leader Headers
     "header.leader.viewNurses": "Nurses",
@@ -55,10 +59,12 @@ export default {
     "button.cancel": "Cancel",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
+    "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
+    "button.exportPatient": "Export Patient",
 
     // Login
     "login.title": "Login",
@@ -67,6 +73,8 @@ export default {
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
+    "operation.activeAccount":
+        "To activate the account and set the password, select 'Activate Account' on the login page.",
 
     // Labels
     "label.id": "ID: ",
@@ -77,6 +85,9 @@ export default {
     "label.editPatient": "Edit patient information and triage.",
     "label.removePatient": "Delete patient from the system.",
     "label.done": "Exit patient options.",
+    "label.selectRole": "Select Role",
+    "label.enterName": "Enter Name",
+    "label.accountCreated": "Account Created",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
@@ -96,4 +107,13 @@ export default {
     "triageCode.3": "Urgent",
     "triageCode.4": "Semi-Urgent",
     "triageCode.5": "Non-Urgent",
+
+    // Roles
+    "role.admin": "Admin",
+    "role.leader": "Leader",
+    "role.worker": "Nurse",
+
+    // Errors
+    "error.missingName": "Please enter both name and surname",
+    "error.missingRole": "Please select the role",
 };

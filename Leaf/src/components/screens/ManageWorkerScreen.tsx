@@ -8,22 +8,22 @@ import LeafColors from "../styling/LeafColors";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import { strings } from "../../localisation/Strings";
-import Nurse from "../../model/employee/Worker";
 import { View, ViewStyle } from "react-native";
-import FloatingContainer from "../containers/FloatingContainer";
+import FlatContainer from "../containers/FlatContainer";
 import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import EmployeeID from "../../model/employee/EmployeeID";
+import Session from "../../model/Session";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import { Role } from "../../model/employee/Role";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const ManageNurseScreen: React.FC<Props> = ({ navigation }) => {
-    const nurse = new Nurse(EmployeeID.generate(), "Jason", "Something");
+const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
+    const worker = Session.inst.getActiveWorker();
     return (
         <DefaultScreenContainer>
             <VStack
@@ -32,30 +32,13 @@ const ManageNurseScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.body}>
-                    TODO: Nurse
-                    {/* todo: role is not available in Employee atm, fix it later */}
-                </LeafText>
+                <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>{Role.toString(worker.role)}</LeafText>
 
-                <LeafText typography={LeafTypography.body}>{strings("label.details")}</LeafText>
+                <FlatContainer color={LeafColors.fillBackgroundLight}>
+                    <LeafText typography={LeafTypography.body}>{strings("label.id") + worker.id.toString()}</LeafText>
+                </FlatContainer>
 
-                <FloatingContainer color={LeafColors.textBackgroundLight}>
-                    <VStack>
-                        <View style={{ alignSelf: "flex-start" }}>
-                            <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                                {strings("label.id") + nurse.id.toString()}
-                            </LeafText>
-                        </View>
-
-                        <VGap size={6} />
-
-                        <LeafText typography={LeafTypography.subscript} wide={false}>
-                            TODO: other information if we have - (temp text, fixed it later)
-                        </LeafText>
-                    </VStack>
-                </FloatingContainer>
-
-                <Spacer />
+                <VGap size={32} />
 
                 <LeafButton
                     label={strings("button.deleteAccount")}
@@ -76,4 +59,4 @@ const ManageNurseScreen: React.FC<Props> = ({ navigation }) => {
     );
 };
 
-export default ManageNurseScreen;
+export default ManageWorkerScreen;
