@@ -21,6 +21,10 @@ interface Props {
 
 const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
@@ -40,7 +44,7 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafSearchBarNew></LeafSearchBarNew>
+                <LeafSearchBarNew onTextChange={onSearch}/>
                 <VGap size={20} />
                 <View>
                 <LeafButton label={strings("searchBarFilter.time")} onPress={ () => setShouldShowTime(!shouldShowTime)} wide={false}></LeafButton>

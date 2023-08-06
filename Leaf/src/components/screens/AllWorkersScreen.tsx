@@ -20,6 +20,10 @@ interface Props {
 
 const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
@@ -42,7 +46,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew></LeafSearchBarNew>
+                <LeafSearchBarNew onTextChange={onSearch}/>
 
                 <VGap size={10} />
 

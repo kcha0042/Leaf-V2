@@ -17,6 +17,10 @@ interface Props {
 
 const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
@@ -29,7 +33,7 @@ const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafSearchBarNew></LeafSearchBarNew>
+            <LeafSearchBarNew onTextChange={onSearch}/>
 
                 <VGap size={25} />
 

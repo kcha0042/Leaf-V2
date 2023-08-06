@@ -21,6 +21,10 @@ interface Props {
 
 const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
@@ -36,12 +40,6 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
         NavigationSession.inst.navigateTo(AllocateToPatientScreen, navigation, strings("header.leader.allocateTo"));
     };
 
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onSearch = (query: string) => {
-        setSearchQuery(query);
-        // TODO: Search for worker using query
-    };
-
     return (
         <DefaultScreenContainer>
             <VStack
@@ -50,7 +48,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew></LeafSearchBarNew>
+                <LeafSearchBarNew onTextChange={onSearch}/>
 
                 <VGap size={10} />
 

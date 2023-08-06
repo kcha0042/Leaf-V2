@@ -1,11 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Platform, TextInput, View, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
-import Icon from "react-native-paper/lib/typescript/src/components/Icon";
 import LeafIcon from "../LeafIcon/LeafIcon";
 
 interface Props {
@@ -15,10 +14,10 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    onTextChange?: (text: string) => void;
+    onTextChange: (text: string) => void;
 }
 
-const LeafSearchBarNew: React.FC<Props> = ({
+const LeafTextInputShort: React.FC<Props> = ({
     label = "Search",
     textColor = LeafColors.textDark,
     color = LeafColors.textBackgroundDark,
@@ -27,9 +26,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
     style,
     onTextChange,
 }) => {
-    const [text, setText] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-    const borderWidth = 2.0;
+    const [text, setText] = React.useState("");
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
@@ -39,24 +36,26 @@ const LeafSearchBarNew: React.FC<Props> = ({
 
     return (
         <View
-            style={[
-                wide ? { width: "100%" } : { alignSelf: "center" },
-                {
-                    flexDirection: "row",
-                    backgroundColor: LeafColors.textBackgroundAccent.getColor(),
-                    borderRadius: 30,
-                    borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
-                    borderWidth: borderWidth,
-                    height: 55,
-                },
-            ]}
+        style={[
+            wide ? { width: "100%" } : { alignSelf: "center" },
+            {
+                flexDirection: "row",
+                backgroundColor: LeafColors.textBackgroundAccent.getColor(),
+                borderRadius: 30,
+                borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
+                height: 55,
+                borderWidth: 1,
+            },
+        ]}
         >
+            <LeafIcon icon="magnify" size={26} color={LeafColors.textDark} style={{ alignSelf: "center", display: "flex", marginLeft: 10}} />
+            
             <TouchableWithoutFeedback
                 style={{
                     position: "absolute",
                     flexDirection: "row",
                     height: "100%",
-                    paddingHorizontal: 16,
+                    paddingHorizontal: 6,
                     ...Platform.select({
                         web: { cursor: "text" },
                     }),
@@ -65,8 +64,6 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     textInputRef.current.focus();
                 }}
             >
-                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{ alignSelf: "center", display: "none"}} />
-
                 <LeafText
                     typography={labelTypography}
                     style={{
@@ -83,7 +80,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     wide ? { width: "100%" } : { alignSelf: "center" },
                     {
                         paddingVertical: 12,
-                        paddingHorizontal: 16,
+                        paddingHorizontal: 6,
                         ...Platform.select({
                             web: { outlineStyle: "none" },
                         }),
@@ -96,11 +93,9 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     onTextChange(text);
                 }}
                 value={text}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
             />
         </View>
     );
 };
 
-export default LeafSearchBarNew;
+export default LeafTextInputShort;
