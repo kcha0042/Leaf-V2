@@ -1,13 +1,13 @@
-import { View, ViewStyle } from "react-native";
-import LeafColors from "../styling/LeafColors";
-import LeafTypography from "../styling/LeafTypography";
+import { strings } from "../../localisation/Strings";
+import Worker from "../../model/employee/Worker";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
-import Worker from "../../model/employee/Worker";
-import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
-import { strings } from "../../localisation/Strings";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
+import VStack from "../containers/VStack";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     worker: Worker;
@@ -23,21 +23,24 @@ const CreateAccountCard: React.FC<Props> = ({ worker, display, onPress }) => {
     return (
         <FlatContainer color={LeafColors.fillBackgroundLight} onPress={onPress}>
             <HStack>
-                <VStack>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {strings("label.accountCreated")}
-                        </LeafText>
+                <VStack
+                    style={{
+                        alignSelf: "flex-start"
+                    }}
+                >
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        {strings("label.accountCreated")}
+                    </LeafText>
 
-                        <LeafText typography={LeafTypography.subscript} wide={false}>
-                            {strings("label.id") + idText + strings("operation.activeAccount")}
-                        </LeafText>
-                    </View>
+                    <LeafText typography={LeafTypography.subscript} wide={false}>
+                        {strings("label.id") + idText + strings("operation.activeAccount")}
+                    </LeafText>
                 </VStack>
+
                 <LeafIcon
-                    icon="check-circle"
+                    icon="check-bold"
                     color={LeafColors.textSuccess}
-                    size={32}
+                    size={LeafIconSize.Large}
                     style={{ position: "absolute", right: 0 }}
                 />
             </HStack>

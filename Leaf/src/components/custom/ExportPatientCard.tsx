@@ -9,6 +9,8 @@ import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     patient: Patient;
@@ -34,7 +36,11 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
             }}
             onPress={onPress}
         >
-            <HStack>
+            <HStack
+                style={{
+                    alignItems: "center",
+                }}
+            >
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -58,12 +64,9 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafIcon
-                    icon="export"
-                    color={LeafColors.accent}
-                    size={32}
-                    style={{ position: "absolute", right: 0 }}
-                />
+                <Spacer />
+
+                <LeafIcon icon="file-export" color={LeafColors.accent} size={LeafIconSize.Medium} />
             </HStack>
         </FlatContainer>
     );
