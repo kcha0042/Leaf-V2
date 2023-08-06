@@ -30,7 +30,7 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
     };
 
     return (
-        <FlatContainer color={LeafColors.fillBackgroundLight} style={style}>
+        <FlatContainer>
             <HStack>
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}

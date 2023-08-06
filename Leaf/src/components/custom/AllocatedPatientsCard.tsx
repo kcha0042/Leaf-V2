@@ -11,6 +11,7 @@ import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafDimensions from "../styling/LeafDimensions";
+import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 
 interface Props {
     patient: Patient;
@@ -20,12 +21,9 @@ interface Props {
 const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
+
     return (
         <FlatContainer
-            color={LeafColors.fillBackgroundLight}
-            style={{
-                ...style,
-            }}
         >
             <HStack>
                 <TriageCodeBadge
@@ -57,7 +55,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         Date: {dateText}
                     </LeafText>
                 </VStack>
-                <LeafButton
+                {/* <LeafButton
                     label={strings("button.deletePatient")}
                     wide={false}
                     typography={LeafTypography.title3}
@@ -69,10 +67,12 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                     style={{
                         alignSelf: "center",
                         marginRight: 12,
-                        borderWidth: 3,
+                        borderWidth: 1,
+                        borderRadius: 15,
                         borderColor: "#3f4169",
                     }}
-                />
+                /> */}
+                <LeafIconButton icon="trash-can-outline" color={LeafColors.accent} size={40} style={{backgroundColor: "#e03131"}} onPress={() => {}}/>
             </HStack>
         </FlatContainer>
     );

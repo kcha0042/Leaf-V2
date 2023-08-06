@@ -21,7 +21,7 @@ const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
-        <FlatContainer color={LeafColors.fillBackgroundLight} style={style} onPress={onPress}>
+        <FlatContainer onPress={onPress}>
             <HStack>
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}

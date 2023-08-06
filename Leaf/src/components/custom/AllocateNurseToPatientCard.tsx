@@ -12,6 +12,7 @@ import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import { strings } from "../../localisation/Strings";
 import LeafDimensions from "../styling/LeafDimensions";
 import { useState } from "react";
+import FlatContainer from "../containers/FlatContainer";
 
 interface Props {
     worker: Worker;
@@ -29,7 +30,7 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
     };
 
     return (
-        <FloatingContainer color={LeafColors.textBackgroundLight} style={style}>
+        <FlatContainer>
             <HStack>
                 <VStack
                     spacing={LeafDimensions.screenSpacing}
@@ -43,20 +44,18 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                         </LeafText>
                     </View>
 
-                    <VGap size={6} />
-
                     <LeafText style={{ alignSelf: "flex-start" }} typography={LeafTypography.subscript} wide={false}>
                         {"ID: " + idText}
                     </LeafText>
                     <LeafText typography={LeafTypography.subscript}>
-                        {worker.allocatedPatients.length + " allocated"}
+                        {worker.allocatedPatients.length + " patients allocated"}
                     </LeafText>
                 </VStack>
 
                 <LeafButton
                     label={strings("button.allocate")}
                     wide={false}
-                    typography={LeafTypography.title3}
+                    typography={LeafTypography.buttonSmall}
                     type={LeafButtonType.Filled}
                     color={LeafColors.transparent}
                     onPress={() => {
@@ -66,14 +65,15 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                     }}
                     style={{
                         alignSelf: "center",
+                        borderRadius: 15,
                         marginRight: 12,
-                        borderWidth: 3,
+                        borderWidth: 1,
                         borderColor: "#3f4169",
                         backgroundColor: active ? "#7fff00" : "white",
                     }}
                 />
             </HStack>
-        </FloatingContainer>
+        </FlatContainer>
     );
 };
 

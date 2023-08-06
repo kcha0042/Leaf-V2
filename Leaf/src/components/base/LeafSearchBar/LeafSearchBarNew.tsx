@@ -65,7 +65,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     textInputRef.current.focus();
                 }}
             >
-                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{ alignSelf: "center" }} />
+                <LeafIcon icon="magnify" size={30} color={LeafColors.textDark} style={{ alignSelf: "center", display: "none"}} />
 
                 <LeafText
                     typography={labelTypography}
