@@ -1,29 +1,41 @@
-import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
 import { strings } from "../../localisation/Strings";
 
-export enum TriageCode {
-    Immediate = 1,
-    Emergency = 2,
-    Urgent = 3,
-    SemiUrgent = 4,
-    NonUrgent = 5,
-}
+export class TriageCode {
+    public static immediate = new TriageCode(1);
+    public static emergency = new TriageCode(2);
+    public static urgent = new TriageCode(3);
+    public static semiUrgent = new TriageCode(4);
+    public static nonUrgent = new TriageCode(5);
 
-export namespace TriageCode {
-    export function toString(code: TriageCode): string {
-        switch (code) {
-            case TriageCode.Immediate:
-                return strings("triageCode.1");
-            case TriageCode.Emergency:
-                return strings("triageCode.2");
-            case TriageCode.Urgent:
-                return strings("triageCode.3");
-            case TriageCode.SemiUrgent:
-                return strings("triageCode.4");
-            case TriageCode.NonUrgent:
-                return strings("triageCode.5");
-            default:
-                throw new UnreachableCaseError(code);
+    public readonly id: number;
+    public get code(): number {
+        return this.id;
+    }
+
+    constructor(id: number) {
+        this.id = id;
+    }
+
+    public matches(other: TriageCode) {
+        return this.id == other.id;
+    }
+
+    public toString(): string {
+        if (this.matches(TriageCode.immediate)) {
+            return strings("triageCode.1");
         }
+        if (this.matches(TriageCode.emergency)) {
+            return strings("triageCode.2");
+        }
+        if (this.matches(TriageCode.urgent)) {
+            return strings("triageCode.3");
+        }
+        if (this.matches(TriageCode.semiUrgent)) {
+            return strings("triageCode.4");
+        }
+        if (this.matches(TriageCode.nonUrgent)) {
+            return strings("triageCode.5");
+        }
+        return strings("unknown");
     }
 }

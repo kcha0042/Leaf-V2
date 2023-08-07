@@ -55,11 +55,8 @@ export const WorkerInterface = new LeafInterface()
             },
             () => {
                 // Drawer
-                NavigationSession.inst.clearScreens()
-                NavigationSession.inst.setSidebarComponent(
-                    <PatientsScreen />,
-                    strings("header.worker.patients"),
-                );
+                NavigationSession.inst.clearScreens();
+                NavigationSession.inst.setSidebarComponent(<PatientsScreen />, strings("header.worker.patients"));
             },
             "account-injury",
             "account-injury-outline",

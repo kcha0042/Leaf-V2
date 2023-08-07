@@ -7,7 +7,7 @@ import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import FlatContainer from "../containers/FlatContainer";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Spacer from "../containers/layout/Spacer";
 import LeafButton from "../base/LeafButton/LeafButton";
 import HStack from "../containers/HStack";

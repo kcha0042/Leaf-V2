@@ -1,16 +1,17 @@
-import StateManager from "../state/publishers/StateManager";
-import EmployeeID from "./employee/EmployeeID";
-import Worker from "./employee/Worker";
-import Hospital from "./hospital/Hospital";
-import MedicalUnit from "./hospital/MedicalUnit";
-import Ward from "./hospital/Ward";
-import MRN from "./patient/MRN";
-import Patient from "./patient/Patient";
-import PatientEvent from "./patient/PatientEvent";
-import { PatientEventCategory } from "./patient/PatientEventCategory";
-import { PatientSex } from "./patient/PatientSex";
-import TriageCase from "./triage/TriageCase";
-import { TriageCode } from "./triage/TriageCode";
+import StateManager from "../../state/publishers/StateManager";
+import EmployeeID from "../employee/EmployeeID";
+import Worker from "../employee/Worker";
+import Hospital from "../hospital/Hospital";
+import MedicalUnit from "../hospital/MedicalUnit";
+import Ward from "../hospital/Ward";
+import MRN from "../patient/MRN";
+import Patient from "../patient/Patient";
+import PatientEvent from "../patient/PatientEvent";
+import { PatientEventCategory } from "../patient/PatientEventCategory";
+import { PatientSex } from "../patient/PatientSex";
+import TriageCase from "../triage/TriageCase";
+import { TriageCode } from "../triage/TriageCode";
+import NewTriageManager from "./NewTriageManager";
 
 class Session {
     public static readonly inst = new Session();
@@ -22,6 +23,10 @@ class Session {
     private activePatient: Patient | null = null;
 
     private constructor() {}
+
+    public submitTriage(patient: Patient) {
+        NewTriageManager.inst.newTriageSubmitted(patient);
+    }
 
     public setActivePatient(patient: Patient | null) {
         this.activePatient = patient;
@@ -83,7 +88,7 @@ class Session {
             new Date(),
             "Tony",
             "Stark",
-            PatientSex.Male,
+            PatientSex.male,
             "0420696969",
             new TriageCase(
                 new Date(),
@@ -91,19 +96,19 @@ class Session {
                 new Hospital("Hosptial123"),
                 new MedicalUnit("MedicalUnit123"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.Immediate,
+                TriageCode.immediate,
             ),
             "1234",
             new Date(),
             new EmployeeID("123-123"),
-            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.Medication)],
+            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
         );
         const patient2 = new Patient(
             new MRN("temp-222-222"),
             new Date(),
             "Gordon",
             "Ramsey",
-            PatientSex.Male,
+            PatientSex.male,
             "0471308217",
             new TriageCase(
                 new Date(),
@@ -111,14 +116,14 @@ class Session {
                 new Hospital("Hosptial456"),
                 new MedicalUnit("MedicalUnit456"),
                 "Some triage text. Bla bla bla.",
-                TriageCode.SemiUrgent,
+                TriageCode.semiUrgent,
             ),
             "1234",
             new Date(),
             new EmployeeID("456-456"),
             [
-                new PatientEvent(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.Other),
-                new PatientEvent(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.Other),
+                new PatientEvent(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.other),
+                new PatientEvent(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.other),
             ],
         );
         this.patientStore[patient1.mrn.toString()] = patient1;

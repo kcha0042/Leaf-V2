@@ -21,13 +21,13 @@ const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
     return (
         <LeafSegmentedButtons
             label={strings("inputLabel.triageCode")}
-            valueLabel={segmentedValue == null ? strings("triageCode.none") : TriageCode.toString(segmentedValue.value)}
+            valueLabel={segmentedValue == null ? strings("triageCode.none") : segmentedValue.value.toString()}
             options={[
-                new LeafSegmentedValue(TriageCode.Immediate, "1"),
-                new LeafSegmentedValue(TriageCode.Emergency, "2"),
-                new LeafSegmentedValue(TriageCode.Urgent, "3"),
-                new LeafSegmentedValue(TriageCode.SemiUrgent, "4"),
-                new LeafSegmentedValue(TriageCode.NonUrgent, "5"),
+                new LeafSegmentedValue(TriageCode.immediate, "1"),
+                new LeafSegmentedValue(TriageCode.emergency, "2"),
+                new LeafSegmentedValue(TriageCode.urgent, "3"),
+                new LeafSegmentedValue(TriageCode.semiUrgent, "4"),
+                new LeafSegmentedValue(TriageCode.nonUrgent, "5"),
             ]}
             value={segmentedValue}
             selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.triageCode(segmentedValue.value)}

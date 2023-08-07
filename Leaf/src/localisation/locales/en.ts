@@ -9,6 +9,7 @@
 export default {
     // Main
     appName: "Intake",
+    unknown: "Unknown",
 
     // Navigation
     "navigation.noScreen": "No item selected",
@@ -148,4 +149,23 @@ export default {
     "triageCode.3": "Urgent",
     "triageCode.4": "Semi-Urgent",
     "triageCode.5": "Non-Urgent",
+
+    // Roles
+    "role.admin": "Admin",
+    "role.leader": "Leader",
+    "role.worker": "Nurse",
+
+    // Shift Times
+    "shiftTime.morning": "Morning",
+    "shiftTime.afternoon": "Afternoon",
+    "shiftTime.night": "Night",
+
+    // Patient event categories
+    "patientEventCategory.medication": "Medication",
+    "patientEventCategory.other": "Other",
+
+    // Sex
+    "sex.male": "Male",
+    "sex.female": "Female",
+    "sex.other": "Other",
 };
