@@ -66,6 +66,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         width: "100%",
                         borderBottomWidth: 2,
                         borderBottomColor: LeafColors.divider.getColor(),
+                        paddingBottom: 6,
                     }}
                 >
                     <LeafTextButton
@@ -74,8 +75,8 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         onPress={onTime}
                         icon={"chevron-down"}
                         iconColor={LeafColors.textDark}
-                        wide={false}
-                        style={{ flex: 1, paddingBottom: 5 }}
+                        style={{ flex: 1 }}
+                        textStyle={{ paddingLeft: 6 }}
                     />
                     <LeafTextButton
                         label={"Code"}
@@ -83,8 +84,8 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         onPress={onCode}
                         icon={"chevron-down"}
                         iconColor={LeafColors.textDark}
-                        wide={false}
-                        style={{ flex: 1, paddingBottom: 5 }}
+                        style={{ flex: 1 }}
+                        textStyle={{ paddingLeft: 6 }}
                     />
                 </HStack>
                 <Spacer />

@@ -46,6 +46,7 @@ export const LeafPopUp: React.FC<Props> = ({
 
                 <Dialog.Actions>
                     <LeafTextButton label={"Cancel"} typography={cancelFont} onPress={onCancel} />
+
                     <LeafTextButton label={"Done"} typography={LeafTypography.textButton} onPress={onDone} />
                 </Dialog.Actions>
             </Dialog>

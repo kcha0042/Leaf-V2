@@ -151,7 +151,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafTextButton
                             label={strings("button.edit")}
                             onPress={() => setEditNameVisible(true)}
-                            wide={false}
                         />
                     </HStack>
 
@@ -163,7 +162,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafTextButton
                             label={strings("button.edit")}
                             onPress={() => setEditEmailVisible(true)}
-                            wide={false}
                         />
                     </HStack>
                 </FlatContainer>
@@ -180,7 +178,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafTextButton
                             label={strings("button.edit")}
                             onPress={() => setEnterPasswordVisible(true)}
-                            wide={false}
                         />
                     </HStack>
                 </FlatContainer>
