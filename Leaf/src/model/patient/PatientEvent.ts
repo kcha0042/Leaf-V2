@@ -8,12 +8,21 @@ class PatientEvent {
     public readonly description: string;
     public readonly category: PatientEventCategory;
 
-    constructor(triggerTime: Date, title: string, description: string, category: PatientEventCategory) {
-        this.id = UUID.generate();
+    constructor(id: UUID, triggerTime: Date, title: string, description: string, category: PatientEventCategory) {
+        this.id = id;
         this.triggerTime = triggerTime;
         this.title = title;
         this.description = description;
         this.category = category;
+    }
+
+    public static new(
+        triggerTime: Date,
+        title: string,
+        description: string,
+        category: PatientEventCategory,
+    ): PatientEvent {
+        return new PatientEvent(UUID.generate(), triggerTime, title, description, category);
     }
 }
 

@@ -40,22 +40,46 @@ class TriageCase {
     }
 
     constructor(
+        id: UUID,
+        arrivalDate: Date,
+        dischargeDate: Date | null,
+        arrivalWard: Ward,
+        dischargeWard: Ward | null,
+        hospital: Hospital,
+        medicalUnit: MedicalUnit,
+        triageText: string,
+        triageCode: TriageCode,
+    ) {
+        this.id = id;
+        this._arrivalDate = arrivalDate;
+        this._dischargeDate = dischargeDate;
+        this._arrivalWard = arrivalWard;
+        this._dischargeWard = dischargeWard;
+        this._hospital = hospital;
+        this._medicalUnit = medicalUnit;
+        this._triageText = triageText;
+        this._triageCode = triageCode;
+    }
+
+    public static new(
         arrivalDate: Date,
         arrivalWard: Ward,
         hospital: Hospital,
         medicalUnit: MedicalUnit,
         triageText: string,
         triageCode: TriageCode,
-    ) {
-        this.id = UUID.generate();
-        this._arrivalDate = arrivalDate;
-        this._dischargeDate = null;
-        this._arrivalWard = arrivalWard;
-        this._dischargeWard = null;
-        this._hospital = hospital;
-        this._medicalUnit = medicalUnit;
-        this._triageText = triageText;
-        this._triageCode = triageCode;
+    ): TriageCase {
+        return new TriageCase(
+            UUID.generate(),
+            arrivalDate,
+            null,
+            arrivalWard,
+            null,
+            hospital,
+            medicalUnit,
+            triageText,
+            triageCode,
+        );
     }
 }
 

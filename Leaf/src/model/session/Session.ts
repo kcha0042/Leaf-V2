@@ -1,3 +1,6 @@
+import { Hospitals } from "../../preset_data/Hospitals";
+import { MedicalUnits } from "../../preset_data/MedicalUnits";
+import { Wards } from "../../preset_data/Wards";
 import StateManager from "../../state/publishers/StateManager";
 import EmployeeID from "../employee/EmployeeID";
 import Worker from "../employee/Worker";
@@ -18,7 +21,6 @@ class Session {
 
     private workerStore: { [key: string]: Worker } = {};
     private patientStore: { [key: string]: Patient } = {};
-    private hospitalStore: { [key: string]: Hospital } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
 
@@ -53,10 +55,6 @@ class Session {
         return this.patientStore[id.toString()] || null;
     }
 
-    public getAllHospitals(): Hospital[] {
-        return Object.values(this.hospitalStore);
-    }
-
     public fetchAllWorkers() {
         // TODO: Asyncronously access database and update workerStore
         // Temporary:
@@ -65,14 +63,14 @@ class Session {
             "Spongebob",
             "Squarepants",
             "spongebob@gmail.com",
-            new Hospital("Monash Hospital"),
+            Hospitals["H1"],
         );
         const worker2 = new Worker(
             new EmployeeID("456-456"),
             "Charith",
             "Jayasekara",
             "charith.jayasekara@monash.edu",
-            new Hospital("Prince Alfred Hospital"),
+            Hospitals["H2"],
         );
         this.workerStore[worker1.id.toString()] = worker1;
         this.workerStore[worker2.id.toString()] = worker2;
@@ -90,18 +88,18 @@ class Session {
             "Stark",
             PatientSex.male,
             "0420696969",
-            new TriageCase(
+            TriageCase.new(
                 new Date(),
-                new Ward("Ward123"),
-                new Hospital("Hosptial123"),
-                new MedicalUnit("MedicalUnit123"),
+                Wards["W1"],
+                Hospitals["H1"],
+                MedicalUnits["M1"],
                 "Some triage text. Bla bla bla.",
                 TriageCode.immediate,
             ),
             "1234",
             new Date(),
             new EmployeeID("123-123"),
-            [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
+            [PatientEvent.new(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
         );
         const patient2 = new Patient(
             new MRN("temp-222-222"),
@@ -110,11 +108,11 @@ class Session {
             "Ramsey",
             PatientSex.male,
             "0471308217",
-            new TriageCase(
+            TriageCase.new(
                 new Date(),
-                new Ward("Ward456"),
-                new Hospital("Hosptial456"),
-                new MedicalUnit("MedicalUnit456"),
+                Wards["W2"],
+                Hospitals["H2"],
+                MedicalUnits["M2"],
                 "Some triage text. Bla bla bla.",
                 TriageCode.semiUrgent,
             ),
@@ -122,22 +120,14 @@ class Session {
             new Date(),
             new EmployeeID("456-456"),
             [
-                new PatientEvent(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.other),
-                new PatientEvent(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.other),
+                PatientEvent.new(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.other),
+                PatientEvent.new(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.other),
             ],
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;
         // Notify subscribers
         StateManager.patientsFetched.publish();
-    }
-
-    public fetchAllHospitals() {
-        const hospital1 = new Hospital("Monash Hospital");
-        const hospital2 = new Hospital("Prince Alfred Hospital");
-        this.hospitalStore[hospital1.name] = hospital1;
-        this.hospitalStore[hospital2.name] = hospital2;
-        StateManager.hospitalsFetched.publish();
     }
 }
 

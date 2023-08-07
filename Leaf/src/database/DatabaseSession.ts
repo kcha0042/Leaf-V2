@@ -1,23 +1,8 @@
-import {
-    addDoc,
-    collection,
-    doc,
-    setDoc,
-    getDoc,
-    updateDoc,
-    deleteDoc,
-    query,
-    where,
-    getDocs,
-    QueryDocumentSnapshot,
-    DocumentData,
-    writeBatch,
-    WhereFilterOp,
-    QuerySnapshot,
-    onSnapshot,
-} from "firebase/firestore";
+// prettier-ignore
+import {addDoc, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, getDocs, QueryDocumentSnapshot, DocumentData, writeBatch, WhereFilterOp, QuerySnapshot, onSnapshot, } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { DatabaseCollection } from "./DatabaseCollection";
+import DataObject from "./DataObject";
 
 class DatabaseSession {
     public static readonly inst = new DatabaseSession();
@@ -90,21 +75,21 @@ class DatabaseSession {
      *
      * @param {DatabaseCollection} collectionName - The name of the collection.
      * @param {string} id - The ID of the document to read.
-     * @returns {Promise<Record<string, any> | null>} - Returns the document data if found, otherwise null.
+     * @returns {Promise<DataObject | null>} - Returns the document data if found, otherwise null.
      *
      * @example
      * DatabaseSession.inst.read('users', 'documentID');
      */
-    public async read(collectionName: DatabaseCollection, id: string): Promise<DocumentData | null> {
+    public async read(collectionName: DatabaseCollection, id: string): Promise<DataObject | null> {
         try {
             const docRef = doc(db, collectionName, id);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                console.log(`[DATABASE SESSION] Document data: `, docSnap.data());
-                return docSnap.data();
+                console.log(`[DATABASE SESSION] Read 1 document`);
+                return DataObject.fromJSON(docSnap.data());
             } else {
-                console.log(`[DATABASE SESSION] No such document!`);
+                console.log(`[DATABASE SESSION] No matching document found`);
                 return null;
             }
         } catch (error) {
@@ -117,12 +102,12 @@ class DatabaseSession {
      * Reads all documents from a specified collection.
      *
      * @param {DatabaseCollection} collectionName - The name of the collection.
-     * @returns {Promise<Record<string, any>[]}> - Returns an array of documents.
+     * @returns {Promise<DataObject[]>}> - Returns an array of documents.
      *
      * @example
      * DatabaseSession.inst.readCollection('users');
      */
-    public async readCollection(collectionName: DatabaseCollection): Promise<QueryDocumentSnapshot<DocumentData>[]> {
+    public async readCollection(collectionName: DatabaseCollection): Promise<DataObject[]> {
         try {
             const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, collectionName));
             const docs: QueryDocumentSnapshot<DocumentData>[] = [];
@@ -130,7 +115,7 @@ class DatabaseSession {
                 docs.push(doc);
             });
             console.log(`[DATABASE SESSION] Retrieved ${docs.length} documents from ${collectionName}`);
-            return docs;
+            return docs.map((doc) => DataObject.fromJSON(doc.data()));
         } catch (error) {
             console.error(`[DATABASE SESSION] Failed to get documents from collection ${collectionName}: ${error}`);
             return [];
@@ -189,7 +174,7 @@ class DatabaseSession {
      * @param {string} fieldPath - The path to the field.
      * @param {WhereFilterOp} opStr - The operation string (e.g., '==', '>', '<', etc.).
      * @param {any} value - The value for the condition.
-     * @returns {Promise<QueryDocumentSnapshot<DocumentData>[]>} - Returns an array of documents that match the query.
+     * @returns {Promise<DataObject[]>} - Returns an array of documents that match the query.
      *
      * @example
      * DatabaseSession.inst.query('users', 'age', '>', 25);
@@ -200,7 +185,7 @@ class DatabaseSession {
         fieldPath: string,
         opStr: WhereFilterOp,
         value: any,
-    ): Promise<QueryDocumentSnapshot<DocumentData>[]> {
+    ): Promise<DataObject[]> {
         try {
             const q = query(collection(db, collectionName), where(fieldPath, opStr, value));
             const querySnapshot = await getDocs(q);
@@ -209,7 +194,7 @@ class DatabaseSession {
                 docs.push(doc);
             });
             console.log(`[DATABASE SESSION] Found ${docs.length} documents`);
-            return docs;
+            return docs.map((doc) => DataObject.fromJSON(doc.data()));
         } catch (error) {
             console.error(`[DATABASE SESSION] Failed to perform query: ${error}`);
             return [];
@@ -227,17 +212,14 @@ class DatabaseSession {
      * const unsubscribe = DatabaseSession.inst.subscribe('users', (docs) => console.log(docs));
      * unsubscribe();  // Call this when you no longer want to listen to updates
      */
-    public subscribe(
-        collectionName: DatabaseCollection,
-        callback: (docs: QueryDocumentSnapshot<DocumentData>[]) => void,
-    ) {
+    public subscribe(collectionName: DatabaseCollection, callback: (docs: DataObject[]) => void) {
         const q = collection(db, collectionName);
         return onSnapshot(q, (querySnapshot) => {
             let docs: QueryDocumentSnapshot<DocumentData>[] = [];
             querySnapshot.forEach((doc) => {
                 docs.push(doc);
             });
-            callback(docs);
+            callback(docs.map((doc) => DataObject.fromJSON(doc.data())));
         });
     }
 }

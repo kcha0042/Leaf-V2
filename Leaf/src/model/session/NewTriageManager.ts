@@ -8,7 +8,7 @@ class NewTriageManager {
 
     private constructor() {}
 
-    public newTriageSubmitted(patient: Patient) {
+    public async newTriageSubmitted(patient: Patient) {
         // When the user completes the triage form, they create a new Patient
         // instance.
         //
