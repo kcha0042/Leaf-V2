@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
@@ -28,6 +28,8 @@ interface Props {
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [timeIcon, setTimeIcon] = useState<"chevron-down" | "chevron-up">("chevron-down");
+    const [codeIcon, setCodeIcon] = useState<"chevron-down" | "chevron-up">("chevron-down");
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
@@ -41,9 +43,13 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSearch = () => {};
 
-    const onTime = () => {};
+    const onTime = () => {
+        timeIcon == "chevron-down" ? setTimeIcon("chevron-up") : setTimeIcon("chevron-down");
+    };
 
-    const onCode = () => {};
+    const onCode = () => {
+        codeIcon == "chevron-down" ? setCodeIcon("chevron-up") : setCodeIcon("chevron-down");
+    };
 
     const onPatientPress = (patient: Patient) => {
         Session.inst.setActivePatient(patient);
@@ -65,7 +71,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                     style={{
                         width: "100%",
                         borderBottomWidth: 2,
-                        borderBottomColor: LeafColors.divider.getColor(),
+                        borderBottomColor: LeafColors.fillBackgroundLight.getColor(),
                         paddingBottom: 6,
                     }}
                 >
@@ -73,7 +79,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Time"}
                         typography={LeafTypography.plainTextButton}
                         onPress={onTime}
-                        icon={"chevron-down"}
+                        icon={timeIcon}
                         iconColor={LeafColors.textDark}
                         style={{ flex: 1 }}
                         textStyle={{ paddingLeft: 6 }}
@@ -82,7 +88,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         label={"Code"}
                         typography={LeafTypography.plainTextButton}
                         onPress={onCode}
-                        icon={"chevron-down"}
+                        icon={codeIcon}
                         iconColor={LeafColors.textDark}
                         style={{ flex: 1 }}
                         textStyle={{ paddingLeft: 6 }}

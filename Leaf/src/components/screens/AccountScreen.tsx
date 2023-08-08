@@ -148,10 +148,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                             {name}
                         </LeafText>
                         <Spacer />
-                        <LeafTextButton
-                            label={strings("button.edit")}
-                            onPress={() => setEditNameVisible(true)}
-                        />
+                        <LeafTextButton label={strings("button.edit")} onPress={() => setEditNameVisible(true)} />
                     </HStack>
 
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
@@ -159,10 +156,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                             {email}
                         </LeafText>
                         <Spacer />
-                        <LeafTextButton
-                            label={strings("button.edit")}
-                            onPress={() => setEditEmailVisible(true)}
-                        />
+                        <LeafTextButton label={strings("button.edit")} onPress={() => setEditEmailVisible(true)} />
                     </HStack>
                 </FlatContainer>
 
@@ -175,10 +169,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                             {hospital}
                         </LeafText>
                         <Spacer />
-                        <LeafTextButton
-                            label={strings("button.edit")}
-                            onPress={() => setEnterPasswordVisible(true)}
-                        />
+                        <LeafTextButton label={strings("button.edit")} onPress={() => setEnterPasswordVisible(true)} />
                     </HStack>
                 </FlatContainer>
 
