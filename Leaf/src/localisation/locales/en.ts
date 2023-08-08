@@ -101,7 +101,7 @@ export default {
     "inputLabel.triageCode": "Triage Code",
     "inputLabel.triageDescription": "Triage Description",
     "inputLabel.date": "Date",
-    "inputLabel.dateFormat": "DD/MM/YYY",
+    "inputLabel.dateFormat": "DD/MM/YYYY",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",

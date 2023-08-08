@@ -8,7 +8,6 @@ import LeafColor from "../../styling/color/LeafColor";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafText from "../LeafText/LeafText";
-import LeafTextInput from "../LeafTextInput/LeafTextInput";
 
 interface Props {
     label: string;
@@ -17,9 +16,15 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    onChange: (date: Date) => void;
+    onChange: (date: Date) => void; // called when date string is completed
 }
 
+/**
+ * Handles input of date strings.
+ * Note: onChange is only called when the date string is completed.
+ * @param props {@link Props}
+ * @returns 
+ */
 const LeafDateInput: React.FC<Props> = ({
     label,
     textColor = LeafColors.textDark,
@@ -70,6 +75,9 @@ const LeafDateInput: React.FC<Props> = ({
 
     const onTextChange = (text: string) => {
         setText(maskText(text));
+        if (validateText(text)){
+            onChange(toDate(text));
+        }
     }
 
     const onFocus = () => {
@@ -83,6 +91,11 @@ const LeafDateInput: React.FC<Props> = ({
         if (!validateText(text) && text != ""){
             setError(true);
         }
+    }
+
+    const toDate = (dateString: string) => {
+        const [day, month, year] = dateString.split("/").map(Number);
+        return new Date(year, month - 1, day);  // month is 0-indexed in JavaScript
     }
 
     const [isFocused, setIsFocused] = useState(false);

@@ -57,7 +57,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafDateInput
                         label={strings("inputLabel.date")}
-                        onChange={(date) => null}
+                        onChange={(date) => console.log(date.toDateString())}
                     />
                 </VStack>
 
