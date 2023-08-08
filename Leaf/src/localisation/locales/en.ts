@@ -106,6 +106,7 @@ export default {
     // Error
     "error.hospitalExists": "Hospital does not exist",
     "error.incorrectPassword": "Incorrect password",
+    "error.invalidDate": "Invalid date",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",

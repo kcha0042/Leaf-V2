@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { ViewStyle } from "react-native";
+import React, { useRef, useState } from "react";
+import { Platform, TextInput, ViewStyle } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { strings } from "../../../localisation/Strings";
+import HStack from "../../containers/HStack";
 import VStack from "../../containers/VStack";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafColors from "../../styling/LeafColors";
@@ -29,68 +31,141 @@ const LeafDateInput: React.FC<Props> = ({
 }) => {
 
     const [text, setText] = useState("");
+    const [error, setError] = useState(false);
 
     const maskText = (text: string): string => {
-        // Remove all non-digit characters
-        let value = text.replace(/[^\d]/g, '');
+        let value = text.replace(/\D/g, ""); // Remove any non-digit characters
 
-        // Insert slashes
-        if (value.length > 2) {
-            value = value.substring(0, 2) + '/' + value.substring(2);
+        // Apply mask
+        if (value.length <= 2) {
+            return value;
+        } else if (value.length <= 4) {
+            return value.slice(0, 2) + "/" + value.slice(2);
+        } else {
+            return value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
         }
-        if (value.length > 5) {
-            value = value.substring(0, 5) + '/' + value.substring(5);
-        }
-
-        // Trim the value to a maximum length of 10 (to match MM/DD/YYYY format)
-        return value.substring(0, 10);
     }
 
     const validateText = (text: string): boolean => {
-        const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$/;
+        if (text.length < 10) return false; // If not a full date string
+
+        let [day, month, year] = text.split("/").map(i => parseInt(i, 10));
+
+        if (month > 12) return false;
     
-        // Check if date matches the format MM/DD/YYYY
-        if (!regex.test(text)) return false;
-
-        const parts = text.split('/');
-        const month = parseInt(parts[0], 10);
-        const day = parseInt(parts[1], 10);
-        const year = parseInt(parts[2], 10);
-
-        // Check the ranges of month and year
-        if (year < 1900 || year > 2099 || month < 1 || month > 12) return false;
-
-        const monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        // Adjust for leap years
-        if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
-            monthLength[1] = 29;
+        let daysInMonth;
+        switch (month) {
+            case 2: // February
+                daysInMonth = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28; // Leap year check
+                break;
+            case 4: case 6: case 9: case 11: // April, June, September, November
+                daysInMonth = 30;
+                break;
+            default:
+                daysInMonth = 31;
         }
-
-        // Check the range of the day
-        return day > 0 && day <= monthLength[month - 1];
+    
+        return day <= daysInMonth;
     }
 
     const onTextChange = (text: string) => {
-        setText(text);
+        setText(maskText(text));
     }
 
+    const onFocus = () => {
+        setError(false);
+        if (!validateText(text)){
+            setText("");
+        }
+    }
+
+    const onBlur = () => {
+        if (!validateText(text) && text != ""){
+            setError(true);
+        }
+    }
+
+    const [isFocused, setIsFocused] = useState(false);
+    const borderWidth = 2.0;
+    const textInputRef = useRef(null);
+    const typography = LeafTypography.body.withColor(textColor);
+    const errorTypography = LeafTypography.error;
+    errorTypography.size = LeafTypography.subscriptLabel.size;
+    const labelTypography = LeafTypography.subscript;
+    const labelColor =
+        valid == undefined
+            ? labelTypography.color
+            : valid
+            ? LeafColors.textSuccess.getColor()
+            : LeafColors.textError.getColor();
+
+
     return (
-        <VStack>
-            {/* Padding is so that the text lines up with the text input after the rouned corner */}
-            <LeafText typography={LeafTypography.subscriptLabel} style={{ paddingLeft: 5 }}>{strings("inputLabel.dateFormat")}</LeafText>
-            <LeafTextInput
-                label={label}
-                onTextChange={onTextChange}
-                maskText={maskText}
-                textColor={textColor}
-                color={color}
-                wide={wide}
-                valid={valid}
-                style={style}
-            />
-        </VStack>
-    )
+        <TouchableWithoutFeedback
+            style={[wide ? { width: "100%" } : { alignSelf: "center" }, { flexDirection: "row" }]}
+            onPress={() => {
+                textInputRef.current.focus();
+            }}
+        >
+            <VStack
+                spacing={2}
+                style={{
+                    width: wide ? "100%" : undefined,
+                    alignSelf: wide ? undefined : "center",
+                    backgroundColor: color.getColor(),
+                    paddingVertical: 12 - borderWidth,
+                    paddingHorizontal: 16 - borderWidth,
+                    borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
+                }}
+            >
+                <LeafText typography={labelTypography} style={{ color: labelColor }}>
+                    {label}
+                </LeafText>
+
+                <HStack>
+                    <LeafText typography={LeafTypography.subscriptLabel} wide={false}>
+                        {strings("inputLabel.dateFormat")}  
+                    </LeafText>
+                    {
+                        !error ? undefined : (
+                            <LeafText typography={errorTypography} wide={false}>
+                                {` - ${strings("error.invalidDate")}`}
+                            </LeafText>
+                        )
+                    }
+                </HStack>
+
+                <TextInput
+                    ref={textInputRef}
+                    style={[
+                        {
+                            backgroundColor: color.getColor(),
+                            ...Platform.select({
+                                web: { outlineStyle: "none" },
+                            }),
+                        },
+                        typography.getStylesheet(),
+                        style,
+                    ]}
+                    onChangeText={(text) => {
+                        setText(maskText != undefined ? maskText(text) : text);
+                        onTextChange(text);
+                    }}
+                    value={text}
+                    onFocus={() => {
+                        onFocus();
+                        setIsFocused(true);
+                    }}
+                    onBlur={() => {
+                        setIsFocused(false);
+                        onBlur();
+                    }}
+                />
+            </VStack>
+        </TouchableWithoutFeedback>
+    );
 };
 
 export default LeafDateInput;
