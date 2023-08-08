@@ -10,6 +10,7 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
+import LeafDateInput from "../base/LeafDateInput/LeafDateInput";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -52,6 +53,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={() => {}}
+                    />
+
+                    <LeafDateInput
+                        label={strings("inputLabel.date")}
+                        onChange={(date) => null}
                     />
                 </VStack>
 

@@ -14,6 +14,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
+    maskText?: (text: string) => string;
     onTextChange: (text: string) => void;
 }
 
@@ -24,6 +25,7 @@ const LeafTextInput: React.FC<Props> = ({
     wide = true,
     valid = undefined,
     style,
+    maskText,
     onTextChange,
 }) => {
     const [text, setText] = useState("");
@@ -76,7 +78,7 @@ const LeafTextInput: React.FC<Props> = ({
                         style,
                     ]}
                     onChangeText={(text) => {
-                        setText(text);
+                        setText(maskText != undefined ? maskText(text) : text);
                         onTextChange(text);
                     }}
                     value={text}
