@@ -19,6 +19,9 @@ import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import StateManager from "../../state/publishers/StateManager";
 import LeafTypography from "../styling/LeafTypography";
+import { MedicalUnits, MedicalUnitsArray } from "../../preset_data/MedicalUnits";
+import { HospitalsArray } from "../../preset_data/Hospitals";
+import { WardsArray } from "../../preset_data/Wards";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -89,11 +92,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <LeafSelectionInput
                         navigation={navigation}
-                        // TODO: Replace with actual hospitals
-                        items={[
-                            new LeafSelectionItem("Red Hospital", "RED", 1),
-                            new LeafSelectionItem("Blue Hospital", "BLUE", 2),
-                        ]}
+                        items={HospitalsArray.map((hospital) => {
+                            return new LeafSelectionItem(hospital.name, hospital.code, hospital);
+                        })}
                         title={strings("inputLabel.hopsital")}
                         selected={selectedHosptial}
                         onSelection={(item: LeafSelectionItem<Hospital>) => {
@@ -103,11 +104,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafSelectionInput
                         navigation={navigation}
-                        // TODO: Replace with actual wards
-                        items={[
-                            new LeafSelectionItem("Red Ward", "RED", 1),
-                            new LeafSelectionItem("Blue Ward", "BLUE", 2),
-                        ]}
+                        items={WardsArray.map((ward) => {
+                            return new LeafSelectionItem(ward.name, ward.hosptialCode, ward);
+                        })}
                         title={strings("inputLabel.ward")}
                         selected={selectedWard}
                         onSelection={(item: LeafSelectionItem<Ward>) => {
@@ -117,11 +116,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafSelectionInput
                         navigation={navigation}
-                        // TODO: Replace with actual medical units
-                        items={[
-                            new LeafSelectionItem("Red Medical Unit", "RED", 1),
-                            new LeafSelectionItem("Blue Medical Unit", "BLUE", 2),
-                        ]}
+                        items={MedicalUnitsArray.map((unit) => {
+                            return new LeafSelectionItem(unit.name, unit.group, unit);
+                        })}
                         title={strings("inputLabel.medicalUnit")}
                         selected={selectedMedicalUnit}
                         onSelection={(item: LeafSelectionItem<MedicalUnit>) => {
