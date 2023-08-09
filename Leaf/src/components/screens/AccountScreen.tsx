@@ -12,7 +12,7 @@ import FlatContainer from "../containers/FlatContainer";
 import Spacer from "../containers/layout/Spacer";
 import LeafColors from "../styling/LeafColors";
 import { strings } from "../../localisation/Strings";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Worker from "../../model/employee/Worker";
 import HStack from "../containers/HStack";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Patient from "../../model/patient/Patient";
 import StateManager from "../../state/publishers/StateManager";
 import LeafText from "../base/LeafText/LeafText";

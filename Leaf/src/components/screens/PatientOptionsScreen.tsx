@@ -1,7 +1,7 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";

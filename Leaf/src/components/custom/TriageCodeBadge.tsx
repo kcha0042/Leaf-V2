@@ -40,7 +40,7 @@ const TriageCodeBadge: React.FC<Props> = ({ code, fillSpace, style }) => {
                     aspectRatio: 1,
                 }}
             >
-                {code}
+                {code.code}
             </LeafText>
         </View>
     );

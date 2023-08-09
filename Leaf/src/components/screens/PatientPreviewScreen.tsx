@@ -2,7 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafText from "../base/LeafText/LeafText";
 import HStack from "../containers/HStack";
@@ -43,13 +43,13 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 <PatientInfoCard title={strings("patientHistory.title.bio")} icon="run">
                     <LabeledText label={strings("patientHistory.descriptor.dob")} text={patient.dob.toDateString()} />
 
-                    <LabeledText label={strings("patientHistory.descriptor.sex")} text={patient.sex} />
+                    <LabeledText label={strings("patientHistory.descriptor.sex")} text={patient.sex.toString()} />
                 </PatientInfoCard>
 
                 <PatientInfoCard title={strings("patientHistory.title.triage")} icon="clipboard-account-outline">
                     <LabeledText
                         label={strings("patientHistory.descriptor.code")}
-                        text={TriageCode.toString(patient.triageCase.triageCode)}
+                        text={patient.triageCase.triageCode.toString()}
                     />
 
                     <LabeledText

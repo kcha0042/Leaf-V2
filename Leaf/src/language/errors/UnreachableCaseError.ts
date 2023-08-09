@@ -19,7 +19,7 @@
  * ```
  */
 export class UnreachableCaseError extends Error {
-    constructor(val: never) {
+    constructor(val: never | any) {
         super(`[UNREACHABLE CASE ERROR] Unreachable case '${JSON.stringify(val)}'`);
     }
 }

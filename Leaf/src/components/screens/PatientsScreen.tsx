@@ -16,7 +16,7 @@ import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import HStack from "../containers/HStack";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
 import StateManager from "../../state/publishers/StateManager";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Patient from "../../model/patient/Patient";
 import PatientCard from "../custom/PatientCard";
 import Spacer from "../containers/layout/Spacer";

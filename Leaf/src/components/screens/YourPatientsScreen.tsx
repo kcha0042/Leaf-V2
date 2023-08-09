@@ -1,7 +1,7 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { FlatList, ScrollView, View } from "react-native";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Patient from "../../model/patient/Patient";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";

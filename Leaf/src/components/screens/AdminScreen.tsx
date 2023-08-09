@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Nurse from "../../model/employee/Worker";
 import StateManager from "../../state/publishers/StateManager";

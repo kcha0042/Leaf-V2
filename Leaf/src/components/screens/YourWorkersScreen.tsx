@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Worker from "../../model/employee/Worker";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
