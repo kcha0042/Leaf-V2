@@ -19,9 +19,18 @@ import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import StateManager from "../../state/publishers/StateManager";
 import LeafTypography from "../styling/LeafTypography";
-import { MedicalUnits, MedicalUnitsArray } from "../../preset_data/MedicalUnits";
+import { MedicalUnitsArray } from "../../preset_data/MedicalUnits";
 import { HospitalsArray } from "../../preset_data/Hospitals";
 import { WardsArray } from "../../preset_data/Wards";
+import { TriageCode } from "../../model/triage/TriageCode";
+import ValidateUtil from "../../utils/ValidateUtil";
+import Patient from "../../model/patient/Patient";
+import MRN from "../../model/patient/MRN";
+import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
+import { PatientSex } from "../../model/patient/PatientSex";
+import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
+import TriageCase from "../../model/triage/TriageCase";
+import Session from "../../model/session/Session";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -33,6 +42,93 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
         undefined,
     );
+    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(undefined);
+    const [givenName, setGivenName] = useState<string | undefined>(undefined);
+    const [surname, setSurname] = useState<string | undefined>(undefined);
+    const [mrn, setMRN] = useState<string | undefined>(undefined);
+    const [postcode, setPostcode] = useState<string | undefined>(undefined);
+    const [phone, setPhone] = useState<string | undefined>(undefined);
+    const [dob, setDOB] = useState<Date | undefined>(undefined);
+    const [triageCode, setTriageCode] = useState<TriageCode | undefined>(undefined);
+    const [triageDescription, setTriageDescription] = useState<string | undefined>(undefined);
+
+    const sexIsValid: () => boolean = () => {
+        return sex !== null && sex !== undefined;
+    };
+    const givenNameIsValid: () => boolean = () => {
+        return ValidateUtil.stringIsValid(givenName);
+    };
+    const surnameNameIsValid: () => boolean = () => {
+        return ValidateUtil.stringIsValid(surname);
+    };
+    const mrnIsValid: () => boolean = () => {
+        return ValidateUtil.mrnIsValid(mrn);
+    };
+    const postcodeIsValid: () => boolean = () => {
+        return ValidateUtil.postcodeIsValid(postcode);
+    };
+    const phoneIsValid: () => boolean = () => {
+        return ValidateUtil.phoneNumberIsValid(phone);
+    };
+    const dobIsValid: () => boolean = () => {
+        return ValidateUtil.dobIsValid(dob);
+    };
+    const triageCodeIsValid: () => boolean = () => {
+        return triageCode !== null && triageCode !== undefined;
+    };
+    const triageDescriptionIsValid: () => boolean = () => {
+        return ValidateUtil.stringIsValid(triageDescription);
+    };
+    const hospitalIsValid: () => boolean = () => {
+        return selectedHosptial !== null && selectedHosptial !== undefined;
+    };
+    const wardIsValid: () => boolean = () => {
+        return selectedWard !== null && selectedWard !== undefined;
+    };
+    const medicalUnitIsValid: () => boolean = () => {
+        return selectedMedicalUnit !== null && selectedMedicalUnit !== undefined;
+    };
+
+    const allIsValid: () => boolean = () => {
+        return (
+            sexIsValid() &&
+            givenNameIsValid() &&
+            surnameNameIsValid() &&
+            mrnIsValid() &&
+            postcodeIsValid() &&
+            phoneIsValid() &&
+            dobIsValid() &&
+            triageCodeIsValid() &&
+            triageDescriptionIsValid() &&
+            hospitalIsValid() &&
+            wardIsValid() &&
+            medicalUnitIsValid()
+        );
+    };
+
+    const onSubmit = () => {
+        if (allIsValid()) {
+            const patient = Patient.new(
+                new MRN(mrn),
+                dob,
+                givenName,
+                surname,
+                sex.value,
+                phone,
+                TriageCase.new(
+                    selectedWard.value,
+                    selectedHosptial.value,
+                    selectedMedicalUnit.value,
+                    triageDescription,
+                    triageCode,
+                ),
+                postcode,
+                Session.inst.loggedInAccount.id,
+            );
+            Session.inst.submitTriage(patient);
+            StateManager.clearAllInputs.publish();
+        }
+    };
 
     const formPadding = 24;
 
@@ -44,44 +140,92 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <LeafTextInput
                         label={strings("inputLabel.givenName")}
-                        textColor={LeafColors.textDark}
+                        textColor={givenNameIsValid() || !givenName ? LeafColors.textDark : LeafColors.textError}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={(text) => {
+                            setGivenName(text);
+                        }}
                     />
 
                     <LeafTextInput
                         label={strings("inputLabel.surname")}
-                        textColor={LeafColors.textDark}
+                        textColor={surnameNameIsValid() || !surname ? LeafColors.textDark : LeafColors.textError}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={(text) => {
+                            setSurname(text);
+                        }}
                     />
 
                     <LeafTextInput
                         label={strings("inputLabel.mrn")}
-                        textColor={LeafColors.textDark}
+                        textColor={mrnIsValid() || !mrn ? LeafColors.textDark : LeafColors.textError}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={(text) => {
+                            setMRN(text);
+                        }}
                     />
 
                     <LeafTextInput
                         label={strings("inputLabel.postcode")}
-                        textColor={LeafColors.textDark}
+                        textColor={postcodeIsValid() || !postcode ? LeafColors.textDark : LeafColors.textError}
                         color={LeafColors.textBackgroundDark}
-                        onTextChange={() => {}}
+                        onTextChange={(text) => {
+                            setPostcode(text);
+                        }}
                     />
 
                     <LeafDateInput
                         label={strings("inputLabel.dob")}
-                        onChange={(date) => console.log(date?.toDateString())}
+                        textColor={dobIsValid() || !dob ? LeafColors.textDark : LeafColors.textError}
+                        onChange={(date) => {
+                            setDOB(date);
+                        }}
+                    />
+
+                    <LeafTextInput
+                        label={strings("inputLabel.phone")}
+                        textColor={phoneIsValid() || !phone ? LeafColors.textDark : LeafColors.textError}
+                        color={LeafColors.textBackgroundDark}
+                        onTextChange={(text) => {
+                            setPhone(text);
+                        }}
+                    />
+
+                    <LeafSegmentedButtons
+                        label={strings("inputLabel.sex")}
+                        options={[
+                            new LeafSegmentedValue(PatientSex.male, PatientSex.male.toString()),
+                            new LeafSegmentedValue(PatientSex.female, PatientSex.female.toString()),
+                            new LeafSegmentedValue(PatientSex.other, PatientSex.other.toString()),
+                        ]}
+                        value={sex}
+                        onSetValue={(segmentedValue) => {
+                            setSex(segmentedValue);
+                        }}
                     />
                 </VStack>
 
                 <FormHeader title={strings("triageForm.title.triage")} style={{ paddingVertical: formPadding }} />
 
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
-                    <TriageCodePicker onSelection={(code) => {}} style={{ paddingBottom: 8 }} />
+                    <TriageCodePicker
+                        onSelection={(code) => {
+                            setTriageCode(code);
+                        }}
+                        style={{ paddingBottom: 8 }}
+                    />
 
-                    <LeafMultilineTextInput label={strings("inputLabel.triageDescription")} onTextChange={() => {}} />
+                    <LeafMultilineTextInput
+                        label={strings("inputLabel.triageDescription")}
+                        onTextChange={(text) => {
+                            setTriageDescription(text);
+                        }}
+                        textColor={
+                            triageDescriptionIsValid() || !triageDescription
+                                ? LeafColors.textDark
+                                : LeafColors.textError
+                        }
+                    />
                 </VStack>
 
                 <FormHeader
@@ -141,15 +285,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
                     />
 
-                    <LeafButton
-                        label={strings("button.submit")}
-                        wide={false}
-                        onPress={() => {
-                            // TODO: Submit patient
-                            // Then, go back via navigation
-                        }}
-                        style={{ flex: 1 }}
-                    />
+                    <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
                 </HStack>
             </VStack>
         </DefaultScreenContainer>

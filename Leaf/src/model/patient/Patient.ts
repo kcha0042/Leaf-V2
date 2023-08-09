@@ -75,6 +75,32 @@ class Patient {
         this._allocatedTo = allocatedTo;
         this._events = events;
     }
+
+    public static new(
+        mrn: MRN,
+        dob: Date,
+        firstName: string,
+        lastName: string,
+        sex: PatientSex,
+        phoneNumber: string,
+        triageCase: TriageCase,
+        postCode: string,
+        allocatedTo: EmployeeID,
+    ) {
+        return new Patient(
+            mrn,
+            dob,
+            firstName,
+            lastName,
+            sex,
+            phoneNumber,
+            triageCase,
+            postCode,
+            new Date(),
+            allocatedTo,
+            [],
+        );
+    }
 }
 
 export default Patient;

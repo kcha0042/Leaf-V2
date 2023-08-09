@@ -62,7 +62,6 @@ class TriageCase {
     }
 
     public static new(
-        arrivalDate: Date,
         arrivalWard: Ward,
         hospital: Hospital,
         medicalUnit: MedicalUnit,
@@ -71,7 +70,7 @@ class TriageCase {
     ): TriageCase {
         return new TriageCase(
             UUID.generate(),
-            arrivalDate,
+            new Date(),
             null,
             arrivalWard,
             null,

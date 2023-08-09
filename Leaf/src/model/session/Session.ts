@@ -2,6 +2,7 @@ import { Hospitals } from "../../preset_data/Hospitals";
 import { MedicalUnits } from "../../preset_data/MedicalUnits";
 import { Wards } from "../../preset_data/Wards";
 import StateManager from "../../state/publishers/StateManager";
+import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Worker from "../employee/Worker";
 import Hospital from "../hospital/Hospital";
@@ -19,15 +20,34 @@ import NewTriageManager from "./NewTriageManager";
 class Session {
     public static readonly inst = new Session();
 
+    // TODO: Right now we just set a logged in class
+    // In the future, we need to find the account that logged in and set it here
+    private _loggedInAccount: Employee = new Worker(
+        EmployeeID.generate(),
+        "Veritably",
+        "Clean",
+        "mr.clean@email.com",
+        Hospitals["H1"],
+    );
+    // ALl workers (continuously updated from database fetches) [ID: Worker]
     private workerStore: { [key: string]: Worker } = {};
+    // All patients (continuously updated from database fetches) [MRN: Patient]
     private patientStore: { [key: string]: Patient } = {};
     // The patient currently being previewed within app (any screen)
     private activePatient: Patient | null = null;
+
+    public get loggedInAccount(): Employee {
+        return this._loggedInAccount;
+    }
 
     private constructor() {}
 
     public submitTriage(patient: Patient) {
         NewTriageManager.inst.newTriageSubmitted(patient);
+    }
+
+    public setLoggedInAccount(employee: Employee) {
+        this._loggedInAccount = employee;
     }
 
     public setActivePatient(patient: Patient | null) {
@@ -89,7 +109,6 @@ class Session {
             PatientSex.male,
             "0420696969",
             TriageCase.new(
-                new Date(),
                 Wards["W1"],
                 Hospitals["H1"],
                 MedicalUnits["M1"],
@@ -109,7 +128,6 @@ class Session {
             PatientSex.male,
             "0471308217",
             TriageCase.new(
-                new Date(),
                 Wards["W2"],
                 Hospitals["H2"],
                 MedicalUnits["M2"],

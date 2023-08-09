@@ -109,6 +109,8 @@ export default {
     "inputLabel.ward": "Ward",
     "inputLabel.medicalUnit": "Medical Unit",
     "inputLabel.required": "Required",
+    "inputLabel.sex": "Sex",
+    "inputLabel.phone": "Phone Number",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",
@@ -131,7 +133,7 @@ export default {
     "patientHistory.descriptor.name": "Name",
     "patientHistory.descriptor.mrn": "MRN",
     "patientHistory.descriptor.postcode": "Postcode",
-    "patientHistory.descriptor.dob": "DOB",
+    "patientHistory.descriptor.dob": "Date of Birth",
     "patientHistory.descriptor.sex": "Sex",
     "patientHistory.descriptor.code": "Code",
     "patientHistory.descriptor.triageText": "Description",
