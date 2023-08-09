@@ -12,11 +12,15 @@ const AdminScreen: React.FC = () => {
     const [nurse, setNurse] = React.useState<Nurse | null>(Session.inst.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setNurse(Session.inst.getWorker(new EmployeeID("456-456")));
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressNurse = (nurse) => {

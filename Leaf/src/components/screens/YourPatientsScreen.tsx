@@ -22,11 +22,15 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressPatient = (patient: Patient) => {

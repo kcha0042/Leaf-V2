@@ -62,6 +62,8 @@ export default {
     "button.deletePatient": "Remove",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
+    "button.clear": "Clear",
+    "button.submit": "Submit",
 
     // Login
     "login.title": "Login",
@@ -100,8 +102,12 @@ export default {
     "inputLabel.email": "Email",
     "inputLabel.triageCode": "Triage Code",
     "inputLabel.triageDescription": "Triage Description",
-    "inputLabel.date": "Date",
+    "inputLabel.dob": "Date of Birth",
     "inputLabel.dateFormat": "DD/MM/YYYY",
+    "inputLabel.hopsital": "Hospital Site",
+    "inputLabel.ward": "Ward",
+    "inputLabel.medicalUnit": "Medical Unit",
+    "inputLabel.required": "Required",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",
@@ -111,6 +117,8 @@ export default {
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
     "triageForm.title.triage": "Triage",
+    "triageForm.title.hospitalisation": "Hospitalisation",
+    "triageForm.title.end": "End of Form",
 
     // Patient History
     "patientHistory.title.identity": "Identity",

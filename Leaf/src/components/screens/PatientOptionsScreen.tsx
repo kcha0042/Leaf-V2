@@ -27,9 +27,13 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     useEffect(() => {
-        StateManager.contentWidth.subscribe(() => {
+        const unsubscribe = StateManager.contentWidth.subscribe(() => {
             setComponentWidth(StateManager.contentWidth.read());
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

@@ -15,11 +15,15 @@ const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressWorker = (worker) => {

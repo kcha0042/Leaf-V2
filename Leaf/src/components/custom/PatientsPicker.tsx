@@ -16,7 +16,7 @@ const PatientsPicker: React.FC<Props> = ({ style, onSelection }) => {
     );
     const onSetSegmentedValue = (segmentedValue) => {
         setSegmentedValue(segmentedValue);
-        onSelection(segmentedValue.value);
+        onSelection(segmentedValue?.value);
     };
 
     return (

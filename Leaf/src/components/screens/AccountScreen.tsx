@@ -34,7 +34,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [hospital, setHospital] = React.useState<string>(worker?.currentHospital.name || strings("label.loading"));
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             const tmpWorker = Session.inst.getWorker(tmpID);
             setWorker(tmpWorker);
             setName(tmpWorker?.fullName || "");
@@ -44,11 +44,11 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
         Session.inst.fetchAllWorkers();
         Session.inst.fetchAllHospitals();
-    }, []);
 
-    StateManager.workersFetched.subscribe(() => {
-        setWorker(Session.inst.getWorker(tmpID));
-    });
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     const logOut = () => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);

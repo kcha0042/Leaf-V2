@@ -1,19 +1,15 @@
 import { View, ViewStyle } from "react-native";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
-import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafText from "../base/LeafText/LeafText";
 import HStack from "../containers/HStack";
-import HGap from "../containers/layout/HGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     title: string;
-    icon: string; // https://pictogrammers.com/library/mdi/
     style?: ViewStyle;
 }
 
-const FormHeader: React.FC<Props> = ({ title, icon, style }) => {
+const FormHeader: React.FC<Props> = ({ title, style }) => {
     return (
         <HStack style={{ ...style }}>
             <View

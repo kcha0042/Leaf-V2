@@ -32,11 +32,15 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [codeIcon, setCodeIcon] = useState<"chevron-down" | "chevron-up">("chevron-down");
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onSelection = () => {};

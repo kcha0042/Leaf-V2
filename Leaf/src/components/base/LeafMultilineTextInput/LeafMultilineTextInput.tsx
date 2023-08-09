@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import VStack from "../../containers/VStack";
@@ -6,6 +6,7 @@ import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
+import StateManager from "../../../state/publishers/StateManager";
 
 interface Props {
     label: string;
@@ -38,6 +39,17 @@ const LeafMultilineTextInput: React.FC<Props> = ({
             : valid
             ? LeafColors.textSuccess.getColor()
             : LeafColors.textError.getColor();
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setText("");
+            onTextChange("");
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <TouchableWithoutFeedback

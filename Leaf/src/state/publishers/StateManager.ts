@@ -12,9 +12,11 @@ import { LoginStatus } from "./types/LoginStatus";
  * ``` StateManager.myState.publish(); ```
  * Any component can subscribe. Every time the state is published, a callback is called.
  * ```
- * StateManager.myState.subscribe(() => {
+ * const unsubscribe = StateManager.myState.subscribe(() => {
  *     // React to the state change, e.g. update hooks or call forceUpdate()
  * });
+ *
+ * // Note: call unsubscribe() when component is unmounted
  * ```
  * ALl subscriptions should occur in useEffect hooks, since we only want the the component to subscribe on mount.
  *
@@ -30,6 +32,8 @@ import { LoginStatus } from "./types/LoginStatus";
  *
  *     // React to the state change, e.g. update hooks or call forceUpdate()
  * });
+ *
+ * // Note: call unsubscribe() when component is unmounted
  * ```
  */
 class StateManager {
@@ -50,6 +54,9 @@ class StateManager {
 
     // The continuously-updated width of the main content (where Screen components go)
     public static readonly contentWidth = new LeafValuePublisher(0.0);
+
+    // Notifies all input components to clear themselves
+    public static readonly clearAllInputs = new LeafPublisher();
 }
 
 export default StateManager;

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewStyle } from "react-native";
 import { strings } from "../../localisation/Strings";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import LeafColors from "../styling/LeafColors";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     style?: ViewStyle;
@@ -12,11 +13,22 @@ interface Props {
 }
 
 const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
-    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | null>(null);
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(undefined);
     const onSetSegmentedValue = (segmentedValue) => {
         setSegmentedValue(segmentedValue);
-        onSelection(segmentedValue.value);
+        onSelection(segmentedValue?.value);
     };
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setSegmentedValue(undefined);
+            onSelection(undefined);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <LeafSegmentedButtons

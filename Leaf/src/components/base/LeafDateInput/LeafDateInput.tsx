@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { strings } from "../../../localisation/Strings";
@@ -8,6 +8,7 @@ import LeafColor from "../../styling/color/LeafColor";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafText from "../LeafText/LeafText";
+import StateManager from "../../../state/publishers/StateManager";
 
 interface Props {
     label: string;
@@ -79,6 +80,8 @@ const LeafDateInput: React.FC<Props> = ({
         setText(maskText(text));
         if (validateText(text)) {
             onChange(toDate(text));
+        } else {
+            onChange(undefined);
         }
     };
 
@@ -113,6 +116,18 @@ const LeafDateInput: React.FC<Props> = ({
             : valid
             ? LeafColors.textSuccess.getColor()
             : LeafColors.textError.getColor();
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setText("");
+            setError(false);
+            onChange(undefined);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <TouchableWithoutFeedback
