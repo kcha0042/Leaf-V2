@@ -81,9 +81,9 @@ class PatientDataObject {
         const dischargeDate = data.getDate("dischargeDate");
         const arrivalWardId = data.getString("arrivalWardId");
         const dischargeWardId = data.getString("dischargeWardId");
-        const hosptialId = data.getString("hopsitalId");
+        const hosptialId = data.getString("hospitalId");
         const medicalUnitId = data.getString("medicalUnitId");
-        const triageText = data.getString("medicalUnitId");
+        const triageText = data.getString("triageText");
         const traigeCode = data.getNumber("triageCode");
         return new TriageCase(
             new UUID(id),

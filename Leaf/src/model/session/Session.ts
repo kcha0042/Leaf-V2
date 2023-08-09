@@ -1,20 +1,11 @@
 import { Hospitals } from "../../preset_data/Hospitals";
-import { MedicalUnits } from "../../preset_data/MedicalUnits";
-import { Wards } from "../../preset_data/Wards";
 import StateManager from "../../state/publishers/StateManager";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Worker from "../employee/Worker";
-import Hospital from "../hospital/Hospital";
-import MedicalUnit from "../hospital/MedicalUnit";
-import Ward from "../hospital/Ward";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
-import PatientEvent from "../patient/PatientEvent";
-import { PatientEventCategory } from "../patient/PatientEventCategory";
-import { PatientSex } from "../patient/PatientSex";
-import TriageCase from "../triage/TriageCase";
-import { TriageCode } from "../triage/TriageCode";
+import GetPatientsManager from "./GetPatientsManager";
 import NewTriageManager from "./NewTriageManager";
 
 class Session {
@@ -42,8 +33,8 @@ class Session {
 
     private constructor() {}
 
-    public submitTriage(patient: Patient) {
-        NewTriageManager.inst.newTriageSubmitted(patient);
+    public async submitTriage(patient: Patient): Promise<boolean> {
+        return NewTriageManager.inst.newTriageSubmitted(patient);
     }
 
     public setLoggedInAccount(employee: Employee) {
@@ -98,53 +89,13 @@ class Session {
         StateManager.workersFetched.publish();
     }
 
-    public fetchAllPatients() {
-        // TODO: Asyncronously access database and update patientStore
-        // Temporary:
-        const patient1 = new Patient(
-            new MRN("temp-111-111"),
-            new Date(),
-            "Tony",
-            "Stark",
-            PatientSex.male,
-            "0420696969",
-            TriageCase.new(
-                Wards["W1"],
-                Hospitals["H1"],
-                MedicalUnits["M1"],
-                "Some triage text. Bla bla bla.",
-                TriageCode.immediate,
-            ),
-            "1234",
-            new Date(),
-            new EmployeeID("123-123"),
-            [PatientEvent.new(new Date(), "Take medication", "Take them drugs", PatientEventCategory.medication)],
-        );
-        const patient2 = new Patient(
-            new MRN("temp-222-222"),
-            new Date(),
-            "Gordon",
-            "Ramsey",
-            PatientSex.male,
-            "0471308217",
-            TriageCase.new(
-                Wards["W2"],
-                Hospitals["H2"],
-                MedicalUnits["M2"],
-                "Some triage text. Bla bla bla.",
-                TriageCode.semiUrgent,
-            ),
-            "1234",
-            new Date(),
-            new EmployeeID("456-456"),
-            [
-                PatientEvent.new(new Date(), "Eat Pizza", "Yum Yum Yum", PatientEventCategory.other),
-                PatientEvent.new(new Date(), "Eat Lasagne", "Nom Nom Nom", PatientEventCategory.other),
-            ],
-        );
-        this.patientStore[patient1.mrn.toString()] = patient1;
-        this.patientStore[patient2.mrn.toString()] = patient2;
-        // Notify subscribers
+    public async fetchAllPatients() {
+        const patients = await GetPatientsManager.inst.getPatients();
+        for (const patient of patients) {
+            // No duplicates due to use of dictionary
+            this.patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers that patients have been fetched
         StateManager.patientsFetched.publish();
     }
 }

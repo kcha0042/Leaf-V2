@@ -8,7 +8,7 @@ class NewTriageManager {
 
     private constructor() {}
 
-    public async newTriageSubmitted(patient: Patient) {
+    public async newTriageSubmitted(patient: Patient): Promise<boolean> {
         // When the user completes the triage form, they create a new Patient
         // instance.
         //
@@ -21,7 +21,7 @@ class NewTriageManager {
         // submission creates a new patient.
 
         const dataObject = PatientDataObject.create(patient);
-        DatabaseSession.inst.insertOne(DatabaseCollection.Patients, dataObject.data, patient.mrn.toString());
+        return DatabaseSession.inst.insertOne(DatabaseCollection.Patients, dataObject.data, patient.mrn.toString());
     }
 }
 

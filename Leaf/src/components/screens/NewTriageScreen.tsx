@@ -106,7 +106,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         );
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (allIsValid()) {
             const patient = Patient.new(
                 new MRN(mrn),
@@ -125,8 +125,15 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 postcode,
                 Session.inst.loggedInAccount.id,
             );
-            Session.inst.submitTriage(patient);
-            StateManager.clearAllInputs.publish();
+            const successful = await Session.inst.submitTriage(patient);
+            if (successful) {
+                console.log("SUCCESS"); // TODO: Provide user feedback
+                StateManager.clearAllInputs.publish();
+            } else {
+                console.log("FAILED"); // TODO: Provide user feedback
+            }
+        } else {
+            console.log("INVALID INPUTS"); // TODO: Provide user feedback
         }
     };
 

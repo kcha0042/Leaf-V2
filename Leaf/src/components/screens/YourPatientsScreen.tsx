@@ -1,15 +1,14 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { FlatList, ScrollView, View } from "react-native";
-import Session from "../../model/session/Session";
+import { FlatList } from "react-native";
 import Patient from "../../model/patient/Patient";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import PatientCard from "../custom/PatientCard";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";

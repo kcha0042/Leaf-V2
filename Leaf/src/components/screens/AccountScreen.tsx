@@ -19,6 +19,7 @@ import HStack from "../containers/HStack";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
 import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
 import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import { HospitalsArray } from "../../preset_data/Hospitals";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -43,7 +44,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         });
 
         Session.inst.fetchAllWorkers();
-        Session.inst.fetchAllHospitals();
 
         return () => {
             unsubscribe();
@@ -89,7 +89,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [errTextVisible, setErrTextVisible] = useState(false);
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
     const onHospitalDone = () => {
-        const hospitals = Session.inst.getAllHospitals();
+        const hospitals = HospitalsArray;
         // Checking hospital exists
         let hospitalExists = false;
         for (let hospital of hospitals) {
