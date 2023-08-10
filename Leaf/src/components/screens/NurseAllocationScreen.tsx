@@ -15,6 +15,7 @@ import StateManager from "../../state/publishers/StateManager";
 import AllocatedPatientsCard from "../custom/AllocatedPatientsCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList } from "react-native";
+import HStack from "../containers/HStack";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -46,11 +47,17 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-                <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                    {"NURSE     " + worker.allocatedPatients.length + " patients allocated"}
-                </LeafText>
+                <HStack spacing={20}>
+                    <LeafText typography={LeafTypography.title3} wide={false}>
+                        {strings("role.worker")}
+                    </LeafText>
+                    <LeafText typography={LeafTypography.title3} wide={false}>
+                        {strings("nurseAllocationScreen.subtitle", `${worker.allocatedPatients.length}`)}
+                    </LeafText>
+                </HStack>
 
                 <VGap size={20} />
+
                 <NewAllocationCard
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
@@ -62,6 +69,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                 />
 
                 <VGap size={20} />
+
                 <FlatList
                     data={allocatedPatients}
                     renderItem={({ item: patient }) => <AllocatedPatientsCard patient={patient} />}

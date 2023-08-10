@@ -8,6 +8,7 @@ import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
 import FlatContainer from "../containers/FlatContainer";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     worker: Worker;
@@ -20,23 +21,17 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     const idText = worker.id.toString();
     return (
         <FlatContainer onPress={onPress}>
-            <HStack>
-                <VStack>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {worker.fullName}
-                        </LeafText>
-                    </View>
+            <VStack style={{ flex: 1 }}>
+                <LeafText typography={LeafTypography.title3}>{worker.fullName}</LeafText>
 
-                    <VGap size={16} />
+                <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript}>{"ID: " + idText}</LeafText>
+                <LeafText typography={LeafTypography.subscript}>{"ID: " + idText}</LeafText>
 
-                    <LeafText typography={LeafTypography.subscript}>
-                        {worker.allocatedPatients.length + " allocated"}
-                    </LeafText>
-                </VStack>
-            </HStack>
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("workerCard.numPatients", `${worker.allocatedPatients.length}`)}
+                </LeafText>
+            </VStack>
         </FlatContainer>
     );
 };

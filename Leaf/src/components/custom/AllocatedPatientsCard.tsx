@@ -13,6 +13,7 @@ import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import VGap from "../containers/layout/VGap";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 
 interface Props {
     patient: Patient;
@@ -24,9 +25,9 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
-        <FlatContainer
-        >
+        <FlatContainer>
             <HStack>
+
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -57,24 +58,15 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         Date: {dateText}
                     </LeafText>
                 </VStack>
-                {/* <LeafButton
-                    label={strings("button.deletePatient")}
-                    wide={false}
-                    typography={LeafTypography.title3}
-                    type={LeafButtonType.Filled}
-                    color={LeafColors.transparent}
-                    onPress={() => {
-                        //TODO: REMOVE MRN FROM WORKER
-                    }}
-                    style={{
-                        alignSelf: "center",
-                        marginRight: 12,
-                        borderWidth: 1,
-                        borderRadius: 15,
-                        borderColor: "#3f4169",
-                    }}
-                /> */}
-                <LeafIconButton icon="trash-can-outline" color={LeafColors.accent} size={40} style={{backgroundColor: "#e03131"}} onPress={() => {}}/>
+
+                <LeafIconButton
+                    icon="trash-can-outline"
+                    color={LeafColors.accent}
+                    size={LeafIconSize.Medium}
+                    style={{ backgroundColor: "#e03131" }}
+                    onPress={() => {}}
+                />
+
             </HStack>
         </FlatContainer>
     );

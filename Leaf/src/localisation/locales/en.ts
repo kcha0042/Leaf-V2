@@ -102,4 +102,15 @@ export default {
     // Search Bar Filters
     "searchBarFilter.time": "Time",
     "searchBarFilter.triageCode": "Code",
+
+    // WorkerCard
+    "workerCard.numPatients": "{0} allocated",
+
+    // Roles
+    "role.worker": "NURSE",
+    "role.leader": "LEADER",
+    "role.admin": "ADMIN",
+
+    // Nurse Allocation Screen
+    "nurseAllocationScreen.subtitle": "{0} PATIENTS ALLOCATED",
 };

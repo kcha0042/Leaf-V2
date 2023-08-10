@@ -46,12 +46,17 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
     };
     const [shouldShowTime, setShouldShowTime] = React.useState(false);
     const [shouldShowCode, setShouldShowCode] = React.useState(false);
+
     return (
         <DefaultScreenContainer>
             <VStack>
+
                 <LeafSearchBarNew onTextChange={onSearch} />
+
                 <VGap size={20} />
+
                 <HStack>
+
                     <LeafButton
                         label={strings("searchBarFilter.time")}
                         onPress={() => setShouldShowTime(!shouldShowTime)}
@@ -69,6 +74,7 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                     ></LeafButton>
 
                     <HGap size={6} />
+
                     <LeafButton
                         label={strings("searchBarFilter.triageCode")}
                         onPress={() => setShouldShowCode(!shouldShowCode)}
@@ -84,9 +90,13 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                             borderColor: "#3f4169",
                         }}
                     ></LeafButton>
+
                 </HStack>
+
                 <VStack>
+
                     <VGap size={6} />
+
                     {shouldShowTime ? (
                         <LeafSegmentedButtons
                             label={strings("searchBarFilter.time")}
@@ -100,7 +110,9 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                             onSetValue={setSegmentedValue}
                         ></LeafSegmentedButtons>
                     ) : null}
+
                     <VGap size={6} />
+
                     {shouldShowCode ? (
                         <LeafSegmentedButtons
                             label={strings("searchBarFilter.triageCode")}
@@ -115,8 +127,11 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                             onSetValue={setSegmentedValue}
                         ></LeafSegmentedButtons>
                     ) : null}
+
                 </VStack>
+
                 <VGap size={20} />
+
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => <AllocateToNurseCard patient={patient} />}
@@ -130,6 +145,7 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
+                
             </VStack>
         </DefaultScreenContainer>
     );
