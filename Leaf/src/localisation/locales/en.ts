@@ -105,6 +105,12 @@ export default {
 
     // WorkerCard
     "workerCard.numPatients": "{0} allocated",
+    "workerCard.id": "ID: {0}",
+
+    //AllocateToNurseCard
+    "allocateToNurseCard.id": "ID: {0}",
+    "allocateToNurseCard.date": "Date: {0}",
+    "allocateToNurseCard.session": "Allocated: {0}",
 
     // Roles
     "role.worker": "NURSE",

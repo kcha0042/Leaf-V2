@@ -48,7 +48,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch}/>
+                <LeafSearchBarNew onTextChange={onSearch} />
 
                 <VGap size={10} />
 

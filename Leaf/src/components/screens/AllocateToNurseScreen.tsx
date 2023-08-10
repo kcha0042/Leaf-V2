@@ -7,7 +7,7 @@ import Patient from "../../model/patient/Patient";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { FlatList } from "react-native";
-import AllocateToNurseCard from "../custom/AllocatePatientToNurseCard";
+import AllocateToNurseCard from "../custom/AllocateToNurseCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
@@ -50,13 +50,11 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-
                 <LeafSearchBarNew onTextChange={onSearch} />
 
                 <VGap size={20} />
 
                 <HStack>
-
                     <LeafButton
                         label={strings("searchBarFilter.time")}
                         onPress={() => setShouldShowTime(!shouldShowTime)}
@@ -90,11 +88,9 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                             borderColor: "#3f4169",
                         }}
                     ></LeafButton>
-
                 </HStack>
 
                 <VStack>
-
                     <VGap size={6} />
 
                     {shouldShowTime ? (
@@ -127,7 +123,6 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                             onSetValue={setSegmentedValue}
                         ></LeafSegmentedButtons>
                     ) : null}
-
                 </VStack>
 
                 <VGap size={20} />
@@ -145,7 +140,6 @@ const AllocateToNurseScreen: React.FC<Props> = ({ navigation }) => {
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
-                
             </VStack>
         </DefaultScreenContainer>
     );

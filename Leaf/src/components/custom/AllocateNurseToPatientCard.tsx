@@ -19,7 +19,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
+const AllocateNurseToPatientCard: React.FC<Props> = ({ worker }) => {
     // check if allocate button is clicked (false=white, true=green)
     const [active, setActive] = useState(false);
     const idText = worker.id.toString();
@@ -37,19 +37,14 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker, style }) => {
                         flex: 1,
                     }}
                 >
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {worker.firstName}
-                        </LeafText>
-                    </View>
+                    <LeafText typography={LeafTypography.title3}>{worker.fullName}</LeafText>
 
                     <VGap size={16} />
 
-                    <LeafText style={{ alignSelf: "flex-start" }} typography={LeafTypography.subscript} wide={false}>
-                        {"ID: " + idText}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
+
                     <LeafText typography={LeafTypography.subscript}>
-                        {worker.allocatedPatients.length + " patients allocated"}
+                        {strings("workerCard.numPatients", `${worker.allocatedPatients.length}`)}
                     </LeafText>
                 </VStack>
 

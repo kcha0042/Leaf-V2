@@ -33,7 +33,7 @@ const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack>
-            <LeafSearchBarNew onTextChange={onSearch}/>
+                <LeafSearchBarNew onTextChange={onSearch} />
 
                 <VGap size={25} />
 

@@ -27,7 +27,6 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     return (
         <FlatContainer>
             <HStack>
-
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -66,7 +65,6 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                     style={{ backgroundColor: "#e03131" }}
                     onPress={() => {}}
                 />
-
             </HStack>
         </FlatContainer>
     );

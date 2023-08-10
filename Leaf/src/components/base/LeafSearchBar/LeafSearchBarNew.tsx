@@ -36,20 +36,25 @@ const LeafTextInputShort: React.FC<Props> = ({
 
     return (
         <View
-        style={[
-            wide ? { width: "100%" } : { alignSelf: "center" },
-            {
-                flexDirection: "row",
-                backgroundColor: LeafColors.textBackgroundAccent.getColor(),
-                borderRadius: 30,
-                borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
-                height: 55,
-                borderWidth: 1,
-            },
-        ]}
+            style={[
+                wide ? { width: "100%" } : { alignSelf: "center" },
+                {
+                    flexDirection: "row",
+                    backgroundColor: LeafColors.textBackgroundAccent.getColor(),
+                    borderRadius: 30,
+                    borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
+                    height: 55,
+                    borderWidth: 1,
+                },
+            ]}
         >
-            <LeafIcon icon="magnify" size={26} color={LeafColors.textDark} style={{ alignSelf: "center", display: "flex", marginLeft: 10}} />
-            
+            <LeafIcon
+                icon="magnify"
+                size={26}
+                color={LeafColors.textDark}
+                style={{ alignSelf: "center", display: "flex", marginLeft: 10 }}
+            />
+
             <TouchableWithoutFeedback
                 style={{
                     position: "absolute",
