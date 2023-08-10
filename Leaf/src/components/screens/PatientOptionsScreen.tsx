@@ -103,6 +103,16 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LargeMenuButton
                         size={buttonWidth}
+                        label={strings("button.addEvent")}
+                        description={strings("label.addEvent")}
+                        onPress={() => {
+                            // TODO: Navigate to a screen to add an event
+                        }}
+                        icon="calendar-clock"
+                    />
+
+                    <LargeMenuButton
+                        size={buttonWidth}
                         label={strings("button.done")}
                         description={strings("label.done")}
                         onPress={() => {

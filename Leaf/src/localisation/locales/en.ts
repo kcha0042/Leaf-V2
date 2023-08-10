@@ -65,6 +65,7 @@ export default {
     "button.activate": "Activate",
     "button.clear": "Clear",
     "button.submit": "Submit",
+    "button.addEvent": "Add Event",
 
     // Login
     "login.title": "Login",
@@ -81,6 +82,7 @@ export default {
     "label.patientActions": "View immediate actions relevant to triage.",
     "label.editPatient": "Edit patient information and triage.",
     "label.removePatient": "Delete patient from the system.",
+    "label.addEvent": "Add a scheduled event for the patient.",
     "label.done": "Exit patient options.",
     "label.hospital": "Hospital",
     "label.rememberMe": "Remember Me",
