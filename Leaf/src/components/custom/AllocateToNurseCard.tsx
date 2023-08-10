@@ -50,15 +50,15 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
 
                     <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript} style={{ borderWidth: 1 }}>
+                    <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.id", `${idText}`)}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript} style={{ borderWidth: 1 }}>
+                    <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.date", `${dateText}`)}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript} style={{ borderWidth: 1 }}>
+                    <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.session", `${session}`)}
                     </LeafText>
                 </VStack>
