@@ -8,7 +8,6 @@ class Worker extends Employee {
     public readonly role: Role = Role.worker;
     protected _allocatedPatients: MRN[];
 
-    // Had to add a constructor to serialise Worker class
     constructor(
         id: EmployeeID,
         firstName: string,
