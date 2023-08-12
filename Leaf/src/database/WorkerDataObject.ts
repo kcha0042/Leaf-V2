@@ -13,7 +13,10 @@ class WorkerDataObject {
             .addString("lastName", worker.lastName)
             .addString("email", worker.email)
             .addString("currentHospitalID", worker.currentHospital.id.toString())
-            .addStringArray("allocatedPatients", worker.allocatedPatients.map((mrn) => mrn.toString()));
+            .addStringArray(
+                "allocatedPatients",
+                worker.allocatedPatients.map((mrn) => mrn.toString()),
+            );
     }
 
     public static restore(data: DataObject): Worker {
