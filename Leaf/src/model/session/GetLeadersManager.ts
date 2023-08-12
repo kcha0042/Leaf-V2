@@ -9,7 +9,7 @@ class GetLeadersManager {
     private constructor() {}
 
     public async getLeaders(): Promise<Leader[]> {
-        const leaderDataObjects = await DatabaseSession.inst.readCollection(DatabaseCollection.Workers);
+        const leaderDataObjects = await DatabaseSession.inst.readCollection(DatabaseCollection.Leaders);
         return leaderDataObjects.map((data) => LeaderDataObject.restore(data));
     }
 }

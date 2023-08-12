@@ -9,7 +9,7 @@ class GetAdminsManager {
     private constructor() {}
 
     public async getAdmins(): Promise<Admin[]> {
-        const leaderDataObjects = await DatabaseSession.inst.readCollection(DatabaseCollection.Workers);
+        const leaderDataObjects = await DatabaseSession.inst.readCollection(DatabaseCollection.Admins);
         return leaderDataObjects.map((data) => AdminDataObject.restore(data));
     }
 }
