@@ -7,17 +7,13 @@ import DataObject from "./DataObject";
 
 class WorkerDataObject {
     public static create(worker: Worker): DataObject {
-        const allocatedPatientsData = worker.allocatedPatients.map((mrn) => {
-            return new DataObject().addString("mrn", mrn.toString());
-        });
-
         return new DataObject()
             .addString("id", worker.id.toString())
             .addString("firstName", worker.firstName)
             .addString("lastName", worker.lastName)
             .addString("email", worker.email)
             .addString("currentHospitalID", worker.currentHospital.id.toString())
-            .addObjectArray("allocatedPatients", allocatedPatientsData);
+            .addStringArray("allocatedPatients", worker.allocatedPatients.map((mrn) => mrn.toString()));
     }
 
     public static restore(data: DataObject): Worker {
@@ -26,20 +22,15 @@ class WorkerDataObject {
         const lastName = data.getString("lastName");
         const email = data.getString("email");
         const currentHospitalID = data.getString("currentHospitalID");
-        const allocatedPatientsData = data.getDataObjectArray("allocatedPatients");
+        const allocatedPatients = data.getStringArray("allocatedPatients");
         return new Worker(
             new EmployeeID(id),
             firstName,
             lastName,
             email,
             Hospitals[currentHospitalID],
-            allocatedPatientsData.map((data) => WorkerDataObject.restoreAllocatedPatients(data)),
+            allocatedPatients.map((data) => new MRN(data)),
         );
-    }
-
-    private static restoreAllocatedPatients(data: DataObject): MRN {
-        const mrn = data.getString("mrn");
-        return new MRN(mrn);
     }
 }
 
