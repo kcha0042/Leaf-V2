@@ -8,6 +8,7 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     patient: Patient;
@@ -41,16 +42,16 @@ const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
 
                     <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        ID: {idText}
+                    <LeafText typography={LeafTypography.subscript}>
+                        {strings("label.id")} {idText}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        Date: {dateText}
+                    <LeafText typography={LeafTypography.subscript}>
+                        {strings("label.date")} {dateText}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        Allocated: {session}
+                    <LeafText typography={LeafTypography.subscript}>
+                        {strings("label.allocated")} {session}
                     </LeafText>
                 </VStack>
             </HStack>

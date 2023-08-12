@@ -72,6 +72,8 @@ export default {
 
     // Labels
     "label.id": "ID: ",
+    "label.date": "Date: ",
+    "label.allocated": "Allocated: ",
     "label.loading": "Loading",
     "label.details": "Details",
     "label.viewPatient": "View patient information and medical history.",

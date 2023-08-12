@@ -49,12 +49,12 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
                     <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        ID: {idText}
+                    <LeafText typography={LeafTypography.subscript}>
+                        {strings("label.id")} {idText}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        Date: {dateText}
+                    <LeafText typography={LeafTypography.subscript}>
+                        {strings("label.date")} {dateText}
                     </LeafText>
                 </VStack>
 
