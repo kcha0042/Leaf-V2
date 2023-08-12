@@ -6,6 +6,7 @@ import Worker from "../employee/Worker";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
 import GetPatientsManager from "./GetPatientsManager";
+import GetWorkersManager from "./GetWorkersManager";
 import NewTriageManager from "./NewTriageManager";
 
 class Session {
@@ -19,6 +20,7 @@ class Session {
         "Clean",
         "mr.clean@email.com",
         Hospitals["H1"],
+        [],
     );
     // ALl workers (continuously updated from database fetches) [ID: Worker]
     private workerStore: { [key: string]: Worker } = {};
@@ -66,25 +68,12 @@ class Session {
         return this.patientStore[id.toString()] || null;
     }
 
-    public fetchAllWorkers() {
-        // TODO: Asyncronously access database and update workerStore
-        // Temporary:
-        const worker1 = new Worker(
-            new EmployeeID("123-123"),
-            "Spongebob",
-            "Squarepants",
-            "spongebob@gmail.com",
-            Hospitals["H1"],
-        );
-        const worker2 = new Worker(
-            new EmployeeID("456-456"),
-            "Charith",
-            "Jayasekara",
-            "charith.jayasekara@monash.edu",
-            Hospitals["H2"],
-        );
-        this.workerStore[worker1.id.toString()] = worker1;
-        this.workerStore[worker2.id.toString()] = worker2;
+    public async fetchAllWorkers() {
+        // Restore workers from the database
+        const workers = await GetWorkersManager.inst.getWorkers();
+        for (const worker of workers) {
+            this.workerStore[worker.id.toString()] = worker;
+        }
         // Notify subscribers
         StateManager.workersFetched.publish();
     }
