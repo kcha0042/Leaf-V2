@@ -12,8 +12,7 @@ class WorkerDataObject {
             .addString("name", worker.currentHospital.name.toString());
 
         const allocatedPatientsData = worker.allocatedPatients.map((mrn) => {
-            return new DataObject()
-                .addString("mrn", mrn.toString());
+            return new DataObject().addString("mrn", mrn.toString());
         });
 
         return new DataObject()
@@ -38,7 +37,7 @@ class WorkerDataObject {
             lastName,
             email,
             WorkerDataObject.restoreCurrentHospital(currentHospitalData),
-            allocatedPatientsData.map((data) => WorkerDataObject.restoreAllocatedPatients(data))
+            allocatedPatientsData.map((data) => WorkerDataObject.restoreAllocatedPatients(data)),
         );
     }
 

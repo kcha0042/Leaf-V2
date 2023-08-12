@@ -30,7 +30,7 @@ class AdminDataObject {
             firstName,
             lastName,
             email,
-            AdminDataObject.restoreCurrentHospital(currentHospitalData)
+            AdminDataObject.restoreCurrentHospital(currentHospitalData),
         );
     }
 
