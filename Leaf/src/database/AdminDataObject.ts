@@ -2,21 +2,17 @@ import Admin from "../model/employee/Admin";
 import EmployeeID from "../model/employee/EmployeeID";
 import { Role } from "../model/employee/Role";
 import Hospital from "../model/hospital/Hospital";
+import { Hospitals } from "../preset_data/Hospitals";
 import DataObject from "./DataObject";
 
 class AdminDataObject {
     public static create(admin: Admin): DataObject {
-        const currentHospitalData = new DataObject()
-            .addString("id", admin.currentHospital.id.toString())
-            .addString("code", admin.currentHospital.code.toString())
-            .addString("name", admin.currentHospital.name.toString());
-
         return new DataObject()
             .addString("id", admin.id.toString())
             .addString("firstName", admin.firstName)
             .addString("lastName", admin.lastName)
             .addString("email", admin.email)
-            .addObject("currentHospital", currentHospitalData);
+            .addString("currentHospitalID", admin.currentHospital.id.toString());
     }
 
     public static restore(data: DataObject): Admin {
@@ -24,21 +20,8 @@ class AdminDataObject {
         const firstName = data.getString("firstName");
         const lastName = data.getString("lastName");
         const email = data.getString("email");
-        const currentHospitalData = data.getDataObject("currentHospital");
-        return new Admin(
-            new EmployeeID(id),
-            firstName,
-            lastName,
-            email,
-            AdminDataObject.restoreCurrentHospital(currentHospitalData),
-        );
-    }
-
-    private static restoreCurrentHospital(data: DataObject): Hospital {
-        const id = data.getString("id");
-        const code = data.getString("code");
-        const name = data.getString("name");
-        return new Hospital(id, code, name);
+        const currentHospitalID = data.getString("currentHospitalID");
+        return new Admin(new EmployeeID(id), firstName, lastName, email, Hospitals[currentHospitalID]);
     }
 }
 

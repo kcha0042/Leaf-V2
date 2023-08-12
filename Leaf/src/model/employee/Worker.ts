@@ -5,7 +5,7 @@ import Hospital from "../hospital/Hospital";
 import EmployeeID from "./EmployeeID";
 
 class Worker extends Employee {
-    public readonly role: Role = Role.Worker;
+    public readonly role: Role = Role.worker;
     protected _allocatedPatients: MRN[];
 
     // Had to add a constructor to serialise Worker class

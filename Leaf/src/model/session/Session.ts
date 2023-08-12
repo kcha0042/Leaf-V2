@@ -69,6 +69,7 @@ class Session {
     }
 
     public async fetchAllWorkers() {
+        // Restore workers from the database
         const workers = await GetWorkersManager.inst.getWorkers();
         for (const worker of workers) {
             this.workerStore[worker.id.toString()] = worker;
