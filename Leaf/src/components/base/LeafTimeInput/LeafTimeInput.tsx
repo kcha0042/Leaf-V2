@@ -37,8 +37,8 @@ const LeafTimeInput: React.FC<Props> = ({
 }) => {
     const [text, setText] = useState("");
     const [error, setError] = useState(false);
-    const [borderColor, setBorderColor] = useState(textColor);
-    const [currentTextColor, setTextCurrentColor] = useState(color);
+    const [borderColor, setBorderColor] = useState(color);
+    const [currentTextColor, setTextCurrentColor] = useState(textColor);
 
     const maskText = (text: string): string => {
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters

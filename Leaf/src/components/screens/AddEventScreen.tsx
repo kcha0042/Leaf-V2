@@ -26,7 +26,7 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
     const [category, setCategory] = useState<PatientEventCategory | undefined>();
 
     const validateVariable = (variable: unknown): boolean => {
-        return variable != undefined && variable != null;
+        return variable != undefined && variable != null && variable != "";
     }
 
     const allIsValid = (): boolean => {
