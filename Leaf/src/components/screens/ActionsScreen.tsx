@@ -13,6 +13,7 @@ import LeafButton from "../base/LeafButton/LeafButton";
 import HStack from "../containers/HStack";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
 import { strings } from "../../localisation/Strings";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -31,13 +32,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     const onEmergencyPress = () => {};
 
     return (
-        <View
-            style={{
-                flex: 1,
-                backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                padding: LeafDimensions.screenPadding,
-            }}
-        >
+        <DefaultScreenContainer>
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
@@ -51,7 +46,13 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatContainer>
                     <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
-                    <LeafText>TODO: where are the steps?</LeafText>
+                    <VStack
+                        spacing={20}
+                    >
+                        {
+                            patient.triageCase.triageCode.getSteps().map((step, i) => <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>{i+1}: {step}</LeafText>)
+                        }
+                    </VStack>
                 </FlatContainer>
 
                 <HStack
@@ -94,7 +95,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafButton label={strings("button.done")} onPress={onDone} />
             </VStack>
-        </View>
+        </DefaultScreenContainer>
     );
 };
 
