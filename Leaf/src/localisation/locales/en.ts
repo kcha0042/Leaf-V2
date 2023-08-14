@@ -182,7 +182,8 @@ export default {
     // Emergency
     "triageCodeSteps.emergency.1": "Alert medical staff immediately",
     "triageCodeSteps.emergency.2": "Ensure constant visual surveillance",
-    "triageCodeSteps.emergency.3": "Ensure security in attendance to provide detention if necessary until patient is sedated",
+    "triageCodeSteps.emergency.3":
+        "Ensure security in attendance to provide detention if necessary until patient is sedated",
     "triageCodeSteps.emergency.4": "If defusing techniques are unsuccessful, escalate to Code {0}",
     // Urgent
     "triageCodeSteps.urgent.1": "Close observation (regular observation at maximum of 10 minute intervals)",
@@ -191,11 +192,13 @@ export default {
     "triageCodeSteps.urgent.4": "Inform security that patient is in department",
     "triageCodeSteps.urgent.5": "Re-triage if evidence of increasing behavioural disturbance",
     // Semi Urgent
-    "triageCodeSteps.semiUrgent.1": "Intermittent observation (routine waiting room check at maximum of 1 hour intervals)",
+    "triageCodeSteps.semiUrgent.1":
+        "Intermittent observation (routine waiting room check at maximum of 1 hour intervals)",
     "triageCodeSteps.semiUrgent.2": "Discuss with mental health staff",
     "triageCodeSteps.semiUrgent.3": "Re-triage if evidence of increasing behavioural disturbance",
     // Non Urgent
-    "triageCodeSteps.nonUrgent.1": "Intermittent observation (routine waiting room check at maximum of 1 hour intervals)",
+    "triageCodeSteps.nonUrgent.1":
+        "Intermittent observation (routine waiting room check at maximum of 1 hour intervals)",
     "triageCodeSteps.nonUrgent.2": "Discuss with mental health staff",
 
     // Roles

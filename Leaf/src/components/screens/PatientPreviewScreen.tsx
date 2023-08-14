@@ -21,7 +21,6 @@ interface Props {
 }
 
 const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
-    const iconSize = 30;
     const patient = Session.inst.getActivePatient();
 
     return (
@@ -119,7 +118,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                         </LeafText>
 
                                         <LeafText typography={LeafTypography.subscript}>
-                                            {event.triggerTime.toDateString() || "-"}
+                                            {event.triggerTimeDescription}
                                         </LeafText>
                                     </VStack>
                                 </VStack>

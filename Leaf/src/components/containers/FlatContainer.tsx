@@ -21,10 +21,7 @@ const FlatContainer: React.FC<Props> = ({
     return onPress == null ? (
         <View style={[styles.container, { backgroundColor: color.getColor() }, style]}>{children}</View>
     ) : (
-        <TouchableOpacity
-            style={[styles.container, { backgroundColor: color.getColor() }, style]}
-            onPress={onPress}
-        >
+        <TouchableOpacity style={[styles.container, { backgroundColor: color.getColor() }, style]} onPress={onPress}>
             {children}
         </TouchableOpacity>
     );

@@ -1,5 +1,5 @@
 // prettier-ignore
-import {addDoc, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, getDocs, QueryDocumentSnapshot, DocumentData, writeBatch, WhereFilterOp, QuerySnapshot, onSnapshot, } from "firebase/firestore";
+import {addDoc, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, getDocs, QueryDocumentSnapshot, DocumentData, writeBatch, WhereFilterOp, QuerySnapshot, onSnapshot, arrayUnion, } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { DatabaseCollection } from "./DatabaseCollection";
 import DataObject from "./DataObject";
@@ -141,6 +141,74 @@ class DatabaseSession {
             return true;
         } catch (error) {
             console.error(`[DATABASE SESSION] Failed to update document: ${error}`);
+            return false;
+        }
+    }
+
+    /**
+     * Adds an object to an array in a specified document. Doesn't allow duplicates.
+     *
+     * @param {DatabaseCollection} collectionName - The name of the collection.
+     * @param {string} id - The ID of the document to update.
+     * @param {string} arrayField - The name of the array field.
+     * @param {Record<string, any>} objectToAdd - The object to add to the array.
+     * @returns {Promise<boolean>} - Returns true on success, false on failure.
+     *
+     * @example
+     * DatabaseSession.inst.addUniqueToArray('users', 'documentID', 'arrayFieldName', { key: 'value' });
+     */
+    public async addUniqueToArray(
+        collectionName: DatabaseCollection,
+        id: string,
+        arrayField: string,
+        objectToAdd: {},
+    ): Promise<boolean> {
+        try {
+            const docRef = doc(db, collectionName, id);
+            await updateDoc(docRef, {
+                [arrayField]: arrayUnion(objectToAdd),
+            });
+            console.log(`[DATABASE SESSION] Object added to array`);
+            return true;
+        } catch (error) {
+            console.error(`[DATABASE SESSION] Failed to add object to array: ${error}`);
+            return false;
+        }
+    }
+
+    /**
+     * Adds an object to an array in a specified document, allowing duplicates.
+     *
+     * @param {DatabaseCollection} collectionName - The name of the collection.
+     * @param {string} id - The ID of the document to update.
+     * @param {string} arrayField - The name of the array field.
+     * @param {Record<string, any>} objectToAdd - The object to add to the array.
+     * @returns {Promise<boolean>} - Returns true on success, false on failure.
+     *
+     * @example
+     * DatabaseSession.inst.addToArray('users', 'documentID', 'arrayFieldName', { key: 'value' });
+     */
+    public async addToArray(
+        collectionName: DatabaseCollection,
+        id: string,
+        arrayField: string,
+        objectToAdd: {},
+    ): Promise<boolean> {
+        try {
+            const docRef = doc(db, collectionName, id);
+            const docSnap = await getDoc(docRef);
+            if (!docSnap.exists()) {
+                throw new Error(`[DATABASE SESSION] Document ${id} in collection ${collectionName} doesn't exist`);
+            }
+            const currentArray = docSnap.data()[arrayField] || [];
+            const newArray = [...currentArray, objectToAdd];
+            await updateDoc(docRef, {
+                [arrayField]: newArray,
+            });
+            console.log(`[DATABASE SESSION] Object added to array (allowing duplicates)`);
+            return true;
+        } catch (error) {
+            console.error(`[DATABASE SESSION] Failed to add object to array: ${error}`);
             return false;
         }
     }

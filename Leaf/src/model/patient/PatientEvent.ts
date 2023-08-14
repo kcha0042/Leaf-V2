@@ -7,6 +7,11 @@ class PatientEvent {
     public readonly title: string;
     public readonly description: string;
     public readonly category: PatientEventCategory;
+    public get triggerTimeDescription(): string {
+        const hours = this.triggerTime.getHours().toString().padStart(2, "0");
+        const minutes = this.triggerTime.getMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+    }
 
     constructor(id: UUID, triggerTime: Date, title: string, description: string, category: PatientEventCategory) {
         this.id = id;

@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/session/Session";
+import { FlatList } from "react-native";
 import Worker from "../../model/employee/Worker";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import LeafColors from "../styling/LeafColors";
-import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
+import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 const YourWorkersScreen: React.FC = () => {

@@ -5,8 +5,10 @@ import EmployeeID from "../employee/EmployeeID";
 import Worker from "../employee/Worker";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
+import PatientEvent from "../patient/PatientEvent";
 import GetPatientsManager from "./GetPatientsManager";
 import GetWorkersManager from "./GetWorkersManager";
+import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
 
 class Session {
@@ -37,6 +39,14 @@ class Session {
 
     public async submitTriage(patient: Patient): Promise<boolean> {
         return NewTriageManager.inst.newTriageSubmitted(patient);
+    }
+
+    public async submitPatientEvent(event: PatientEvent): Promise<boolean> {
+        if (!this.activePatient) {
+            console.error("Failed to submit patient event - active patient is null");
+            return false;
+        }
+        return NewPatientEventManager.inst.newPatientEventSubmitted(this.activePatient, event);
     }
 
     public setLoggedInAccount(employee: Employee) {

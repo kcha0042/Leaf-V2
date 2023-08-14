@@ -1,4 +1,8 @@
 class ValidateUtil {
+    public static valueIsDefined(input: unknown | undefined | null): boolean {
+        return input != undefined && input != null;
+    }
+
     public static stringIsValid(input: string | undefined | null): boolean {
         if (typeof input !== "string" || !input) return false;
         return input.trim() !== "";

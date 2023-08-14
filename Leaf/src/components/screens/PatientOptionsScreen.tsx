@@ -108,10 +108,10 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         description={strings("label.addEvent")}
                         onPress={() => {
                             NavigationSession.inst.navigateTo(
-                                AddEventScreen, 
-                                navigation, 
-                                strings("header.worker.addEvent")
-                            )
+                                AddEventScreen,
+                                navigation,
+                                strings("header.worker.addEvent"),
+                            );
                         }}
                         icon="calendar-clock"
                     />

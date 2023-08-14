@@ -1,26 +1,20 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import Patient from "../../model/patient/Patient";
+import Session from "../../model/session/Session";
+import StateManager from "../../state/publishers/StateManager";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import HStack from "../containers/HStack";
+import VStack from "../containers/VStack";
+import Spacer from "../containers/layout/Spacer";
+import PatientCard from "../custom/PatientCard";
+import PatientsPicker from "../custom/PatientsPicker";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
-import LeafTypography from "../styling/LeafTypography";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafText from "../base/LeafText/LeafText";
-import ActionsScreen from "./ActionsScreen";
-import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import PatientsPicker from "../custom/PatientsPicker";
-import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
-import HStack from "../containers/HStack";
-import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
-import StateManager from "../../state/publishers/StateManager";
-import Session from "../../model/session/Session";
-import Patient from "../../model/patient/Patient";
-import PatientCard from "../custom/PatientCard";
-import Spacer from "../containers/layout/Spacer";
+import LeafTypography from "../styling/LeafTypography";
 import PatientPreviewScreen from "./PatientPreviewScreen";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

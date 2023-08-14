@@ -44,9 +44,9 @@ const LeafTimeInput: React.FC<Props> = ({
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters
 
         // Apply mask
-        if (value.length <= 2){
+        if (value.length <= 2) {
             return value;
-        } else if (value.length <= 3){
+        } else if (value.length <= 3) {
             return value.slice(0, 2) + ":" + value.slice(2);
         } else {
             return value.slice(0, 2) + ":" + value.slice(2, 4);
@@ -64,23 +64,23 @@ const LeafTimeInput: React.FC<Props> = ({
     };
 
     const createDate = (timeStr: string): Date | undefined => {
-        if (validateText(timeStr)){
+        if (validateText(timeStr)) {
             const [hours, minutes] = timeStr.split(":").map(Number);
             const currentDate = new Date();
             currentDate.setHours(hours, minutes);
             return currentDate;
         }
-    }
+    };
 
     const onTextChange = (text: string) => {
         setError(false);
         setText(maskText(text));
         const date = createDate(text);
         onChange(date);
-        if (!validateText(text) && text != ""){
+        if (!validateText(text) && text != "") {
             setTextCurrentColor(LeafColors.textError);
             setBorderColor(LeafColors.textError);
-        }else{
+        } else {
             setTextCurrentColor(textColor);
             setBorderColor(color);
         }
@@ -165,7 +165,7 @@ const LeafTimeInput: React.FC<Props> = ({
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
-                            color: currentTextColor.getColor()
+                            color: currentTextColor.getColor(),
                         },
                         typography.getStylesheet(),
                         style,

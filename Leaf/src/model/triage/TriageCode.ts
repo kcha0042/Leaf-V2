@@ -46,7 +46,7 @@ export class TriageCode {
                 strings("triageCodeSteps.immediate.2"),
                 strings("triageCodeSteps.immediate.3"),
                 strings("triageCodeSteps.immediate.4"),
-            ]
+            ];
         }
         if (this.matches(TriageCode.emergency)) {
             return [
@@ -54,7 +54,7 @@ export class TriageCode {
                 strings("triageCodeSteps.emergency.2"),
                 strings("triageCodeSteps.emergency.3"),
                 strings("triageCodeSteps.emergency.4", TriageCode.immediate.code.toString()),
-            ]
+            ];
         }
         if (this.matches(TriageCode.urgent)) {
             return [
@@ -63,20 +63,17 @@ export class TriageCode {
                 strings("triageCodeSteps.urgent.3"),
                 strings("triageCodeSteps.urgent.4"),
                 strings("triageCodeSteps.urgent.5"),
-            ]
+            ];
         }
         if (this.matches(TriageCode.semiUrgent)) {
             return [
                 strings("triageCodeSteps.semiUrgent.1"),
                 strings("triageCodeSteps.semiUrgent.2"),
                 strings("triageCodeSteps.semiUrgent.3"),
-            ]
+            ];
         }
         if (this.matches(TriageCode.nonUrgent)) {
-            return [
-                strings("triageCodeSteps.nonUrgent.1"),
-                strings("triageCodeSteps.nonUrgent.2"),
-            ]
+            return [strings("triageCodeSteps.nonUrgent.1"), strings("triageCodeSteps.nonUrgent.2")];
         }
         return [];
     }

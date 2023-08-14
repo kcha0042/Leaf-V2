@@ -13,82 +13,100 @@ import VStack from "../containers/VStack";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import ValidateUtil from "../../utils/ValidateUtil";
+import Session from "../../model/session/Session";
+import PatientEvent from "../../model/patient/PatientEvent";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AddEventScreen: React.FC<Props> = ({ navigation }) => {
-
     const [title, setTitle] = useState<string | undefined>();
     const [triggerTime, setTriggerTime] = useState<Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [category, setCategory] = useState<PatientEventCategory | undefined>();
 
-    const validateVariable = (variable: unknown): boolean => {
-        return variable != undefined && variable != null && variable != "";
-    }
-
     const allIsValid = (): boolean => {
         return (
-            validateVariable(title) && 
-            validateVariable(triggerTime) && 
-            validateVariable(description) && 
-            validateVariable(category)
+            ValidateUtil.stringIsValid(title) &&
+            ValidateUtil.valueIsDefined(triggerTime) &&
+            ValidateUtil.stringIsValid(description) &&
+            ValidateUtil.valueIsDefined(category)
         );
-    }
+    };
 
-    const onDone = () => {
-        if (allIsValid()){
-            NavigationSession.inst.navigateBack(navigation);
-        }else{
+    const onSubmit = async () => {
+        if (allIsValid()) {
+            const event = PatientEvent.new(triggerTime, title, description, category);
+            const successful = await Session.inst.submitPatientEvent(event);
+            if (successful) {
+                // TODO: snackbar
+                NavigationSession.inst.navigateBack(navigation);
+            }
+        } else {
             // TODO: snackbar
         }
-    }
+    };
 
     return (
         <View
             style={{
                 flex: 1,
                 backgroundColor: LeafColors.screenBackgroundLight.getColor(),
-                padding: LeafDimensions.screenPadding
+                padding: LeafDimensions.screenPadding,
             }}
         >
             <VStack
                 spacing={LeafDimensions.screenSpacing}
                 style={{
-                    flex: 1
+                    flex: 1,
                 }}
             >
-                <LeafTextInput
-                    label={strings("inputLabel.title")}
-                    onTextChange={(text: string) => setTitle(text)}
-                />
+                <LeafTextInput label={strings("inputLabel.title")} onTextChange={(text: string) => setTitle(text)} />
+
                 <LeafTimeInput
                     label={strings("inputLabel.triggerTime")}
                     onChange={(date?: Date) => setTriggerTime(date)}
                 />
+
                 <LeafMultilineTextInput
                     label={strings("inputLabel.description")}
                     onTextChange={(text: string) => setDescription(text)}
                 />
+
                 <LeafSelectionInput
                     navigation={navigation}
                     title={strings("inputLabel.category")}
                     items={[
-                        new LeafSelectionItem<PatientEventCategory>(PatientEventCategory.medication.toString(), strings("label.category"), PatientEventCategory.medication),
-                        new LeafSelectionItem<PatientEventCategory>(PatientEventCategory.other.toString(), strings("label.category"), PatientEventCategory.other)
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.medication.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.medication,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.other.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.other,
+                        ),
                     ]}
-                    selected={category != undefined ? new LeafSelectionItem<PatientEventCategory>(category.toString(), strings("label.category"), category) : null}
+                    selected={
+                        category != undefined
+                            ? new LeafSelectionItem<PatientEventCategory>(
+                                  category.toString(),
+                                  strings("label.category"),
+                                  category,
+                              )
+                            : null
+                    }
                     onSelection={(item: LeafSelectionItem<PatientEventCategory>) => setCategory(item.value)}
                 />
             </VStack>
-            <LeafButton
-                label={"Done"}
-                onPress={onDone}
-            />
+
+            <LeafButton label={strings("button.submit")} onPress={onSubmit} />
         </View>
     );
-}
+};
 
 export default AddEventScreen;

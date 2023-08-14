@@ -81,10 +81,10 @@ const LeafDateInput: React.FC<Props> = ({
     const onTextChange = (text: string) => {
         setText(maskText(text));
         onChange(toDate(text));
-        if (!validateText(text)){
+        if (!validateText(text)) {
             setBorderColor(LeafColors.textError);
             setCurrentTextColor(LeafColors.textError);
-        }else{
+        } else {
             setBorderColor(color);
             setCurrentTextColor(textColor);
         }
@@ -96,12 +96,12 @@ const LeafDateInput: React.FC<Props> = ({
     };
 
     const onBlur = () => {
-        setError(!validateText(text) && text != "")
+        setError(!validateText(text) && text != "");
         setBorderColor(color);
     };
 
     const toDate = (dateString: string): Date | undefined => {
-        if (validateText(text)){
+        if (validateText(text)) {
             const [day, month, year] = dateString.split("/").map(Number);
             return new Date(year, month - 1, day); // month is 0-indexed in JavaScript
         }
@@ -176,7 +176,7 @@ const LeafDateInput: React.FC<Props> = ({
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
-                            color: currentTextColor.getColor()
+                            color: currentTextColor.getColor(),
                         },
                         typography.getStylesheet(),
                         style,

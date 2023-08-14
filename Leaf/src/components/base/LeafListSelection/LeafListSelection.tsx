@@ -1,16 +1,16 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { FlatList, ScrollView, View } from "react-native";
-import DefaultScreenContainer from "../../screens/containers/DefaultScreenContainer";
-import LeafDimensions from "../../styling/LeafDimensions";
+import { FlatList } from "react-native";
+import FlatContainer from "../../containers/FlatContainer";
 import VStack from "../../containers/VStack";
 import Spacer from "../../containers/layout/Spacer";
-import FlatContainer from "../../containers/FlatContainer";
-import LeafText from "../LeafText/LeafText";
 import VGap from "../../containers/layout/VGap";
 import NavigationSession from "../../navigation/state/NavigationEnvironment";
-import LeafListSelectionManager from "./LeafListSelectionManager";
+import DefaultScreenContainer from "../../screens/containers/DefaultScreenContainer";
+import LeafDimensions from "../../styling/LeafDimensions";
 import LeafTypography from "../../styling/LeafTypography";
+import LeafText from "../LeafText/LeafText";
+import LeafListSelectionManager from "./LeafListSelectionManager";
 
 interface Props {
     navigation: NavigationProp<ParamListBase>;

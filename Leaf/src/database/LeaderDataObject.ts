@@ -3,22 +3,30 @@ import Leader from "../model/employee/Leader";
 import { Hospitals } from "../preset_data/Hospitals";
 import DataObject from "./DataObject";
 
+export enum LeaderField {
+    ID = "id",
+    FirstName = "firstName",
+    LastName = "lastName",
+    Email = "email",
+    CurrentHospitalID = "currentHospitalId",
+}
+
 class LeaderDataObject {
     public static create(leader: Leader): DataObject {
         return new DataObject()
-            .addString("id", leader.id.toString())
-            .addString("firstName", leader.firstName)
-            .addString("lastName", leader.lastName)
-            .addString("email", leader.email)
-            .addString("currentHospitalID", leader.currentHospital.id.toString());
+            .addString(LeaderField.ID, leader.id.toString())
+            .addString(LeaderField.FirstName, leader.firstName)
+            .addString(LeaderField.LastName, leader.lastName)
+            .addString(LeaderField.Email, leader.email)
+            .addString(LeaderField.CurrentHospitalID, leader.currentHospital.id.toString());
     }
 
     public static restore(data: DataObject): Leader {
-        const id = data.getString("id");
-        const firstName = data.getString("firstName");
-        const lastName = data.getString("lastName");
-        const email = data.getString("email");
-        const currentHospitalID = data.getString("currentHospitalID");
+        const id = data.getString(LeaderField.ID);
+        const firstName = data.getString(LeaderField.FirstName);
+        const lastName = data.getString(LeaderField.LastName);
+        const email = data.getString(LeaderField.Email);
+        const currentHospitalID = data.getString(LeaderField.CurrentHospitalID);
         return new Leader(new EmployeeID(id), firstName, lastName, email, Hospitals[currentHospitalID]);
     }
 }

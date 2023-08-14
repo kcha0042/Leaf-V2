@@ -46,12 +46,12 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatContainer>
                     <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
-                    <VStack
-                        spacing={20}
-                    >
-                        {
-                            patient.triageCase.triageCode.getSteps().map((step, i) => <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>{i+1}: {step}</LeafText>)
-                        }
+                    <VStack spacing={20}>
+                        {patient.triageCase.triageCode.getSteps().map((step, i) => (
+                            <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>
+                                {i + 1}: {step}
+                            </LeafText>
+                        ))}
                     </VStack>
                 </FlatContainer>
 
