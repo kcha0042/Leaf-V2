@@ -17,7 +17,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    onChange: (date?: Date) => void; // called when date string is completed
+    onChange: (date: Date | undefined) => void; // called when date string is completed
 }
 
 /**
@@ -101,7 +101,7 @@ const LeafDateInput: React.FC<Props> = ({
     };
 
     const toDate = (dateString: string): Date | undefined => {
-        if (validateText(text)) {
+        if (validateText(dateString)) {
             const [day, month, year] = dateString.split("/").map(Number);
             return new Date(year, month - 1, day); // month is 0-indexed in JavaScript
         }
