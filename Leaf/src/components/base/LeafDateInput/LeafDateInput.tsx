@@ -17,7 +17,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    onChange: (date: Date) => void; // called when date string is completed
+    onChange: (date?: Date) => void; // called when date string is completed
 }
 
 /**
@@ -78,18 +78,11 @@ const LeafDateInput: React.FC<Props> = ({
 
     const onTextChange = (text: string) => {
         setText(maskText(text));
-        if (validateText(text)) {
-            onChange(toDate(text));
-        } else {
-            onChange(undefined);
-        }
+        onChange(toDate(text));
     };
 
     const onFocus = () => {
         setError(false);
-        if (!validateText(text)) {
-            setText("");
-        }
     };
 
     const onBlur = () => {
@@ -98,9 +91,11 @@ const LeafDateInput: React.FC<Props> = ({
         }
     };
 
-    const toDate = (dateString: string) => {
-        const [day, month, year] = dateString.split("/").map(Number);
-        return new Date(year, month - 1, day); // month is 0-indexed in JavaScript
+    const toDate = (dateString: string): Date | undefined => {
+        if (validateText(text)){
+            const [day, month, year] = dateString.split("/").map(Number);
+            return new Date(year, month - 1, day); // month is 0-indexed in JavaScript
+        }
     };
 
     const [isFocused, setIsFocused] = useState(false);

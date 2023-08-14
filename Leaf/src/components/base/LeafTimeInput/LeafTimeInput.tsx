@@ -17,7 +17,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    onChange: (date: Date) => void; // called when date string is completed
+    onChange: (date?: Date) => void; // called when date string is completed
 }
 
 /**
@@ -37,6 +37,8 @@ const LeafTimeInput: React.FC<Props> = ({
 }) => {
     const [text, setText] = useState("");
     const [error, setError] = useState(false);
+    const [borderColor, setBorderColor] = useState(textColor);
+    const [currentTextColor, setTextCurrentColor] = useState(textColor);
 
     const maskText = (text: string): string => {
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters
@@ -52,7 +54,7 @@ const LeafTimeInput: React.FC<Props> = ({
     };
 
     const validateText = (text: string): boolean => {
-        if (text.length > 5) return false;
+        if (text.length != 5) return false;
 
         const [hours, minutes] = text.split(":").map(Number);
 
@@ -71,35 +73,36 @@ const LeafTimeInput: React.FC<Props> = ({
     }
 
     const onTextChange = (text: string) => {
+        setError(false);
         setText(maskText(text));
         const date = createDate(text);
-        if (date != undefined){
-            onChange(date);
+        onChange(date);
+        if (!validateText(text)){
+            setTextCurrentColor(LeafColors.textError);
+        } else {
+            setTextCurrentColor(textColor);
         }
     };
 
     const onFocus = () => {
         setError(false);
-        if (!validateText(text)) {
-            setText("");
-        }
+        setBorderColor(textColor);
     };
 
     const onBlur = () => {
         if (!validateText(text) && text != "") {
             setError(true);
+            setBorderColor(LeafColors.textError);
+        }else{
+            setBorderColor(color);
+            setError(false);
         }
-    };
-
-    const toDate = (dateString: string) => {
-        const [day, month, year] = dateString.split("/").map(Number);
-        return new Date(year, month - 1, day); // month is 0-indexed in JavaScript
     };
 
     const [isFocused, setIsFocused] = useState(false);
     const borderWidth = 2.0;
     const textInputRef = useRef(null);
-    const typography = LeafTypography.body.withColor(textColor);
+    const typography = LeafTypography.body.withColor(currentTextColor);
     const errorTypography = LeafTypography.error;
     errorTypography.size = LeafTypography.subscriptLabel.size;
     const labelTypography = LeafTypography.subscript;
@@ -138,7 +141,7 @@ const LeafTimeInput: React.FC<Props> = ({
                     paddingVertical: 12 - borderWidth,
                     paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
-                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderColor: isFocused ? typography.color : borderColor.getColor(),
                     borderWidth: borderWidth,
                 }}
             >
@@ -165,6 +168,7 @@ const LeafTimeInput: React.FC<Props> = ({
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
+                            color: currentTextColor.getColor()
                         },
                         typography.getStylesheet(),
                         style,

@@ -9,13 +9,10 @@ import LeafSelectionItem from "../base/LeafListSelection/LeafSelectionItem";
 import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import LeafTimeInput from "../base/LeafTimeInput/LeafTimeInput";
-import Spacer from "../containers/layout/Spacer";
 import VStack from "../containers/VStack";
-import FormHeader from "../custom/FormHeader";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -69,7 +66,7 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                 />
                 <LeafTimeInput
                     label={strings("inputLabel.triggerTime")}
-                    onChange={(date: Date) => setTriggerTime(date)}
+                    onChange={(date?: Date) => setTriggerTime(date)}
                 />
                 <LeafMultilineTextInput
                     label={strings("inputLabel.description")}
