@@ -78,6 +78,6 @@ export class TriageCode {
                 strings("triageCodeSteps.nonUrgent.2"),
             ]
         }
-        return [strings("unknown")];
+        return [];
     }
 }

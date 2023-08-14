@@ -24,7 +24,6 @@ const FlatContainer: React.FC<Props> = ({
         <TouchableOpacity
             style={[styles.container, { backgroundColor: color.getColor() }, style]}
             onPress={onPress}
-            disabled={onPress == null}
         >
             {children}
         </TouchableOpacity>
