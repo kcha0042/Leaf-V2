@@ -37,6 +37,8 @@ const LeafDateInput: React.FC<Props> = ({
 }) => {
     const [text, setText] = useState("");
     const [error, setError] = useState(false);
+    const [currentTextColor, setCurrentTextColor] = useState(textColor);
+    const [borderColor, setBorderColor] = useState(color);
 
     const maskText = (text: string): string => {
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters
@@ -79,16 +81,23 @@ const LeafDateInput: React.FC<Props> = ({
     const onTextChange = (text: string) => {
         setText(maskText(text));
         onChange(toDate(text));
+        if (!validateText(text)){
+            setBorderColor(LeafColors.textError);
+            setCurrentTextColor(LeafColors.textError);
+        }else{
+            setBorderColor(color);
+            setCurrentTextColor(textColor);
+        }
     };
 
     const onFocus = () => {
         setError(false);
+        setBorderColor(textColor);
     };
 
     const onBlur = () => {
-        if (!validateText(text) && text != "") {
-            setError(true);
-        }
+        setError(!validateText(text) && text != "")
+        setBorderColor(color);
     };
 
     const toDate = (dateString: string): Date | undefined => {
@@ -101,7 +110,7 @@ const LeafDateInput: React.FC<Props> = ({
     const [isFocused, setIsFocused] = useState(false);
     const borderWidth = 2.0;
     const textInputRef = useRef(null);
-    const typography = LeafTypography.body.withColor(textColor);
+    const typography = LeafTypography.body.withColor(currentTextColor);
     const errorTypography = LeafTypography.error;
     errorTypography.size = LeafTypography.subscriptLabel.size;
     const labelTypography = LeafTypography.subscript;
@@ -140,7 +149,7 @@ const LeafDateInput: React.FC<Props> = ({
                     paddingVertical: 12 - borderWidth,
                     paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
-                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderColor: isFocused ? typography.color : borderColor.getColor(),
                     borderWidth: borderWidth,
                 }}
             >
@@ -167,6 +176,7 @@ const LeafDateInput: React.FC<Props> = ({
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
+                            color: currentTextColor.getColor()
                         },
                         typography.getStylesheet(),
                         style,

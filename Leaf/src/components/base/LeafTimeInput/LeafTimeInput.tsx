@@ -38,7 +38,7 @@ const LeafTimeInput: React.FC<Props> = ({
     const [text, setText] = useState("");
     const [error, setError] = useState(false);
     const [borderColor, setBorderColor] = useState(textColor);
-    const [currentTextColor, setTextCurrentColor] = useState(textColor);
+    const [currentTextColor, setTextCurrentColor] = useState(color);
 
     const maskText = (text: string): string => {
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters
@@ -77,10 +77,12 @@ const LeafTimeInput: React.FC<Props> = ({
         setText(maskText(text));
         const date = createDate(text);
         onChange(date);
-        if (!validateText(text)){
+        if (!validateText(text) && text != ""){
             setTextCurrentColor(LeafColors.textError);
-        } else {
+            setBorderColor(LeafColors.textError);
+        }else{
             setTextCurrentColor(textColor);
+            setBorderColor(color);
         }
     };
 
@@ -90,13 +92,8 @@ const LeafTimeInput: React.FC<Props> = ({
     };
 
     const onBlur = () => {
-        if (!validateText(text) && text != "") {
-            setError(true);
-            setBorderColor(LeafColors.textError);
-        }else{
-            setBorderColor(color);
-            setError(false);
-        }
+        setError(!validateText(text) && text != "");
+        setBorderColor(color);
     };
 
     const [isFocused, setIsFocused] = useState(false);
