@@ -32,7 +32,9 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>{Role.toString(leader.role)}</LeafText>
+                <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>
+                    {Role.toString(leader.role)}
+                </LeafText>
 
                 <FlatContainer color={LeafColors.fillBackgroundLight}>
                     <LeafText typography={LeafTypography.body}>{strings("label.id") + leader.id.toString()}</LeafText>

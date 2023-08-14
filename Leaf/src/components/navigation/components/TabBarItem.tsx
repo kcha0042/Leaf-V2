@@ -1,6 +1,5 @@
 import React from "react";
-import { View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { View, TouchableWithoutFeedback } from "react-native";
 import LeafIcon from "../../base/LeafIcon/LeafIcon";
 import LeafText from "../../base/LeafText/LeafText";
 import VStack from "../../containers/VStack";
@@ -34,7 +33,9 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
                 onPress={interfaceSection.activateOnTabBar}
                 style={{ paddingVertical: padding, paddingHorizontal: 30 }}
             >
-                <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
+                <View>
+                    <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
+                </View>
             </TouchableWithoutFeedback>
 
             <View

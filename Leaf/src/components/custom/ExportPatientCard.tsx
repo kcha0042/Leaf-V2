@@ -59,9 +59,7 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
 
                     <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript}>
-                        {datetimeText}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{datetimeText}</LeafText>
                 </VStack>
 
                 <Spacer />
