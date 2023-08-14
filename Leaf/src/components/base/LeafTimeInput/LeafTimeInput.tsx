@@ -65,7 +65,7 @@ const LeafTimeInput: React.FC<Props> = ({
 
     const createDate = (timeStr: string): Date | undefined => {
         if (validateText(timeStr)){
-            const [hours, minutes] = text.split(":").map(Number);
+            const [hours, minutes] = timeStr.split(":").map(Number);
             const currentDate = new Date();
             currentDate.setHours(hours, minutes);
             return currentDate;
