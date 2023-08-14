@@ -31,9 +31,8 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
         >
             <TouchableWithoutFeedback
                 onPress={interfaceSection.activateOnTabBar}
-                style={{ paddingVertical: padding, paddingHorizontal: 30 }}
             >
-                <View>
+                <View style={{ paddingVertical: padding, paddingHorizontal: 30 }}>
                     <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
                 </View>
             </TouchableWithoutFeedback>
