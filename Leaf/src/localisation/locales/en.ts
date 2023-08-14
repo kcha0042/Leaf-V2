@@ -109,6 +109,7 @@ export default {
     "inputLabel.triageDescription": "Triage Description",
     "inputLabel.dob": "Date of Birth",
     "inputLabel.dateFormat": "DD/MM/YYYY",
+    "inputLabel.timeFormat": "HH:MM - 24hr",
     "inputLabel.hopsital": "Hospital Site",
     "inputLabel.ward": "Ward",
     "inputLabel.medicalUnit": "Medical Unit",
@@ -124,6 +125,7 @@ export default {
     "error.hospitalExists": "Hospital does not exist",
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
+    "error.invalidTime": "Invalid time",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",

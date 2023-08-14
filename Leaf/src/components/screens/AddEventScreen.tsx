@@ -8,6 +8,7 @@ import LeafSelectionInput from "../base/LeafListSelection/LeafSelectionInput";
 import LeafSelectionItem from "../base/LeafListSelection/LeafSelectionItem";
 import LeafMultilineTextInput from "../base/LeafMultilineTextInput/LeafMultilineTextInput";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import LeafTimeInput from "../base/LeafTimeInput/LeafTimeInput";
 import Spacer from "../containers/layout/Spacer";
 import VStack from "../containers/VStack";
 import FormHeader from "../custom/FormHeader";
@@ -23,7 +24,7 @@ interface Props {
 const AddEventScreen: React.FC<Props> = ({ navigation }) => {
 
     const [title, setTitle] = useState<string | undefined>();
-    const [triggerTime, setTriggerTime] = useState<string | undefined>();
+    const [triggerTime, setTriggerTime] = useState<Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [category, setCategory] = useState<PatientEventCategory | undefined>();
 
@@ -66,9 +67,9 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                     label={strings("inputLabel.title")}
                     onTextChange={(text: string) => setTitle(text)}
                 />
-                <LeafTextInput
+                <LeafTimeInput
                     label={strings("inputLabel.triggerTime")}
-                    onTextChange={(text: string) => setTriggerTime(text)}
+                    onChange={(date: Date) => setTriggerTime(date)}
                 />
                 <LeafMultilineTextInput
                     label={strings("inputLabel.description")}

@@ -26,7 +26,7 @@ interface Props {
  * @param props {@link Props}
  * @returns
  */
-const LeafDateInput: React.FC<Props> = ({
+const LeafTimeInput: React.FC<Props> = ({
     label,
     textColor = LeafColors.textDark,
     color = LeafColors.textBackgroundDark,
@@ -42,46 +42,39 @@ const LeafDateInput: React.FC<Props> = ({
         let value = text.replace(/\D/g, ""); // Remove any non-digit characters
 
         // Apply mask
-        if (value.length <= 2) {
+        if (value.length <= 2){
             return value;
-        } else if (value.length <= 4) {
-            return value.slice(0, 2) + "/" + value.slice(2);
+        } else if (value.length <= 3){
+            return value.slice(0, 2) + ":" + value.slice(2);
         } else {
-            return value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+            return value.slice(0, 2) + ":" + value.slice(2, 4);
         }
     };
 
     const validateText = (text: string): boolean => {
-        if (text.length < 10) return false; // If not a full date string
+        if (text.length > 5) return false;
 
-        let [day, month, year] = text.split("/").map((i) => parseInt(i, 10));
+        const [hours, minutes] = text.split(":").map(Number);
 
-        if (month > 12) return false;
+        if (hours > 24 || minutes > 59) return false;
 
-        let daysInMonth;
-        switch (month) {
-            case 2: // February
-                daysInMonth = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 29 : 28; // Leap year check
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11: // April, June, September, November
-                daysInMonth = 30;
-                break;
-            default:
-                daysInMonth = 31;
-        }
-
-        return day <= daysInMonth;
+        return true;
     };
+
+    const createDate = (timeStr: string): Date | undefined => {
+        if (validateText(timeStr)){
+            const [hours, minutes] = text.split(":").map(Number);
+            const currentDate = new Date();
+            currentDate.setHours(hours, minutes);
+            return currentDate;
+        }
+    }
 
     const onTextChange = (text: string) => {
         setText(maskText(text));
-        if (validateText(text)) {
-            onChange(toDate(text));
-        } else {
-            onChange(undefined);
+        const date = createDate(text);
+        if (date != undefined){
+            onChange(date);
         }
     };
 
@@ -155,11 +148,11 @@ const LeafDateInput: React.FC<Props> = ({
 
                 <HStack>
                     <LeafText typography={LeafTypography.subscriptLabel} wide={false}>
-                        {strings("inputLabel.dateFormat")}
+                        {strings("inputLabel.timeFormat")}
                     </LeafText>
                     {!error ? undefined : (
                         <LeafText typography={errorTypography} wide={false}>
-                            {` - ${strings("error.invalidDate")}`}
+                            {` - ${strings("error.invalidTime")}`}
                         </LeafText>
                     )}
                 </HStack>
@@ -180,7 +173,7 @@ const LeafDateInput: React.FC<Props> = ({
                         setText(maskText != undefined ? maskText(text) : text);
                         onTextChange(text);
                     }}
-                    value={text}
+                    value={maskText(text)}
                     onFocus={() => {
                         onFocus();
                         setIsFocused(true);
@@ -196,4 +189,4 @@ const LeafDateInput: React.FC<Props> = ({
     );
 };
 
-export default LeafDateInput;
+export default LeafTimeInput;
