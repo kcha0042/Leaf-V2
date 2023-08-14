@@ -53,7 +53,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const [triageDescription, setTriageDescription] = useState<string | undefined>(undefined);
 
     const sexIsValid: () => boolean = () => {
-        return sex !== null && sex !== undefined;
+        return ValidateUtil.valueIsDefined(sex);
     };
     const givenNameIsValid: () => boolean = () => {
         return ValidateUtil.stringIsValid(givenName);
@@ -74,22 +74,23 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         return ValidateUtil.dobIsValid(dob);
     };
     const triageCodeIsValid: () => boolean = () => {
-        return triageCode !== null && triageCode !== undefined;
+        return ValidateUtil.valueIsDefined(triageCode);
     };
     const triageDescriptionIsValid: () => boolean = () => {
         return ValidateUtil.stringIsValid(triageDescription);
     };
     const hospitalIsValid: () => boolean = () => {
-        return selectedHosptial !== null && selectedHosptial !== undefined;
+        return ValidateUtil.valueIsDefined(selectedHosptial);
     };
     const wardIsValid: () => boolean = () => {
-        return selectedWard !== null && selectedWard !== undefined;
+        return ValidateUtil.valueIsDefined(selectedWard);
     };
     const medicalUnitIsValid: () => boolean = () => {
-        return selectedMedicalUnit !== null && selectedMedicalUnit !== undefined;
+        return ValidateUtil.valueIsDefined(selectedMedicalUnit);
     };
 
     const allIsValid: () => boolean = () => {
+        console.log(dobIsValid());
         return (
             sexIsValid() &&
             givenNameIsValid() &&
@@ -183,7 +184,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafDateInput
                         label={strings("inputLabel.dob")}
-                        textColor={dobIsValid() || !dob ? LeafColors.textDark : LeafColors.textError}
+                        textColor={dobIsValid() ? LeafColors.textDark : LeafColors.textError}
                         onChange={(date) => {
                             setDOB(date);
                         }}
