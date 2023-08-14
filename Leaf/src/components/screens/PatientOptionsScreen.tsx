@@ -12,6 +12,7 @@ import ActionsScreen from "./ActionsScreen";
 import NewTriageScreen from "./NewTriageScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import AddEventScreen from "./AddEventScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -106,7 +107,11 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={strings("button.addEvent")}
                         description={strings("label.addEvent")}
                         onPress={() => {
-                            // TODO: Navigate to a screen to add an event
+                            NavigationSession.inst.navigateTo(
+                                AddEventScreen, 
+                                navigation, 
+                                strings("header.worker.addEvent")
+                            )
                         }}
                         icon="calendar-clock"
                     />

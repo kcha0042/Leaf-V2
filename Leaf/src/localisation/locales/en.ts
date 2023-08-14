@@ -36,6 +36,7 @@ export default {
     "header.worker.newTriage": "New Triage",
     "header.worker.patients": "Patients",
     "header.worker.account": "Your Account",
+    "header.worker.addEvent": "Add Event",
     "header.worker.view1Param": "{0} History",
     "header.worker.actions1Param": "Code {0} Responses",
     "header.worker.edit1Param": "Edit {0}",
@@ -92,6 +93,7 @@ export default {
     "label.enterPassword": "Enter password",
     "label.allocated": "Allocated",
     "label.all": "All",
+    "label.category": "Category",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -113,6 +115,10 @@ export default {
     "inputLabel.required": "Required",
     "inputLabel.sex": "Sex",
     "inputLabel.phone": "Phone Number",
+    "inputLabel.title": "Title",
+    "inputLabel.description": "Description",
+    "inputLabel.triggerTime": "Trigger Time",
+    "inputLabel.category": "Category",
 
     // Error
     "error.hospitalExists": "Hospital does not exist",
