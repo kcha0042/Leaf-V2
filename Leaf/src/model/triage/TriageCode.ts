@@ -53,7 +53,7 @@ export class TriageCode {
                 strings("triageCodeSteps.emergency.1"),
                 strings("triageCodeSteps.emergency.2"),
                 strings("triageCodeSteps.emergency.3"),
-                strings("triageCodeSteps.emergency.4", TriageCode.immediate.code),
+                strings("triageCodeSteps.emergency.4", TriageCode.immediate.code.toString()),
             ]
         }
         if (this.matches(TriageCode.urgent)) {
