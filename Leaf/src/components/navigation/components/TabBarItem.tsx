@@ -29,9 +29,8 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
                 paddingBottom: 8,
             }}
         >
-            <TouchableWithoutFeedback
-                onPress={interfaceSection.activateOnTabBar}
-            >
+            <TouchableWithoutFeedback onPress={interfaceSection.activateOnTabBar}>
+                {/* Nest view to ensure compatability with Android */}
                 <View style={{ paddingVertical: padding, paddingHorizontal: 30 }}>
                     <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
                 </View>
