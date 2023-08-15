@@ -1,5 +1,6 @@
 import { Hospitals } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
+import ValidateUtil from "../../utils/ValidateUtil";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Worker from "../employee/Worker";
@@ -25,11 +26,11 @@ class Session {
         [],
     );
     // ALl workers (continuously updated from database fetches) [ID: Worker]
-    private workerStore: { [key: string]: Worker } = {};
+    private _workerStore: { [key: string]: Worker } = {};
     // All patients (continuously updated from database fetches) [MRN: Patient]
-    private patientStore: { [key: string]: Patient } = {};
-    // The patient currently being previewed within app (any screen)
-    private activePatient: Patient | null = null;
+    private _patientStore: { [key: string]: Patient } = {};
+    // The mrn of the patient currently being previewed within app (any screen)
+    private _activePatientMRN: MRN | null = null;
 
     public get loggedInAccount(): Employee {
         return this._loggedInAccount;
@@ -42,11 +43,18 @@ class Session {
     }
 
     public async submitPatientEvent(event: PatientEvent): Promise<boolean> {
-        if (!this.activePatient) {
-            console.error("Failed to submit patient event - active patient is null");
+        if (!this._activePatientMRN) {
+            console.error("[SESSION] Failed to submit patient event - active patient is null");
             return false;
         }
-        return NewPatientEventManager.inst.newPatientEventSubmitted(this.activePatient, event);
+        const activePatient = this.getActivePatient();
+        const success = NewPatientEventManager.inst.newPatientEventSubmitted(activePatient, event);
+        if (success) {
+            // If we successfully submitted the event, re-fetch them from the database
+            // This keeps Session up to date with the latest patient instance
+            this.fetchPatient(activePatient.mrn);
+        }
+        return success;
     }
 
     public setLoggedInAccount(employee: Employee) {
@@ -54,35 +62,44 @@ class Session {
     }
 
     public setActivePatient(patient: Patient | null) {
-        this.activePatient = patient;
+        this._activePatientMRN = patient.mrn;
         StateManager.activePatientChanged.publish();
     }
 
     public getActivePatient(): Patient | null {
-        return this.activePatient;
+        return this._patientStore[this._activePatientMRN.toString()] ?? null;
     }
 
     public getAllWorkers(): Worker[] {
-        return Object.values(this.workerStore);
+        return Object.values(this._workerStore);
     }
 
     public getWorker(id: EmployeeID): Worker | null {
-        return this.workerStore[id.toString()] || null;
+        return this._workerStore[id.toString()] || null;
     }
 
     public getAllPatients(): Patient[] {
-        return Object.values(this.patientStore);
+        return Object.values(this._patientStore);
     }
 
     public getPatient(id: MRN): Patient | null {
-        return this.patientStore[id.toString()] || null;
+        return this._patientStore[id.toString()] || null;
     }
 
     public async fetchAllWorkers() {
         // Restore workers from the database
         const workers = await GetWorkersManager.inst.getWorkers();
         for (const worker of workers) {
-            this.workerStore[worker.id.toString()] = worker;
+            this._workerStore[worker.id.toString()] = worker;
+        }
+        // Notify subscribers
+        StateManager.workersFetched.publish();
+    }
+
+    public async fetchWorker(id: EmployeeID) {
+        const worker = await GetWorkersManager.inst.getWorker(id);
+        if (ValidateUtil.valueIsDefined(worker)) {
+            this._workerStore[worker.id.toString()] = worker;
         }
         // Notify subscribers
         StateManager.workersFetched.publish();
@@ -92,9 +109,18 @@ class Session {
         const patients = await GetPatientsManager.inst.getPatients();
         for (const patient of patients) {
             // No duplicates due to use of dictionary
-            this.patientStore[patient.mrn.toString()] = patient;
+            this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers that patients have been fetched
+        StateManager.patientsFetched.publish();
+    }
+
+    public async fetchPatient(mrn: MRN) {
+        const patient = await GetPatientsManager.inst.getPatient(mrn);
+        if (ValidateUtil.valueIsDefined(patient)) {
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers
         StateManager.patientsFetched.publish();
     }
 }
