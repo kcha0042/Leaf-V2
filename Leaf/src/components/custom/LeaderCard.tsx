@@ -3,26 +3,25 @@ import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
-import Worker from "../../model/employee/Worker";
+import Leader from "../../model/employee/Leader";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
 
 interface Props {
-    worker: Worker;
+    leader: Leader;
     style?: ViewStyle;
     onPress: () => void;
 }
 
-const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
-    // TODO: Add Worker full name instead of First Name
-    const idText = worker.id.toString();
+const LeaderCard: React.FC<Props> = ({ leader, style, onPress }) => {
+    const idText = leader.id.toString();
     return (
         <FlatContainer color={LeafColors.fillBackgroundLight} style={style} onPress={onPress}>
             <HStack>
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3}>{worker.firstName}</LeafText>
+                        <LeafText typography={LeafTypography.title3}>{leader.firstName}</LeafText>
                     </View>
 
                     <VGap size={6} />
@@ -36,4 +35,4 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     );
 };
 
-export default WorkerCard;
+export default LeaderCard;

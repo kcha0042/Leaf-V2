@@ -15,6 +15,8 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafText from "../base/LeafText/LeafText";
+import VGap from "../containers/layout/VGap";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -64,7 +66,9 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <PatientsPicker onSelection={onSelection} />
+
                 {/* <LeafSearchBar searchQuery={""} onSearch={onSearch} /> */}
+
                 <HStack
                     style={{
                         width: "100%",
@@ -82,6 +86,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         style={{ flex: 1 }}
                         textStyle={{ paddingLeft: 6 }}
                     />
+
                     <LeafTextButton
                         label={"Code"}
                         typography={LeafTypography.plainTextButton}
@@ -92,7 +97,9 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                         textStyle={{ paddingLeft: 6 }}
                     />
                 </HStack>
-                <Spacer />
+
+                <VGap size={6} />
+
                 {patients.map((patient) => (
                     <PatientCard
                         key={patient.mrn.toString()}

@@ -1,33 +1,40 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { FlatList } from "react-native";
-import Worker from "../../model/employee/Worker";
+import Leader from "../../model/employee/Leader";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import WorkerCard from "../custom/WorkerCard";
+import LeaderCard from "../custom/LeaderCard";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafDimensions from "../styling/LeafDimensions";
+import ManageLeaderScreen from "./ManageLeaderScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
-const YourWorkersScreen: React.FC = () => {
-    const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
+    const [leaders, setLeaders] = React.useState<Leader[]>(Session.inst.getAllLeaders());
 
     useEffect(() => {
-        const unsubscribe = StateManager.workersFetched.subscribe(() => {
-            setWorkers(Session.inst.getAllWorkers());
+        const unsubscribe = StateManager.leadersFetched.subscribe(() => {
+            setLeaders(Session.inst.getAllLeaders());
         });
 
-        Session.inst.fetchAllWorkers();
+        Session.inst.fetchAllLeaders();
 
         return () => {
             unsubscribe();
         };
     }, []);
 
-    const onPressWorker = (worker) => {
-        // TODO: Navigation
-        console.log(worker.firstName); // TODO: Add worker fullname instead of first name
+    const onPressLeader = (leader: Leader) => {
+        Session.inst.setActiveLeader(leader);
+        NavigationSession.inst.navigateTo(ManageLeaderScreen, navigation, leader.fullName);
     };
 
     return (
@@ -39,28 +46,28 @@ const YourWorkersScreen: React.FC = () => {
                 }}
             >
                 <FlatList
-                    data={workers}
-                    renderItem={({ item: worker }) => (
-                        <WorkerCard
-                            worker={worker}
+                    data={leaders}
+                    renderItem={({ item: leader }) => (
+                        <LeaderCard
+                            leader={leader}
                             onPress={() => {
-                                onPressWorker(worker);
+                                onPressLeader(leader);
                             }}
                         />
                     )}
-                    keyExtractor={(worker) => worker.id.toString()}
+                    keyExtractor={(leader) => leader.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
-
                 <Spacer />
             </VStack>
         </DefaultScreenContainer>
     );
 };
 
-export default YourWorkersScreen;
+export default AllLeadersScreen;

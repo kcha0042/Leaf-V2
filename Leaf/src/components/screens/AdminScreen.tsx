@@ -4,7 +4,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import Nurse from "../../model/employee/Worker";
 import StateManager from "../../state/publishers/StateManager";
 import LeafColors from "../styling/LeafColors";
-import ManageNurseScreen from "./ManageNurseScreen";
+import ManageNurseScreen from "./ManageWorkerScreen";
 import VStack from "../containers/VStack";
 import LeafDimensions from "../styling/LeafDimensions";
 

@@ -90,7 +90,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const allIsValid: () => boolean = () => {
-        console.log(dobIsValid());
         return (
             sexIsValid() &&
             givenNameIsValid() &&
@@ -184,7 +183,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafDateInput
                         label={strings("inputLabel.dob")}
-                        textColor={dobIsValid() ? LeafColors.textDark : LeafColors.textError}
+                        textColor={dobIsValid() || !dob ? LeafColors.textDark : LeafColors.textError}
                         onChange={(date) => {
                             setDOB(date);
                         }}

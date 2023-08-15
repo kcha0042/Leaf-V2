@@ -3,6 +3,7 @@ import StateManager from "../../state/publishers/StateManager";
 import ValidateUtil from "../../utils/ValidateUtil";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
+import Leader from "../employee/Leader";
 import Worker from "../employee/Worker";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
@@ -29,8 +30,14 @@ class Session {
     private _workerStore: { [key: string]: Worker } = {};
     // All patients (continuously updated from database fetches) [MRN: Patient]
     private _patientStore: { [key: string]: Patient } = {};
+    // All leaders (continuously updated from database fetches) [ID: Leader]
+    private _leaderStore: { [key: string]: Leader } = {};
     // The mrn of the patient currently being previewed within app (any screen)
     private _activePatientMRN: MRN | null = null;
+    // The id of the worker currently being previewed within the app (any screen)
+    private _activeWorkerID: EmployeeID | null = null;
+    // The id of the leader currently being previewed within the app (any screen)
+    private _activeLeaderID: EmployeeID | null = null;
 
     public get loggedInAccount(): Employee {
         return this._loggedInAccount;
@@ -66,8 +73,26 @@ class Session {
         StateManager.activePatientChanged.publish();
     }
 
+    public setActiveWorker(worker: Worker | null) {
+        this._activeWorkerID = worker.id;
+        StateManager.activeWorkerChanged.publish();
+    }
+
+    public setActiveLeader(leader: Leader | null) {
+        this._activeLeaderID = leader.id;
+        StateManager.activeLeaderChanged.publish();
+    }
+
     public getActivePatient(): Patient | null {
         return this._patientStore[this._activePatientMRN.toString()] ?? null;
+    }
+
+    public getActiveWorker(): Worker | null {
+        return this._workerStore[this._activeWorkerID.toString()] ?? null;
+    }
+
+    public getActiveLeader(): Leader | null {
+        return this._leaderStore[this._activeLeaderID.toString()] ?? null;
     }
 
     public getAllWorkers(): Worker[] {
@@ -76,6 +101,14 @@ class Session {
 
     public getWorker(id: EmployeeID): Worker | null {
         return this._workerStore[id.toString()] || null;
+    }
+
+    public getAllLeaders(): Leader[] {
+        return Object.values(this._leaderStore);
+    }
+
+    public getLeader(id: EmployeeID): Leader | null {
+        return this._leaderStore[id.toString()] || null;
     }
 
     public getAllPatients(): Patient[] {
@@ -103,6 +136,33 @@ class Session {
         }
         // Notify subscribers
         StateManager.workersFetched.publish();
+    }
+
+    public fetchAllLeaders() {
+        // TODO: Asyncronously access database and update leaderStore
+        // Temporary:
+        const Leader1 = new Leader(
+            new EmployeeID("abc-123"),
+            "John",
+            "Squarepants",
+            "tempemail@gmail.com",
+            Hospitals["H1"],
+        );
+        const Leader2 = new Leader(
+            new EmployeeID("abc-456"),
+            "Julius",
+            "Squarepants",
+            "tempemail@gmail.com",
+            Hospitals["H1"],
+        );
+        this._leaderStore[Leader1.id.toString()] = Leader1;
+        this._leaderStore[Leader2.id.toString()] = Leader2;
+        // Notify subscribers
+        StateManager.leadersFetched.publish();
+    }
+
+    public fetchLeader(id: EmployeeID) {
+        // TODO: Fetch leader
     }
 
     public async fetchAllPatients() {

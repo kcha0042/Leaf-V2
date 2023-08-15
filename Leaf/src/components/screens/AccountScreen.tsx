@@ -27,16 +27,16 @@ interface Props {
 
 const AccountScreen: React.FC<Props> = ({ navigation }) => {
     // TODO: change this when we have a way of getting the ID
-    const tmpID = new EmployeeID("123-123");
+    const loggedInID = Session.inst.loggedInAccount.id;
 
-    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(tmpID));
+    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(loggedInID));
     const [name, setName] = React.useState<string>(worker?.fullName || strings("label.loading"));
     const [email, setEmail] = React.useState<string>(worker?.email || strings("label.loading"));
     const [hospital, setHospital] = React.useState<string>(worker?.currentHospital.name || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
-            const tmpWorker = Session.inst.getWorker(tmpID);
+            const tmpWorker = Session.inst.getWorker(loggedInID);
             setWorker(tmpWorker);
             setName(tmpWorker?.fullName || "");
             setEmail(tmpWorker?.email || "");

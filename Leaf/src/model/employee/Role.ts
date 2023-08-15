@@ -18,13 +18,13 @@ export class Role {
 
     public toString(): string {
         if (this.matches(Role.worker)) {
-            return strings("role.admin");
+            return strings("role.worker");
         }
         if (this.matches(Role.leader)) {
             return strings("role.leader");
         }
-        if (this.matches(Role.worker)) {
-            return strings("role.worker");
+        if (this.matches(Role.admin)) {
+            return strings("role.admin");
         }
         return strings("unknown");
     }

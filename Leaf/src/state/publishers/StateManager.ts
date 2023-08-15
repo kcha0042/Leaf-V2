@@ -43,11 +43,20 @@ class StateManager {
     // Notifies when workers are done async fetching and can be retrieved from Session
     public static readonly workersFetched = new LeafPublisher();
 
+    // Notifies when leaders are done async fetching and can be retrieved from Session
+    public static readonly leadersFetched = new LeafPublisher();
+
     // Notifies when patients are done async fetching and can be retrieved from Session
     public static readonly patientsFetched = new LeafPublisher();
 
     // Notifies when the active patient has changed so components can update
     public static readonly activePatientChanged = new LeafPublisher();
+
+    // Notifies when the active worker has changed so components can update
+    public static readonly activeWorkerChanged = new LeafPublisher();
+
+    // Notifies when the active leader has changed so components can update
+    public static readonly activeLeaderChanged = new LeafPublisher();
 
     // The continuously-updated width of the main content (where Screen components go)
     public static readonly contentWidth = new LeafValuePublisher(0.0);

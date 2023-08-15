@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
-import { FlatList } from "react-native";
-import Patient from "../../model/patient/Patient";
-import Session from "../../model/session/Session";
-import StateManager from "../../state/publishers/StateManager";
-import LeafText from "../base/LeafText/LeafText";
-import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import AllocateCard from "../custom/AllocateCard";
-import PatientCard from "../custom/PatientCard";
-import LeafDimensions from "../styling/LeafDimensions";
-import LeafTypography from "../styling/LeafTypography";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import VStack from "../containers/VStack";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import Session from "../../model/session/Session";
+import Patient from "../../model/patient/Patient";
+import StateManager from "../../state/publishers/StateManager";
+import { FlatList, ScrollView, View } from "react-native";
+import LeafDimensions from "../styling/LeafDimensions";
+import ExportPatientCard from "../custom/ExportPatientCard";
 
-const AllocatePatientsScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
@@ -28,36 +29,18 @@ const AllocatePatientsScreen: React.FC = () => {
         };
     }, []);
 
-    const onPressPatient = (patient) => {
-        // TODO: Navigation
-        console.log(patient.fullName);
-    };
-
-    const onPressNewAllocation = () => {
-        // TODO: Patient Allocation Page
-        console.log("new Allocation");
+    const onPressPatient = (patient: Patient) => {
+        Session.inst.setActivePatient(patient);
+        // TODO: should add patient function.
     };
 
     return (
         <DefaultScreenContainer>
-            <VStack
-                spacing={LeafDimensions.screenSpacing}
-                style={{
-                    flex: 1,
-                }}
-            >
-                <LeafText typography={LeafTypography.headerScreen}>TODO</LeafText>
-
-                <AllocateCard
-                    onPress={() => {
-                        onPressNewAllocation;
-                    }}
-                />
-
+            <VStack>
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard
+                        <ExportPatientCard
                             patient={patient}
                             onPress={() => {
                                 onPressPatient(patient);
@@ -68,15 +51,14 @@ const AllocatePatientsScreen: React.FC = () => {
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
                 />
-
-                <Spacer />
             </VStack>
         </DefaultScreenContainer>
     );
 };
 
-export default AllocatePatientsScreen;
+export default ExportPatientScreen;

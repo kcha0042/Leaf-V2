@@ -126,6 +126,9 @@ class DataObject {
         if (retrieval === undefined) {
             return onFail;
         }
+        if (retrieval === null) {
+            return null;
+        }
         return new Date(retrieval);
     }
 

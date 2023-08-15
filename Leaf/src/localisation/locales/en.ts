@@ -43,6 +43,10 @@ export default {
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
+    "header.admin.viewNurses": "Nurses",
+    "header.admin.viewLeaders": "Leaders",
+    "header.admin.newAccount": "New Account",
+    "header.admin.exportPatient": "Export Patient",
 
     // Leader Headers
     "header.leader.viewNurses": "Nurses",
@@ -58,6 +62,7 @@ export default {
     "button.edit": "edit",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
+    "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
@@ -67,6 +72,7 @@ export default {
     "button.clear": "Clear",
     "button.submit": "Submit",
     "button.addEvent": "Add Event",
+    "button.exportPatient": "Export Patient",
 
     // Login
     "login.title": "Login",
@@ -74,6 +80,8 @@ export default {
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
+    "operation.activeAccount":
+        "To activate the account and set the password, select 'Activate Account' on the login page.",
 
     // Labels
     "label.id": "ID: ",
@@ -94,6 +102,9 @@ export default {
     "label.allocated": "Allocated",
     "label.all": "All",
     "label.category": "Category",
+    "label.selectRole": "Select Role",
+    "label.enterName": "Enter Name",
+    "label.accountCreated": "Account Created",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -120,12 +131,6 @@ export default {
     "inputLabel.description": "Description",
     "inputLabel.triggerTime": "Trigger Time",
     "inputLabel.category": "Category",
-
-    // Error
-    "error.hospitalExists": "Hospital does not exist",
-    "error.incorrectPassword": "Incorrect password",
-    "error.invalidDate": "Invalid date",
-    "error.invalidTime": "Invalid time",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
@@ -219,4 +224,12 @@ export default {
     "sex.male": "Male",
     "sex.female": "Female",
     "sex.other": "Other",
+
+    // Errors
+    "error.missingName": "Please enter both name and surname",
+    "error.missingRole": "Please select the role",
+    "error.hospitalExists": "Hospital does not exist",
+    "error.incorrectPassword": "Incorrect password",
+    "error.invalidDate": "Invalid date",
+    "error.invalidTime": "Invalid time",
 };
