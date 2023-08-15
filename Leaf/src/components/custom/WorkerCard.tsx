@@ -22,9 +22,7 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
             <HStack>
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3}>
-                            {worker.firstName}
-                        </LeafText>
+                        <LeafText typography={LeafTypography.title3}>{worker.firstName}</LeafText>
                     </View>
 
                     <VGap size={6} />
