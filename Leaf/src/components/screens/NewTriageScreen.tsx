@@ -32,7 +32,6 @@ import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
 
-
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
@@ -212,9 +211,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                     />
                 </VStack>
-                
+
                 <FormHeader title={strings("triageForm.title.triage")} style={{ paddingVertical: formPadding }} />
-                
+
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <TriageCodePicker
                         onSelection={(code) => {
@@ -222,7 +221,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                         style={{ paddingBottom: 8 }}
                     />
-                    
+
                     <LeafMultilineTextInput
                         label={strings("inputLabel.triageDescription")}
                         onTextChange={(text) => {
