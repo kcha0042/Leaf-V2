@@ -16,7 +16,6 @@ import FormHeader from "../custom/FormHeader";
 import TriageCodePicker from "../custom/TriageCodePicker";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import StateManager from "../../state/publishers/StateManager";
 import LeafTypography from "../styling/LeafTypography";
 import { MedicalUnitsArray } from "../../preset_data/MedicalUnits";
@@ -31,6 +30,7 @@ import { PatientSex } from "../../model/patient/PatientSex";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
+import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -141,7 +141,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const formPadding = 24;
 
     return (
-        <DefaultScreenContainer>
+        <KeyboardAwareScreenContainer>
             <VStack>
                 <FormHeader title={strings("triageForm.title.identity")} style={{ paddingBottom: formPadding }} />
 
@@ -296,7 +296,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
                 </HStack>
             </VStack>
-        </DefaultScreenContainer>
+        </KeyboardAwareScreenContainer>
     );
 };
 
