@@ -31,6 +31,8 @@ import { PatientSex } from "../../model/patient/PatientSex";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -141,160 +143,167 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <DefaultScreenContainer>
-            <VStack>
-                <FormHeader title={strings("triageForm.title.identity")} style={{ paddingBottom: formPadding }} />
+            <KeyboardAwareScrollView 
+                enableOnAndroid={true}
+                showsVerticalScrollIndicator={false}
+                extraScrollHeight={35}
+                enableAutomaticScroll={true}
+            >
+                <VStack>
+                    <FormHeader title={strings("triageForm.title.identity")} style={{ paddingBottom: formPadding }} />
 
-                <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
-                    <LeafTextInput
-                        label={strings("inputLabel.givenName")}
-                        textColor={givenNameIsValid() || !givenName ? LeafColors.textDark : LeafColors.textError}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={(text) => {
-                            setGivenName(text);
-                        }}
+                    <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
+                        <LeafTextInput
+                            label={strings("inputLabel.givenName")}
+                            textColor={givenNameIsValid() || !givenName ? LeafColors.textDark : LeafColors.textError}
+                            color={LeafColors.textBackgroundDark}
+                            onTextChange={(text) => {
+                                setGivenName(text);
+                            }}
+                        />
+
+                        <LeafTextInput
+                            label={strings("inputLabel.surname")}
+                            textColor={surnameNameIsValid() || !surname ? LeafColors.textDark : LeafColors.textError}
+                            color={LeafColors.textBackgroundDark}
+                            onTextChange={(text) => {
+                                setSurname(text);
+                            }}
+                        />
+
+                        <LeafTextInput
+                            label={strings("inputLabel.mrn")}
+                            textColor={mrnIsValid() || !mrn ? LeafColors.textDark : LeafColors.textError}
+                            color={LeafColors.textBackgroundDark}
+                            onTextChange={(text) => {
+                                setMRN(text);
+                            }}
+                        />
+
+                        <LeafTextInput
+                            label={strings("inputLabel.postcode")}
+                            textColor={postcodeIsValid() || !postcode ? LeafColors.textDark : LeafColors.textError}
+                            color={LeafColors.textBackgroundDark}
+                            onTextChange={(text) => {
+                                setPostcode(text);
+                            }}
+                        />
+
+                        <LeafDateInput
+                            label={strings("inputLabel.dob")}
+                            textColor={dobIsValid() || !dob ? LeafColors.textDark : LeafColors.textError}
+                            onChange={(date) => {
+                                setDOB(date);
+                            }}
+                        />
+
+                        <LeafTextInput
+                            label={strings("inputLabel.phone")}
+                            textColor={phoneIsValid() || !phone ? LeafColors.textDark : LeafColors.textError}
+                            color={LeafColors.textBackgroundDark}
+                            onTextChange={(text) => {
+                                setPhone(text);
+                            }}
+                        />
+
+                        <LeafSegmentedButtons
+                            label={strings("inputLabel.sex")}
+                            options={[
+                                new LeafSegmentedValue(PatientSex.male, PatientSex.male.toString()),
+                                new LeafSegmentedValue(PatientSex.female, PatientSex.female.toString()),
+                                new LeafSegmentedValue(PatientSex.other, PatientSex.other.toString()),
+                            ]}
+                            value={sex}
+                            onSetValue={(segmentedValue) => {
+                                setSex(segmentedValue);
+                            }}
+                        />
+                    </VStack>
+                    
+                    <FormHeader title={strings("triageForm.title.triage")} style={{ paddingVertical: formPadding }} />
+                    
+                    <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
+                        <TriageCodePicker
+                            onSelection={(code) => {
+                                setTriageCode(code);
+                            }}
+                            style={{ paddingBottom: 8 }}
+                        />
+                        
+                        <LeafMultilineTextInput
+                            label={strings("inputLabel.triageDescription")}
+                            onTextChange={(text) => {
+                                setTriageDescription(text);
+                            }}
+                            textColor={
+                                triageDescriptionIsValid() || !triageDescription
+                                    ? LeafColors.textDark
+                                    : LeafColors.textError
+                            }
+                        />
+                    </VStack>
+
+                    <FormHeader
+                        title={strings("triageForm.title.hospitalisation")}
+                        style={{ paddingVertical: formPadding }}
                     />
 
-                    <LeafTextInput
-                        label={strings("inputLabel.surname")}
-                        textColor={surnameNameIsValid() || !surname ? LeafColors.textDark : LeafColors.textError}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={(text) => {
-                            setSurname(text);
-                        }}
-                    />
+                    <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
+                        <LeafSelectionInput
+                            navigation={navigation}
+                            items={HospitalsArray.map((hospital) => {
+                                return new LeafSelectionItem(hospital.name, hospital.code, hospital);
+                            })}
+                            title={strings("inputLabel.hopsital")}
+                            selected={selectedHosptial}
+                            onSelection={(item: LeafSelectionItem<Hospital>) => {
+                                setSelectedHospital(item);
+                            }}
+                        />
 
-                    <LeafTextInput
-                        label={strings("inputLabel.mrn")}
-                        textColor={mrnIsValid() || !mrn ? LeafColors.textDark : LeafColors.textError}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={(text) => {
-                            setMRN(text);
-                        }}
-                    />
+                        <LeafSelectionInput
+                            navigation={navigation}
+                            items={WardsArray.map((ward) => {
+                                return new LeafSelectionItem(ward.name, ward.hosptialCode, ward);
+                            })}
+                            title={strings("inputLabel.ward")}
+                            selected={selectedWard}
+                            onSelection={(item: LeafSelectionItem<Ward>) => {
+                                setSelectedWard(item);
+                            }}
+                        />
 
-                    <LeafTextInput
-                        label={strings("inputLabel.postcode")}
-                        textColor={postcodeIsValid() || !postcode ? LeafColors.textDark : LeafColors.textError}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={(text) => {
-                            setPostcode(text);
-                        }}
-                    />
+                        <LeafSelectionInput
+                            navigation={navigation}
+                            items={MedicalUnitsArray.map((unit) => {
+                                return new LeafSelectionItem(unit.name, unit.group, unit);
+                            })}
+                            title={strings("inputLabel.medicalUnit")}
+                            selected={selectedMedicalUnit}
+                            onSelection={(item: LeafSelectionItem<MedicalUnit>) => {
+                                setSelectedMedicalUnit(item);
+                            }}
+                        />
+                    </VStack>
 
-                    <LeafDateInput
-                        label={strings("inputLabel.dob")}
-                        textColor={dobIsValid() || !dob ? LeafColors.textDark : LeafColors.textError}
-                        onChange={(date) => {
-                            setDOB(date);
-                        }}
-                    />
+                    <FormHeader title={strings("triageForm.title.end")} style={{ paddingVertical: formPadding }} />
 
-                    <LeafTextInput
-                        label={strings("inputLabel.phone")}
-                        textColor={phoneIsValid() || !phone ? LeafColors.textDark : LeafColors.textError}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={(text) => {
-                            setPhone(text);
-                        }}
-                    />
+                    <HStack spacing={24}>
+                        <LeafButton
+                            label={strings("button.clear")}
+                            wide={false}
+                            onPress={() => {
+                                StateManager.clearAllInputs.publish();
+                            }}
+                            style={{ flex: 1 }}
+                            color={LeafColors.fillBackgroundLight}
+                            typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
+                        />
 
-                    <LeafSegmentedButtons
-                        label={strings("inputLabel.sex")}
-                        options={[
-                            new LeafSegmentedValue(PatientSex.male, PatientSex.male.toString()),
-                            new LeafSegmentedValue(PatientSex.female, PatientSex.female.toString()),
-                            new LeafSegmentedValue(PatientSex.other, PatientSex.other.toString()),
-                        ]}
-                        value={sex}
-                        onSetValue={(segmentedValue) => {
-                            setSex(segmentedValue);
-                        }}
-                    />
+                        <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
+                    </HStack>
                 </VStack>
-
-                <FormHeader title={strings("triageForm.title.triage")} style={{ paddingVertical: formPadding }} />
-
-                <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
-                    <TriageCodePicker
-                        onSelection={(code) => {
-                            setTriageCode(code);
-                        }}
-                        style={{ paddingBottom: 8 }}
-                    />
-
-                    <LeafMultilineTextInput
-                        label={strings("inputLabel.triageDescription")}
-                        onTextChange={(text) => {
-                            setTriageDescription(text);
-                        }}
-                        textColor={
-                            triageDescriptionIsValid() || !triageDescription
-                                ? LeafColors.textDark
-                                : LeafColors.textError
-                        }
-                    />
-                </VStack>
-
-                <FormHeader
-                    title={strings("triageForm.title.hospitalisation")}
-                    style={{ paddingVertical: formPadding }}
-                />
-
-                <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
-                    <LeafSelectionInput
-                        navigation={navigation}
-                        items={HospitalsArray.map((hospital) => {
-                            return new LeafSelectionItem(hospital.name, hospital.code, hospital);
-                        })}
-                        title={strings("inputLabel.hopsital")}
-                        selected={selectedHosptial}
-                        onSelection={(item: LeafSelectionItem<Hospital>) => {
-                            setSelectedHospital(item);
-                        }}
-                    />
-
-                    <LeafSelectionInput
-                        navigation={navigation}
-                        items={WardsArray.map((ward) => {
-                            return new LeafSelectionItem(ward.name, ward.hosptialCode, ward);
-                        })}
-                        title={strings("inputLabel.ward")}
-                        selected={selectedWard}
-                        onSelection={(item: LeafSelectionItem<Ward>) => {
-                            setSelectedWard(item);
-                        }}
-                    />
-
-                    <LeafSelectionInput
-                        navigation={navigation}
-                        items={MedicalUnitsArray.map((unit) => {
-                            return new LeafSelectionItem(unit.name, unit.group, unit);
-                        })}
-                        title={strings("inputLabel.medicalUnit")}
-                        selected={selectedMedicalUnit}
-                        onSelection={(item: LeafSelectionItem<MedicalUnit>) => {
-                            setSelectedMedicalUnit(item);
-                        }}
-                    />
-                </VStack>
-
-                <FormHeader title={strings("triageForm.title.end")} style={{ paddingVertical: formPadding }} />
-
-                <HStack spacing={24}>
-                    <LeafButton
-                        label={strings("button.clear")}
-                        wide={false}
-                        onPress={() => {
-                            StateManager.clearAllInputs.publish();
-                        }}
-                        style={{ flex: 1 }}
-                        color={LeafColors.fillBackgroundLight}
-                        typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
-                    />
-
-                    <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
-                </HStack>
-            </VStack>
+            </KeyboardAwareScrollView>
         </DefaultScreenContainer>
     );
 };
