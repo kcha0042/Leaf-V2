@@ -1,17 +1,17 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
+import { FlatList } from "react-native";
+import Worker from "../../model/employee/Worker";
+import Session from "../../model/session/Session";
+import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
+import Spacer from "../containers/layout/Spacer";
+import VGap from "../containers/layout/VGap";
+import WorkerCard from "../custom/WorkerCard";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafDimensions from "../styling/LeafDimensions";
 import ManageNurseScreen from "./ManageWorkerScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import Session from "../../model/Session";
-import Worker from "../../model/employee/Worker";
-import StateManager from "../../state/publishers/StateManager";
-import { FlatList, ScrollView, View } from "react-native";
-import WorkerCard from "../custom/WorkerCard";
-import VGap from "../containers/layout/VGap";
-import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -21,11 +21,15 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressWorker = (worker: Worker) => {

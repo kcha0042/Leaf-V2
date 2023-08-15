@@ -1,22 +1,20 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafDimensions from "../styling/LeafDimensions";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafColors from "../styling/LeafColors";
+import { strings } from "../../localisation/Strings";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import { strings } from "../../localisation/Strings";
-import { View, ViewStyle } from "react-native";
+import LeafButton from "../base/LeafButton/LeafButton";
+import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import VStack from "../containers/VStack";
 import VGap from "../containers/layout/VGap";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import Session from "../../model/Session";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
-import { Role } from "../../model/employee/Role";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -33,7 +31,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>
-                    {Role.toString(worker.role)}
+                    {worker.role.toString()}
                 </LeafText>
 
                 <FlatContainer color={LeafColors.fillBackgroundLight}>

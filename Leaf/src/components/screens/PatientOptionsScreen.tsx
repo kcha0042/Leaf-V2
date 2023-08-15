@@ -1,7 +1,7 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
@@ -12,6 +12,7 @@ import ActionsScreen from "./ActionsScreen";
 import NewTriageScreen from "./NewTriageScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import AddEventScreen from "./AddEventScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -27,9 +28,13 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     useEffect(() => {
-        StateManager.contentWidth.subscribe(() => {
+        const unsubscribe = StateManager.contentWidth.subscribe(() => {
             setComponentWidth(StateManager.contentWidth.read());
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (
@@ -95,6 +100,20 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                             // TODO: Delete patient, then navigate back when activePatient is none
                         }}
                         icon="delete"
+                    />
+
+                    <LargeMenuButton
+                        size={buttonWidth}
+                        label={strings("button.addEvent")}
+                        description={strings("label.addEvent")}
+                        onPress={() => {
+                            NavigationSession.inst.navigateTo(
+                                AddEventScreen,
+                                navigation,
+                                strings("header.worker.addEvent"),
+                            );
+                        }}
+                        icon="calendar-clock"
                     />
 
                     <LargeMenuButton

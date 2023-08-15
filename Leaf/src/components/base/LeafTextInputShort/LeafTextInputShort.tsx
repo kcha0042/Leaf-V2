@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, TextInput, View, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
+import StateManager from "../../../state/publishers/StateManager";
 
 interface Props {
     label: string;
@@ -25,7 +26,9 @@ const LeafTextInputShort: React.FC<Props> = ({
     style,
     onTextChange,
 }) => {
-    const [text, setText] = React.useState("");
+    const [text, setText] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+    const borderWidth = 2.0;
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
@@ -33,11 +36,28 @@ const LeafTextInputShort: React.FC<Props> = ({
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
 
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setText("");
+            onTextChange("");
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
     return (
         <View
             style={[
                 wide ? { width: "100%" } : { alignSelf: "center" },
-                { flexDirection: "row", backgroundColor: color.getColor(), borderRadius: 12 },
+                {
+                    flexDirection: "row",
+                    backgroundColor: color.getColor(),
+                    borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
+                },
             ]}
         >
             <TouchableWithoutFeedback
@@ -83,6 +103,8 @@ const LeafTextInputShort: React.FC<Props> = ({
                     onTextChange(text);
                 }}
                 value={text}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
             />
         </View>
     );

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, TextInput, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import VStack from "../../containers/VStack";
@@ -6,6 +6,7 @@ import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
+import StateManager from "../../../state/publishers/StateManager";
 
 interface Props {
     label: string;
@@ -14,6 +15,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
+    maskText?: (text: string) => string;
     onTextChange: (text: string) => void;
 }
 
@@ -24,9 +26,12 @@ const LeafTextInput: React.FC<Props> = ({
     wide = true,
     valid = undefined,
     style,
+    maskText,
     onTextChange,
 }) => {
-    const [text, setText] = React.useState("");
+    const [text, setText] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+    const borderWidth = 2.0;
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     const labelTypography = LeafTypography.subscript;
@@ -36,6 +41,17 @@ const LeafTextInput: React.FC<Props> = ({
             : valid
             ? LeafColors.textSuccess.getColor()
             : LeafColors.textError.getColor();
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setText("");
+            onTextChange("");
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <TouchableWithoutFeedback
@@ -50,9 +66,11 @@ const LeafTextInput: React.FC<Props> = ({
                     width: wide ? "100%" : undefined,
                     alignSelf: wide ? undefined : "center",
                     backgroundColor: color.getColor(),
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
+                    paddingVertical: 12 - borderWidth,
+                    paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
                 }}
             >
                 <LeafText typography={labelTypography} style={{ color: labelColor }}>
@@ -72,10 +90,12 @@ const LeafTextInput: React.FC<Props> = ({
                         style,
                     ]}
                     onChangeText={(text) => {
-                        setText(text);
+                        setText(maskText != undefined ? maskText(text) : text);
                         onTextChange(text);
                     }}
                     value={text}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                 />
             </VStack>
         </TouchableWithoutFeedback>

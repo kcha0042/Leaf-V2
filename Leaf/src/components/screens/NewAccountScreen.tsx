@@ -18,6 +18,7 @@ import RolePicker from "../custom/RolePicker";
 import CreateAccountCard from "../custom/CreateAccountCard";
 import Worker from "../../model/employee/Worker";
 import { Role } from "../../model/employee/Role";
+import { Hospitals } from "../../preset_data/Hospitals";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -75,14 +76,14 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VStack spacing={8} style={{ width: "100%" }}>
                     <LeafTextInput
-                        label={strings("triageForm.textInput.givenName")}
+                        label={strings("inputLabel.givenName")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={onNameChange}
                     />
 
                     <LeafTextInput
-                        label={strings("triageForm.textInput.surname")}
+                        label={strings("inputLabel.surname")}
                         textColor={LeafColors.textDark}
                         color={LeafColors.textBackgroundDark}
                         onTextChange={onSurnameChange}
@@ -128,7 +129,8 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 <VGap size={32} />
 
                 <CreateAccountCard
-                    worker={new Worker(EmployeeID.generate(), "Jason", "ANY")}
+                    // TODO: Remove temp
+                    worker={new Worker(EmployeeID.generate(), "Jason", "ANY", "temp", Hospitals["H1"], [])}
                     onPress={null}
                     display={hasCreate}
                 />

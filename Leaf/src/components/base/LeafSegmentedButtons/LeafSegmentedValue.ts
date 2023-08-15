@@ -1,8 +1,11 @@
 class LeafSegmentedValue {
+    public get id(): string {
+        return this.label;
+    }
+
     constructor(
         public readonly value: any,
-        public readonly label: string | null = null,
-        public readonly icon: string | null = null,
+        public readonly label: string,
     ) {}
 }
 

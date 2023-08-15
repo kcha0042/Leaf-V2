@@ -30,9 +30,13 @@ export const TabBarNavigator: React.FC<Props> = ({ leafInterface }) => {
     useEffect(() => {
         NavigationSession.inst.clearScreens();
 
-        NavigationStateManager.screenStackUpdated.subscribe(() => {
+        const unsubscribe = NavigationStateManager.screenStackUpdated.subscribe(() => {
             setScreens([...NavigationSession.inst.screens]);
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     useEffect(() => {

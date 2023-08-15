@@ -123,7 +123,20 @@ StateManager.myState.subscribe(() => {
 });
 ```
 
-**It's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+**It's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render. Also remember to call the returned method upon the component being unmounted.**
+
+```ts
+useEffect(() => {
+    const unsubscribe = StateManager.myState.subscribe(() => {
+        // React to the state change, e.g. update hooks or call forceUpdate()
+    });
+
+    // When the component unmounts, unsubscribe
+    return () => {
+        unsubscribe();
+    };
+}, []);
+```
 
 #### State With Value
 
@@ -152,7 +165,23 @@ StateManager.loginStatus.subscribe(() => {
 });
 ```
 
-Again, **it's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render.**
+Again, **it's important that all subscriptions are made within a `useEffect` hook in order to not make a new subscription upon every re-render. And again, remember to call the returned method upon the component being unmounted**
+
+```typescript
+useEffect(() => {
+    const unsubscribe = StateManager.myState.subscribe(() => {
+        // We can read the state value
+    	let stateValue: LoginStatus = StateManager.loginStatus.read();
+        
+        // React to the state change, e.g. update hooks or call forceUpdate()
+    });
+
+    // When the component unmounts, unsubscribe
+    return () => {
+        unsubscribe();
+    };
+}, []);
+```
 
 ## Assertions
 

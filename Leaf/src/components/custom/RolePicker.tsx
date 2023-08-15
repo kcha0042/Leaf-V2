@@ -19,14 +19,16 @@ const RolePicker: React.FC<Props> = ({ style, onSelection }) => {
         setSegmentedValue(value);
         onSelection(value);
     };
+
     return (
         <View>
             <VStack spacing={8}>
                 <LeafSegmentedButtons
+                    label={strings("label.selectRole")}
                     options={[
-                        new LeafSegmentedValue(Role.Worker, strings("role.worker")),
-                        new LeafSegmentedValue(Role.Leader, strings("role.leader")),
-                        new LeafSegmentedValue(Role.Admin, strings("role.admin")),
+                        new LeafSegmentedValue(Role.worker, Role.worker.toString()),
+                        new LeafSegmentedValue(Role.leader, Role.leader.toString()),
+                        new LeafSegmentedValue(Role.admin, Role.admin.toString()),
                     ]}
                     value={segmentedValue}
                     selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.accent}

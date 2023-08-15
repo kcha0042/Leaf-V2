@@ -3,7 +3,7 @@ import VGap from "../containers/layout/VGap";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VStack from "../containers/VStack";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Patient from "../../model/patient/Patient";
 import StateManager from "../../state/publishers/StateManager";
 import { FlatList, ScrollView, View } from "react-native";
@@ -18,11 +18,15 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressPatient = (patient: Patient) => {

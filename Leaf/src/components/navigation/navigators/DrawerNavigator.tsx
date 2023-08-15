@@ -41,13 +41,18 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
     useEffect(() => {
         NavigationSession.inst.clearScreens();
 
-        NavigationStateManager.sidebarComponentChanged.subscribe(() => {
+        const unsubscribeSidebar = NavigationStateManager.sidebarComponentChanged.subscribe(() => {
             setSidebar(NavigationSession.inst.sidebarComponent);
         });
 
-        NavigationStateManager.screenStackUpdated.subscribe(() => {
+        const unsubscribeStack = NavigationStateManager.screenStackUpdated.subscribe(() => {
             setScreens([...NavigationSession.inst.screens]);
         });
+
+        return () => {
+            unsubscribeSidebar();
+            unsubscribeStack();
+        };
     }, []);
 
     useEffect(() => {

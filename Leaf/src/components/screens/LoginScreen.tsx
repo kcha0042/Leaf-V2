@@ -6,15 +6,20 @@ import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import LeafText from "../base/LeafText/LeafText";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import ActivateAccountScreen from "./ActivateAccountScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -75,20 +80,52 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.username")}
+                    label={strings("inputLabel.username")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onUsernameInput}
                 />
 
-                <VGap size={8} />
+                <VGap size={LeafDimensions.textInputSpacing} />
 
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.password")}
+                    label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onPasswordInput}
                 />
+
+                <VGap size={LeafDimensions.textInputSpacing} />
+
+                <HStack
+                    style={{
+                        alignItems: "center",
+                        width: "100%",
+                    }}
+                >
+                    <LeafCheckbox
+                        initialValue={true}
+                        onValueChange={(isTicked) => {}}
+                        color={LeafColors.textSemiDark}
+                        style={{
+                            marginRight: 8,
+                        }}
+                    />
+
+                    <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
+                        {strings("label.rememberMe")}
+                    </LeafText>
+
+                    <Spacer />
+
+                    <LeafTextButton
+                        label={strings("button.activateAccount")}
+                        onPress={() => {
+                            NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                        }}
+                        typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                    />
+                </HStack>
 
                 <LeafButton
                     label={strings("button.login")}
@@ -96,7 +133,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
-                    style={{ marginTop: 40 }}
+                    style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
                 />
             </View>
