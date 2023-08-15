@@ -6,7 +6,7 @@ import LeafTypography from "../styling/LeafTypography";
 import NewAllocationCard from "../custom/NewAllocationCard";
 import VGap from "../containers/layout/VGap";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import AllocateToNurseScreen from "./AllocateToNurseScreen";
+import AllocateNurseToPatientScreen from "./AllocateNurseToPatientScreen";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
@@ -61,7 +61,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                 <NewAllocationCard
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
-                            AllocateToNurseScreen,
+                            AllocateNurseToPatientScreen,
                             navigation,
                             strings("header.leader.viewPatients"),
                         );

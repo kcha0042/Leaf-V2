@@ -17,7 +17,7 @@ interface Props {
     onTextChange: (text: string) => void;
 }
 
-const LeafTextInputShort: React.FC<Props> = ({
+const LeafSearchBarNew: React.FC<Props> = ({
     label = "Search",
     textColor = LeafColors.textDark,
     color = LeafColors.textBackgroundDark,
@@ -103,4 +103,4 @@ const LeafTextInputShort: React.FC<Props> = ({
     );
 };
 
-export default LeafTextInputShort;
+export default LeafSearchBarNew;

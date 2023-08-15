@@ -11,7 +11,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import AllocateToPatientScreen from "../screens/AllocateToPatientScreen";
+import AllocatePatientToNurseScreen from "./AllocatePatientToNurseScreen";
 import { strings } from "../../localisation/Strings";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
@@ -37,7 +37,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
         Session.inst.setActivePatient(patient);
-        NavigationSession.inst.navigateTo(AllocateToPatientScreen, navigation, strings("header.leader.allocateTo"));
+        NavigationSession.inst.navigateTo(AllocatePatientToNurseScreen, navigation, strings("header.leader.allocateTo"));
     };
 
     return (

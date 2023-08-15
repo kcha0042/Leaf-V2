@@ -18,7 +18,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
+const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
     const [active, setActive] = useState(false);
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
@@ -88,4 +88,4 @@ const AllocateToNurseCard: React.FC<Props> = ({ patient, style }) => {
     );
 };
 
-export default AllocateToNurseCard;
+export default PatientAllocationCard;

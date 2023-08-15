@@ -7,7 +7,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList, ScrollView, ViewStyle } from "react-native";
 import Worker from "../../model/employee/Worker";
 import Session from "../../model/Session";
-import AllocateNurseToPatientCard from "../custom/AllocateNurseToPatientCard";
+import NurseAllocationCard from "../custom/NurseAllocationCard";
 import StateManager from "../../state/publishers/StateManager";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
@@ -15,7 +15,7 @@ interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
+const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
     const [searchQuery, setSearchQuery] = React.useState("");
     const onSearch = (query: string) => {
@@ -39,7 +39,7 @@ const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatList
                     data={workers}
-                    renderItem={({ item: worker }) => <AllocateNurseToPatientCard worker={worker} />}
+                    renderItem={({ item: worker }) => <NurseAllocationCard worker={worker} />}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
@@ -55,4 +55,4 @@ const AllocateToPatientScreen: React.FC<Props> = ({ navigation }) => {
     );
 };
 
-export default AllocateToPatientScreen;
+export default AllocatePatientToNurseScreen;

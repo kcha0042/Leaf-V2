@@ -19,7 +19,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-const AllocateNurseToPatientCard: React.FC<Props> = ({ worker }) => {
+const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     // check if allocate button is clicked (false=white, true=green)
     const [active, setActive] = useState(false);
     const idText = worker.id.toString();
@@ -73,4 +73,4 @@ const AllocateNurseToPatientCard: React.FC<Props> = ({ worker }) => {
     );
 };
 
-export default AllocateNurseToPatientCard;
+export default NurseAllocationCard;
