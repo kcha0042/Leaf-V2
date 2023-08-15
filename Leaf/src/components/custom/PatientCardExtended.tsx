@@ -16,7 +16,7 @@ interface Props {
     onPress: () => void;
 }
 
-const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
+const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
@@ -59,4 +59,4 @@ const PatientCard2: React.FC<Props> = ({ patient, style, onPress }) => {
     );
 };
 
-export default PatientCard2;
+export default PatientCardExtended;

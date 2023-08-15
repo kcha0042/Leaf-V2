@@ -6,7 +6,7 @@ import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import PatientCard2 from "../custom/PatientCard2";
+import PatientCardExtended from "../custom/PatientCardExtended";
 import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
@@ -55,7 +55,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard2
+                        <PatientCardExtended
                             patient={patient}
                             onPress={() => {
                                 onPressPatient(patient);
