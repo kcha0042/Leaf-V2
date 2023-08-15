@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import { Platform, TextInput, View, ViewStyle } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Platform, TextInput, View, ViewStyle, TouchableWithoutFeedback } from "react-native";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
@@ -41,27 +40,33 @@ const LeafTextInputShort: React.FC<Props> = ({
             ]}
         >
             <TouchableWithoutFeedback
-                style={{
-                    position: "absolute",
-                    flexDirection: "row",
-                    height: "100%",
-                    paddingHorizontal: 16,
-                    ...Platform.select({
-                        web: { cursor: "text" },
-                    }),
-                }}
+                
                 onPress={() => {
                     textInputRef.current.focus();
                 }}
             >
-                <LeafText
-                    typography={labelTypography}
-                    style={{
-                        alignSelf: "center",
-                    }}
-                >
-                    {text.length == 0 ? label : ""}
-                </LeafText>
+                <View style={{
+                    justifyContent: 'center',
+                    paddingHorizontal: 16,
+                    position: "absolute",
+                    flexDirection: "row",
+                    height: "100%",
+                    ...Platform.select({
+                        web: { cursor: "text" },
+                    }),
+
+                }}>
+                    <LeafText
+                        typography={labelTypography}
+                        verticalWrap={true}
+                        style={{
+                            alignSelf: "center",
+                        }}
+                    >
+                        {text.length == 0 ? label : ""}
+                    </LeafText>
+                </View>
+               
             </TouchableWithoutFeedback>
 
             <TextInput
