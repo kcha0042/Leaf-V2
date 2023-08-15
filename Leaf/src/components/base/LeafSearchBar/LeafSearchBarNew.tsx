@@ -52,7 +52,7 @@ const LeafTextInputShort: React.FC<Props> = ({
                 icon="magnify"
                 size={26}
                 color={LeafColors.textDark}
-                style={{ alignSelf: "center", display: "flex", marginLeft: 10 }}
+                style={{ alignSelf: "center", display: "flex", marginLeft: 16 }}
             />
 
             <TouchableWithoutFeedback
