@@ -76,7 +76,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
-                        borderColor: active ? "#f8f9fa" : "#3f4169",
                         borderWidth: 1,
                     }}
                 />

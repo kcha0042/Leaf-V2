@@ -20,7 +20,7 @@ interface Props {
 const LeafSearchBarNew: React.FC<Props> = ({
     label = "Search",
     textColor = LeafColors.textDark,
-    color = LeafColors.textBackgroundDark,
+    color = LeafColors.textBackgroundAccent,
     wide = true,
     valid = undefined,
     style,
@@ -40,7 +40,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
                 wide ? { width: "100%" } : { alignSelf: "center" },
                 {
                     flexDirection: "row",
-                    backgroundColor: LeafColors.textBackgroundAccent.getColor(),
+                    backgroundColor: color.getColor(),
                     borderRadius: 30,
                     borderColor: LeafColors.outlineTextBackgroundAccent.getColor(),
                     height: 55,
