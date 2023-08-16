@@ -44,9 +44,9 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 />
 
                 <VStack style={{ flex: 1 }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {patient.fullName}
-                        </LeafText>
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        {patient.fullName}
+                    </LeafText>
 
                     <VGap size={16} />
 
@@ -64,10 +64,10 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 </VStack>
 
                 <LeafIconButton
-                    icon={ active ? "check" : "plus"}
+                    icon={active ? "check" : "plus"}
                     size={LeafIconSize.Large}
-                    iconColor={active? LeafColors.textLight : LeafColors.textDark}
-                    color={active? LeafColors.accent : LeafColors.transparent}
+                    iconColor={active ? LeafColors.textLight : LeafColors.textDark}
+                    color={active ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
                         // change background color of allocate button to green (active = true)
                         setActive(!active);
@@ -76,7 +76,8 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
-                        borderWidth: 2,
+                        borderColor: active ? "#f8f9fa" : "#3f4169",
+                        borderWidth: 1,
                     }}
                 />
             </HStack>

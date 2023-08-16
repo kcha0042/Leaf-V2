@@ -37,7 +37,11 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
         Session.inst.setActivePatient(patient);
-        NavigationSession.inst.navigateTo(AllocatePatientToNurseScreen, navigation, strings("header.leader.allocateTo"));
+        NavigationSession.inst.navigateTo(
+            AllocatePatientToNurseScreen,
+            navigation,
+            strings("header.leader.allocateTo"),
+        );
     };
 
     return (

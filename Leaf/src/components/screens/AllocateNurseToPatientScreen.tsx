@@ -60,18 +60,28 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                 <HStack>
                     <LeafButton
                         label={strings("searchBarFilter.time")}
-                        onPress={() => {setShouldShowTime(!shouldShowTime); setIsToggledTime(!isToggledTime);}}
-                        typography={LeafTypography.buttonSmall.withColor(isToggledTime ? LeafColors.textLight : LeafColors.textDark)}
+                        onPress={() => {
+                            setShouldShowTime(!shouldShowTime);
+                            setIsToggledTime(!isToggledTime);
+                        }}
+                        typography={LeafTypography.buttonSmall.withColor(
+                            isToggledTime ? LeafColors.textLight : LeafColors.textDark,
+                        )}
                         color={isToggledTime ? LeafColors.accent : LeafColors.fillBackgroundLight}
-                        wide={false}                        
+                        wide={false}
                     ></LeafButton>
 
                     <HGap size={6} />
 
                     <LeafButton
                         label={strings("searchBarFilter.triageCode")}
-                        onPress={() => {setShouldShowCode(!shouldShowCode); setIsToggledCode(!isToggledCode);}}
-                        typography={LeafTypography.buttonSmall.withColor(isToggledCode ? LeafColors.textLight : LeafColors.textDark)}
+                        onPress={() => {
+                            setShouldShowCode(!shouldShowCode);
+                            setIsToggledCode(!isToggledCode);
+                        }}
+                        typography={LeafTypography.buttonSmall.withColor(
+                            isToggledCode ? LeafColors.textLight : LeafColors.textDark,
+                        )}
                         color={isToggledCode ? LeafColors.accent : LeafColors.fillBackgroundLight}
                         wide={false}
                     ></LeafButton>
