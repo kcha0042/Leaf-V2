@@ -12,6 +12,8 @@ import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import { useState } from "react";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 
 interface Props {
     patient: Patient;
@@ -42,11 +44,9 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 />
 
                 <VStack style={{ flex: 1 }}>
-                    <View style={{ alignSelf: "flex-start" }}>
                         <LeafText typography={LeafTypography.title3} verticalWrap={true}>
                             {patient.fullName}
                         </LeafText>
-                    </View>
 
                     <VGap size={16} />
 
@@ -63,12 +63,11 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafButton
-                    label={strings("button.allocate")}
-                    wide={false}
-                    typography={LeafTypography.buttonSmall}
-                    type={LeafButtonType.Filled}
-                    color={LeafColors.transparent}
+                <LeafIconButton
+                    icon={ active ? "check" : "plus"}
+                    size={LeafIconSize.Large}
+                    iconColor={active? LeafColors.textLight : LeafColors.textDark}
+                    color={active? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
                         // change background color of allocate button to green (active = true)
                         setActive(!active);
@@ -76,11 +75,8 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     }}
                     style={{
                         alignSelf: "center",
-                        borderRadius: 15,
-                        marginRight: 1,
-                        borderWidth: 1,
-                        borderColor: "#3f4169",
-                        backgroundColor: active ? "#7fff00" : "white",
+                        borderRadius: 10,
+                        borderWidth: 2,
                     }}
                 />
             </HStack>

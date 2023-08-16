@@ -46,6 +46,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
     };
     const [shouldShowTime, setShouldShowTime] = React.useState(false);
     const [shouldShowCode, setShouldShowCode] = React.useState(false);
+    // Hooks for the filter button toggles
+    const [isToggledTime, setIsToggledTime] = React.useState(false);
+    const [isToggledCode, setIsToggledCode] = React.useState(false);
 
     return (
         <DefaultScreenContainer>
@@ -57,10 +60,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                 <HStack>
                     <LeafButton
                         label={strings("searchBarFilter.time")}
-                        onPress={() => setShouldShowTime(!shouldShowTime)}
-                        typography={LeafTypography.buttonSmall}
-                        type={LeafButtonType.Outlined}
-                        color={LeafColors.textLight}
+                        onPress={() => {setShouldShowTime(!shouldShowTime); setIsToggledTime(!isToggledTime);}}
+                        typography={LeafTypography.buttonSmall.withColor(isToggledTime ? LeafColors.textLight : LeafColors.textDark)}
+                        color={isToggledTime ? LeafColors.accent : LeafColors.fillBackgroundLight}
                         wide={false}                        
                     ></LeafButton>
 
@@ -68,10 +70,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafButton
                         label={strings("searchBarFilter.triageCode")}
-                        onPress={() => setShouldShowCode(!shouldShowCode)}
-                        typography={LeafTypography.buttonSmall}
-                        type={LeafButtonType.Outlined}
-                        color={LeafColors.textLight}
+                        onPress={() => {setShouldShowCode(!shouldShowCode); setIsToggledCode(!isToggledCode);}}
+                        typography={LeafTypography.buttonSmall.withColor(isToggledCode ? LeafColors.textLight : LeafColors.textDark)}
+                        color={isToggledCode ? LeafColors.accent : LeafColors.fillBackgroundLight}
                         wide={false}
                     ></LeafButton>
                 </HStack>

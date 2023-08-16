@@ -57,6 +57,7 @@ export default {
     "button.cancel": "Cancel",
     "button.newAllocation": "New Allocation",
     "button.allocate": "Allocate",
+    "button.allocated": "Allocated",
     "button.deleteAccount": "Remove Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
