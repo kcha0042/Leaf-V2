@@ -48,6 +48,7 @@ export default {
     "header.leader.allocatePatient": "Allocate Patient",
     "header.leader.nurses": "Nurses",
     "header.leader.allocateTo": "Allocate To",
+    "header.leader.account": "Your Account",
 
     // Buttons
     "button.login": "Login",

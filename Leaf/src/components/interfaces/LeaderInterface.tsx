@@ -52,9 +52,16 @@ export const LeaderInterface = new LeafInterface()
             strings("tabBar.leader.account"),
             () => {
                 // Tab bar
+                NavigationSession.inst.navigateTo(AccountScreen, undefined, strings("header.leader.account"));
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
             },
             () => {
                 // Drawer
+                NavigationSession.inst.clearScreens();
+                NavigationSession.inst.setSidebarComponent(
+                    <AccountScreen />,
+                    strings("header.leader.account"),
+                );
             },
             "account-circle",
             "account-circle-outline",
