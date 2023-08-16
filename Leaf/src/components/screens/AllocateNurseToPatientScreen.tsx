@@ -59,16 +59,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         label={strings("searchBarFilter.time")}
                         onPress={() => setShouldShowTime(!shouldShowTime)}
                         typography={LeafTypography.buttonSmall}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.transparent}
-                        wide={false}
-                        style={{
-                            alignSelf: "center",
-                            borderRadius: 15,
-                            marginRight: 1,
-                            borderWidth: 1,
-                            borderColor: "#3f4169",
-                        }}
+                        type={LeafButtonType.Outlined}
+                        color={LeafColors.textLight}
+                        wide={false}                        
                     ></LeafButton>
 
                     <HGap size={6} />
@@ -77,16 +70,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         label={strings("searchBarFilter.triageCode")}
                         onPress={() => setShouldShowCode(!shouldShowCode)}
                         typography={LeafTypography.buttonSmall}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.transparent}
+                        type={LeafButtonType.Outlined}
+                        color={LeafColors.textLight}
                         wide={false}
-                        style={{
-                            alignSelf: "center",
-                            borderRadius: 15,
-                            marginRight: 1,
-                            borderWidth: 1,
-                            borderColor: "#3f4169",
-                        }}
                     ></LeafButton>
                 </HStack>
 

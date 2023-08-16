@@ -115,10 +115,10 @@ export default {
     "allocateToNurseCard.session": "Allocated: {0}",
 
     // Roles
-    "role.worker": "NURSE",
-    "role.leader": "LEADER",
-    "role.admin": "ADMIN",
+    "role.worker": "Nurse",
+    "role.leader": "Leader",
+    "role.admin": "Admin",
 
     // Nurse Allocation Screen
-    "nurseAllocationScreen.subtitle": "{0} PATIENTS ALLOCATED",
+    "nurseAllocationScreen.subtitle": "{0} Patients Allocated",
 };
