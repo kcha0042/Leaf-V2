@@ -88,12 +88,18 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafButton
                     label={"Allocate"}
+                    icon= "plus"
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
                             AllocateNurseToPatientScreen,
                             navigation,
                             strings("header.leader.viewPatients"),
                         );
+                    }}
+                    style={{
+                        borderRadius: 15,
+                        marginTop: 5,
+                        marginBottom: 10
                     }}
 
                 />
