@@ -4,7 +4,7 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VGap from "../containers/layout/VGap";
 import LeafDimensions from "../styling/LeafDimensions";
-import { FlatList, ScrollView, ViewStyle } from "react-native";
+import { FlatList } from "react-native";
 import Worker from "../../model/employee/Worker";
 import Session from "../../model/Session";
 import NurseAllocationCard from "../custom/NurseAllocationCard";

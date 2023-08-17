@@ -131,5 +131,5 @@ export default {
     "role.admin": "Admin",
 
     // Nurse Allocation Screen
-    "nurseAllocationScreen.subtitle": "{0} Patients Allocated",
+    "nurseAllocationScreen.subtitle": "Patients Allocated",
 };

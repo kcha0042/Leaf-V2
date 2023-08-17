@@ -43,8 +43,8 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     }}
                 />
 
-                <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                <VStack style={{ flex: 1 }} spacing={10}>
+                    <LeafText typography={LeafTypography.title3}>
                         {patient.fullName}
                     </LeafText>
 
@@ -77,6 +77,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                         alignSelf: "center",
                         borderRadius: 10,
                         borderWidth: 1,
+                        borderColor: active ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>
