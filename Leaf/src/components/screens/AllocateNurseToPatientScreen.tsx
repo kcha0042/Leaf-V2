@@ -94,10 +94,10 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafSegmentedButtons
                             label={strings("searchBarFilter.time")}
                             options={[
-                                new LeafSegmentedValue(0, "Morning"),
-                                new LeafSegmentedValue(1, "Noon"),
-                                new LeafSegmentedValue(2, "Afternoon"),
-                                new LeafSegmentedValue(3, "None"),
+                                new LeafSegmentedValue(0, strings("button.morning")),
+                                new LeafSegmentedValue(1, strings("button.noon")),
+                                new LeafSegmentedValue(2, strings("button.afternoon")),
+                                new LeafSegmentedValue(3, strings("button.none")),
                             ]}
                             value={segmentedValue}
                             onSetValue={setSegmentedValue}
@@ -110,11 +110,11 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         <LeafSegmentedButtons
                             label={strings("searchBarFilter.triageCode")}
                             options={[
-                                new LeafSegmentedValue(0, "1"),
-                                new LeafSegmentedValue(1, "2"),
-                                new LeafSegmentedValue(2, "3"),
-                                new LeafSegmentedValue(3, "4"),
-                                new LeafSegmentedValue(4, "5"),
+                                new LeafSegmentedValue(0, strings("button.code.1")),
+                                new LeafSegmentedValue(1, strings("button.code.2")),
+                                new LeafSegmentedValue(2, strings("button.code.3")),
+                                new LeafSegmentedValue(3, strings("button.code.4")),
+                                new LeafSegmentedValue(4, strings("button.code.5")),
                             ]}
                             value={segmentedValue}
                             onSetValue={setSegmentedValue}

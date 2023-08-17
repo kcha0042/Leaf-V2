@@ -49,11 +49,11 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                 </VStack>
 
                 <LeafButton
-                    label={strings("button.allocate")}
+                    label={active? strings("button.allocated"): strings("button.allocate")}
                     wide={false}
                     typography={LeafTypography.buttonSmall}
                     type={LeafButtonType.Filled}
-                    color={LeafColors.transparent}
+                    color={active? LeafColors.fillBackgroundGreen: LeafColors.screenBackgroundSemiLight}
                     onPress={() => {
                         // change background color of allocate button to green (active = true)
                         setActive(!active);
@@ -65,7 +65,6 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                         marginRight: 12,
                         borderWidth: 1,
                         borderColor: "#3f4169",
-                        backgroundColor: active ? "#7fff00" : "white",
                     }}
                 />
             </HStack>

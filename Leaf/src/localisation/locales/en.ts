@@ -63,6 +63,15 @@ export default {
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
+    "button.morning": "Morning",
+    "button.noon": "Noon",
+    "button.afternoon": "Afternoon",
+    "button.none": "None",
+    "button.code.1": "1",
+    "button.code.2": "2",
+    "button.code.3": "3",
+    "button.code.4": "4",
+    "button.code.5": "5",
 
     // Login
     "login.title": "Login",

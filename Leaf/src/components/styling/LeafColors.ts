@@ -129,6 +129,14 @@ class LeafColors {
         return new LeafColor("#f1edfc");
     }
 
+    static get fillBackgroundGreen(): LeafColor {
+        return new LeafColor("#97fc6f");
+    }
+
+    static get fillBackgroundRed(): LeafColor {
+        return new LeafColor("#e03131");
+    }
+
     // Outlines
 
     static get outlineTextBackgroundDark(): LeafColor {

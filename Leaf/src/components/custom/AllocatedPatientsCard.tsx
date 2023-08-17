@@ -60,9 +60,8 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
                 <LeafIconButton
                     icon="trash-can-outline"
-                    color={LeafColors.accent}
+                    color={LeafColors.fillBackgroundRed}
                     size={LeafIconSize.Medium}
-                    style={{ backgroundColor: "#e03131" }}
                     onPress={() => {}}
                 />
             </HStack>
