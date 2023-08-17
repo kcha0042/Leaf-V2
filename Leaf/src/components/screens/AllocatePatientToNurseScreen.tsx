@@ -30,6 +30,21 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
         Session.inst.fetchAllWorkers();
     }, []);
 
+    // logic for checking workers allocated to the patients
+    // Not used for now but will use it when the database is ready
+    const patient = Session.inst.getActivePatient();
+    let allocatedWorker;
+    console.log(patient.firstName);
+
+    for (let i = 0; i < workers.length; i++) {
+        for (let j = 0; j < workers[i].allocatedPatients.length; j++){
+            if (patient.mrn.matches(workers[i].allocatedPatients[j])){
+                allocatedWorker = workers[i].id;
+                console.log(allocatedWorker);
+            }
+        }
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack>
@@ -39,7 +54,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatList
                     data={workers}
-                    renderItem={({ item: worker }) => <NurseAllocationCard worker={worker} />}
+                    renderItem={({ item: worker }) => <NurseAllocationCard worker={worker}/>}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
