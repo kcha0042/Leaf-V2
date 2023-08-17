@@ -13,6 +13,8 @@ import { strings } from "../../localisation/Strings";
 import LeafDimensions from "../styling/LeafDimensions";
 import { useState } from "react";
 import FlatContainer from "../containers/FlatContainer";
+import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 
 interface Props {
     worker: Worker;
@@ -48,12 +50,11 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafButton
-                    label={active? strings("button.allocated"): strings("button.allocate")}
-                    wide={false}
-                    typography={LeafTypography.buttonSmall}
-                    type={LeafButtonType.Filled}
-                    color={active? LeafColors.fillBackgroundGreen: LeafColors.screenBackgroundSemiLight}
+                <LeafIconButton
+                    icon={active ? "check" : "plus"}
+                    size={LeafIconSize.Large}
+                    iconColor={active ? LeafColors.textLight : LeafColors.textDark}
+                    color={active ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
                         // change background color of allocate button to green (active = true)
                         setActive(!active);
@@ -61,10 +62,9 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     }}
                     style={{
                         alignSelf: "center",
-                        borderRadius: 15,
-                        marginRight: 12,
+                        borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: "#3f4169",
+                        borderColor: active ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>
