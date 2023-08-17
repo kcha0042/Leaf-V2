@@ -16,6 +16,9 @@ import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList } from "react-native";
 import HStack from "../containers/HStack";
 import LeafButton from "../base/LeafButton/LeafButton";
+import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
+import LeafColors from "../styling/LeafColors";
+import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -46,20 +49,45 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <DefaultScreenContainer>
-            <VStack>
-                <HStack spacing={20}>
-                    <LeafText typography={LeafTypography.title3} wide={false}>
-                        {strings("role.worker")}
+            <VStack spacing={LeafDimensions.screenSpacing} style={{ flex: 1 }}>
+                {/* <HStack spacing={20} style={{ alignItems: "center" }}>
+                    <VStack>
+                        <LeafText typography={LeafTypography.title1} style={{ textAlignVertical: "bottom" }}>
+                            {worker.allocatedPatients.length + " "}
+                        </LeafText>
+                        <LeafText typography={LeafTypography.subscript} style={{ textAlignVertical: "bottom" }}>
+                            {strings("nurseAllocationScreen.subtitle")}
+                        </LeafText>
+                    </VStack>
+                    <Spacer/>
+                    <LeafIconButton
+                        icon={"plus"}
+                        onPress={() => {
+                            NavigationSession.inst.navigateTo(
+                                AllocateNurseToPatientScreen,
+                                navigation,
+                                strings("header.leader.viewPatients"),
+                            );
+                        }}
+                        color={LeafColors.accent}
+                        size={45}
+                    />
+                </HStack> */}
+                <VStack
+                    style={{
+                        flex: 1,
+                    }}
+                >
+                    <LeafText typography={LeafTypography.title1} style={{ textAlign: "center" }}>
+                        {worker.allocatedPatients.length + " "}
                     </LeafText>
-                    <LeafText typography={LeafTypography.title3} wide={false}>
-                        {strings("nurseAllocationScreen.subtitle", `${worker.allocatedPatients.length}`)}
+                    <LeafText typography={LeafTypography.subscript} style={{ textAlign: "center"}}>
+                        {strings("nurseAllocationScreen.subtitle")}
                     </LeafText>
-                </HStack>
-
-                <VGap size={20} />
+                </VStack>
 
                 <LeafButton
-                    label={"New Allocation"}
+                    label={"Allocate"}
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
                             AllocateNurseToPatientScreen,
@@ -67,11 +95,9 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                             strings("header.leader.viewPatients"),
                         );
                     }}
-                    icon={"plus"}
+
                 />
-
-                <VGap size={20} />
-
+                
                 <FlatList
                     data={allocatedPatients}
                     renderItem={({ item: patient }) => <AllocatedPatientsCard patient={patient} />}
