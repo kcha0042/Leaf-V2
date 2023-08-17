@@ -117,7 +117,7 @@ export default {
     "searchBarFilter.triageCode": "Code",
 
     // WorkerCard
-    "workerCard.numPatients": "{0} allocated",
+    "workerCard.numPatients": "{0} Allocated",
     "workerCard.id": "ID: {0}",
 
     //AllocateToNurseCard
