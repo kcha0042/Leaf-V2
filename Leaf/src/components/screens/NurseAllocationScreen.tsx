@@ -3,7 +3,6 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTypography from "../styling/LeafTypography";
-import NewAllocationCard from "../custom/NewAllocationCard";
 import VGap from "../containers/layout/VGap";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import AllocateNurseToPatientScreen from "./AllocateNurseToPatientScreen";
@@ -16,6 +15,7 @@ import AllocatedPatientsCard from "../custom/AllocatedPatientsCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList } from "react-native";
 import HStack from "../containers/HStack";
+import LeafButton from "../base/LeafButton/LeafButton";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -58,7 +58,8 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={20} />
 
-                <NewAllocationCard
+                <LeafButton
+                    label={"New Allocation"}
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
                             AllocateNurseToPatientScreen,
@@ -66,6 +67,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                             strings("header.leader.viewPatients"),
                         );
                     }}
+                    icon={"plus"}
                 />
 
                 <VGap size={20} />
