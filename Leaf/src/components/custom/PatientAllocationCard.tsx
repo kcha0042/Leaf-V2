@@ -43,7 +43,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     }}
                 />
 
-                <VStack style={{ flex: 1 }} spacing={4}>
+                <VStack style={{ flex: 1 }} spacing={10}>
                     <LeafText typography={LeafTypography.title3}>
                         {patient.fullName}
                     </LeafText>
