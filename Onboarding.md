@@ -224,3 +224,190 @@ The navigation system automatically renders a back button, but if you need to pr
 NavigationSession.inst.navigateBack(navigation);
 ```
 
+# react-native
+
+## Components
+
+#### What is a react-native component?
+
+A React Native component is a building block of a React Native application. It's a self-contained module that can render some output. Components can be thought of as the UI elements that you see on the screen.
+
+#### How are they used?
+
+Components are used by importing them into a file and then using them within JSX code. They can represent anything from a button to a full screen and can be reused throughout the application. Componenets can be passed properties, the same way a function can be passed parameters, these properties can then be used to render the component in different ways.
+
+```typescript
+import React from 'react';
+import { Text } from 'react-native';
+
+const MyComponent = () => {
+  return <Text>Hello, React Native!</Text>;
+};
+
+export default MyComponent;
+```
+
+#### What are props?
+
+Props (short for "properties") are a way of passing data from parent to child components. They are read-only and help to make your components reusable. React allows us to type the properties, providing us with intelliSense, and also making the component type safe. 
+
+```typescript
+interface Props {
+  name: string;
+}
+
+const Welcome: React.FC<Props> = ({ name }) {
+  return <Text>Hello, {name} </Text>;
+}
+```
+
+#### Typescript tricks
+
+##### Generics
+
+Typescript allows for generic types, as can be seen when passing Props into a React component. So what is a generic? A generic is a type that is generic (duh). What this means is we can provide a function/object/class with a generic type that has to be consistent.
+
+```typescript
+class Data<T> {
+  private _data: T;
+  
+  constructor(data: T){
+    this._data = data;
+  }
+  
+  public get data(): T {
+    return this._data;
+  }
+  
+  public set data(data: T){
+    this._data = data;
+  }
+}
+
+const stringData = new Data<string>("hello");
+stringData.data = 10; // Typescript will not allow you to do this.
+```
+
+What this allows for is a flexible class/function/object that can have variables of any type, whilst still being type safe. For example, in this data class we take in a generic T, we then use this type to specify what type the data variable has to be, and what type the paramater in set data() must be. As you can see we have now created data class that allows for any type data, whilst still be type safe.
+
+Going back to our `React.FC<Props>` we can see that it uses a generic to ensure type safety. The important thing about this though is that it gives us intelliSense which is obvs very nice.
+
+##### Optionals
+
+Optionals are variables that are optional (duh once again). This means the variable can either by the type you specify or undefined. You can also do optional chaining, this allows you to easily access optional values without the need for annoying if statements. See below.
+
+```typescript
+let name?: {
+	firstName: string;
+  lastName: string;
+};
+
+// bad!!!
+if (name != undefined){
+	console.log(name.lastName)
+}else{
+  console.log("No name!");
+}
+
+// good :)
+// this is basically if (name?.lastName != undefined) then name.lastName else "No name!"
+// it works because undefined is treated as false in ts.
+// so you unwrap the optional and then perform an or on the result.
+console.log(name?.lastName || "No name!");
+```
+
+#### Styling
+
+By default components will be positioned in order, vertically, in their parent component. You can use `flex-direction` in the parent to change this. However, Andre has kindly made `VStack` and `HStack` that mean you should not have to worry about this.
+
+##### Key Style Props in React Native:
+
+1. **flex**: Similar to CSS's flex, but with differences. In React Native, components use the flexbox algorithm to specify the layout. By default, items will be in a column layout. The `flex` prop determines how an item grows relative to its siblings in the container.
+   - `flex: 1` means the item will take up all available space.
+   - `flex: 2` in a container with another item of `flex: 1` means it will take up twice as much space as the other.
+2. **flexDirection**: Determines the primary axis of distribution. Can be `column` (default) or `row`.
+3. **justifyContent**: Describes how to align children within the main axis of their container. Options are: `flex-start`, `flex-end`, `center`, `space-between`, and `space-around`.
+4. **alignItems**: Describes how to align children along the cross axis of their container. Options are: `flex-start`, `flex-end`, `center`, `stretch`, and `baseline`.
+5. **padding** and **margin**: Similar to the web, but do not support shorthand properties like `padding: 10px 20px`. Instead, you would specify each separately: `paddingTop`, `paddingRight`, `paddingBottom`, `paddingLeft`.
+   1. padding, paddingVertical, and paddingHorizontal
+6. **backgroundColor**: Specifies the background color of an element.
+7. **borderWidth**, **borderColor**, **borderRadius**: Used for borders. Individual borders can be set using `borderTopWidth`, `borderRightWidth`, etc.
+8. **width** and **height**: Define the dimensions of an element. You can specify static values or percentages.
+9. Do not use `position: absolute` it is a pain to manage.
+
+## State management
+
+#### useState
+
+`useState` is a hook in React that allows you to add state to functional components, meaning you can have dynamic interactive screens. It returns the current state and a function to update it.
+
+**IMPORTANT** - react uses shallow comparison, meaning if you pass in an object that has been modified (but is still the same as the original object) no re render will occur as react does not recognise the change. The most command example of this is if you modify an array, and then setState(array) nothing will happen, you instead need to go setState([...array]), this creates a completly new array allowing react to recognise the change.
+
+```typescript
+import { useState } from 'react';
+
+function Counter() {
+  
+  const arr = [0, 1];
+  const [arr, setArr] = useState(arr);
+  
+  return (
+    <>
+      <Text>{arr[0]}</Text>
+      <Button title="Increment" onPress={() => {
+        arr[0] = 5
+        setArr([...arr])
+      }} />
+    </>
+  );
+}
+```
+
+#### useEffect
+
+`useEffect` is a hook that lets you perform side effects in function components. It can replace `componentDidMount` (rendered), `componentDidUpdate`, and `componentWillUnmount` (removed).
+
+```typescript
+jsxCopy code
+import { useEffect } from 'react';
+
+function App() {
+  
+  useEffect(() => {
+    // This code runs after the component is mounted.
+    console.log('Component mounted.');
+
+    return () => {
+      // This code runs when the component is unmounted.
+      console.log('Component will unmount.');
+    };
+  }, []);
+
+  return <Text>Hello, React Native!</Text>;
+}
+```
+
+#### redux
+
+In leaf we use redux to implement the subscriber publisher model. This is super useful as we avoid prop hell, where we would have to pass props through every screen. Instead you can use `StateManager` to get a publisher, and then subscribe to its event.
+
+When you subscribe to a publisher from StateManger you are now listening, if anything is published, then you are notified and can use the callback to react accordingly.
+
+## Leaf specifics
+
+#### Leaf colors
+
+These are the colours of our application, you can choose to add your own colours if you wish.
+
+#### LeafDimensions
+
+These are the base dimensions of our application, use these for screen padding, screen spacing, etc.
+
+#### LeafTypography
+
+These are the fonts in our app, feel free to add new.
+
+#### Base components
+
+Andre and I have implemented basically all the components you will need, if you have any questions about how to use them ask us. 
+
