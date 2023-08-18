@@ -29,11 +29,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    const onUsernameInput = (text) => {
+    const onUsernameInput = (text: string) => {
         setUsername(text);
     };
 
-    const onPasswordInput = (text) => {
+    const onPasswordInput = (text: string) => {
         setPassword(text);
     };
 

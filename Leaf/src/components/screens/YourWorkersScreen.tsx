@@ -25,7 +25,7 @@ const YourWorkersScreen: React.FC = () => {
         };
     }, []);
 
-    const onPressWorker = (worker) => {
+    const onPressWorker = (worker: Worker) => {
         // TODO: Navigation
         console.log(worker.firstName); // TODO: Add worker fullname instead of first name
     };

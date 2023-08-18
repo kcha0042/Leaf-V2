@@ -1,6 +1,7 @@
 import { DatabaseCollection } from "../../database/DatabaseCollection";
 import DatabaseSession from "../../database/DatabaseSession";
 import LeaderDataObject from "../../database/LeaderDataObject";
+import { compactMap } from "../../language/functions/CompactMap";
 import Leader from "../employee/Leader";
 
 class GetLeadersManager {
@@ -10,7 +11,7 @@ class GetLeadersManager {
 
     public async getLeaders(): Promise<Leader[]> {
         const leaderDataObjects = await DatabaseSession.inst.readCollection(DatabaseCollection.Leaders);
-        return leaderDataObjects.map((data) => LeaderDataObject.restore(data));
+        return compactMap(leaderDataObjects, (data) => LeaderDataObject.restore(data));
     }
 }
 

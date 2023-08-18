@@ -1,6 +1,8 @@
+import { compactMap } from "../language/functions/CompactMap";
 import EmployeeID from "../model/employee/EmployeeID";
 import MRN from "../model/patient/MRN";
 import Patient from "../model/patient/Patient";
+import PatientEvent from "../model/patient/PatientEvent";
 import { PatientSex } from "../model/patient/PatientSex";
 import DataObject from "./DataObject";
 import PatientEventDataObject from "./PatientEventDataObject";
@@ -42,18 +44,34 @@ class PatientDataObject {
             .addObjectArray(PatientField.Events, patientEvents);
     }
 
-    public static restore(data: DataObject): Patient {
-        const mrn = data.getString(PatientField.MRN);
-        const dob = data.getDate(PatientField.DOB);
-        const firstName = data.getString(PatientField.FirstName);
-        const lastName = data.getString(PatientField.LastName);
-        const sex = data.getString(PatientField.Sex);
-        const phoneNumber = data.getString(PatientField.PhoneNumber);
+    public static restore(data: DataObject): Patient | null {
+        const mrn = data.getStringOrNull(PatientField.MRN);
+        const dob = data.getDateOrNull(PatientField.DOB);
+        const firstName = data.getStringOrNull(PatientField.FirstName);
+        const lastName = data.getStringOrNull(PatientField.LastName);
+        const sex = data.getStringOrNull(PatientField.Sex);
+        const phoneNumber = data.getStringOrNull(PatientField.PhoneNumber);
         const triageCaseData = data.getDataObject(PatientField.TriageCase);
-        const postCode = data.getString(PatientField.PostCode);
-        const timeLastAllocated = data.getDate(PatientField.TimeLastAllocated);
-        const idAllocatedTo = data.getString(PatientField.IDAllocatedTo);
+        const postCode = data.getStringOrNull(PatientField.PostCode);
+        const timeLastAllocated = data.getDateOrNull(PatientField.TimeLastAllocated);
+        const idAllocatedTo = data.getStringOrNull(PatientField.IDAllocatedTo);
         const eventsData = data.getDataObjectArray(PatientField.Events);
+        const restoredTriage = TriageCaseDataObject.restore(triageCaseData);
+        if (
+            !mrn ||
+            !dob ||
+            !firstName ||
+            !lastName ||
+            !sex ||
+            !phoneNumber ||
+            !postCode ||
+            !timeLastAllocated ||
+            !idAllocatedTo ||
+            !restoredTriage
+        ) {
+            console.error("[PatientDataObject] Failed to restore Patient");
+            return null;
+        }
         return new Patient(
             new MRN(mrn),
             dob,
@@ -61,11 +79,11 @@ class PatientDataObject {
             lastName,
             new PatientSex(sex),
             phoneNumber,
-            TriageCaseDataObject.restore(triageCaseData),
+            restoredTriage,
             postCode,
             timeLastAllocated,
             new EmployeeID(idAllocatedTo),
-            eventsData.map((data) => PatientEventDataObject.restore(data)),
+            compactMap(eventsData, (data) => PatientEventDataObject.restore(data)),
         );
     }
 }

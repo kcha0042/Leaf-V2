@@ -32,26 +32,30 @@ class TriageCaseDataObject {
             .addNumber(TriageCaseField.TriageCode, triageCase.triageCode.id);
     }
 
-    public static restore(data: DataObject): TriageCase {
-        const id = data.getString(TriageCaseField.ID);
-        const arrivalDate = data.getDate(TriageCaseField.ArrivalDate);
-        const dischargeDate = data.getDate(TriageCaseField.DischargeDate);
-        const arrivalWardId = data.getString(TriageCaseField.ArrivalWardID);
-        const dischargeWardId = data.getString(TriageCaseField.DischargeWardID);
-        const hosptialId = data.getString(TriageCaseField.HospitalID);
-        const medicalUnitId = data.getString(TriageCaseField.MedicalUnitID);
-        const triageText = data.getString(TriageCaseField.TriageText);
-        const traigeCode = data.getNumber(TriageCaseField.TriageCode);
+    public static restore(data: DataObject): TriageCase | null {
+        const id = data.getStringOrNull(TriageCaseField.ID);
+        const arrivalDate = data.getDateOrNull(TriageCaseField.ArrivalDate);
+        const dischargeDate = data.getDateOrNull(TriageCaseField.DischargeDate);
+        const arrivalWardId = data.getStringOrNull(TriageCaseField.ArrivalWardID);
+        const dischargeWardId = data.getStringOrNull(TriageCaseField.DischargeWardID);
+        const hosptialId = data.getStringOrNull(TriageCaseField.HospitalID);
+        const medicalUnitId = data.getStringOrNull(TriageCaseField.MedicalUnitID);
+        const triageText = data.getStringOrNull(TriageCaseField.TriageText);
+        const triageCode = data.getNumberOrNull(TriageCaseField.TriageCode);
+        if (!id || !arrivalDate || !arrivalWardId || !hosptialId || !medicalUnitId || !triageText || !triageCode) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase");
+            return null;
+        }
         return new TriageCase(
             new UUID(id),
             arrivalDate,
             dischargeDate,
             Wards[arrivalWardId],
-            Wards[dischargeWardId],
+            dischargeWardId == null ? null : Wards[dischargeWardId],
             Hospitals[hosptialId],
             MedicalUnits[medicalUnitId],
             triageText,
-            new TriageCode(traigeCode),
+            new TriageCode(triageCode),
         );
     }
 }

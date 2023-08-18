@@ -1,6 +1,5 @@
 import { Hospitals } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
-import ValidateUtil from "../../utils/ValidateUtil";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Leader from "../employee/Leader";
@@ -55,7 +54,10 @@ class Session {
             return false;
         }
         const activePatient = this.getActivePatient();
-        const success = NewPatientEventManager.inst.newPatientEventSubmitted(activePatient, event);
+        if (activePatient == null) {
+            return false;
+        }
+        const success = await NewPatientEventManager.inst.newPatientEventSubmitted(activePatient, event);
         if (success) {
             // If we successfully submitted the event, re-fetch them from the database
             // This keeps Session up to date with the latest patient instance
@@ -69,30 +71,45 @@ class Session {
     }
 
     public setActivePatient(patient: Patient | null) {
-        this._activePatientMRN = patient.mrn;
+        this._activePatientMRN = patient?.mrn ?? null;
         StateManager.activePatientChanged.publish();
     }
 
     public setActiveWorker(worker: Worker | null) {
-        this._activeWorkerID = worker.id;
+        this._activeWorkerID = worker?.id ?? null;
         StateManager.activeWorkerChanged.publish();
     }
 
     public setActiveLeader(leader: Leader | null) {
-        this._activeLeaderID = leader.id;
+        this._activeLeaderID = leader?.id ?? null;
         StateManager.activeLeaderChanged.publish();
     }
 
     public getActivePatient(): Patient | null {
-        return this._patientStore[this._activePatientMRN.toString()] ?? null;
+        const key = this._activePatientMRN?.toString();
+        if (key) {
+            return this._patientStore[key] ?? null;
+        } else {
+            return null;
+        }
     }
 
     public getActiveWorker(): Worker | null {
-        return this._workerStore[this._activeWorkerID.toString()] ?? null;
+        const key = this._activeWorkerID?.toString();
+        if (key) {
+            return this._workerStore[key] ?? null;
+        } else {
+            return null;
+        }
     }
 
     public getActiveLeader(): Leader | null {
-        return this._leaderStore[this._activeLeaderID.toString()] ?? null;
+        const key = this._activeLeaderID?.toString();
+        if (key) {
+            return this._leaderStore[key] ?? null;
+        } else {
+            return null;
+        }
     }
 
     public getAllWorkers(): Worker[] {
@@ -131,7 +148,7 @@ class Session {
 
     public async fetchWorker(id: EmployeeID) {
         const worker = await GetWorkersManager.inst.getWorker(id);
-        if (ValidateUtil.valueIsDefined(worker)) {
+        if (worker != null) {
             this._workerStore[worker.id.toString()] = worker;
         }
         // Notify subscribers
@@ -177,7 +194,7 @@ class Session {
 
     public async fetchPatient(mrn: MRN) {
         const patient = await GetPatientsManager.inst.getPatient(mrn);
-        if (ValidateUtil.valueIsDefined(patient)) {
+        if (patient != null) {
             this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers

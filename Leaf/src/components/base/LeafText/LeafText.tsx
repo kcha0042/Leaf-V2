@@ -7,7 +7,7 @@ import LeafTypography from "../../styling/LeafTypography";
 
 interface Props {
     // Text or other components to be embedded
-    children;
+    children: any;
     // Typography applied
     typography?: LeafTypographyConfig;
     // If the component should expand to take up available horizontal space

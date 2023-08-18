@@ -1,7 +1,6 @@
 import { View, ViewStyle } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import VStack from "../containers/VStack";
-import { TriageCode } from "../../model/triage/TriageCode";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import { useState } from "react";
@@ -10,18 +9,18 @@ import { strings } from "../../localisation/Strings";
 
 interface Props {
     style?: ViewStyle;
-    onSelection: (role: Role) => void;
+    onSelection: (role: Role | undefined) => void;
 }
 
 const RolePicker: React.FC<Props> = ({ style, onSelection }) => {
-    const [segmentedValue, setSegmentedValue] = useState(null);
-    const onSetSegmentedValue = (value) => {
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(undefined);
+    const onSetSegmentedValue = (value: LeafSegmentedValue | undefined) => {
         setSegmentedValue(value);
-        onSelection(value);
+        onSelection(value?.value);
     };
 
     return (
-        <View>
+        <View style={style}>
             <VStack spacing={8}>
                 <LeafSegmentedButtons
                     label={strings("label.selectRole")}
@@ -31,8 +30,10 @@ const RolePicker: React.FC<Props> = ({ style, onSelection }) => {
                         new LeafSegmentedValue(Role.admin, Role.admin.toString()),
                     ]}
                     value={segmentedValue}
-                    selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.accent}
-                    selectedLabelColor={segmentedValue == null ? undefined : LeafColors.textTriageCode(segmentedValue)}
+                    selectedBackgroundColor={segmentedValue == undefined ? undefined : LeafColors.accent}
+                    selectedLabelColor={
+                        segmentedValue == undefined ? undefined : LeafColors.textTriageCode(segmentedValue.value)
+                    }
                     onSetValue={onSetSegmentedValue}
                 />
             </VStack>

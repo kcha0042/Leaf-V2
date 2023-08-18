@@ -53,6 +53,11 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         description={strings("label.viewPatient")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
+                            if (!patient) {
+                                // We've lost the active patient - bail!
+                                NavigationSession.inst.navigateBack(navigation);
+                                return;
+                            }
                             NavigationSession.inst.navigateTo(
                                 PatientPreviewScreen,
                                 navigation,
@@ -68,6 +73,11 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         description={strings("label.patientActions")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
+                            if (!patient) {
+                                // We've lost the active patient - bail!
+                                NavigationSession.inst.navigateBack(navigation);
+                                return;
+                            }
                             NavigationSession.inst.navigateTo(
                                 ActionsScreen,
                                 navigation,
@@ -83,6 +93,11 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         description={strings("label.editPatient")}
                         onPress={() => {
                             const patient = Session.inst.getActivePatient();
+                            if (!patient) {
+                                // We've lost the active patient - bail!
+                                NavigationSession.inst.navigateBack(navigation);
+                                return;
+                            }
                             NavigationSession.inst.navigateTo(
                                 NewTriageScreen,
                                 navigation,

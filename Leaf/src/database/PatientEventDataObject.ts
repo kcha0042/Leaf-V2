@@ -21,12 +21,16 @@ class PatientEventDataObject {
             .addString(PatientEventField.Category, event.category.id);
     }
 
-    public static restore(data: DataObject): PatientEvent {
-        const id = data.getString(PatientEventField.ID);
-        const triggerTime = data.getDate(PatientEventField.TriggerTime);
-        const title = data.getString(PatientEventField.Title);
-        const description = data.getString(PatientEventField.Description);
-        const category = data.getString(PatientEventField.Category);
+    public static restore(data: DataObject): PatientEvent | null {
+        const id = data.getStringOrNull(PatientEventField.ID);
+        const triggerTime = data.getDateOrNull(PatientEventField.TriggerTime);
+        const title = data.getStringOrNull(PatientEventField.Title);
+        const description = data.getStringOrNull(PatientEventField.Description);
+        const category = data.getStringOrNull(PatientEventField.Category);
+        if (!id || !triggerTime || !title || !description || !category) {
+            console.error("[PatientEventDataObject] Failed to restore PatientEvent");
+            return null;
+        }
         return new PatientEvent(new UUID(id), triggerTime, title, description, new PatientEventCategory(category));
     }
 }

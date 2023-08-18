@@ -25,7 +25,9 @@ const LeafCheckbox: React.FC<Props> = ({
     const [checked, setChecked] = useState(initialValue);
 
     const handleChange = () => {
-        onValueChange(!checked);
+        if (onValueChange) {
+            onValueChange(!checked);
+        }
         setChecked(!checked);
     };
 

@@ -21,12 +21,16 @@ class LeaderDataObject {
             .addString(LeaderField.CurrentHospitalID, leader.currentHospital.id.toString());
     }
 
-    public static restore(data: DataObject): Leader {
-        const id = data.getString(LeaderField.ID);
-        const firstName = data.getString(LeaderField.FirstName);
-        const lastName = data.getString(LeaderField.LastName);
-        const email = data.getString(LeaderField.Email);
-        const currentHospitalID = data.getString(LeaderField.CurrentHospitalID);
+    public static restore(data: DataObject): Leader | null {
+        const id = data.getStringOrNull(LeaderField.ID);
+        const firstName = data.getStringOrNull(LeaderField.FirstName);
+        const lastName = data.getStringOrNull(LeaderField.LastName);
+        const email = data.getStringOrNull(LeaderField.Email);
+        const currentHospitalID = data.getStringOrNull(LeaderField.CurrentHospitalID);
+        if (!id || !firstName || !lastName || !email || !currentHospitalID) {
+            console.error("[LeaderDataObject] Failed to restore Leader");
+            return null;
+        }
         return new Leader(new EmployeeID(id), firstName, lastName, email, Hospitals[currentHospitalID]);
     }
 }

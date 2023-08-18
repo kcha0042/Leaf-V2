@@ -9,12 +9,12 @@ import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     style?: ViewStyle;
-    onSelection: (code: TriageCode) => void;
+    onSelection: (code: TriageCode | undefined) => void;
 }
 
 const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
     const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(undefined);
-    const onSetSegmentedValue = (segmentedValue) => {
+    const onSetSegmentedValue = (segmentedValue: LeafSegmentedValue | undefined) => {
         setSegmentedValue(segmentedValue);
         onSelection(segmentedValue?.value);
     };

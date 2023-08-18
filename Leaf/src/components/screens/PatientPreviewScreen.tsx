@@ -15,6 +15,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { ErrorScreen } from "./ErrorScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -22,6 +23,10 @@ interface Props {
 
 const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
     const patient = Session.inst.getActivePatient();
+
+    if (!patient) {
+        return <ErrorScreen />;
+    }
 
     return (
         <DefaultScreenContainer>
@@ -88,43 +93,47 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                 </PatientInfoCard>
 
                 <PatientInfoCard title={strings("patientHistory.title.events")} icon="calendar-clock" spacing={12}>
-                    {patient.events.map((event) => {
-                        return (
-                            <HStack key={event.id.toString()} spacing={12}>
-                                <View
-                                    style={{
-                                        backgroundColor: LeafColors.accent.getColor(),
-                                        width: 10,
-                                        borderRadius: 8,
-                                    }}
-                                />
+                    {patient.events.length == 0 ? (
+                        <LeafText typography={LeafTypography.body}>{strings("label.noEvents")}</LeafText>
+                    ) : (
+                        patient.events.map((event) => {
+                            return (
+                                <HStack key={event.id.toString()} spacing={12}>
+                                    <View
+                                        style={{
+                                            backgroundColor: LeafColors.accent.getColor(),
+                                            width: 10,
+                                            borderRadius: 8,
+                                        }}
+                                    />
 
-                                <VStack>
-                                    <LeafText typography={LeafTypography.body.withWeight(LeafFontWeight.Bold)}>
-                                        {event.title}
-                                    </LeafText>
-
-                                    <LeafText typography={LeafTypography.subscript.withItalic(true)}>
-                                        {event.description}
-                                    </LeafText>
-
-                                    <VGap size={16} />
-
-                                    <VStack spacing={2}>
-                                        <LeafText typography={LeafTypography.subscript}>
-                                            {strings("patientHistory.descriptor.category") +
-                                                " " +
-                                                event.category.toString()}
+                                    <VStack>
+                                        <LeafText typography={LeafTypography.body.withWeight(LeafFontWeight.Bold)}>
+                                            {event.title}
                                         </LeafText>
 
-                                        <LeafText typography={LeafTypography.subscript}>
-                                            {event.triggerTimeDescription}
+                                        <LeafText typography={LeafTypography.subscript.withItalic(true)}>
+                                            {event.description}
                                         </LeafText>
+
+                                        <VGap size={16} />
+
+                                        <VStack spacing={2}>
+                                            <LeafText typography={LeafTypography.subscript}>
+                                                {strings("patientHistory.descriptor.category") +
+                                                    " " +
+                                                    event.category.toString()}
+                                            </LeafText>
+
+                                            <LeafText typography={LeafTypography.subscript}>
+                                                {event.triggerTimeDescription}
+                                            </LeafText>
+                                        </VStack>
                                     </VStack>
-                                </VStack>
-                            </HStack>
-                        );
-                    })}
+                                </HStack>
+                            );
+                        })
+                    )}
                 </PatientInfoCard>
             </VStack>
         </DefaultScreenContainer>

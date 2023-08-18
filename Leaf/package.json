@@ -4,14 +4,15 @@
     "version": "1.0.0",
     "main": "node_modules/expo/AppEntry.js",
     "scripts": {
-        "start": "expo start",
-        "android": "expo start --android",
-        "ios": "expo start --ios",
-        "web": "expo start --web",
+        "start": "npm run type-check && expo start",
+        "android": "npm run type-check && expo start --android",
+        "ios": "npm run type-check && expo start --ios",
+        "web": "npm run type-check && expo start --web",
         "deploy": "gh-pages -d web-build",
         "predeploy": "expo export:web",
         "lint": "eslint . --ext .ts,.tsx",
-        "prune": "ts-prune"
+        "prune": "ts-prune",
+        "type-check": "tsc --noEmit"
     },
     "dependencies": {
         "@expo/webpack-config": "^18.0.1",
@@ -46,6 +47,7 @@
     "devDependencies": {
         "@babel/core": "^7.22.9",
         "@babel/preset-env": "^7.22.9",
+        "@types/react-native-vector-icons": "^6.4.14",
         "@typescript-eslint/eslint-plugin": "^6.1.0",
         "@typescript-eslint/parser": "^6.1.0",
         "eslint": "^8.45.0",
