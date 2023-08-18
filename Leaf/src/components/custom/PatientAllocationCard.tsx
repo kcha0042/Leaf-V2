@@ -60,6 +60,9 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, itemIndex, selectedIn
                     </LeafText>
                 </VStack>
 
+                {/* 
+                    // TODO: replace with checkbox after merge
+                */}
                 <LeafIconButton
                     icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
