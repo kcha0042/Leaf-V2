@@ -8,20 +8,19 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
-import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import { useState } from "react";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 
 interface Props {
     patient: Patient;
-    style?: ViewStyle;
+    itemIndex: number;
+    selectedIndex: number;
+    onSelect: (index: number) => void;
 }
 
-const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
-    const [active, setActive] = useState(false);
+const PatientAllocationCard: React.FC<Props> = ({ patient, itemIndex, selectedIndex, onSelect }) => {
+    const isSelected = itemIndex === selectedIndex;
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
@@ -44,9 +43,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 />
 
                 <VStack style={{ flex: 1 }} spacing={10}>
-                    <LeafText typography={LeafTypography.title3}>
-                        {patient.fullName}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
 
                     <VGap size={16} />
 
@@ -64,20 +61,19 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 </VStack>
 
                 <LeafIconButton
-                    icon={active ? "check" : "plus"}
+                    icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
-                    iconColor={active ? LeafColors.textLight : LeafColors.textDark}
-                    color={active ? LeafColors.accent : LeafColors.transparent}
+                    iconColor={isSelected ? LeafColors.textLight : LeafColors.textDark}
+                    color={isSelected ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
-                        // change background color of allocate button to green (active = true)
-                        setActive(!active);
+                        onSelect(itemIndex);
                         onPressAllocate(patient);
                     }}
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: active ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                        borderColor: isSelected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>

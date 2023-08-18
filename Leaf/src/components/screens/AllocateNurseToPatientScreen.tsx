@@ -50,6 +50,8 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [isToggledTime, setIsToggledTime] = React.useState(false);
     const [isToggledCode, setIsToggledCode] = React.useState(false);
 
+    const [selectedIndex, setSelectedIndex] = React.useState(null);
+
     return (
         <DefaultScreenContainer>
             <VStack>
@@ -126,7 +128,14 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatList
                     data={patients}
-                    renderItem={({ item: patient }) => <PatientAllocationCard patient={patient} />}
+                    renderItem={({ item: patient, index: index }) => (
+                        <PatientAllocationCard
+                            patient={patient}
+                            itemIndex={index}
+                            selectedIndex={selectedIndex}
+                            onSelect={setSelectedIndex}
+                        />
+                    )}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
