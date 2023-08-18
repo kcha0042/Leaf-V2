@@ -30,6 +30,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
+    const [selectedIndex, setSelectedIndex] = React.useState(null);
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
