@@ -41,7 +41,7 @@ interface Props {
     labeled?: boolean;
     valueLabel?: string;
     style?: ViewStyle;
-    onSetValue: (value: LeafSegmentedValue) => void;
+    onSetValue: (value: LeafSegmentedValue | undefined) => void;
 }
 
 const LeafSegmentedButtons: React.FC<Props> = ({
@@ -59,7 +59,7 @@ const LeafSegmentedButtons: React.FC<Props> = ({
 
     useEffect(() => {
         const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
-            setSelectedOption(null);
+            setSelectedOption(undefined);
             onSetValue(undefined);
         });
 

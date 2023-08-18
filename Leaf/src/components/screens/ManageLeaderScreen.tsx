@@ -16,6 +16,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { ErrorScreen } from "./ErrorScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -23,6 +24,11 @@ interface Props {
 
 const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
+
+    if (!leader) {
+        return <ErrorScreen />;
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack

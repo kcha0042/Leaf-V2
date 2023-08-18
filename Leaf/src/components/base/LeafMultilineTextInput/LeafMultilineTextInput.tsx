@@ -29,7 +29,7 @@ const LeafMultilineTextInput: React.FC<Props> = ({
 }) => {
     const [text, setText] = React.useState("");
     const [isFocused, setIsFocused] = useState(false);
-    const textInputRef = useRef(null);
+    const textInputRef = useRef<TextInput>(null);
     const borderWidth = 2.0;
     const typography = LeafTypography.body.withColor(textColor);
     const labelTypography = LeafTypography.subscript;
@@ -55,7 +55,9 @@ const LeafMultilineTextInput: React.FC<Props> = ({
         <TouchableWithoutFeedback
             style={[wide ? { width: "100%" } : { alignSelf: "center" }, { flexDirection: "row" }]}
             onPress={() => {
-                textInputRef.current.focus();
+                if (textInputRef.current) {
+                    textInputRef.current.focus();
+                }
             }}
         >
             <VStack

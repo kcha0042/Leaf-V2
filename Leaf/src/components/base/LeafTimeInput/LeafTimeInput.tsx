@@ -98,7 +98,7 @@ const LeafTimeInput: React.FC<Props> = ({
 
     const [isFocused, setIsFocused] = useState(false);
     const borderWidth = 2.0;
-    const textInputRef = useRef(null);
+    const textInputRef = useRef<TextInput>(null);
     const typography = LeafTypography.body.withColor(currentTextColor);
     const errorTypography = LeafTypography.error;
     errorTypography.size = LeafTypography.subscriptLabel.size;
@@ -126,7 +126,9 @@ const LeafTimeInput: React.FC<Props> = ({
         <TouchableWithoutFeedback
             style={[wide ? { width: "100%" } : { alignSelf: "center" }, { flexDirection: "row" }]}
             onPress={() => {
-                textInputRef.current.focus();
+                if (textInputRef.current) {
+                    textInputRef.current.focus();
+                }
             }}
         >
             <VStack

@@ -23,12 +23,12 @@ import { useEffect } from "react";
 import StateManager from "../../../state/publishers/StateManager";
 
 interface Props<T> {
-    navigation: NavigationProp<ParamListBase>;
+    navigation?: NavigationProp<ParamListBase>;
     selected: LeafSelectionItem<T> | undefined;
     items: LeafSelectionItem<T>[];
     title: string;
     style?: ViewStyle;
-    onSelection: (item: LeafSelectionItem<T>) => void;
+    onSelection: (item: LeafSelectionItem<T> | undefined) => void;
 }
 
 const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, items, title, style, onSelection }) => {

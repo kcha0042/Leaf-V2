@@ -14,6 +14,8 @@ import HStack from "../containers/HStack";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
 import { strings } from "../../localisation/Strings";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { ErrorScreen } from "./ErrorScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -22,9 +24,13 @@ interface Props {
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     const patient = Session.inst.getActivePatient();
 
+    if (!patient) {
+        return <ErrorScreen />;
+    }
+
     const onDone = () => {
         // TODO: save
-        navigation.goBack();
+        NavigationSession.inst.navigateBack(navigation);
     };
 
     const onCallPress = () => {};

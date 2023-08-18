@@ -30,7 +30,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [errTextVisible, setErrTextVisible] = useState(false);
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
-    const [role, setRole] = React.useState(null);
+    const [role, setRole] = React.useState<Role | undefined>(undefined);
 
     const onNameChange = (name: string) => {
         setName(name);
@@ -40,7 +40,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
         setSurname(name);
     };
 
-    const onRoleChange = (role: Role) => {
+    const onRoleChange = (role: Role | undefined) => {
         setRole(role);
     };
 
@@ -131,7 +131,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 <CreateAccountCard
                     // TODO: Remove temp
                     worker={new Worker(EmployeeID.generate(), "Jason", "ANY", "temp", Hospitals["H1"], [])}
-                    onPress={null}
+                    onPress={() => {}}
                     display={hasCreate}
                 />
             </VStack>

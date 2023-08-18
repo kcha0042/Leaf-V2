@@ -13,14 +13,14 @@ import LeafText from "../LeafText/LeafText";
 import LeafListSelectionManager from "./LeafListSelectionManager";
 
 interface Props {
-    navigation: NavigationProp<ParamListBase>;
+    navigation?: NavigationProp<ParamListBase>;
 }
 
 const LeafListSelection: React.FC<Props> = ({ navigation }) => {
     const items = LeafListSelectionManager.listSelection;
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener("blur", () => {
+        const unsubscribe = navigation?.addListener("blur", () => {
             // When the screen is about to lose focus
             LeafListSelectionManager.listSelection = [];
         });

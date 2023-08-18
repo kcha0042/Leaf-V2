@@ -7,7 +7,7 @@ import LeafColors from "../styling/LeafColors";
 interface Props {
     color?: LeafColor;
     onPress?: () => void | null;
-    children; // No type - can be any component
+    children: any; // No type - can be any component
     style?: ViewStyle;
 }
 

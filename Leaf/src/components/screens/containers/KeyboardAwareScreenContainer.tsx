@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 interface Props {
     backgroundColor?: LeafColor;
-    children; // No type - can be any component
+    children: any; // No type - can be any component
     style?: ViewStyle;
 }
 

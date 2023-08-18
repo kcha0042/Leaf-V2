@@ -39,7 +39,10 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSubmit = async () => {
         if (allIsValid()) {
-            const event = PatientEvent.new(triggerTime, title, description, category);
+            // We force-unwrap everything because we assume everything is validated already
+            // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
+            // Otherwise this WILL cause errors
+            const event = PatientEvent.new(triggerTime!, title!, description!, category!);
             const successful = await Session.inst.submitPatientEvent(event);
             if (successful) {
                 // TODO: snackbar
@@ -98,9 +101,15 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                                   strings("label.category"),
                                   category,
                               )
-                            : null
+                            : undefined
                     }
-                    onSelection={(item: LeafSelectionItem<PatientEventCategory>) => setCategory(item.value)}
+                    onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                        if (!item) {
+                            setCategory(undefined);
+                        } else {
+                            setCategory((item as LeafSelectionItem<PatientEventCategory>).value);
+                        }
+                    }}
                 />
             </VStack>
 

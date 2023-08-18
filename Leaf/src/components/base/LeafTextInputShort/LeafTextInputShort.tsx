@@ -29,7 +29,7 @@ const LeafTextInputShort: React.FC<Props> = ({
     const [text, setText] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const borderWidth = 2.0;
-    const textInputRef = useRef(null);
+    const textInputRef = useRef<TextInput>(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
         typography.withColor(valid ? LeafColors.textSuccess : LeafColors.textError);
@@ -71,7 +71,9 @@ const LeafTextInputShort: React.FC<Props> = ({
                     }),
                 }}
                 onPress={() => {
-                    textInputRef.current.focus();
+                    if (textInputRef.current) {
+                        textInputRef.current.focus();
+                    }
                 }}
             >
                 <LeafText

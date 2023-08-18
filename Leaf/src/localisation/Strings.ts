@@ -6,7 +6,7 @@ import { assert } from "../language/assertions/Assert";
 // Some day if we want to dynamically change the language in-app, we'll have to adjust the architecture
 const locales = { en }; // We only support English right now
 const language = Localization.locale.split("-")[0];
-const locale = locales[language] || locales.en;
+const locale = locales[language as keyof typeof locales] || locales.en;
 
 /**
  * Retrieves a localised string using its key.
@@ -22,7 +22,7 @@ const locale = locales[language] || locales.en;
  * @returns The translated string
  */
 export function strings(path: string, ...interpolations: string[]): string {
-    const localisedString = locale[path];
+    const localisedString = locale[path as keyof typeof locale];
     assert(localisedString != undefined, `Invalid string path provided: ${path}`);
     return (localisedString as string).replace(/{(\d+)}/g, function (match, number) {
         return typeof interpolations[number] != "undefined" ? interpolations[number] : match;

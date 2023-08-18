@@ -15,6 +15,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { ErrorScreen } from "./ErrorScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -22,6 +23,11 @@ interface Props {
 
 const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
     const worker = Session.inst.getActiveWorker();
+
+    if (!worker) {
+        return <ErrorScreen />;
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack

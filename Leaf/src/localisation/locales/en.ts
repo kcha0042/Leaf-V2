@@ -105,6 +105,8 @@ export default {
     "label.selectRole": "Select Role",
     "label.enterName": "Enter Name",
     "label.accountCreated": "Account Created",
+    "label.anErrorOccurred": "An error occurred",
+    "label.noEvents": "No Events",
 
     // Input Labels
     "inputLabel.username": "Username",

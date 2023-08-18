@@ -67,13 +67,13 @@ class DataObject {
 
     public addObjectArray(key: string, value: DataObject[] | undefined | null): DataObject {
         this.json[key] =
-            value.map((object) => {
+            value?.map((object) => {
                 return object?.json ?? null;
             }) ?? null;
         return this;
     }
 
-    public getString(key: string, onFail: string | null = null, legacyKeys: string[] = []): string | null {
+    public getStringOrNull(key: string, onFail: string | null = null, legacyKeys: string[] = []): string | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval != undefined) {
@@ -87,7 +87,11 @@ class DataObject {
         return retrieval;
     }
 
-    public getNumber(key: string, onFail: number | null = null, legacyKeys: string[] = []): number | null {
+    public getString(key: string, onFail: string = "", legacyKeys: string[] = []): string {
+        return this.getStringOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getNumberOrNull(key: string, onFail: number | null = null, legacyKeys: string[] = []): number | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval != undefined) {
@@ -101,7 +105,11 @@ class DataObject {
         return retrieval;
     }
 
-    public getBoolean(key: string, onFail: boolean | null = null, legacyKeys: string[] = []): boolean | null {
+    public getNumber(key: string, onFail: number, legacyKeys: string[] = []): number {
+        return this.getNumberOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getBooleanOrNull(key: string, onFail: boolean | null = null, legacyKeys: string[] = []): boolean | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval != undefined) {
@@ -115,7 +123,11 @@ class DataObject {
         return retrieval;
     }
 
-    public getDate(key: string, onFail: Date | null = null, legacyKeys: string[] = []): Date | null {
+    public getBoolean(key: string, onFail: boolean, legacyKeys: string[] = []): boolean {
+        return this.getBooleanOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getDateOrNull(key: string, onFail: Date | null = null, legacyKeys: string[] = []): Date | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval !== undefined) {
@@ -132,7 +144,15 @@ class DataObject {
         return new Date(retrieval);
     }
 
-    public getStringArray(key: string, onFail: string[] | null = null, legacyKeys: string[] = []): string[] | null {
+    public getDate(key: string, onFail: Date, legacyKeys: string[] = []): Date {
+        return this.getDateOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getStringArrayOrNull(
+        key: string,
+        onFail: string[] | null = null,
+        legacyKeys: string[] = [],
+    ): string[] | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval !== undefined) {
@@ -146,7 +166,15 @@ class DataObject {
         return retrieval;
     }
 
-    public getNumberArray(key: string, onFail: number[] | null = null, legacyKeys: string[] = []): number[] | null {
+    public getStringArray(key: string, onFail: string[] = [], legacyKeys: string[] = []): string[] {
+        return this.getStringArrayOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getNumberArrayOrNull(
+        key: string,
+        onFail: number[] | null = null,
+        legacyKeys: string[] = [],
+    ): number[] | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval !== undefined) {
@@ -160,7 +188,15 @@ class DataObject {
         return retrieval;
     }
 
-    public getBooleanArray(key: string, onFail: boolean[] | null = null, legacyKeys: string[] = []): boolean[] | null {
+    public getNumberArray(key: string, onFail: number[] = [], legacyKeys: string[] = []): number[] {
+        return this.getNumberArrayOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getBooleanArrayOrNull(
+        key: string,
+        onFail: boolean[] | null = null,
+        legacyKeys: string[] = [],
+    ): boolean[] | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval !== undefined) {
@@ -174,7 +210,11 @@ class DataObject {
         return retrieval;
     }
 
-    public getDateArray(key: string, onFail: Date[] | null = null, legacyKeys: string[] = []): Date[] | null {
+    public getBooleanArray(key: string, onFail: boolean[] = [], legacyKeys: string[] = []): boolean[] {
+        return this.getBooleanArrayOrNull(key, onFail, legacyKeys) ?? onFail;
+    }
+
+    public getDateArrayOrNull(key: string, onFail: Date[] | null = null, legacyKeys: string[] = []): Date[] | null {
         let retrieval = this.json[key];
         for (const legacyKey of legacyKeys) {
             if (retrieval !== undefined) {
@@ -186,6 +226,10 @@ class DataObject {
             return onFail;
         }
         return retrieval.map((dateStr) => new Date(dateStr));
+    }
+
+    public getDateArray(key: string, onFail: Date[] = [], legacyKeys: string[] = []): Date[] {
+        return this.getDateArrayOrNull(key, onFail, legacyKeys) ?? onFail;
     }
 
     public getDataObject(key: string, legacyKeys: string[] = []): DataObject {

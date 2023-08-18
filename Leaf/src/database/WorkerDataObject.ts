@@ -20,20 +20,24 @@ class WorkerDataObject {
             .addString(WorkerField.FirstName, worker.firstName)
             .addString(WorkerField.LastName, worker.lastName)
             .addString(WorkerField.Email, worker.email)
-            .addString(WorkerField.CurrentHospitalID, worker.currentHospital.id.toString())
+            .addString(WorkerField.CurrentHospitalID, worker.currentHospital?.id?.toString())
             .addStringArray(
                 WorkerField.AllocatedPatients,
                 worker.allocatedPatients.map((mrn) => mrn.toString()),
             );
     }
 
-    public static restore(data: DataObject): Worker {
-        const id = data.getString(WorkerField.ID);
-        const firstName = data.getString(WorkerField.FirstName);
-        const lastName = data.getString(WorkerField.LastName);
-        const email = data.getString(WorkerField.Email);
-        const currentHospitalID = data.getString(WorkerField.CurrentHospitalID);
-        const allocatedPatients = data.getStringArray(WorkerField.AllocatedPatients);
+    public static restore(data: DataObject): Worker | null {
+        const id = data.getStringOrNull(WorkerField.ID);
+        const firstName = data.getStringOrNull(WorkerField.FirstName);
+        const lastName = data.getStringOrNull(WorkerField.LastName);
+        const email = data.getStringOrNull(WorkerField.Email);
+        const currentHospitalID = data.getStringOrNull(WorkerField.CurrentHospitalID);
+        const allocatedPatients = data.getStringArrayOrNull(WorkerField.AllocatedPatients);
+        if (!id || !firstName || !lastName || !email || !currentHospitalID || !allocatedPatients) {
+            console.error("[WorkerDataObject] Failed to restore Worker");
+            return null;
+        }
         return new Worker(
             new EmployeeID(id),
             firstName,

@@ -17,7 +17,7 @@ interface Props {
     // Spacing between children components
     spacing?: number;
     // No type - can be any component(s)
-    children;
+    children: any;
     // Custom style
     style?: ViewStyle;
 }

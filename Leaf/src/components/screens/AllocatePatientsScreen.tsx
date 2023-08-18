@@ -28,7 +28,7 @@ const AllocatePatientsScreen: React.FC = () => {
         };
     }, []);
 
-    const onPressPatient = (patient) => {
+    const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
         console.log(patient.fullName);
     };

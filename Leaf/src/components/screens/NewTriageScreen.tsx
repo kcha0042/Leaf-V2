@@ -108,21 +108,24 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSubmit = async () => {
         if (allIsValid()) {
+            // We force-unwrap everything because we assume everything is validated already
+            // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
+            // Otherwise this WILL cause errors
             const patient = Patient.new(
-                new MRN(mrn),
-                dob,
-                givenName,
-                surname,
-                sex.value,
-                phone,
+                new MRN(mrn!),
+                dob!,
+                givenName!,
+                surname!,
+                sex!.value,
+                phone!,
                 TriageCase.new(
-                    selectedWard.value,
-                    selectedHosptial.value,
-                    selectedMedicalUnit.value,
-                    triageDescription,
-                    triageCode,
+                    selectedWard!.value,
+                    selectedHosptial!.value,
+                    selectedMedicalUnit!.value,
+                    triageDescription!,
+                    triageCode!,
                 ),
-                postcode,
+                postcode!,
                 Session.inst.loggedInAccount.id,
             );
             const successful = await Session.inst.submitTriage(patient);
@@ -248,8 +251,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         })}
                         title={strings("inputLabel.hopsital")}
                         selected={selectedHosptial}
-                        onSelection={(item: LeafSelectionItem<Hospital>) => {
-                            setSelectedHospital(item);
+                        onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                            setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
                         }}
                     />
 
@@ -260,8 +263,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         })}
                         title={strings("inputLabel.ward")}
                         selected={selectedWard}
-                        onSelection={(item: LeafSelectionItem<Ward>) => {
-                            setSelectedWard(item);
+                        onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                            setSelectedWard(item as LeafSelectionItem<Ward> | undefined);
                         }}
                     />
 
@@ -272,8 +275,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         })}
                         title={strings("inputLabel.medicalUnit")}
                         selected={selectedMedicalUnit}
-                        onSelection={(item: LeafSelectionItem<MedicalUnit>) => {
-                            setSelectedMedicalUnit(item);
+                        onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                            setSelectedMedicalUnit(item as LeafSelectionItem<MedicalUnit> | undefined);
                         }}
                     />
                 </VStack>

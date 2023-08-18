@@ -23,7 +23,7 @@ const AdminScreen: React.FC = () => {
         };
     }, []);
 
-    const onPressNurse = (nurse) => {
+    const onPressNurse = (nurse: Nurse) => {
         // TODO: Navigation
         console.log(nurse.firstName);
     };
