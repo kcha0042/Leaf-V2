@@ -50,6 +50,9 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
+                {/* 
+                    // TODO: replace with checkbox after merge
+                */}
                 <LeafIconButton
                     icon={active ? "check" : "plus"}
                     size={LeafIconSize.Large}
