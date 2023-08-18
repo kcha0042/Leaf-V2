@@ -40,25 +40,23 @@ const LeafTextInputShort: React.FC<Props> = ({
             ]}
         >
             <TouchableWithoutFeedback
-                
                 onPress={() => {
                     textInputRef.current.focus();
                 }}
             >
-                <View style={{
-                    justifyContent: 'center',
-                    paddingHorizontal: 16,
-                    position: "absolute",
-                    flexDirection: "row",
-                    height: "100%",
-                    ...Platform.select({
-                        web: { cursor: "text" },
-                    }),
-
-                }}>
+                <View
+                    style={{
+                        paddingHorizontal: 16,
+                        position: "absolute",
+                        flexDirection: "row",
+                        height: "100%",
+                        ...Platform.select({
+                            web: { cursor: "text" },
+                        }),
+                    }}
+                >
                     <LeafText
                         typography={labelTypography}
-                        verticalWrap={true}
                         style={{
                             alignSelf: "center",
                         }}
@@ -66,7 +64,6 @@ const LeafTextInputShort: React.FC<Props> = ({
                         {text.length == 0 ? label : ""}
                     </LeafText>
                 </View>
-               
             </TouchableWithoutFeedback>
 
             <TextInput
