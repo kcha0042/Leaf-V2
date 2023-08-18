@@ -1,21 +1,20 @@
-import React from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import { View } from "react-native";
-import LeafColors from "../styling/LeafColors";
-import VStack from "../containers/VStack";
-import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import FlatContainer from "../containers/FlatContainer";
-import Session from "../../model/session/Session";
-import Spacer from "../containers/layout/Spacer";
-import LeafButton from "../base/LeafButton/LeafButton";
-import HStack from "../containers/HStack";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
+import React from "react";
 import { strings } from "../../localisation/Strings";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import Session from "../../model/session/Session";
+import LeafButton from "../base/LeafButton/LeafButton";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
+import LeafText from "../base/LeafText/LeafText";
+import FlatContainer from "../containers/FlatContainer";
+import HStack from "../containers/HStack";
+import VStack from "../containers/VStack";
+import Spacer from "../containers/layout/Spacer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 import { ErrorScreen } from "./ErrorScreen";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

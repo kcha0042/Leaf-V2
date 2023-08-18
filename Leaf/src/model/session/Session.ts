@@ -1,6 +1,5 @@
 import { Hospitals } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
-import ValidateUtil from "../../utils/ValidateUtil";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Leader from "../employee/Leader";
