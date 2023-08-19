@@ -34,7 +34,11 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
     return (
         <FlatContainer>
-            <HStack>
+            <HStack
+                style={{
+                    flex: 1
+                }}
+            >
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -60,7 +64,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.session", `${session}`)}
                     </LeafText>
-
 
                     <VGap size={16}/>
                     <HStack spacing={10}>
