@@ -30,7 +30,6 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
-    const [selectedIndex, setSelectedIndex] = React.useState(null);
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
@@ -74,14 +73,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatList
                     data={patients}
-                    renderItem={({ item: patient, index: index }) => (
-                        <PatientAllocationCard
-                            patient={patient}
-                            itemIndex={index}
-                            selectedIndex={selectedIndex}
-                            onSelect={setSelectedIndex}
-                        />
-                    )}
+                    renderItem={({ item: patient, index: index }) => <PatientAllocationCard patient={patient}/>}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}

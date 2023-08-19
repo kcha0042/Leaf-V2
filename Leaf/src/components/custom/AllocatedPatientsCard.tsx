@@ -14,6 +14,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import VGap from "../containers/layout/VGap";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     patient: Patient;
@@ -24,9 +25,16 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
+    const typography = LeafTypography.subscriptLabel;
+    typography.leafColor = LeafColors.accent;
+
     return (
         <FlatContainer>
-            <HStack>
+            <HStack
+                style={{
+                    flex: 1
+                }}
+            >
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -41,11 +49,21 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         flex: 1,
                     }}
                 >
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {patient.fullName}
-                        </LeafText>
-                    </View>
+                    <HStack>
+                        <View style={{ alignSelf: "flex-start" }}>
+                            <LeafText typography={LeafTypography.title3}>
+                                {patient.fullName}
+                            </LeafText>
+                        </View>
+                        <Spacer/>
+                        <LeafIconButton
+                            icon="trash-can-outline"
+                            color={LeafColors.fillBackgroundLight}
+                            iconColor={LeafColors.fillBackgroundRed}
+                            size={LeafIconSize.Medium}
+                            onPress={() => {}}
+                        />
+                    </HStack>
 
                     <VGap size={16} />
 
@@ -56,15 +74,28 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                     <LeafText typography={LeafTypography.subscript}>
                         {strings("label.date")} {dateText}
                     </LeafText>
-                </VStack>
 
-                <LeafIconButton
-                    icon="trash-can-outline"
-                    color={LeafColors.fillBackgroundLight}
-                    iconColor={LeafColors.fillBackgroundRed}
-                    size={LeafIconSize.Medium}
-                    onPress={() => {}}
-                />
+                    <VGap size={16}/>
+                    <HStack spacing={10}>
+                        {
+                            patient.events.map(event => (
+                                <View
+                                    key={event.id.toString()}
+                                    style={{
+                                        borderRadius: 30,
+                                        borderWidth: 1,
+                                        borderColor: typography.color,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 5,
+                                        alignSelf: "flex-start"
+                                    }}
+                                >
+                                    <LeafText wide={false} typography={typography}>{event.title.toString()}</LeafText>
+                                </View>
+                            ))
+                        }
+                    </HStack>
+                </VStack>
             </HStack>
         </FlatContainer>
     );
