@@ -24,6 +24,9 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
     const [selected, setSelected] = useState(false);
 
+    const typography = LeafTypography.subscriptLabel;
+    typography.leafColor = LeafColors.accent;
+
     const onPressAllocate = (patient) => {
         //TODO: set allocate patient to nurse
         //TODO: Update patient allocated counter
@@ -41,7 +44,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     }}
                 />
 
-                <VStack style={{ flex: 1 }} spacing={10}>
+                <VStack style={{ flex: 1 }}>
                     <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
 
                     <VGap size={16} />
@@ -57,6 +60,28 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.session", `${session}`)}
                     </LeafText>
+
+
+                    <VGap size={16}/>
+                    <HStack spacing={10}>
+                        {
+                            patient.events.map(event => (
+                                <View
+                                    key={event.id.toString()}
+                                    style={{
+                                        borderRadius: 30,
+                                        borderWidth: 1,
+                                        borderColor: typography.color,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 5,
+                                        alignSelf: "flex-start"
+                                    }}
+                                >
+                                    <LeafText wide={false} typography={typography}>{event.title.toString()}</LeafText>
+                                </View>
+                            ))
+                        }
+                    </HStack>
                 </VStack>
 
                 {/* 
