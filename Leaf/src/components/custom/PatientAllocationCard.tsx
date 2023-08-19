@@ -11,19 +11,18 @@ import TriageCodeBadge from "./TriageCodeBadge";
 import { strings } from "../../localisation/Strings";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
+import { useState } from "react";
 
 interface Props {
     patient: Patient;
-    itemIndex: number;
-    selectedIndex: number;
-    onSelect: (index: number) => void;
 }
 
-const PatientAllocationCard: React.FC<Props> = ({ patient, itemIndex, selectedIndex, onSelect }) => {
-    const isSelected = itemIndex === selectedIndex;
+const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
+
+    const [selected, setSelected] = useState(false);
 
     const onPressAllocate = (patient) => {
         //TODO: set allocate patient to nurse
@@ -64,19 +63,19 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, itemIndex, selectedIn
                     // TODO: replace with checkbox after merge
                 */}
                 <LeafIconButton
-                    icon={isSelected ? "check" : "plus"}
+                    icon={selected ? "check" : "plus"}
                     size={LeafIconSize.Large}
-                    iconColor={isSelected ? LeafColors.textLight : LeafColors.textDark}
-                    color={isSelected ? LeafColors.accent : LeafColors.transparent}
+                    iconColor={selected ? LeafColors.textLight : LeafColors.textDark}
+                    color={selected ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
-                        onSelect(itemIndex);
+                        setSelected(!selected);
                         onPressAllocate(patient);
                     }}
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: isSelected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                        borderColor: selected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>
