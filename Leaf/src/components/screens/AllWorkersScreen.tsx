@@ -25,6 +25,10 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
         setSearchQuery(query);
     };
 
+    const receiveFilteredSearchData = (dataFromSearch) => {
+        setWorkers(dataFromSearch);
+    }
+
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
@@ -46,7 +50,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} />
+                <LeafSearchBarNew onTextChange={onSearch} data={workers}/>
 
                 <VGap size={10} />
 

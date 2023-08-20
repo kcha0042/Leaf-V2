@@ -14,6 +14,7 @@ interface Props {
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
+    data;
     onTextChange: (text: string) => void;
 }
 
@@ -23,16 +24,66 @@ const LeafSearchBarNew: React.FC<Props> = ({
     color = LeafColors.textBackgroundAccent,
     wide = true,
     valid = undefined,
+    data,
     style,
     onTextChange,
 }) => {
-    const [text, setText] = React.useState("");
+    const [searchQuery, setSearchQuery] = React.useState("");
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
         typography.withColor(valid ? LeafColors.textSuccess : LeafColors.textError);
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
+
+    const [filteredData, setFilteredData] = React.useState(data);
+
+    // Here we convert each object(item) in the data array to string
+    // Then we will do a filter to check if our search query string matches (or almost) our data
+    const cleanupQuery = searchQuery => searchQuery.replace(/\s/g, '');
+    const calculateLevenshteinDistance = (source, target) => {
+        const sourceLength = source.length;
+        const targetLength = target.length;
+
+        const distanceMatrix = Array.from({ length: sourceLength + 1}, (_,i) => Array(targetLength + 1).fill(i));
+        
+        for (let j = 1; j <= targetLength; j++) {
+            distanceMatrix[0][j] = j;
+          };
+        
+        for (let i = 1; i <= sourceLength; i++) {
+            for (let j = 1; j <= targetLength; j++) {
+              const cost = source[i - 1] === target[j - 1] ? 0 : 1;
+              distanceMatrix[i][j] = Math.min(
+                distanceMatrix[i - 1][j] + 1,
+                distanceMatrix[i][j - 1] + 1,
+                distanceMatrix[i - 1][j - 1] + cost
+                );
+            }
+        }
+
+        return distanceMatrix[sourceLength][targetLength];
+    }
+
+    const isFuzzyMatch = (query, data, maxDistance = 5) => {
+        const matchFirstName = calculateLevenshteinDistance(query, data?.firstName);
+        const matchLastName = calculateLevenshteinDistance(query, data?.lastName);
+        return matchFirstName <= maxDistance || matchLastName <= maxDistance;
+    }
+
+    const handleSearch = searchQuery => {
+        const cleanQuery = cleanupQuery(searchQuery);
+        let filtered = data.filter(item =>
+            item?.fullName.toLowerCase().includes(cleanQuery.toLowerCase())
+        );
+        if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
+            console.log("fuzzy");
+            filtered = data.filter(item => isFuzzyMatch(cleanQuery, item));
+        }
+        setFilteredData(filtered);
+        console.log(filtered);
+        console.log("filtered data", filteredData);
+      };
 
     return (
         <View
@@ -75,7 +126,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
                         alignSelf: "center",
                     }}
                 >
-                    {text.length == 0 ? label : ""}
+                    {searchQuery.length == 0 ? label : ""}
                 </LeafText>
             </TouchableWithoutFeedback>
 
@@ -93,11 +144,12 @@ const LeafSearchBarNew: React.FC<Props> = ({
                     typography.getStylesheet(),
                     style,
                 ]}
-                onChangeText={(text) => {
-                    setText(text);
-                    onTextChange(text);
+                onChangeText={(searchQuery) => {
+                    setSearchQuery(searchQuery);
+                    onTextChange(searchQuery);
+                    handleSearch(searchQuery);
                 }}
-                value={text}
+                value={searchQuery}
             />
         </View>
     );
