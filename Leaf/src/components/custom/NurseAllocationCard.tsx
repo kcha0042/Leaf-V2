@@ -18,11 +18,14 @@ import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 
 interface Props {
     worker: Worker;
-    style?: ViewStyle;
+    itemIndex: number;
+    selectedIndex: number;
+    onSelect: (index: number) => void;
 }
 
-const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
+const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex, onSelect }) => {
     // check if allocate button is clicked (false=white, true=green)
+    const isSelected = itemIndex === selectedIndex;
     const [active, setActive] = useState(false);
     const idText = worker.id.toString();
 
@@ -50,21 +53,23 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
+                {/* 
+                    // TODO: replace with checkbox after merge
+                */}
                 <LeafIconButton
-                    icon={active ? "check" : "plus"}
+                    icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
-                    iconColor={active ? LeafColors.textLight : LeafColors.textDark}
-                    color={active ? LeafColors.accent : LeafColors.transparent}
+                    iconColor={isSelected ? LeafColors.textLight : LeafColors.textDark}
+                    color={isSelected ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
-                        // change background color of allocate button to green (active = true)
-                        setActive(!active);
+                        onSelect(itemIndex);
                         onPressAllocate(worker);
                     }}
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: active ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                        borderColor: isSelected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>

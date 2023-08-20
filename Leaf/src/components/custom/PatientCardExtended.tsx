@@ -33,12 +33,8 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                     }}
                 />
 
-                <VStack style={{ flexShrink: 1 }}>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {patient.fullName}
-                        </LeafText>
-                    </View>
+                <VStack style={{ flex: 1 }}>
+                    <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
 
                     <VGap size={16} />
 
@@ -53,6 +49,8 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                     <LeafText typography={LeafTypography.subscript}>
                         {strings("label.allocated")} {session}
                     </LeafText>
+
+                    <VGap size={1} />
                 </VStack>
             </HStack>
         </FlatContainer>

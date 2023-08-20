@@ -8,23 +8,24 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
-import LeafButton from "../base/LeafButton/LeafButton";
 import { strings } from "../../localisation/Strings";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import { useState } from "react";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
+import { useState } from "react";
 
 interface Props {
     patient: Patient;
-    style?: ViewStyle;
 }
 
-const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
-    const [active, setActive] = useState(false);
+const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
+
+    const [selected, setSelected] = useState(false);
+
+    const typography = LeafTypography.subscriptLabel;
+    typography.leafColor = LeafColors.accent;
 
     const onPressAllocate = (patient) => {
         //TODO: set allocate patient to nurse
@@ -33,7 +34,11 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
 
     return (
         <FlatContainer>
-            <HStack>
+            <HStack
+                style={{
+                    flex: 1
+                }}
+            >
                 <TriageCodeBadge
                     code={patient.triageCase.triageCode}
                     fillSpace={false}
@@ -44,9 +49,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                 />
 
                 <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3}>
-                        {patient.fullName}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
 
                     <VGap size={16} />
 
@@ -61,23 +64,46 @@ const PatientAllocationCard: React.FC<Props> = ({ patient, style }) => {
                     <LeafText typography={LeafTypography.subscript}>
                         {strings("allocateToNurseCard.session", `${session}`)}
                     </LeafText>
+
+                    <VGap size={16}/>
+                    <HStack spacing={10}>
+                        {
+                            patient.events.map(event => (
+                                <View
+                                    key={event.id.toString()}
+                                    style={{
+                                        borderRadius: 30,
+                                        borderWidth: 1,
+                                        borderColor: typography.color,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 5,
+                                        alignSelf: "flex-start"
+                                    }}
+                                >
+                                    <LeafText wide={false} typography={typography}>{event.title.toString()}</LeafText>
+                                </View>
+                            ))
+                        }
+                    </HStack>
                 </VStack>
 
+                {/* 
+                    // TODO: replace with checkbox after merge
+                */}
                 <LeafIconButton
-                    icon={active ? "check" : "plus"}
+                    icon={selected ? "check" : "plus"}
                     size={LeafIconSize.Large}
-                    iconColor={active ? LeafColors.textLight : LeafColors.textDark}
-                    color={active ? LeafColors.accent : LeafColors.transparent}
+                    iconColor={selected ? LeafColors.textLight : LeafColors.textDark}
+                    color={selected ? LeafColors.accent : LeafColors.transparent}
                     onPress={() => {
-                        // change background color of allocate button to green (active = true)
-                        setActive(!active);
+                        setSelected(!selected);
                         onPressAllocate(patient);
                     }}
                     style={{
                         alignSelf: "center",
                         borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: active ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                        borderColor: selected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
                 />
             </HStack>

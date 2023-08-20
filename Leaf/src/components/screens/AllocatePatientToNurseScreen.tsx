@@ -21,6 +21,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
+    const [selectedIndex, setSelectedIndex] = React.useState(null);
 
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
@@ -32,14 +33,25 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <DefaultScreenContainer>
-            <VStack>
+            <VStack
+                style={{
+                    flex: 1,
+                }}
+            >
                 <LeafSearchBarNew onTextChange={onSearch} />
 
                 <VGap size={25} />
 
                 <FlatList
                     data={workers}
-                    renderItem={({ item: worker }) => <NurseAllocationCard worker={worker}/>}
+                    renderItem={({ item: worker, index: index }) => (
+                        <NurseAllocationCard 
+                            worker={worker}                             
+                            itemIndex={index}
+                            selectedIndex={selectedIndex}
+                            onSelect={setSelectedIndex}
+                        />
+                    )}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}

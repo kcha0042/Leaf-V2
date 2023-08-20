@@ -39,35 +39,26 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
         Session.inst.fetchAllPatients();
     }, []);
 
-    const [segmentedValue, setSegmentedValue] = React.useState<LeafSegmentedValue | null>(null);
-    const onSetSegmentedValue = (segmentedValue) => {
-        // TODO: Filter patients by time of day
-        setSegmentedValue(segmentedValue);
-    };
-    const [shouldShowTime, setShouldShowTime] = React.useState(false);
-    const [shouldShowCode, setShouldShowCode] = React.useState(false);
-    // Hooks for the filter button toggles
-    const [isToggledTime, setIsToggledTime] = React.useState(false);
-    const [isToggledCode, setIsToggledCode] = React.useState(false);
-
     return (
         <DefaultScreenContainer>
-            <VStack>
+            <VStack
+                style={{
+                    flex: 1
+                }}
+            >
                 <LeafSearchBarNew onTextChange={onSearch} />
 
                 <VGap size={20} />
 
                 <HStack>
+                    {/* 
+                        // TODO: replace with dropdowns after merge
+                    */}
                     <LeafButton
                         label={strings("searchBarFilter.time")}
-                        onPress={() => {
-                            setShouldShowTime(!shouldShowTime);
-                            setIsToggledTime(!isToggledTime);
-                        }}
-                        typography={LeafTypography.buttonSmall.withColor(
-                            isToggledTime ? LeafColors.textLight : LeafColors.textDark,
-                        )}
-                        color={isToggledTime ? LeafColors.accent : LeafColors.fillBackgroundLight}
+                        onPress={() => null}
+                        typography={LeafTypography.title4}
+                        color={LeafColors.fillBackgroundLight}
                         wide={false}
                     ></LeafButton>
 
@@ -75,58 +66,18 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafButton
                         label={strings("searchBarFilter.triageCode")}
-                        onPress={() => {
-                            setShouldShowCode(!shouldShowCode);
-                            setIsToggledCode(!isToggledCode);
-                        }}
-                        typography={LeafTypography.buttonSmall.withColor(
-                            isToggledCode ? LeafColors.textLight : LeafColors.textDark,
-                        )}
-                        color={isToggledCode ? LeafColors.accent : LeafColors.fillBackgroundLight}
+                        onPress={() => null}
+                        typography={LeafTypography.title4}
+                        color={LeafColors.fillBackgroundLight}
                         wide={false}
                     ></LeafButton>
                 </HStack>
-
-                <VStack>
-                    <VGap size={6} />
-
-                    {shouldShowTime ? (
-                        <LeafSegmentedButtons
-                            label={strings("searchBarFilter.time")}
-                            options={[
-                                new LeafSegmentedValue(0, strings("button.morning")),
-                                new LeafSegmentedValue(1, strings("button.noon")),
-                                new LeafSegmentedValue(2, strings("button.afternoon")),
-                                new LeafSegmentedValue(3, strings("button.none")),
-                            ]}
-                            value={segmentedValue}
-                            onSetValue={setSegmentedValue}
-                        ></LeafSegmentedButtons>
-                    ) : null}
-
-                    <VGap size={6} />
-
-                    {shouldShowCode ? (
-                        <LeafSegmentedButtons
-                            label={strings("searchBarFilter.triageCode")}
-                            options={[
-                                new LeafSegmentedValue(0, strings("button.code.1")),
-                                new LeafSegmentedValue(1, strings("button.code.2")),
-                                new LeafSegmentedValue(2, strings("button.code.3")),
-                                new LeafSegmentedValue(3, strings("button.code.4")),
-                                new LeafSegmentedValue(4, strings("button.code.5")),
-                            ]}
-                            value={segmentedValue}
-                            onSetValue={setSegmentedValue}
-                        ></LeafSegmentedButtons>
-                    ) : null}
-                </VStack>
 
                 <VGap size={20} />
 
                 <FlatList
                     data={patients}
-                    renderItem={({ item: patient }) => <PatientAllocationCard patient={patient} />}
+                    renderItem={({ item: patient, index: index }) => <PatientAllocationCard patient={patient}/>}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
