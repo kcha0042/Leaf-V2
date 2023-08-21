@@ -7,29 +7,34 @@ import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
 import LeafIcon from "../LeafIcon/LeafIcon";
 
-interface Props {
+interface Props<T> {
     label?: string;
     textColor?: LeafColor;
     color?: LeafColor;
     wide?: boolean;
     valid?: boolean;
     style?: ViewStyle;
-    data;
+    data: T[];
     onTextChange: (text: string) => void;
-    setData: (data) => void;
+    setData: (data: T[]) => void;
+    dataToString: (data: T) => string;
+    maxDistance?: number;
 }
 
-const LeafSearchBarNew: React.FC<Props> = ({
-    label = "Search",
-    textColor = LeafColors.textDark,
-    color = LeafColors.textBackgroundAccent,
-    wide = true,
-    valid = undefined,
-    data,
-    style,
-    onTextChange,
-    setData
-}) => {
+function LeafSearchBarNew<T>(
+    {
+        data,
+        style,
+        onTextChange,
+        setData,
+        textColor = LeafColors.textDark,
+        color = LeafColors.textBackgroundAccent,
+        wide = true,
+        valid = undefined,
+        label = "Search",
+        maxDistance = 5
+    }: Props<T>)
+{
 
     useEffect(() => {
         setFilteredData(data);
@@ -71,10 +76,10 @@ const LeafSearchBarNew: React.FC<Props> = ({
         return distanceMatrix[sourceLength][targetLength];
     }
 
-    const isFuzzyMatch = (query, data, maxDistance = 5) => {
+    const isFuzzyMatch = (query, data, localMaxDistance) => {
         const matchFirstName = calculateLevenshteinDistance(query, data?.firstName);
         const matchLastName = calculateLevenshteinDistance(query, data?.lastName);
-        return matchFirstName <= maxDistance || matchLastName <= maxDistance;
+        return matchFirstName <= localMaxDistance || matchLastName <= localMaxDistance;
     }
 
     const handleSearch = searchQuery => {
@@ -84,7 +89,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
         );
         if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
             console.log("fuzzy");
-            filtered = data.filter(item => isFuzzyMatch(cleanQuery, item));
+            filtered = data.filter(item => isFuzzyMatch(cleanQuery, item, maxDistance));
         }
         setFilteredData(filtered);
         setData(filtered);
