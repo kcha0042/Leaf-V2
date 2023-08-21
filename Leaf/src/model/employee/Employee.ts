@@ -6,14 +6,20 @@ abstract class Employee {
     public readonly id: EmployeeID;
     public readonly firstName: string;
     public readonly lastName: string;
-    public readonly email: string;
-    public currentHospital: Hospital;
+    public readonly email: string | null;
+    public currentHospital: Hospital | null;
     public abstract readonly role: Role;
     get fullName(): string {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    constructor(id: EmployeeID, firstName: string, lastName: string, email: string, currentHospital: Hospital) {
+    constructor(
+        id: EmployeeID,
+        firstName: string,
+        lastName: string,
+        email: string | null,
+        currentHospital: Hospital | null,
+    ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -19,15 +19,19 @@ import CreateAccountCard from "../custom/CreateAccountCard";
 import Worker from "../../model/employee/Worker";
 import { Role } from "../../model/employee/Role";
 import { Hospitals } from "../../preset_data/Hospitals";
+import FormHeader from "../custom/FormHeader";
+import ValidateUtil from "../../utils/ValidateUtil";
+import Admin from "../../model/employee/Admin";
+import Leader from "../../model/employee/Leader";
+import Session from "../../model/session/Session";
+import Employee from "../../model/employee/Employee";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
-    const [hasCreate, setHasCreate] = React.useState(false);
-    const [pickerErrVisible, setPickerErrVisible] = useState(false);
-    const [errTextVisible, setErrTextVisible] = useState(false);
+    const [createdAccount, setCreatedAccount] = React.useState<Employee | null>(null);
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
     const [role, setRole] = React.useState<Role | undefined>(undefined);
@@ -44,60 +48,62 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
         setRole(role);
     };
 
+    const onSubmit = async () => {
+        if (
+            !(
+                ValidateUtil.stringIsValid(name) &&
+                ValidateUtil.stringIsValid(surname) &&
+                ValidateUtil.valueIsDefined(role)
+            )
+        ) {
+            setCreatedAccount(null);
+            // TODO: Provide user feedback
+            return;
+        }
+
+        let employee: Employee | null = null;
+        if (role!.matches(Role.admin)) {
+            const newAdmin = Admin.new(name, surname);
+            const success = await Session.inst.submitNewAdmin(newAdmin);
+            if (success) {
+                employee = newAdmin;
+            }
+        } else if (role!.matches(Role.worker)) {
+            const newWorker = Worker.new(name, surname);
+            const success = await Session.inst.submitNewWorker(newWorker);
+            if (success) {
+                employee = newWorker;
+            }
+        } else if (role!.matches(Role.leader)) {
+            const newLeader = Leader.new(name, surname);
+            const success = await Session.inst.submitNewLeader(newLeader);
+            if (success) {
+                employee = newLeader;
+            }
+        }
+        setCreatedAccount(employee);
+    };
+
     return (
         <DefaultScreenContainer>
-            <VStack>
-                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                    <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
-
-                    <LeafText typography={LeafTypography.title4} wide={false}>
-                        {strings("label.selectRole")}
-                    </LeafText>
-                </HStack>
-
+            <VStack spacing={16}>
                 <RolePicker onSelection={onRoleChange} />
 
-                <LeafText
-                    style={{ color: pickerErrVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    {strings("error.missingRole")}
-                </LeafText>
+                <LeafTextInput
+                    label={strings("inputLabel.givenName")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
+                    onTextChange={onNameChange}
+                />
 
-                <VGap size={32} />
+                <LeafTextInput
+                    label={strings("inputLabel.surname")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
+                    onTextChange={onSurnameChange}
+                />
 
-                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                    <LeafIcon icon={"rename-box"} color={LeafColors.textDark} size={LeafIconSize.Small} />
-
-                    <LeafText typography={LeafTypography.title4} wide={false}>
-                        {strings("label.enterName")}
-                    </LeafText>
-                </HStack>
-
-                <VStack spacing={8} style={{ width: "100%" }}>
-                    <LeafTextInput
-                        label={strings("inputLabel.givenName")}
-                        textColor={LeafColors.textDark}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={onNameChange}
-                    />
-
-                    <LeafTextInput
-                        label={strings("inputLabel.surname")}
-                        textColor={LeafColors.textDark}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={onSurnameChange}
-                    />
-
-                    <LeafText
-                        style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                        typography={LeafTypography.error}
-                    >
-                        {strings("error.missingName")}
-                    </LeafText>
-                </VStack>
-
-                <VGap size={32} />
+                <VGap size={12} />
 
                 <LeafButton
                     label={strings("button.createAccount")}
@@ -105,35 +111,16 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
-                    onPress={() => {
-                        if (name != "" && surname != "" && role != null) {
-                            setHasCreate(true);
-                        }
-
-                        if (name == "" || surname == "") {
-                            setErrTextVisible(true);
-                        } else {
-                            setErrTextVisible(false);
-                        }
-
-                        if (role == null) {
-                            setPickerErrVisible(true);
-                        } else {
-                            setPickerErrVisible(false);
-                        }
-
-                        // TODO: should change to create account method later.
-                    }}
+                    onPress={onSubmit}
                 />
 
-                <VGap size={32} />
+                <VGap size={12} />
 
-                <CreateAccountCard
-                    // TODO: Remove temp
-                    worker={new Worker(EmployeeID.generate(), "Jason", "ANY", "temp", Hospitals["H1"], [])}
-                    onPress={() => {}}
-                    display={hasCreate}
-                />
+                {createdAccount == null ? undefined : (
+                    <CreateAccountCard
+                        employee={createdAccount}
+                    />
+                )}
             </VStack>
         </DefaultScreenContainer>
     );
