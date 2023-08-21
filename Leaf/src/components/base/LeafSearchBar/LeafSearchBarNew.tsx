@@ -29,10 +29,11 @@ function LeafSearchBarNew<T>(
         setData,
         textColor = LeafColors.textDark,
         color = LeafColors.textBackgroundAccent,
+        dataToString,
         wide = true,
         valid = undefined,
         label = "Search",
-        maxDistance = 5
+        maxDistance = 5,
     }: Props<T>)
 {
 
@@ -77,15 +78,15 @@ function LeafSearchBarNew<T>(
     }
 
     const isFuzzyMatch = (query, data, localMaxDistance) => {
-        const matchFirstName = calculateLevenshteinDistance(query, data?.firstName);
-        const matchLastName = calculateLevenshteinDistance(query, data?.lastName);
+        const matchFirstName = calculateLevenshteinDistance(query, dataToString(data));
+        const matchLastName = calculateLevenshteinDistance(query, dataToString(data));
         return matchFirstName <= localMaxDistance || matchLastName <= localMaxDistance;
     }
 
     const handleSearch = searchQuery => {
         const cleanQuery = cleanupQuery(searchQuery);
         let filtered = data.filter(item =>
-            cleanupQuery(item?.fullName).toLowerCase().includes(cleanQuery.toLowerCase())
+            cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase())
         );
         if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
             console.log("fuzzy");
