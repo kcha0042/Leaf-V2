@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { strings } from '../../../localisation/Strings';
+import Environment from '../../../state/environment/Environment';
+import { OS } from '../../../state/environment/types/OS';
 import HStack from '../../containers/HStack';
 import VStack from '../../containers/VStack';
 import LeafColor from '../../styling/color/LeafColor';
@@ -20,6 +22,7 @@ interface Props<T> {
     height?: number;
     borderColor?: LeafColor;
     backgroundColor?: LeafColor;
+    dropdownBackgroundColor?: LeafColor;
     selectedTypography?: LeafTypographyConfig;
     optionTypography?: LeafTypographyConfig;
 }
@@ -39,6 +42,7 @@ function LeafDropDown<T>({
     noneOption = true,
     borderColor = LeafColors.accent,
     backgroundColor = LeafColors.screenBackgroundLight,
+    dropdownBackgroundColor = LeafColors.screenBackgroundSemiLight,
     height = 50,
     selectedTypography = LeafTypography.title4,
     optionTypography = LeafTypography.body
@@ -65,92 +69,100 @@ function LeafDropDown<T>({
         >
             <VStack>
                 <LeafText typography={LeafTypography.subscript}>{header}</LeafText>
-                    <View 
-                        style={{ 
-                            height: height, 
-                            width: "100%",
-                            borderColor: borderColor.getColor(), 
-                            justifyContent: 'center', 
-                            borderRadius: 20 
+                <View 
+                    style={{ 
+                        height: height, 
+                        width: "100%",
+                        borderColor: borderColor.getColor(), 
+                        justifyContent: 'center', 
+                        borderRadius: 20 
+                    }}
+                >
+                    <TouchableOpacity 
+                        onPress={() => {
+                            setIsOpen(!isOpen);
+                            changeIcon();
+                        }}
+                        style={{
+                            backgroundColor: backgroundColor.getColor()
                         }}
                     >
-                        <TouchableOpacity 
-                            onPress={() => {
-                                setIsOpen(!isOpen);
-                                changeIcon();
+                        <HStack
+                            style={{
+                                alignItems: "center"
                             }}
+                            spacing={5}
                         >
-                            <HStack
-                                style={{
-                                    alignItems: "center"
-                                }}
-                                spacing={5}
-                            >
-                                <LeafText wide={false} typography={selectedTypography}>{optionToString(selectedValue) || strings("button.selectAnOption")}</LeafText>
-                                <LeafIcon icon={icon} color={selectedTypography.leafColor} size={20}/>
-                            </HStack>
-                        </TouchableOpacity>
+                            <LeafText wide={false} typography={selectedTypography}>{optionToString(selectedValue) || strings("button.selectAnOption")}</LeafText>
+                            <LeafIcon icon={icon} color={selectedTypography.leafColor} size={20}/>
+                        </HStack>
+                    </TouchableOpacity>
 
-                        {isOpen && (
-                            <View style={{
-                                position: 'absolute',
-                                width: "100%",
-                                top: height - borderWidth*2,
-                                borderWidth: borderWidth,
-                                borderColor: borderColor.getColor(),
-                                backgroundColor: backgroundColor.getColor(),
-                                borderRadius: 20
-                            }}>
-                                <ScrollView
-                                    style={{
-                                        flex: 1
-                                    }}
-                                >
-                                    {options.map((option, index) => (
+                    {isOpen && (
+                        <View style={{
+                            position: 'absolute',
+                            width: "100%",
+                            top: height - borderWidth*2,
+                            backgroundColor: dropdownBackgroundColor.getColor(),
+                            borderRadius: 20,
+                            shadowColor: LeafColors.shadow.getColor(),
+                            shadowOffset: {
+                                width: 0,
+                                height: 4,
+                            },
+                            // Shadows appear sligntly differnt on web
+                            shadowOpacity: Environment.inst.getOS() == OS.Web ? 0.16 : 0.12,
+                            shadowRadius: Environment.inst.getOS() == OS.Web ? 12 : 7,
+                        }}>
+                            <ScrollView
+                                style={{
+                                    flex: 1
+                                }}
+                            >
+                                {options.map((option, index) => (
+                                    <TouchableOpacity 
+                                        key={index} 
+                                        style={{ 
+                                            paddingHorizontal: 20,
+                                            paddingVertical: 10,
+                                            backgroundColor: dropdownBackgroundColor.getColor(),
+                                            borderRadius: 20,
+                                        }} 
+                                        onPress={() => {
+                                            changeIcon();
+                                            setSelectedValue(option);
+                                            setOption(option);
+                                            setIsOpen(false);
+                                        }}
+                                    >
+                                        <LeafText typography={optionTypography}>{optionToString(option)}</LeafText>
+                                    </TouchableOpacity>
+                                ))}
+                                {/* None option */}
+                                {
+                                    !noneOption ? null : (
                                         <TouchableOpacity 
-                                            key={index} 
                                             style={{ 
                                                 paddingHorizontal: 20,
                                                 paddingVertical: 10,
-                                                backgroundColor: backgroundColor.getColor(),
-                                                borderRadius: 20,
-                                                borderColor: borderColor.getColor()
+                                                backgroundColor: dropdownBackgroundColor.getColor(),
+                                                borderRadius: 20
                                             }} 
                                             onPress={() => {
-                                                changeIcon();
-                                                setSelectedValue(option);
-                                                setOption(option);
+                                                changeIcon()
+                                                setSelectedValue(undefined);
+                                                setOption(undefined);
                                                 setIsOpen(false);
                                             }}
                                         >
-                                            <LeafText typography={optionTypography}>{optionToString(option)}</LeafText>
+                                            <LeafText typography={optionTypography}>{strings("button.none")}</LeafText>
                                         </TouchableOpacity>
-                                    ))}
-                                    {/* None option */}
-                                    {
-                                        !noneOption ? null : (
-                                            <TouchableOpacity 
-                                                style={{ 
-                                                    paddingHorizontal: 20,
-                                                    paddingVertical: 10,
-                                                    backgroundColor: backgroundColor.getColor(),
-                                                    borderRadius: 20
-                                                }} 
-                                                onPress={() => {
-                                                    changeIcon()
-                                                    setSelectedValue(undefined);
-                                                    setOption(undefined);
-                                                    setIsOpen(false);
-                                                }}
-                                            >
-                                                <LeafText typography={optionTypography}>{strings("button.none")}</LeafText>
-                                            </TouchableOpacity>
-                                        )
-                                    }
-                                </ScrollView>
-                            </View>
-                        )}
-                    </View>
+                                    )
+                                }
+                            </ScrollView>
+                        </View>
+                    )}
+                </View>
             </VStack>
         </View>
     )
