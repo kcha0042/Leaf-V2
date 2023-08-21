@@ -1,20 +1,16 @@
 import { View, ViewStyle } from "react-native";
+import { strings } from "../../localisation/Strings";
 import Patient from "../../model/patient/Patient";
+import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
+import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { strings } from "../../localisation/Strings";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafDimensions from "../styling/LeafDimensions";
-import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
-import VGap from "../containers/layout/VGap";
-import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
-import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     patient: Patient;
@@ -32,7 +28,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
         <FlatContainer>
             <HStack
                 style={{
-                    flex: 1
+                    flex: 1,
                 }}
             >
                 <TriageCodeBadge
@@ -49,21 +45,9 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         flex: 1,
                     }}
                 >
-                    <HStack>
-                        <View style={{ alignSelf: "flex-start" }}>
-                            <LeafText typography={LeafTypography.title3}>
-                                {patient.fullName}
-                            </LeafText>
-                        </View>
-                        <Spacer/>
-                        <LeafIconButton
-                            icon="trash-can-outline"
-                            color={LeafColors.fillBackgroundLight}
-                            iconColor={LeafColors.fillBackgroundRed}
-                            size={LeafIconSize.Medium}
-                            onPress={() => {}}
-                        />
-                    </HStack>
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        {patient.fullName}
+                    </LeafText>
 
                     <VGap size={16} />
 
@@ -75,27 +59,35 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         {strings("label.date")} {dateText}
                     </LeafText>
 
-                    <VGap size={16}/>
+                    <VGap size={16} />
                     <HStack spacing={10}>
-                        {
-                            patient.events.map(event => (
-                                <View
-                                    key={event.id.toString()}
-                                    style={{
-                                        borderRadius: 30,
-                                        borderWidth: 1,
-                                        borderColor: typography.color,
-                                        paddingHorizontal: 10,
-                                        paddingVertical: 5,
-                                        alignSelf: "flex-start"
-                                    }}
-                                >
-                                    <LeafText wide={false} typography={typography}>{event.title.toString()}</LeafText>
-                                </View>
-                            ))
-                        }
+                        {patient.events.map((event) => (
+                            <View
+                                key={event.id.toString()}
+                                style={{
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    borderColor: typography.color,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 5,
+                                    alignSelf: "flex-start",
+                                }}
+                            >
+                                <LeafText wide={false} typography={typography}>
+                                    {event.title.toString()}
+                                </LeafText>
+                            </View>
+                        ))}
                     </HStack>
                 </VStack>
+
+                <LeafIconButton
+                    icon="trash-can-outline"
+                    color={LeafColors.fillBackgroundLight}
+                    iconColor={LeafColors.fillBackgroundRed}
+                    size={LeafIconSize.Large}
+                    onPress={() => {}}
+                />
             </HStack>
         </FlatContainer>
     );
