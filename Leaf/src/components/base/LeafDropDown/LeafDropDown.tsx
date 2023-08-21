@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import HStack from '../../containers/HStack';
 import VStack from '../../containers/VStack';
@@ -11,6 +11,8 @@ import LeafText from '../LeafText/LeafText';
 
 interface Props<T> {
     options: T[];
+    initialValue?: T;
+    setOption: (option?: T) => void;
     optionToString: (option: T) => string;
     header: string;
     noneOption?: boolean;
@@ -29,6 +31,8 @@ interface Props<T> {
  */
 function LeafDropDown<T>({
     options,
+    initialValue,
+    setOption,
     optionToString,
     header,
     noneOption = true,
@@ -39,9 +43,13 @@ function LeafDropDown<T>({
     optionTypography = LeafTypography.body
 }: Props<T>){
 
+    useEffect(() => {
+        setSelectedValue(initialValue);
+    }, [initialValue])
+
     const borderWidth = 2;
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(undefined);
+    const [selectedValue, setSelectedValue] = useState(initialValue);
     const [icon, setIcon] = useState("chevron-down");
     const changeIcon = () => {
         setIcon(icon == "chevron-down" ? "chevron-up" : "chevron-down");
@@ -110,6 +118,7 @@ function LeafDropDown<T>({
                                             onPress={() => {
                                                 changeIcon();
                                                 setSelectedValue(option);
+                                                setOption(option);
                                                 setIsOpen(false);
                                             }}
                                         >
@@ -129,6 +138,7 @@ function LeafDropDown<T>({
                                                 onPress={() => {
                                                     changeIcon()
                                                     setSelectedValue(undefined);
+                                                    setOption(undefined);
                                                     setIsOpen(false);
                                                 }}
                                             >
