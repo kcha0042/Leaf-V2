@@ -8,8 +8,10 @@ import Worker from "../employee/Worker";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
 import PatientEvent from "../patient/PatientEvent";
-import GetPatientsManager from "./GetPatientsManager";
-import GetWorkersManager from "./GetWorkersManager";
+import AdminsManager from "./AdminsManager";
+import LeadersManager from "./LeadersManager";
+import PatientsManager from "./PatientsManager";
+import WorkersManager from "./WorkersManager";
 import NewEmployeeManager from "./NewEmployeeManager";
 import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
@@ -25,6 +27,7 @@ class Session {
         "Clean",
         "mr.clean@email.com",
         Hospitals["H1"],
+        true,
         [],
     );
     // ALl workers (continuously updated from database fetches) [ID: Worker]
@@ -80,6 +83,18 @@ class Session {
         return NewEmployeeManager.inst.newLeaderCreated(leader);
     }
 
+    public async updateWorker(worker: Worker): Promise<boolean> {
+        return WorkersManager.inst.updateWorker(worker);
+    }
+
+    public async updateAdmin(admin: Admin): Promise<boolean> {
+        return AdminsManager.inst.updateAdmin(admin);
+    }
+
+    public async updateLeader(leader: Leader): Promise<boolean> {
+        return LeadersManager.inst.updateLeader(leader);
+    }
+
     public setLoggedInAccount(employee: Employee) {
         this._loggedInAccount = employee;
     }
@@ -87,16 +102,25 @@ class Session {
     public setActivePatient(patient: Patient | null) {
         this._activePatientMRN = patient?.mrn ?? null;
         StateManager.activePatientChanged.publish();
+        if (patient != null) {
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
     }
 
     public setActiveWorker(worker: Worker | null) {
         this._activeWorkerID = worker?.id ?? null;
         StateManager.activeWorkerChanged.publish();
+        if (worker != null) {
+            this._workerStore[worker.id.toString()] = worker;
+        }
     }
 
     public setActiveLeader(leader: Leader | null) {
         this._activeLeaderID = leader?.id ?? null;
         StateManager.activeLeaderChanged.publish();
+        if (leader != null) {
+            this._leaderStore[leader.id.toString()] = leader;
+        }
     }
 
     public getActivePatient(): Patient | null {
@@ -150,9 +174,14 @@ class Session {
         return this._patientStore[id.toString()] || null;
     }
 
+    public async getAdmin(id: MRN): Promise<Admin | null> {
+        const admin = await AdminsManager.inst.getAdmin(id);
+        return admin;
+    }
+
     public async fetchAllWorkers() {
         // Restore workers from the database
-        const workers = await GetWorkersManager.inst.getWorkers();
+        const workers = await WorkersManager.inst.getWorkers();
         for (const worker of workers) {
             this._workerStore[worker.id.toString()] = worker;
         }
@@ -161,7 +190,7 @@ class Session {
     }
 
     public async fetchWorker(id: EmployeeID) {
-        const worker = await GetWorkersManager.inst.getWorker(id);
+        const worker = await WorkersManager.inst.getWorker(id);
         if (worker != null) {
             this._workerStore[worker.id.toString()] = worker;
         }
@@ -169,35 +198,27 @@ class Session {
         StateManager.workersFetched.publish();
     }
 
-    public fetchAllLeaders() {
-        // TODO: Asyncronously access database and update leaderStore
-        // Temporary:
-        const Leader1 = new Leader(
-            new EmployeeID("abc-123"),
-            "John",
-            "Squarepants",
-            "tempemail@gmail.com",
-            Hospitals["H1"],
-        );
-        const Leader2 = new Leader(
-            new EmployeeID("abc-456"),
-            "Julius",
-            "Squarepants",
-            "tempemail@gmail.com",
-            Hospitals["H1"],
-        );
-        this._leaderStore[Leader1.id.toString()] = Leader1;
-        this._leaderStore[Leader2.id.toString()] = Leader2;
+    public async fetchAllLeaders() {
+        // Restore leaders from the database
+        const leaders = await LeadersManager.inst.getLeaders();
+        for (const leader of leaders) {
+            this._leaderStore[leader.id.toString()] = leader;
+        }
         // Notify subscribers
         StateManager.leadersFetched.publish();
     }
 
-    public fetchLeader(id: EmployeeID) {
-        // TODO: Fetch leader
+    public async fetchLeader(id: EmployeeID) {
+        const leader = await LeadersManager.inst.getLeader(id);
+        if (leader != null) {
+            this._leaderStore[leader.id.toString()] = leader;
+        }
+        // Notify subscribers
+        StateManager.leadersFetched.publish();
     }
 
     public async fetchAllPatients() {
-        const patients = await GetPatientsManager.inst.getPatients();
+        const patients = await PatientsManager.inst.getPatients();
         for (const patient of patients) {
             // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
@@ -207,7 +228,7 @@ class Session {
     }
 
     public async fetchPatient(mrn: MRN) {
-        const patient = await GetPatientsManager.inst.getPatient(mrn);
+        const patient = await PatientsManager.inst.getPatient(mrn);
         if (patient != null) {
             this._patientStore[patient.mrn.toString()] = patient;
         }

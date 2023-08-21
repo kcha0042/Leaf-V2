@@ -5,8 +5,8 @@ import { compactMap } from "../../language/functions/CompactMap";
 import MRN from "../patient/MRN";
 import Patient from "../patient/Patient";
 
-class GetPatientsManager {
-    public static readonly inst = new GetPatientsManager();
+class PatientsManager {
+    public static readonly inst = new PatientsManager();
 
     private constructor() {}
 
@@ -24,4 +24,4 @@ class GetPatientsManager {
     }
 }
 
-export default GetPatientsManager;
+export default PatientsManager;

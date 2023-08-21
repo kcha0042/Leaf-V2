@@ -16,6 +16,12 @@ class ValidateUtil {
         return true;
     }
 
+    public static emailIsValid(email: string | undefined | null): boolean {
+        if (typeof email !== "string") return false;
+        const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
     public static postcodeIsValid(postcode: string | undefined | null): boolean {
         if (typeof postcode !== "string" || !postcode) return false;
         return /^\d{4}$/.test(postcode);
