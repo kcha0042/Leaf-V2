@@ -25,24 +25,22 @@ interface Props {
 }
 
 const AccountScreen: React.FC<Props> = ({ navigation }) => {
-    // TODO: change this when we have a way of getting the ID
-    const loggedInID = Session.inst.loggedInAccount.id;
-
-    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(loggedInID));
+    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.loggedInAccount as Worker);
     const [name, setName] = React.useState<string>(worker?.fullName || strings("label.loading"));
     const [email, setEmail] = React.useState<string>(worker?.email || strings("label.loading"));
     const [hospital, setHospital] = React.useState<string>(worker?.currentHospital?.name || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
-            const tmpWorker = Session.inst.getWorker(loggedInID);
+            // If the logged in worker gets updated and hence fetched, we refresh this
+            const tmpWorker = Session.inst.loggedInAccount as Worker;
             setWorker(tmpWorker);
             setName(tmpWorker?.fullName || "");
             setEmail(tmpWorker?.email || "");
             setHospital(tmpWorker?.currentHospital?.name || "");
         });
 
-        Session.inst.fetchAllWorkers();
+        Session.inst.fetchWorker(Session.inst.loggedInAccount.id);
 
         return () => {
             unsubscribe();

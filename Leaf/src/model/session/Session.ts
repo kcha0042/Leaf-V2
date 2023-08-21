@@ -1,4 +1,3 @@
-import { Hospitals } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import Admin from "../employee/Admin";
 import Employee from "../employee/Employee";
@@ -15,21 +14,41 @@ import WorkersManager from "./WorkersManager";
 import NewEmployeeManager from "./NewEmployeeManager";
 import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
+import { Role } from "../employee/Role";
+import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 class Session {
     public static readonly inst = new Session();
 
-    // TODO: Right now we just set a logged in class
-    // In the future, we need to find the account that logged in and set it here
-    private _loggedInAccount: Employee = new Worker(
-        EmployeeID.generate(),
-        "Veritably",
-        "Clean",
-        "mr.clean@email.com",
-        Hospitals["H1"],
-        true,
-        [],
-    );
+    /*
+        STORE DOCUMENTATION (workerStore, leaderStore, patientStore)
+
+        The stores are continuously updated dictionaries of content retrieved
+        from the database. They don't represent a certain selection of objects,
+        they act as a cache to have faster response times.
+
+        When I say that they don't represent a certain selection of objects, it
+        means (for example) the patientStore doesn't represent all patients, or 
+        any specific selection of patients. It's just all/any patients that have 
+        been retrieved up to now that may come in handy (show up) later.
+
+        This means when we open a page that shows patients, we can instantly
+        show all relevant patients we've retrieved up to now because they're 
+        already in memory. We still do a fetch from the database and update the 
+        list when the fetch is complete, but it feels much more seamless to open 
+        a list of patients instantly that then adds the most recent patients 
+        after a second of loading than to open an empty page of patients and 
+        have to wait, every. single. time.
+
+        It also means stuff that hasn't changed appears instantly. If you have
+        patients allocated to you, and you've fetched them already, next time
+        you open that page it instantly shows the cached patients and since your 
+        list is unchanged, the fetch doesn't change anything, making it appear 
+        as though we fetched them instantly.
+    */
+
+    // The account (employee) currently logged in
+    private _loggedInAccount: Employee | null = null;
     // ALl workers (continuously updated from database fetches) [ID: Worker]
     private _workerStore: { [key: string]: Worker } = {};
     // All patients (continuously updated from database fetches) [MRN: Patient]
@@ -44,6 +63,12 @@ class Session {
     private _activeLeaderID: EmployeeID | null = null;
 
     public get loggedInAccount(): Employee {
+        if (this._loggedInAccount == null) {
+            // If we are calling this when no one is logged in, something is seriously wrong
+            // Just bail - logout and return a dummy account
+            StateManager.loginStatus.publish(LoginStatus.LoggedOut);
+            return Worker.new("", "", null);
+        }
         return this._loggedInAccount;
     }
 
@@ -170,6 +195,12 @@ class Session {
         return Object.values(this._patientStore);
     }
 
+    public getAllocatedPatients(): Patient[] {
+        return Object.values(this._patientStore).filter((patient) =>
+            patient.idAllocatedTo.matches(this.loggedInAccount.id),
+        );
+    }
+
     public getPatient(id: MRN): Patient | null {
         return this._patientStore[id.toString()] || null;
     }
@@ -219,6 +250,23 @@ class Session {
 
     public async fetchAllPatients() {
         const patients = await PatientsManager.inst.getPatients();
+        for (const patient of patients) {
+            // No duplicates due to use of dictionary
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers that patients have been fetched
+        StateManager.patientsFetched.publish();
+    }
+
+    /**
+     * Fetch the patients that are allocated to the account logged in
+     */
+    public async fetchAllocatedPatients() {
+        if (!this.loggedInAccount.role.matches(Role.worker)) {
+            // Patients can only be allocated to workers
+            return;
+        }
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(this.loggedInAccount as Worker);
         for (const patient of patients) {
             // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;

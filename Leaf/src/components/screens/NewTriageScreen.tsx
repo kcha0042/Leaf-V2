@@ -132,6 +132,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
             if (successful) {
                 console.log("SUCCESS"); // TODO: Provide user feedback
                 StateManager.clearAllInputs.publish();
+                Session.inst.fetchPatient(patient.mrn);
             } else {
                 console.log("FAILED"); // TODO: Provide user feedback
             }

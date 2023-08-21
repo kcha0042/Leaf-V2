@@ -18,14 +18,14 @@ interface Props {
 }
 
 const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
-    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllocatedPatients());
 
     useEffect(() => {
         const unsubscribe = StateManager.patientsFetched.subscribe(() => {
-            setPatients(Session.inst.getAllPatients());
+            setPatients(Session.inst.getAllocatedPatients());
         });
 
-        Session.inst.fetchAllPatients();
+        Session.inst.fetchAllocatedPatients();
 
         return () => {
             unsubscribe();
