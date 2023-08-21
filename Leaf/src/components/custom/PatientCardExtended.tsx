@@ -34,7 +34,7 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                 />
 
                 <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>{patient.fullName}</LeafText>
 
                     <VGap size={16} />
 
