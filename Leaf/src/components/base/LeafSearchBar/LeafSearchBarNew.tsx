@@ -16,6 +16,7 @@ interface Props {
     style?: ViewStyle;
     data;
     onTextChange: (text: string) => void;
+    setData: (data) => void;
 }
 
 const LeafSearchBarNew: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
     data,
     style,
     onTextChange,
+    setData
 }) => {
 
     useEffect(() => {
@@ -85,7 +87,7 @@ const LeafSearchBarNew: React.FC<Props> = ({
             filtered = data.filter(item => isFuzzyMatch(cleanQuery, item));
         }
         setFilteredData(filtered);
-        // console.log("output from handleSearch", filtered);
+        setData(filtered);
       };
 
       console.log("output from setFilteredData", filteredData);
