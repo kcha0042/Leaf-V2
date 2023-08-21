@@ -34,7 +34,8 @@ class WorkerDataObject {
         const email = data.getStringOrNull(WorkerField.Email);
         const currentHospitalID = data.getStringOrNull(WorkerField.CurrentHospitalID);
         const allocatedPatients = data.getStringArrayOrNull(WorkerField.AllocatedPatients);
-        if (!id || !firstName || !lastName || !email || !currentHospitalID || !allocatedPatients) {
+        if (!id || !firstName || !lastName || !allocatedPatients) {
+            // NB: email and current hospital are allowed to be null
             console.error("[WorkerDataObject] Failed to restore Worker");
             return null;
         }
@@ -43,7 +44,7 @@ class WorkerDataObject {
             firstName,
             lastName,
             email,
-            Hospitals[currentHospitalID],
+            currentHospitalID == null ? null : Hospitals[currentHospitalID],
             allocatedPatients.map((data) => new MRN(data)),
         );
     }

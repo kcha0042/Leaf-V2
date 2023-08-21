@@ -12,12 +12,16 @@ class Worker extends Employee {
         id: EmployeeID,
         firstName: string,
         lastName: string,
-        email: string,
-        currentHospital: Hospital,
+        email: string | null,
+        currentHospital: Hospital | null,
         allocatedPatients: MRN[],
     ) {
         super(id, firstName, lastName, email, currentHospital);
         this._allocatedPatients = allocatedPatients;
+    }
+
+    public static new(firstName: string, lastName: string): Worker {
+        return new Worker(EmployeeID.generate(), firstName, lastName, null, null, []);
     }
 
     get allocatedPatients(): MRN[] {

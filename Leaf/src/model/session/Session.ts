@@ -1,5 +1,6 @@
 import { Hospitals } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
+import Admin from "../employee/Admin";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
 import Leader from "../employee/Leader";
@@ -9,6 +10,7 @@ import Patient from "../patient/Patient";
 import PatientEvent from "../patient/PatientEvent";
 import GetPatientsManager from "./GetPatientsManager";
 import GetWorkersManager from "./GetWorkersManager";
+import NewEmployeeManager from "./NewEmployeeManager";
 import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
 
@@ -64,6 +66,18 @@ class Session {
             this.fetchPatient(activePatient.mrn);
         }
         return success;
+    }
+
+    public async submitNewWorker(worker: Worker): Promise<boolean> {
+        return NewEmployeeManager.inst.newWorkerCreated(worker);
+    }
+
+    public async submitNewAdmin(admin: Admin): Promise<boolean> {
+        return NewEmployeeManager.inst.newAdminCreated(admin);
+    }
+
+    public async submitNewLeader(leader: Leader): Promise<boolean> {
+        return NewEmployeeManager.inst.newLeaderCreated(leader);
     }
 
     public setLoggedInAccount(employee: Employee) {

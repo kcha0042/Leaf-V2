@@ -107,6 +107,7 @@ export default {
     "label.accountCreated": "Account Created",
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
+    "label.accountCreated1Param": "{0} Account Created",
 
     // Input Labels
     "inputLabel.username": "Username",

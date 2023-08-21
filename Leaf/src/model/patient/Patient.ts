@@ -86,7 +86,7 @@ class Patient {
         triageCase: TriageCase,
         postCode: string,
         allocatedTo: EmployeeID,
-    ) {
+    ): Patient {
         return new Patient(
             mrn,
             dob,

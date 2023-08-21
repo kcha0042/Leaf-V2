@@ -18,7 +18,7 @@ class AdminDataObject {
             .addString(AdminField.FirstName, admin.firstName)
             .addString(AdminField.LastName, admin.lastName)
             .addString(AdminField.Email, admin.email)
-            .addString(AdminField.CurrentHospitalID, admin.currentHospital.id.toString());
+            .addString(AdminField.CurrentHospitalID, admin.currentHospital?.id?.toString());
     }
 
     public static restore(data: DataObject): Admin | null {
@@ -27,11 +27,18 @@ class AdminDataObject {
         const lastName = data.getStringOrNull(AdminField.LastName);
         const email = data.getStringOrNull(AdminField.Email);
         const currentHospitalID = data.getStringOrNull(AdminField.CurrentHospitalID);
-        if (!id || !firstName || !lastName || !email || !currentHospitalID) {
+        if (!id || !firstName || !lastName) {
+            // NB: email and current hospital are allowed to be null
             console.error("[AdminDataObject] Failed to restore Admin");
             return null;
         }
-        return new Admin(new EmployeeID(id), firstName, lastName, email, Hospitals[currentHospitalID]);
+        return new Admin(
+            new EmployeeID(id),
+            firstName,
+            lastName,
+            email,
+            currentHospitalID == null ? null : Hospitals[currentHospitalID],
+        );
     }
 }
 
