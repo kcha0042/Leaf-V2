@@ -25,10 +25,6 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
         setSearchQuery(query);
     };
 
-    const receiveFilteredSearchData = (dataFromSearch) => {
-        setWorkers(dataFromSearch);
-    }
-
     useEffect(() => {
         StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());

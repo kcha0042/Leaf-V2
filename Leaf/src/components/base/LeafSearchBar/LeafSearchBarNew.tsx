@@ -29,14 +29,13 @@ const LeafSearchBarNew: React.FC<Props> = ({
     onTextChange,
 }) => {
     const [searchQuery, setSearchQuery] = React.useState("");
+    const [filteredData, setFilteredData] = React.useState(data);
     const textInputRef = useRef(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
         typography.withColor(valid ? LeafColors.textSuccess : LeafColors.textError);
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
-
-    const [filteredData, setFilteredData] = React.useState(data);
 
     // Here we convert each object(item) in the data array to string
     // Then we will do a filter to check if our search query string matches (or almost) our data
@@ -74,16 +73,17 @@ const LeafSearchBarNew: React.FC<Props> = ({
     const handleSearch = searchQuery => {
         const cleanQuery = cleanupQuery(searchQuery);
         let filtered = data.filter(item =>
-            item?.fullName.toLowerCase().includes(cleanQuery.toLowerCase())
+            cleanupQuery(item?.fullName).toLowerCase().includes(cleanQuery.toLowerCase())
         );
         if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
             console.log("fuzzy");
             filtered = data.filter(item => isFuzzyMatch(cleanQuery, item));
         }
         setFilteredData(filtered);
-        console.log(filtered);
-        console.log("filtered data", filteredData);
+        // console.log("output from handleSearch", filtered);
       };
+
+      console.log("output from setFilteredData", filteredData);
 
     return (
         <View
