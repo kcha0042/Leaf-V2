@@ -21,6 +21,7 @@ interface Props {
 
 const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [filteredPatients, setFilteredPatients] = React.useState<Patient[]>(patients);
     const [searchQuery, setSearchQuery] = React.useState("");
     const onSearch = (query: string) => {
         setSearchQuery(query);
@@ -29,6 +30,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
+            setFilteredPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
@@ -52,12 +54,12 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} />
+                <LeafSearchBarNew onTextChange={onSearch} data={patients} setData={setFilteredPatients} dataToString={(patient: Patient) => patient.fullName}/>
 
                 <VGap size={10} />
 
                 <FlatList
-                    data={patients}
+                    data={filteredPatients}
                     renderItem={({ item: patient }) => (
                         <PatientCardExtended
                             patient={patient}

@@ -17,6 +17,7 @@ interface Props {
 
 const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [filteredWorkers, setFilteredWorkers] = React.useState<Worker[]>(workers);
     const [searchQuery, setSearchQuery] = React.useState("");
     const onSearch = (query: string) => {
         setSearchQuery(query);
@@ -27,7 +28,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
         });
-
+        setFilteredWorkers(Session.inst.getAllWorkers());
         Session.inst.fetchAllWorkers();
     }, []);
 
@@ -38,12 +39,12 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} />
+                <LeafSearchBarNew onTextChange={onSearch} data={workers} setData={setFilteredWorkers} dataToString={(worker: Worker) => worker.fullName}/>
 
                 <VGap size={25} />
 
                 <FlatList
-                    data={workers}
+                    data={filteredWorkers}
                     renderItem={({ item: worker, index: index }) => (
                         <NurseAllocationCard 
                             worker={worker}                             

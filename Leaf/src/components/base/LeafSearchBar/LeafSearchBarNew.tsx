@@ -33,7 +33,7 @@ function LeafSearchBarNew<T>(
         wide = true,
         valid = undefined,
         label = "Search",
-        maxDistance = 5,
+        maxDistance = 7,
     }: Props<T>)
 {
 
@@ -50,8 +50,6 @@ function LeafSearchBarNew<T>(
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
 
-    // Here we convert each object(item) in the data array to string
-    // Then we will do a filter to check if our search query string matches (or almost) our data
     const cleanupQuery = searchQuery => searchQuery.replace(/\s/g, '');
     const calculateLevenshteinDistance = (source, target) => {
         const sourceLength = source.length;
@@ -78,9 +76,8 @@ function LeafSearchBarNew<T>(
     }
 
     const isFuzzyMatch = (query, data, localMaxDistance) => {
-        const matchFirstName = calculateLevenshteinDistance(query, dataToString(data));
-        const matchLastName = calculateLevenshteinDistance(query, dataToString(data));
-        return matchFirstName <= localMaxDistance || matchLastName <= localMaxDistance;
+        const calculateMatch = calculateLevenshteinDistance(query, dataToString(data));
+        return calculateMatch <= localMaxDistance;
     }
 
     const handleSearch = searchQuery => {
@@ -89,14 +86,11 @@ function LeafSearchBarNew<T>(
             cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase())
         );
         if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
-            console.log("fuzzy");
             filtered = data.filter(item => isFuzzyMatch(cleanQuery, item, maxDistance));
         }
         setFilteredData(filtered);
         setData(filtered);
       };
-
-      console.log("output from setFilteredData", filteredData);
 
     return (
         <View
