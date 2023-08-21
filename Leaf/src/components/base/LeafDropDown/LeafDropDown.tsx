@@ -42,7 +42,7 @@ function LeafDropDown<T>({
     noneOption = true,
     borderColor = LeafColors.accent,
     backgroundColor = LeafColors.screenBackgroundLight,
-    dropdownBackgroundColor = LeafColors.screenBackgroundSemiLight,
+    dropdownBackgroundColor = LeafColors.fillBackgroundLight,
     height = 50,
     selectedTypography = LeafTypography.title4,
     optionTypography = LeafTypography.body
@@ -124,7 +124,8 @@ function LeafDropDown<T>({
                                         key={index} 
                                         style={{ 
                                             paddingHorizontal: 20,
-                                            paddingVertical: 10,
+                                            paddingBottom: 10,
+                                            paddingTop: index == 0 ? 10 : 0,
                                             backgroundColor: dropdownBackgroundColor.getColor(),
                                             borderRadius: 20,
                                         }} 
@@ -144,7 +145,7 @@ function LeafDropDown<T>({
                                         <TouchableOpacity 
                                             style={{ 
                                                 paddingHorizontal: 20,
-                                                paddingVertical: 10,
+                                                paddingBottom: 10,
                                                 backgroundColor: dropdownBackgroundColor.getColor(),
                                                 borderRadius: 20
                                             }} 
