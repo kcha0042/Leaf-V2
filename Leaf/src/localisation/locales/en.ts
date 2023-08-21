@@ -72,6 +72,7 @@ export default {
     "button.code.3": "3",
     "button.code.4": "4",
     "button.code.5": "5",
+    "button.selectAnOption": "Select an option",
 
     // Login
     "login.title": "Login",

@@ -79,27 +79,6 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     }}
 
                 />
-                
-                <HStack
-                    style={{
-                        zIndex: 1,
-                        width: "100%",
-                    }}
-                >
-                    <LeafDropDown
-                        header={"Patients"}
-                        setOption={(patient) => console.log(patient?.firstName || "None")}
-                        initialValue={patients[0]}
-                        options={patients}
-                        optionToString={(patient: Patient) => patient?.firstName}
-                    />
-                    <LeafDropDown
-                        header={"Patients 2"}
-                        setOption={(patient) => console.log(patient?.firstName || "None")}
-                        options={patients}
-                        optionToString={(patient: Patient) => patient?.firstName}
-                    />
-                </HStack>
 
                 <FlatList
                     data={allocatedPatients}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { strings } from '../../../localisation/Strings';
 import HStack from '../../containers/HStack';
 import VStack from '../../containers/VStack';
 import LeafColor from '../../styling/color/LeafColor';
@@ -74,7 +75,7 @@ function LeafDropDown<T>({
                         }}
                     >
                         <TouchableOpacity 
-                            onPress={(_) => {
+                            onPress={() => {
                                 setIsOpen(!isOpen);
                                 changeIcon();
                             }}
@@ -85,7 +86,7 @@ function LeafDropDown<T>({
                                 }}
                                 spacing={5}
                             >
-                                <LeafText wide={false} typography={selectedTypography}>{optionToString(selectedValue) || 'Select an option'}</LeafText>
+                                <LeafText wide={false} typography={selectedTypography}>{optionToString(selectedValue) || strings("button.selectAnOption")}</LeafText>
                                 <LeafIcon icon={icon} color={selectedTypography.leafColor} size={20}/>
                             </HStack>
                         </TouchableOpacity>
@@ -142,7 +143,7 @@ function LeafDropDown<T>({
                                                     setIsOpen(false);
                                                 }}
                                             >
-                                                <LeafText typography={optionTypography}>None</LeafText>
+                                                <LeafText typography={optionTypography}>{strings("button.none")}</LeafText>
                                             </TouchableOpacity>
                                         )
                                     }
