@@ -1,4 +1,5 @@
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { SessionAllocated } from "../../model/patient/SessionAllocated";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafColor from "./color/LeafColor";
 
@@ -178,6 +179,23 @@ class LeafColors {
     public static textTriageCode(code: TriageCode): LeafColor {
         // At the moment all codes have light text overlays
         return LeafColors.textLight;
+    }
+
+    // Session Allocated
+
+    public static sessionAllocated(session: SessionAllocated): LeafColor {
+        switch (session) {
+            case SessionAllocated.Morning:
+                return new LeafColor("#74b816");
+            case SessionAllocated.Afternoon:
+                return new LeafColor("#fab005");
+            case SessionAllocated.Evening:
+                return new LeafColor("#fd7e14");
+            case SessionAllocated.None:
+                return new LeafColor("#e03131");
+            default:
+                throw new UnreachableCaseError(session);
+        }
     }
 }
 

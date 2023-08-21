@@ -2,6 +2,7 @@ import EmployeeID from "../employee/EmployeeID";
 import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
+import { SessionAllocated } from "./SessionAllocated";
 
 class Patient {
     protected _mrn: MRN;
@@ -13,7 +14,7 @@ class Patient {
     protected _timeLastAllocated: Date;
     protected _allocatedTo: EmployeeID;
     protected _events: PatientEvent[];
-    protected _sessionAllocated?: string;
+    protected _sessionAllocated?: SessionAllocated;
     get mrn(): MRN {
         return this._mrn;
     }
@@ -41,7 +42,7 @@ class Patient {
     get events(): PatientEvent[] {
         return this._events;
     }
-    get sessionAllocated(): string {
+    get sessionAllocated(): SessionAllocated {
         return this._sessionAllocated;
     }
 
@@ -55,7 +56,7 @@ class Patient {
         timeLastAllocated: Date,
         allocatedTo: EmployeeID,
         events: PatientEvent[],
-        sessionAllocated?: string,
+        sessionAllocated?: SessionAllocated,
     ) {
         this._mrn = mrn;
         this._dob = dob;

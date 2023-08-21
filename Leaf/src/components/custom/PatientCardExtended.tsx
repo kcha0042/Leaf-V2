@@ -18,7 +18,7 @@ interface Props {
 
 const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated.toString();
+    const session = patient.sessionAllocated;
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
@@ -46,7 +46,7 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                         {strings("label.date")} {dateText}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript}>
+                    <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
                         {strings("label.allocated")} {session}
                     </LeafText>
 
