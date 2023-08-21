@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Platform, TextInput, View, ViewStyle } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import LeafColors from "../../styling/LeafColors";
@@ -28,6 +28,11 @@ const LeafSearchBarNew: React.FC<Props> = ({
     style,
     onTextChange,
 }) => {
+
+    useEffect(() => {
+        setFilteredData(data);
+    }, [data])
+
     const [searchQuery, setSearchQuery] = React.useState("");
     const [filteredData, setFilteredData] = React.useState(data);
     const textInputRef = useRef(null);
