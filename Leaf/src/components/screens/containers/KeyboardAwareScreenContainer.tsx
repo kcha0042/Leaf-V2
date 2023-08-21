@@ -6,12 +6,14 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 interface Props {
     backgroundColor?: LeafColor;
+    centerContent?: boolean;
     children: any; // No type - can be any component
     style?: ViewStyle;
 }
 
 const KeyboardAwareScreenContainer: React.FC<Props> = ({
     backgroundColor = LeafColors.screenBackgroundLight,
+    centerContent = false,
     children,
     style,
 }) => {
@@ -28,6 +30,13 @@ const KeyboardAwareScreenContainer: React.FC<Props> = ({
                     flex: 1,
                     paddingTop: LeafDimensions.screenTopPadding,
                     paddingHorizontal: LeafDimensions.screenPadding,
+                }}
+                contentContainerStyle={{
+                    ...(centerContent && {
+                        flexGrow: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }),
                 }}
                 enableOnAndroid={true}
                 showsVerticalScrollIndicator={true}

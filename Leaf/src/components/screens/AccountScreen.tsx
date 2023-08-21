@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import VStack from "../containers/VStack";
-import LeafDimensions from "../styling/LeafDimensions";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import LeafButton from "../base/LeafButton/LeafButton";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { strings } from "../../localisation/Strings";
+import Worker from "../../model/employee/Worker";
+import Session from "../../model/session/Session";
+import { HospitalsArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import { View } from "react-native";
+import LeafButton from "../base/LeafButton/LeafButton";
+import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
+import LeafText from "../base/LeafText/LeafText";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
 import FlatContainer from "../containers/FlatContainer";
+import HStack from "../containers/HStack";
+import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import LeafColors from "../styling/LeafColors";
-import { strings } from "../../localisation/Strings";
-import Session from "../../model/session/Session";
-import EmployeeID from "../../model/employee/EmployeeID";
-import Worker from "../../model/employee/Worker";
-import HStack from "../containers/HStack";
-import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
-import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
-import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
-import { HospitalsArray } from "../../preset_data/Hospitals";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -32,7 +31,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [worker, setWorker] = React.useState<Worker | null>(Session.inst.getWorker(loggedInID));
     const [name, setName] = React.useState<string>(worker?.fullName || strings("label.loading"));
     const [email, setEmail] = React.useState<string>(worker?.email || strings("label.loading"));
-    const [hospital, setHospital] = React.useState<string>(worker?.currentHospital.name || strings("label.loading"));
+    const [hospital, setHospital] = React.useState<string>(worker?.currentHospital?.name || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
@@ -40,7 +39,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             setWorker(tmpWorker);
             setName(tmpWorker?.fullName || "");
             setEmail(tmpWorker?.email || "");
-            setHospital(tmpWorker?.currentHospital.name || "");
+            setHospital(tmpWorker?.currentHospital?.name || "");
         });
 
         Session.inst.fetchAllWorkers();

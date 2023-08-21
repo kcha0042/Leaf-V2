@@ -20,6 +20,9 @@ import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import ActivateAccountScreen from "./ActivateAccountScreen";
+import ValidateUtil from "../../utils/ValidateUtil";
+import EmployeeID from "../../model/employee/EmployeeID";
+import Session from "../../model/session/Session";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -37,21 +40,48 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         setPassword(text);
     };
 
-    const onLoginPressed = () => {
-        // TODO: Obviously this entire thing will be reworked in time
-        switch (username.toLowerCase()) {
-            case "worker":
-            case "w":
-                StateManager.loginStatus.publish(LoginStatus.Worker);
-                break;
-            case "leader":
-            case "l":
-                StateManager.loginStatus.publish(LoginStatus.Leader);
-                break;
-            case "admin":
-            case "a":
-                StateManager.loginStatus.publish(LoginStatus.Admin);
-                break;
+    const allIsValid: () => boolean = () => {
+        return ValidateUtil.stringIsValid(username);
+        // TODO: Uncomment this when we implement passwords
+        // ValidateUtil.stringIsValid(password)
+    };
+
+    const onLoginPressed = async () => {
+        if (!allIsValid()) {
+            // TODO: Provide feedback
+            console.log("Wrong username/password");
+            return;
+        }
+        const id = new EmployeeID(username!);
+
+        await Session.inst.fetchWorker(id);
+        const worker = Session.inst.getWorker(id);
+        if (worker != null && worker.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(worker);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Worker);
+            return;
+        }
+
+        await Session.inst.fetchLeader(id);
+        const leader = Session.inst.getLeader(id);
+        if (leader != null && leader.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(leader);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Leader);
+            return;
+        }
+
+        // No need to fetch admin - we don't maintain an admin store
+        const admin = await Session.inst.getAdmin(id);
+        if (admin != null && admin.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(admin);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Admin);
+            return;
         }
     };
 

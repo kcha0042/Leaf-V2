@@ -111,6 +111,7 @@ export default {
 
     // Input Labels
     "inputLabel.username": "Username",
+    "inputLabel.providedUsername": "Assigned Username",
     "inputLabel.password": "Password",
     "inputLabel.setPassword": "Set Password",
     "inputLabel.confirmPassword": "Confirm Password",
@@ -119,6 +120,7 @@ export default {
     "inputLabel.mrn": "MRN",
     "inputLabel.postcode": "Postcode",
     "inputLabel.email": "Email",
+    "inputLabel.setEmail": "Set Email",
     "inputLabel.triageCode": "Triage Code",
     "inputLabel.triageDescription": "Triage Description",
     "inputLabel.dob": "Date of Birth",

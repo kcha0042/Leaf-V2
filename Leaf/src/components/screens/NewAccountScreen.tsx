@@ -1,30 +1,27 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
-import LeafTypography from "../styling/LeafTypography";
+import { strings } from "../../localisation/Strings";
+import Admin from "../../model/employee/Admin";
+import Employee from "../../model/employee/Employee";
+import Leader from "../../model/employee/Leader";
+import { Role } from "../../model/employee/Role";
+import Worker from "../../model/employee/Worker";
+import Hospital from "../../model/hospital/Hospital";
+import Session from "../../model/session/Session";
+import { HospitalsArray } from "../../preset_data/Hospitals";
+import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafColors from "../styling/LeafColors";
-import { strings } from "../../localisation/Strings";
-import VGap from "../containers/layout/VGap";
-import EmployeeID from "../../model/employee/EmployeeID";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import VStack from "../containers/VStack";
-import HStack from "../containers/HStack";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
-import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
-import LeafText from "../base/LeafText/LeafText";
+import LeafSelectionInput from "../base/LeafListSelection/LeafSelectionInput";
+import LeafSelectionItem from "../base/LeafListSelection/LeafSelectionItem";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import RolePicker from "../custom/RolePicker";
+import VStack from "../containers/VStack";
+import VGap from "../containers/layout/VGap";
 import CreateAccountCard from "../custom/CreateAccountCard";
-import Worker from "../../model/employee/Worker";
-import { Role } from "../../model/employee/Role";
-import { Hospitals } from "../../preset_data/Hospitals";
-import FormHeader from "../custom/FormHeader";
-import ValidateUtil from "../../utils/ValidateUtil";
-import Admin from "../../model/employee/Admin";
-import Leader from "../../model/employee/Leader";
-import Session from "../../model/session/Session";
-import Employee from "../../model/employee/Employee";
+import RolePicker from "../custom/RolePicker";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -35,6 +32,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
     const [role, setRole] = React.useState<Role | undefined>(undefined);
+    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
 
     const onNameChange = (name: string) => {
         setName(name);
@@ -53,7 +51,8 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
             !(
                 ValidateUtil.stringIsValid(name) &&
                 ValidateUtil.stringIsValid(surname) &&
-                ValidateUtil.valueIsDefined(role)
+                ValidateUtil.valueIsDefined(role) &&
+                (role!.matches(Role.admin) || ValidateUtil.valueIsDefined(selectedHosptial))
             )
         ) {
             setCreatedAccount(null);
@@ -69,13 +68,13 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 employee = newAdmin;
             }
         } else if (role!.matches(Role.worker)) {
-            const newWorker = Worker.new(name, surname);
+            const newWorker = Worker.new(name, surname, selectedHosptial!.value);
             const success = await Session.inst.submitNewWorker(newWorker);
             if (success) {
                 employee = newWorker;
             }
         } else if (role!.matches(Role.leader)) {
-            const newLeader = Leader.new(name, surname);
+            const newLeader = Leader.new(name, surname, selectedHosptial!.value);
             const success = await Session.inst.submitNewLeader(newLeader);
             if (success) {
                 employee = newLeader;
@@ -103,6 +102,20 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     onTextChange={onSurnameChange}
                 />
 
+                {role?.matches(Role.admin) ?? true ? undefined : (
+                    <LeafSelectionInput
+                        navigation={navigation}
+                        items={HospitalsArray.map((hospital) => {
+                            return new LeafSelectionItem(hospital.name, hospital.code, hospital);
+                        })}
+                        title={strings("inputLabel.hopsital")}
+                        selected={selectedHosptial}
+                        onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                            setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
+                        }}
+                    />
+                )}
+
                 <VGap size={12} />
 
                 <LeafButton
@@ -116,11 +129,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={12} />
 
-                {createdAccount == null ? undefined : (
-                    <CreateAccountCard
-                        employee={createdAccount}
-                    />
-                )}
+                {createdAccount == null ? undefined : <CreateAccountCard employee={createdAccount} />}
             </VStack>
         </DefaultScreenContainer>
     );
