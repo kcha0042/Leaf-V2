@@ -15,7 +15,7 @@ class LeafTypography {
     // Headers
 
     static get display(): LeafTypographyConfig {
-        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textBlack, LeafFontWeight.Black);
+        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textDark, LeafFontWeight.Black);
     }
 
     static get headerScreen(): LeafTypographyConfig {
@@ -77,6 +77,15 @@ class LeafTypography {
 
     static get buttonSmall(): LeafTypographyConfig {
         return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textDark);
+    }
+
+    static get textButton(): LeafTypographyConfig {
+        return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.accent, LeafFontWeight.Bold);
+    }
+
+    // Same colour as text
+    static get plainTextButton(): LeafTypographyConfig {
+        return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.textDark, LeafFontWeight.Bold);
     }
 
     // Drawer

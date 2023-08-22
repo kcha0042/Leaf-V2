@@ -2,12 +2,15 @@ import EmployeeID from "../employee/EmployeeID";
 import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientEvent from "./PatientEvent";
+import { PatientSex } from "./PatientSex";
 
 class Patient {
     protected _mrn: MRN;
     protected _dob: Date;
     protected _firstName: string;
     protected _lastName: string;
+    protected _sex: PatientSex;
+    protected _phoneNumber: string; // TODO: change this to a class with validation
     public readonly triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date;
@@ -28,6 +31,12 @@ class Patient {
     get fullName(): string {
         return `${this._firstName} ${this._lastName}`;
     }
+    get sex(): PatientSex {
+        return this._sex;
+    }
+    get phoneNumber(): string {
+        return this._phoneNumber;
+    }
     get postCode(): string {
         return this._postCode;
     }
@@ -46,6 +55,8 @@ class Patient {
         dob: Date,
         firstName: string,
         lastName: string,
+        sex: PatientSex,
+        phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
         timeLastAllocated: Date,
@@ -56,11 +67,39 @@ class Patient {
         this._dob = dob;
         this._firstName = firstName;
         this._lastName = lastName;
+        this._sex = sex;
+        this._phoneNumber = phoneNumber;
         this.triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
+    }
+
+    public static new(
+        mrn: MRN,
+        dob: Date,
+        firstName: string,
+        lastName: string,
+        sex: PatientSex,
+        phoneNumber: string,
+        triageCase: TriageCase,
+        postCode: string,
+        allocatedTo: EmployeeID,
+    ): Patient {
+        return new Patient(
+            mrn,
+            dob,
+            firstName,
+            lastName,
+            sex,
+            phoneNumber,
+            triageCase,
+            postCode,
+            new Date(),
+            allocatedTo,
+            [],
+        );
     }
 }
 

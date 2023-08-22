@@ -7,7 +7,7 @@ import LeafColors from "../styling/LeafColors";
 interface Props {
     color?: LeafColor;
     onPress?: () => void | null;
-    children; // No type - can be any component
+    children: any; // No type - can be any component
     style?: ViewStyle;
 }
 
@@ -21,11 +21,7 @@ const FlatContainer: React.FC<Props> = ({
     return onPress == null ? (
         <View style={[styles.container, { backgroundColor: color.getColor() }, style]}>{children}</View>
     ) : (
-        <TouchableOpacity
-            style={[styles.container, { backgroundColor: color.getColor() }, style]}
-            onPress={onPress}
-            disabled={onPress == null}
-        >
+        <TouchableOpacity style={[styles.container, { backgroundColor: color.getColor() }, style]} onPress={onPress}>
             {children}
         </TouchableOpacity>
     );

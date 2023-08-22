@@ -1,22 +1,22 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import LeafDimensions from "../styling/LeafDimensions";
-import LeafButton from "../base/LeafButton/LeafButton";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafColors from "../styling/LeafColors";
+import { strings } from "../../localisation/Strings";
+import { Role } from "../../model/employee/Role";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import { strings } from "../../localisation/Strings";
-import { View, ViewStyle } from "react-native";
+import LeafButton from "../base/LeafButton/LeafButton";
+import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import VStack from "../containers/VStack";
 import VGap from "../containers/layout/VGap";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import Session from "../../model/Session";
+import LeafColors from "../styling/LeafColors";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
-import { Role } from "../../model/employee/Role";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { ErrorScreen } from "./ErrorScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -24,6 +24,11 @@ interface Props {
 
 const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
+
+    if (!leader) {
+        return <ErrorScreen />;
+    }
+
     return (
         <DefaultScreenContainer>
             <VStack
@@ -33,7 +38,7 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>
-                    {Role.toString(leader.role)}
+                    {leader.role.toString()}
                 </LeafText>
 
                 <FlatContainer color={LeafColors.fillBackgroundLight}>

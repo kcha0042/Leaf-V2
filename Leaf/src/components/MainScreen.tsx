@@ -14,9 +14,13 @@ const MainScreen: React.FC = () => {
     const [loginStatus, setLoginStatus] = React.useState(StateManager.loginStatus.read());
 
     useEffect(() => {
-        StateManager.loginStatus.subscribe(() => {
+        const unsubscribe = StateManager.loginStatus.subscribe(() => {
             setLoginStatus(StateManager.loginStatus.read());
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     switch (loginStatus) {

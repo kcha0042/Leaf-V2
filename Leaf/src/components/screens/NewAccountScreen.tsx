@@ -1,35 +1,38 @@
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
-import LeafTypography from "../styling/LeafTypography";
+import { strings } from "../../localisation/Strings";
+import Admin from "../../model/employee/Admin";
+import Employee from "../../model/employee/Employee";
+import Leader from "../../model/employee/Leader";
+import { Role } from "../../model/employee/Role";
+import Worker from "../../model/employee/Worker";
+import Hospital from "../../model/hospital/Hospital";
+import Session from "../../model/session/Session";
+import { HospitalsArray } from "../../preset_data/Hospitals";
+import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafColors from "../styling/LeafColors";
-import { strings } from "../../localisation/Strings";
-import VGap from "../containers/layout/VGap";
-import EmployeeID from "../../model/employee/EmployeeID";
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import VStack from "../containers/VStack";
-import HStack from "../containers/HStack";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
-import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
-import LeafText from "../base/LeafText/LeafText";
+import LeafSelectionInput from "../base/LeafListSelection/LeafSelectionInput";
+import LeafSelectionItem from "../base/LeafListSelection/LeafSelectionItem";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import RolePicker from "../custom/RolePicker";
+import VStack from "../containers/VStack";
+import VGap from "../containers/layout/VGap";
 import CreateAccountCard from "../custom/CreateAccountCard";
-import Worker from "../../model/employee/Worker";
-import { Role } from "../../model/employee/Role";
+import RolePicker from "../custom/RolePicker";
+import LeafColors from "../styling/LeafColors";
+import LeafTypography from "../styling/LeafTypography";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
-    const [hasCreate, setHasCreate] = React.useState(false);
-    const [pickerErrVisible, setPickerErrVisible] = useState(false);
-    const [errTextVisible, setErrTextVisible] = useState(false);
+    const [createdAccount, setCreatedAccount] = React.useState<Employee | null>(null);
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
-    const [role, setRole] = React.useState(null);
+    const [role, setRole] = React.useState<Role | undefined>(undefined);
+    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
 
     const onNameChange = (name: string) => {
         setName(name);
@@ -39,64 +42,81 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
         setSurname(name);
     };
 
-    const onRoleChange = (role: Role) => {
+    const onRoleChange = (role: Role | undefined) => {
         setRole(role);
+    };
+
+    const onSubmit = async () => {
+        if (
+            !(
+                ValidateUtil.stringIsValid(name) &&
+                ValidateUtil.stringIsValid(surname) &&
+                ValidateUtil.valueIsDefined(role) &&
+                (role!.matches(Role.admin) || ValidateUtil.valueIsDefined(selectedHosptial))
+            )
+        ) {
+            setCreatedAccount(null);
+            // TODO: Provide user feedback
+            return;
+        }
+
+        let employee: Employee | null = null;
+        if (role!.matches(Role.admin)) {
+            const newAdmin = Admin.new(name, surname);
+            const success = await Session.inst.submitNewAdmin(newAdmin);
+            if (success) {
+                employee = newAdmin;
+            }
+        } else if (role!.matches(Role.worker)) {
+            const newWorker = Worker.new(name, surname, selectedHosptial!.value);
+            const success = await Session.inst.submitNewWorker(newWorker);
+            if (success) {
+                employee = newWorker;
+            }
+        } else if (role!.matches(Role.leader)) {
+            const newLeader = Leader.new(name, surname, selectedHosptial!.value);
+            const success = await Session.inst.submitNewLeader(newLeader);
+            if (success) {
+                employee = newLeader;
+            }
+        }
+        setCreatedAccount(employee);
     };
 
     return (
         <DefaultScreenContainer>
-            <VStack>
-                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                    <LeafIcon icon={"clipboard-account"} color={LeafColors.textDark} size={LeafIconSize.Small} />
-
-                    <LeafText typography={LeafTypography.title4} wide={false}>
-                        {strings("label.selectRole")}
-                    </LeafText>
-                </HStack>
-
+            <VStack spacing={16}>
                 <RolePicker onSelection={onRoleChange} />
 
-                <LeafText
-                    style={{ color: pickerErrVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    {strings("error.missingRole")}
-                </LeafText>
+                <LeafTextInput
+                    label={strings("inputLabel.givenName")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
+                    onTextChange={onNameChange}
+                />
 
-                <VGap size={32} />
+                <LeafTextInput
+                    label={strings("inputLabel.surname")}
+                    textColor={LeafColors.textDark}
+                    color={LeafColors.textBackgroundDark}
+                    onTextChange={onSurnameChange}
+                />
 
-                <HStack spacing={6} style={{ width: "100%", alignItems: "center", paddingBottom: 14 }}>
-                    <LeafIcon icon={"rename-box"} color={LeafColors.textDark} size={LeafIconSize.Small} />
-
-                    <LeafText typography={LeafTypography.title4} wide={false}>
-                        {strings("label.enterName")}
-                    </LeafText>
-                </HStack>
-
-                <VStack spacing={8} style={{ width: "100%" }}>
-                    <LeafTextInput
-                        label={strings("triageForm.textInput.givenName")}
-                        textColor={LeafColors.textDark}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={onNameChange}
+                {role?.matches(Role.admin) ?? true ? undefined : (
+                    <LeafSelectionInput
+                        navigation={navigation}
+                        items={HospitalsArray.map((hospital) => {
+                            return new LeafSelectionItem(hospital.name, hospital.code, hospital);
+                        })}
+                        title={strings("inputLabel.hopsital")}
+                        selected={selectedHosptial}
+                        onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
+                            setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
+                        }}
                     />
+                )}
 
-                    <LeafTextInput
-                        label={strings("triageForm.textInput.surname")}
-                        textColor={LeafColors.textDark}
-                        color={LeafColors.textBackgroundDark}
-                        onTextChange={onSurnameChange}
-                    />
-
-                    <LeafText
-                        style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                        typography={LeafTypography.error}
-                    >
-                        {strings("error.missingName")}
-                    </LeafText>
-                </VStack>
-
-                <VGap size={32} />
+                <VGap size={12} />
 
                 <LeafButton
                     label={strings("button.createAccount")}
@@ -104,34 +124,12 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
-                    onPress={() => {
-                        if (name != "" && surname != "" && role != null) {
-                            setHasCreate(true);
-                        }
-
-                        if (name == "" || surname == "") {
-                            setErrTextVisible(true);
-                        } else {
-                            setErrTextVisible(false);
-                        }
-
-                        if (role == null) {
-                            setPickerErrVisible(true);
-                        } else {
-                            setPickerErrVisible(false);
-                        }
-
-                        // TODO: should change to create account method later.
-                    }}
+                    onPress={onSubmit}
                 />
 
-                <VGap size={32} />
+                <VGap size={12} />
 
-                <CreateAccountCard
-                    worker={new Worker(EmployeeID.generate(), "Jason", "ANY")}
-                    onPress={null}
-                    display={hasCreate}
-                />
+                {createdAccount == null ? undefined : <CreateAccountCard employee={createdAccount} />}
             </VStack>
         </DefaultScreenContainer>
     );

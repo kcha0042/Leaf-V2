@@ -5,6 +5,7 @@ import LeafImage from "../LeafImage/LeafImage";
 import { LeafImageScale } from "../LeafImage/LeafImageScale";
 import LeafIcon from "../LeafIcon/LeafIcon";
 import LeafColors from "../../styling/LeafColors";
+import { assert } from "../../../language/assertions/Assert";
 
 interface Props {
     // The button (background) color
@@ -36,6 +37,7 @@ const LeafIconButton: React.FC<Props> = ({
     style,
     onPress,
 }) => {
+    assert(!(icon == null && fileName == null), "Can't create a LeafIconButton without neither an icon nor a filename");
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -51,7 +53,7 @@ const LeafIconButton: React.FC<Props> = ({
         >
             {icon == null ? (
                 <LeafImage
-                    fileName={fileName}
+                    fileName={fileName!}
                     width={(size * 1.8) / 3.0}
                     height={(size * 1.8) / 3.0}
                     scale={LeafImageScale.ScaleToFit}

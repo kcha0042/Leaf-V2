@@ -1,11 +1,11 @@
-import UUID from "../core/UUID";
-
 class Ward {
-    public readonly id: UUID;
+    public readonly id: string;
+    public readonly hosptialCode: string;
     public readonly name: string;
 
-    constructor(name: string) {
-        this.id = UUID.generate();
+    constructor(id: string, hospitalCode: string, name: string) {
+        this.id = id;
+        this.hosptialCode = hospitalCode;
         this.name = name;
     }
 }

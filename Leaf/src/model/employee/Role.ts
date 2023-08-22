@@ -1,23 +1,31 @@
-import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
 import { strings } from "../../localisation/Strings";
 
-export enum Role {
-    Worker,
-    Leader,
-    Admin,
-}
+export class Role {
+    public static worker = new Role("WORKER");
+    public static leader = new Role("LEADER");
+    public static admin = new Role("ADMIN");
+    public static unknown = new Role("UNKNOWN");
 
-export namespace Role {
-    export function toString(role: Role): string {
-        switch (role) {
-            case Role.Worker:
-                return strings("role.worker");
-            case Role.Leader:
-                return strings("role.leader");
-            case Role.Admin:
-                return strings("role.admin");
-            default:
-                throw new UnreachableCaseError(role);
+    public readonly id: string;
+
+    constructor(id: string) {
+        this.id = id.toUpperCase();
+    }
+
+    public matches(other: Role) {
+        return this.id == other.id;
+    }
+
+    public toString(): string {
+        if (this.matches(Role.worker)) {
+            return strings("role.worker");
         }
+        if (this.matches(Role.leader)) {
+            return strings("role.leader");
+        }
+        if (this.matches(Role.admin)) {
+            return strings("role.admin");
+        }
+        return strings("unknown");
     }
 }

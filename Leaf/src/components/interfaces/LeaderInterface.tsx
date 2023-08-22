@@ -1,13 +1,9 @@
 import { strings } from "../../localisation/Strings";
-import AccountScreen from "../screens/AccountScreen";
-import NewTriageScreen from "../screens/NewTriageScreen";
-import PatientsScreen from "../screens/PatientsScreen";
-import YourPatientsScreen from "../screens/YourPatientsScreen";
 import LeafInterface from "../navigation/LeafInterface";
 import LeafInterfaceSection from "../navigation/LeafInterfaceSection";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import YourWorkersScreen from "../screens/YourWorkersScreen";
 import AllocatePatientsScreen from "../screens/AllocatePatientsScreen";
+import YourWorkersScreen from "../screens/YourWorkersScreen";
 
 export const LeaderInterface = new LeafInterface()
     .addSection(

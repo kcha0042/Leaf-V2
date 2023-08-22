@@ -1,31 +1,34 @@
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import { FlatList } from "react-native";
 import Patient from "../../model/patient/Patient";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
+import AllocateCard from "../custom/AllocateCard";
 import PatientCard from "../custom/PatientCard";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import AllocateCard from "../custom/AllocateCard";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
-    const onPressPatient = (patient) => {
+    const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
         console.log(patient.fullName);
     };

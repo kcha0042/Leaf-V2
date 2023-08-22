@@ -1,28 +1,31 @@
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import { FlatList } from "react-native";
 import Worker from "../../model/employee/Worker";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import LeafColors from "../styling/LeafColors";
-import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
+import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 const YourWorkersScreen: React.FC = () => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
-    const onPressWorker = (worker) => {
+    const onPressWorker = (worker: Worker) => {
         // TODO: Navigation
         console.log(worker.firstName); // TODO: Add worker fullname instead of first name
     };

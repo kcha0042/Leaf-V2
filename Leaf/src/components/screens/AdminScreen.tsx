@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Nurse from "../../model/employee/Worker";
 import StateManager from "../../state/publishers/StateManager";
@@ -12,14 +12,18 @@ const AdminScreen: React.FC = () => {
     const [nurse, setNurse] = React.useState<Nurse | null>(Session.inst.getWorker(new EmployeeID("456-456"))); // ID should passed from navigation/side bar
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setNurse(Session.inst.getWorker(new EmployeeID("456-456")));
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
-    const onPressNurse = (nurse) => {
+    const onPressNurse = (nurse: Nurse) => {
         // TODO: Navigation
         console.log(nurse.firstName);
     };
