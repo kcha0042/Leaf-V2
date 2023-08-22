@@ -12,6 +12,8 @@ import ExportPatientCard from "../custom/ExportPatientCard";
 import * as FileSystem from "expo-file-system";
 import { strings } from "../../localisation/Strings";
 import { shareAsync } from "expo-sharing";
+import Environment from "../../state/environment/Environment";
+import { OS } from "../../state/environment/types/OS";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -19,21 +21,39 @@ interface Props {
 
 const exportPatient = async (patient: Patient) => {
     // Generate file
-    const csvHeader = strings("csv.header");
-    const csvData = `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}`;
+    const csvData =
+        strings("csv.header") +
+        `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}`;
     const filename = `${patient.fullName + Date.now()}.csv`; // Use date avoid conflicts with exsiting file name.
-    const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
 
-    if (permission.granted) {
-        await FileSystem.StorageAccessFramework.createFileAsync(permission.directoryUri, filename, "csv")
-            .then(async (uri) => {
-                await FileSystem.writeAsStringAsync(uri, csvHeader + csvData, {
-                    encoding: FileSystem.EncodingType.UTF8,
-                });
-            })
-            .catch((e) => console.log(e));
-    } else {
-        console.log("Permission denied");
+    if (Environment.inst.getOS() == OS.Android) {
+        const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync(); // Getting permission for android.
+        if (permission.granted) {
+            await FileSystem.StorageAccessFramework.createFileAsync(permission.directoryUri, filename, "csv")
+                .then(async (uri) => {
+                    await FileSystem.writeAsStringAsync(uri, csvData, {
+                        encoding: FileSystem.EncodingType.UTF8,
+                    });
+                })
+                .catch((e) => console.log(e));
+        } else {
+            console.log("Permission denied");
+        }
+    } else if (Environment.inst.getOS() == OS.IOS) {
+        const filePath = FileSystem.documentDirectory + filename;
+        try {
+            await FileSystem.writeAsStringAsync(filePath, csvData);
+            await shareAsync(filePath);
+        } catch (e) {
+            console.log(e);
+        }
+    } else if (Environment.inst.getOS() == OS.Web) {
+        const blob = new Blob([csvData], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
     }
 };
 
