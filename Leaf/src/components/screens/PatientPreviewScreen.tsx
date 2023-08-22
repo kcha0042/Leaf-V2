@@ -126,7 +126,9 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                             </LeafText>
 
                                             <LeafText typography={LeafTypography.subscript}>
-                                                {strings("patientHistory.descriptor.triggerTime") + ": " + event.triggerTimeDescription}
+                                                {strings("patientHistory.descriptor.triggerTime") +
+                                                    ": " +
+                                                    event.triggerTimeDescription}
                                             </LeafText>
                                         </VStack>
                                     </VStack>
