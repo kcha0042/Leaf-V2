@@ -164,7 +164,7 @@ export default {
     "patientHistory.descriptor.hospital": "Hospital",
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
     "patientHistory.descriptor.category": "Category",
-    "patientHistory.descriptor.triggerTime": "Trigger time",
+    "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
     "actions.emergency": "Emergency",

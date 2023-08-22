@@ -121,12 +121,12 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                         <VStack spacing={2}>
                                             <LeafText typography={LeafTypography.subscript}>
                                                 {strings("patientHistory.descriptor.category") +
-                                                    " " +
+                                                    ": " +
                                                     event.category.toString()}
                                             </LeafText>
 
                                             <LeafText typography={LeafTypography.subscript}>
-                                                {event.triggerTimeDescription}
+                                                {strings("patientHistory.descriptor.triggerTime") + ": " + event.triggerTimeDescription}
                                             </LeafText>
                                         </VStack>
                                     </VStack>
