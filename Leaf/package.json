@@ -42,7 +42,11 @@
         "react-native-uuid": "^2.0.1",
         "react-native-web": "~0.18.10",
         "typescript": "^4.9.5",
-        "use-force-update": "^1.0.11"
+        "use-force-update": "^1.0.11",
+        "expo-file-system": "~15.2.2",
+        "expo-permissions": "~14.1.1",
+        "expo-media-library": "~15.2.3",
+        "expo-sharing": "~11.2.2"
     },
     "devDependencies": {
         "@babel/core": "^7.22.9",

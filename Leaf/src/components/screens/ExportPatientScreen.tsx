@@ -9,10 +9,33 @@ import StateManager from "../../state/publishers/StateManager";
 import { FlatList, ScrollView, View } from "react-native";
 import LeafDimensions from "../styling/LeafDimensions";
 import ExportPatientCard from "../custom/ExportPatientCard";
+import * as FileSystem from "expo-file-system";
+import { strings } from "../../localisation/Strings";
+import { shareAsync } from "expo-sharing";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
+
+const exportPatient = async (patient: Patient) => {
+    // Generate file
+    const csvHeader = strings("csv.header");
+    const csvData = `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}`;
+    const filename = `${patient.fullName + Date.now()}.csv`; // Use date avoid conflicts with exsiting file name.
+    const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+
+    if (permission.granted) {
+        await FileSystem.StorageAccessFramework.createFileAsync(permission.directoryUri, filename, "csv")
+            .then(async (uri) => {
+                await FileSystem.writeAsStringAsync(uri, csvHeader + csvData, {
+                    encoding: FileSystem.EncodingType.UTF8,
+                });
+            })
+            .catch((e) => console.log(e));
+    } else {
+        console.log("Permission denied");
+    }
+};
 
 const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
@@ -31,7 +54,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.inst.setActivePatient(patient);
-        // TODO: should add patient function.
+        exportPatient(patient);
     };
 
     return (
