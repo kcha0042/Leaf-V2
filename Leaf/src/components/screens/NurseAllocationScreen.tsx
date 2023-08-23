@@ -63,7 +63,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                 </VStack>
 
                 <LeafButton
-                    label={"Allocate"}
+                    label={strings("button.newAllocation")}
                     icon= "plus"
                     onPress={() => {
                         NavigationSession.inst.navigateTo(

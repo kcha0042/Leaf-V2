@@ -82,9 +82,9 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                 </VStack>
 
                 <LeafIconButton
-                    icon="trash-can-outline"
-                    color={LeafColors.fillBackgroundLight}
-                    iconColor={LeafColors.fillBackgroundRed}
+                    icon="minus"
+                    color={LeafColors.fillBackgroundRed}
+                    iconColor={LeafColors.fillBackgroundLight}
                     size={LeafIconSize.Large}
                     onPress={() => {}}
                 />
