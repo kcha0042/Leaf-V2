@@ -44,10 +44,15 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
         <DefaultScreenContainer>
             <VStack
                 style={{
-                    flex: 1
+                    flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} data={patients} setData={setFilteredPatients} dataToString={(patient: Patient) => patient.fullName}/>
+                <LeafSearchBarNew
+                    onTextChange={onSearch}
+                    data={patients}
+                    setData={setFilteredPatients}
+                    dataToString={(patient: Patient) => patient.fullName}
+                />
 
                 <VGap size={20} />
 
@@ -78,7 +83,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatList
                     data={filteredPatients}
-                    renderItem={({ item: patient, index: index }) => <PatientAllocationCard patient={patient}/>}
+                    renderItem={({ item: patient, index: index }) => <PatientAllocationCard patient={patient} />}
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}

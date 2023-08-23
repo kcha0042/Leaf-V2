@@ -91,7 +91,7 @@ class Session {
             new Date(),
             new EmployeeID("123-123"),
             [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.Medication)],
-            ShiftTime.afternoon
+            ShiftTime.afternoon,
         );
         const patient2 = new Patient(
             new MRN("temp-222-222"),
@@ -110,7 +110,7 @@ class Session {
             new Date(),
             new EmployeeID("456-456"),
             [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.Other)],
-            ShiftTime.night
+            ShiftTime.night,
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;

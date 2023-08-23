@@ -48,7 +48,6 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack spacing={LeafDimensions.screenSpacing} style={{ flex: 1 }}>
-
                 <VStack
                     style={{
                         flex: 1,
@@ -57,14 +56,14 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafText typography={LeafTypography.title1} style={{ textAlign: "center" }}>
                         {worker.allocatedPatients.length + " "}
                     </LeafText>
-                    <LeafText typography={LeafTypography.subscript} style={{ textAlign: "center"}}>
+                    <LeafText typography={LeafTypography.subscript} style={{ textAlign: "center" }}>
                         {strings("nurseAllocationScreen.subtitle")}
                     </LeafText>
                 </VStack>
 
                 <LeafButton
                     label={"Allocate"}
-                    icon= "plus"
+                    icon="plus"
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
                             AllocateNurseToPatientScreen,
@@ -75,9 +74,8 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     style={{
                         borderRadius: 15,
                         marginTop: 5,
-                        marginBottom: 10
+                        marginBottom: 10,
                     }}
-
                 />
 
                 <FlatList

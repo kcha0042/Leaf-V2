@@ -48,7 +48,12 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} data={workers} setData={setFilteredWorkers} dataToString={(worker: Worker) => worker.fullName}/>
+                <LeafSearchBarNew
+                    onTextChange={onSearch}
+                    data={workers}
+                    setData={setFilteredWorkers}
+                    dataToString={(worker: Worker) => worker.fullName}
+                />
 
                 <VGap size={10} />
 

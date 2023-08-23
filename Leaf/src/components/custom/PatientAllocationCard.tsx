@@ -36,7 +36,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         <FlatContainer>
             <HStack
                 style={{
-                    flex: 1
+                    flex: 1,
                 }}
             >
                 <TriageCodeBadge
@@ -65,25 +65,25 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                         {strings("label.allocated", `${session}`)}
                     </LeafText>
 
-                    <VGap size={16}/>
+                    <VGap size={16} />
                     <HStack spacing={10}>
-                        {
-                            patient.events.map(event => (
-                                <View
-                                    key={event.id.toString()}
-                                    style={{
-                                        borderRadius: 30,
-                                        borderWidth: 1,
-                                        borderColor: typography.color,
-                                        paddingHorizontal: 10,
-                                        paddingVertical: 5,
-                                        alignSelf: "flex-start"
-                                    }}
-                                >
-                                    <LeafText wide={false} typography={typography}>{event.title.toString()}</LeafText>
-                                </View>
-                            ))
-                        }
+                        {patient.events.map((event) => (
+                            <View
+                                key={event.id.toString()}
+                                style={{
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    borderColor: typography.color,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 5,
+                                    alignSelf: "flex-start",
+                                }}
+                            >
+                                <LeafText wide={false} typography={typography}>
+                                    {event.title.toString()}
+                                </LeafText>
+                            </View>
+                        ))}
                     </HStack>
                 </VStack>
 
