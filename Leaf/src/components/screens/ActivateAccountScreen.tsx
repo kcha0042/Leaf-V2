@@ -20,6 +20,7 @@ import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import bcrypt from "bcryptjs";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -49,12 +50,20 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
+        // Hashing the provided password
+        const salt = bcrypt.genSaltSync(10);
+        let hashedPassword = "";
+        if (password != undefined) {
+            hashedPassword = bcrypt.hashSync(password, salt);
+        }
+
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
         if (worker != null && !worker.accountActivated) {
             // We found the matching account!
             worker.setAccountActivated(true);
             worker.setEmail(email!);
+            worker.setPassword(hashedPassword);
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
             // TODO: Provide feedback (login successful)

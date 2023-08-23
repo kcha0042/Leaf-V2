@@ -9,6 +9,7 @@ abstract class Employee {
     protected _email: string | null;
     protected _currentHospital: Hospital | null;
     protected _accountActivated: boolean;
+    protected _password: string | null;
     public abstract readonly role: Role;
     public get email(): string | null {
         return this._email;
@@ -22,6 +23,9 @@ abstract class Employee {
     public get fullName(): string {
         return `${this.firstName} ${this.lastName}`;
     }
+    public get password(): string | null {
+        return this._password;
+    }
 
     constructor(
         id: EmployeeID,
@@ -30,6 +34,7 @@ abstract class Employee {
         email: string | null,
         currentHospital: Hospital | null,
         accountActivated: boolean,
+        password: string | null
     ) {
         this.id = id;
         this.firstName = firstName;
@@ -37,6 +42,7 @@ abstract class Employee {
         this._email = email;
         this._currentHospital = currentHospital;
         this._accountActivated = accountActivated;
+        this._password = password;
     }
 
     public setEmail(email: string) {
@@ -49,6 +55,11 @@ abstract class Employee {
 
     public setAccountActivated(activated: boolean) {
         this._accountActivated = activated;
+    }
+
+    public setPassword(password: string) {
+        // This should be a hashed password
+        this._password = password;
     }
 }
 

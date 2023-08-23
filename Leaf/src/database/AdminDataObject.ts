@@ -10,6 +10,7 @@ export enum AdminField {
     Email = "email",
     CurrentHospitalID = "currentHospitalId",
     AccountActivated = "accountActivated",
+    Password = "password"
 }
 
 class AdminDataObject {
@@ -20,7 +21,8 @@ class AdminDataObject {
             .addString(AdminField.LastName, admin.lastName)
             .addString(AdminField.Email, admin.email)
             .addString(AdminField.CurrentHospitalID, admin.currentHospital?.id?.toString())
-            .addBoolean(AdminField.AccountActivated, admin.accountActivated);
+            .addBoolean(AdminField.AccountActivated, admin.accountActivated)
+            .addString(AdminField.Password, admin.password);
     }
 
     public static restore(data: DataObject): Admin | null {
@@ -30,6 +32,7 @@ class AdminDataObject {
         const email = data.getStringOrNull(AdminField.Email);
         const currentHospitalID = data.getStringOrNull(AdminField.CurrentHospitalID);
         const accountActivated = data.getBooleanOrNull(AdminField.AccountActivated);
+        const password = data.getStringOrNull(AdminField.Password);
         if (!id || !firstName || !lastName || accountActivated == null) {
             // NB: email and current hospital are allowed to be null
             console.error("[AdminDataObject] Failed to restore Admin");
@@ -42,6 +45,7 @@ class AdminDataObject {
             email,
             currentHospitalID == null ? null : Hospitals[currentHospitalID],
             accountActivated,
+            password,
         );
     }
 }

@@ -10,6 +10,7 @@ export enum LeaderField {
     Email = "email",
     CurrentHospitalID = "currentHospitalId",
     AccountActivated = "accountActivated",
+    Password = "password",
 }
 
 class LeaderDataObject {
@@ -20,7 +21,8 @@ class LeaderDataObject {
             .addString(LeaderField.LastName, leader.lastName)
             .addString(LeaderField.Email, leader.email)
             .addString(LeaderField.CurrentHospitalID, leader.currentHospital?.id?.toString())
-            .addBoolean(LeaderField.AccountActivated, leader.accountActivated);
+            .addBoolean(LeaderField.AccountActivated, leader.accountActivated)
+            .addString(LeaderField.Password, leader.password);
     }
 
     public static restore(data: DataObject): Leader | null {
@@ -30,6 +32,7 @@ class LeaderDataObject {
         const email = data.getStringOrNull(LeaderField.Email);
         const currentHospitalID = data.getStringOrNull(LeaderField.CurrentHospitalID);
         const accountActivated = data.getBooleanOrNull(LeaderField.AccountActivated);
+        const password = data.getStringOrNull(LeaderField.Password);
         if (!id || !firstName || !lastName || accountActivated == null) {
             // NB: email and current hospital are allowed to be null
             console.error("[LeaderDataObject] Failed to restore Leader");
@@ -42,6 +45,7 @@ class LeaderDataObject {
             email,
             currentHospitalID == null ? null : Hospitals[currentHospitalID],
             accountActivated,
+            password,
         );
     }
 }

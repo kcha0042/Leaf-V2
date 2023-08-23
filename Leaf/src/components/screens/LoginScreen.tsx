@@ -23,6 +23,7 @@ import ActivateAccountScreen from "./ActivateAccountScreen";
 import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
+import bcrypt from "bcryptjs";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -41,9 +42,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const allIsValid: () => boolean = () => {
-        return ValidateUtil.stringIsValid(username);
         // TODO: Uncomment this when we implement passwords
         // ValidateUtil.stringIsValid(password)
+        return ValidateUtil.stringIsValid(username)
     };
 
     const onLoginPressed = async () => {
@@ -57,6 +58,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
         if (worker != null && worker.accountActivated) {
+            // TODO: Passwords here
+
             // We found the matching account!
             Session.inst.setLoggedInAccount(worker);
             // TODO: Provide feedback (login successful)
@@ -67,6 +70,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         await Session.inst.fetchLeader(id);
         const leader = Session.inst.getLeader(id);
         if (leader != null && leader.accountActivated) {
+            // TODO: Password here
+
             // We found the matching account!
             Session.inst.setLoggedInAccount(leader);
             // TODO: Provide feedback (login successful)
@@ -77,6 +82,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
         if (admin != null && admin.accountActivated) {
+            // TODO: Password here
+
             // We found the matching account!
             Session.inst.setLoggedInAccount(admin);
             // TODO: Provide feedback (login successful)
