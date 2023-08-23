@@ -39,15 +39,20 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} data={workers} setData={setFilteredWorkers} dataToString={(worker: Worker) => worker.fullName}/>
+                <LeafSearchBarNew
+                    onTextChange={onSearch}
+                    data={workers}
+                    setData={setFilteredWorkers}
+                    dataToString={(worker: Worker) => worker.fullName}
+                />
 
                 <VGap size={25} />
 
                 <FlatList
                     data={filteredWorkers}
                     renderItem={({ item: worker, index: index }) => (
-                        <NurseAllocationCard 
-                            worker={worker}                             
+                        <NurseAllocationCard
+                            worker={worker}
                             itemIndex={index}
                             selectedIndex={selectedIndex}
                             onSelect={setSelectedIndex}

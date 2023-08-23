@@ -21,25 +21,22 @@ interface Props<T> {
     maxDistance?: number;
 }
 
-function LeafSearchBarNew<T>(
-    {
-        data,
-        style,
-        onTextChange,
-        setData,
-        textColor = LeafColors.textDark,
-        color = LeafColors.textBackgroundAccent,
-        dataToString,
-        wide = true,
-        valid = undefined,
-        label = "Search",
-        maxDistance = 7,
-    }: Props<T>)
-{
-
+function LeafSearchBarNew<T>({
+    data,
+    style,
+    onTextChange,
+    setData,
+    textColor = LeafColors.textDark,
+    color = LeafColors.textBackgroundAccent,
+    dataToString,
+    wide = true,
+    valid = undefined,
+    label = "Search",
+    maxDistance = 7,
+}: Props<T>) {
     useEffect(() => {
         setFilteredData(data);
-    }, [data])
+    }, [data]);
 
     const [searchQuery, setSearchQuery] = React.useState("");
     const [filteredData, setFilteredData] = React.useState(data);
@@ -50,47 +47,48 @@ function LeafSearchBarNew<T>(
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
 
-    const cleanupQuery = searchQuery => searchQuery.replace(/\s/g, '');
+    const cleanupQuery = (searchQuery) => searchQuery.replace(/\s/g, "");
     const calculateLevenshteinDistance = (source, target) => {
         const sourceLength = source.length;
         const targetLength = target.length;
 
-        const distanceMatrix = Array.from({ length: sourceLength + 1}, (_,i) => Array(targetLength + 1).fill(i));
-        
+        const distanceMatrix = Array.from({ length: sourceLength + 1 }, (_, i) => Array(targetLength + 1).fill(i));
+
         for (let j = 1; j <= targetLength; j++) {
             distanceMatrix[0][j] = j;
-          };
-        
+        }
+
         for (let i = 1; i <= sourceLength; i++) {
             for (let j = 1; j <= targetLength; j++) {
-              const cost = source[i - 1] === target[j - 1] ? 0 : 1;
-              distanceMatrix[i][j] = Math.min(
-                distanceMatrix[i - 1][j] + 1,
-                distanceMatrix[i][j - 1] + 1,
-                distanceMatrix[i - 1][j - 1] + cost
+                const cost = source[i - 1] === target[j - 1] ? 0 : 1;
+                distanceMatrix[i][j] = Math.min(
+                    distanceMatrix[i - 1][j] + 1,
+                    distanceMatrix[i][j - 1] + 1,
+                    distanceMatrix[i - 1][j - 1] + cost,
                 );
             }
         }
 
         return distanceMatrix[sourceLength][targetLength];
-    }
+    };
 
     const isFuzzyMatch = (query, data, localMaxDistance) => {
         const calculateMatch = calculateLevenshteinDistance(query, dataToString(data));
         return calculateMatch <= localMaxDistance;
-    }
+    };
 
-    const handleSearch = searchQuery => {
+    const handleSearch = (searchQuery) => {
         const cleanQuery = cleanupQuery(searchQuery);
-        let filtered = data.filter(item =>
-            cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase())
+        let filtered = data.filter((item) =>
+            cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase()),
         );
-        if (filtered.length == 0){ //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
-            filtered = data.filter(item => isFuzzyMatch(cleanQuery, item, maxDistance));
+        if (filtered.length == 0) {
+            //if doesn't match, do a fuzzy search (Levenshtein Algorithm)
+            filtered = data.filter((item) => isFuzzyMatch(cleanQuery, item, maxDistance));
         }
         setFilteredData(filtered);
         setData(filtered);
-      };
+    };
 
     return (
         <View
@@ -160,6 +158,6 @@ function LeafSearchBarNew<T>(
             />
         </View>
     );
-};
+}
 
 export default LeafSearchBarNew;

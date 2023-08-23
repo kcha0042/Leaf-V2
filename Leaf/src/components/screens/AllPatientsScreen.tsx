@@ -54,7 +54,12 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew onTextChange={onSearch} data={patients} setData={setFilteredPatients} dataToString={(patient: Patient) => patient.fullName}/>
+                <LeafSearchBarNew
+                    onTextChange={onSearch}
+                    data={patients}
+                    setData={setFilteredPatients}
+                    dataToString={(patient: Patient) => patient.fullName}
+                />
 
                 <VGap size={10} />
 

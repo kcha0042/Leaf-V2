@@ -18,7 +18,7 @@ interface Props {
 
 const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated;
+    const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
@@ -34,7 +34,9 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                 />
 
                 <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>{patient.fullName}</LeafText>
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        {patient.fullName}
+                    </LeafText>
 
                     <VGap size={16} />
 
@@ -47,7 +49,7 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
-                        {strings("label.allocated")} {session}
+                        {strings("label.allocated", `${session}`)}
                     </LeafText>
 
                     <VGap size={1} />

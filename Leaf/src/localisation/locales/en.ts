@@ -85,7 +85,7 @@ export default {
     // Labels
     "label.id": "ID: ",
     "label.date": "Date: ",
-    "label.allocated": "Last Allocated: ",
+    "label.allocated": "Last Allocated: {0} Shift",
     "label.loading": "Loading",
     "label.details": "Details",
     "label.viewPatient": "View patient information and medical history.",
@@ -130,6 +130,12 @@ export default {
     "role.worker": "Nurse",
     "role.leader": "Leader",
     "role.admin": "Admin",
+
+    // Shift Times
+    "shiftTime.morning": "Morning",
+    "shiftTime.afternoon": "Afternoon",
+    "shiftTime.night": "Night",
+    "shiftTime.none": "None",
 
     // Nurse Allocation Screen
     "nurseAllocationScreen.subtitle": "Patients Allocated",
