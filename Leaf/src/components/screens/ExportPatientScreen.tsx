@@ -10,7 +10,6 @@ import { FlatList, ScrollView, View } from "react-native";
 import LeafDimensions from "../styling/LeafDimensions";
 import ExportPatientCard from "../custom/ExportPatientCard";
 import * as FileSystem from "expo-file-system";
-import { strings } from "../../localisation/Strings";
 import { shareAsync } from "expo-sharing";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
@@ -20,11 +19,11 @@ interface Props {
 }
 
 const exportPatient = async (patient: Patient) => {
-    // Generate file
-    const csvData =
-        strings("csv.header") +
-        `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}`;
-    const filename = `${patient.fullName + Date.now()}.csv`; // Use date avoid conflicts with exsiting file name.
+    const date = new Date();
+    const dateString = date.toLocaleString();
+    // Generate file.
+    const csvData = `MRN,DOB,FirstName,LastName,Gender,PhoneNumber,PostCode,TimeLastAllocated,AllocatedTo,Events\n ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}`;
+    const filename = `${patient.firstName}_${patient.lastName}_${patient.mrn}_${dateString}.csv`; // Use date avoid conflicts with exsiting file name.
 
     if (Environment.inst.getOS() == OS.Android) {
         const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync(); // Getting permission for android.

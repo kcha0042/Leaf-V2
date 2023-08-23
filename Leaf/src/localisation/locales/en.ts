@@ -234,7 +234,4 @@ export default {
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
     "error.invalidTime": "Invalid time",
-
-    // CSV
-    "csv.header": "MRN,DOB,FirstName,LastName,Gender,PhoneNumber,PostCode,TimeLastAllocated,AllocatedTo,Events\n",
 };
