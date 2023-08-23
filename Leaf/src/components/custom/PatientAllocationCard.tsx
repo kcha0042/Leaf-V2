@@ -19,7 +19,7 @@ interface Props {
 
 const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated;
+    const session = patient.sessionAllocated.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     const [selected, setSelected] = useState(false);
@@ -62,7 +62,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
-                        {strings("allocateToNurseCard.session", `${session}`)}
+                        {strings("label.allocated", `${session}`)}
                     </LeafText>
 
                     <VGap size={16}/>

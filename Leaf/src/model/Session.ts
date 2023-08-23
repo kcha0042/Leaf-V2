@@ -1,5 +1,6 @@
 import StateManager from "../state/publishers/StateManager";
 import EmployeeID from "./employee/EmployeeID";
+import { ShiftTime } from "./employee/ShiftTime";
 import Worker from "./employee/Worker";
 import Hospital from "./hospital/Hospital";
 import MedicalUnit from "./hospital/MedicalUnit";
@@ -8,7 +9,6 @@ import MRN from "./patient/MRN";
 import Patient from "./patient/Patient";
 import PatientEvent from "./patient/PatientEvent";
 import { PatientEventCategory } from "./patient/PatientEventCategory";
-import { SessionAllocated } from "./patient/SessionAllocated";
 import TriageCase from "./triage/TriageCase";
 import { TriageCode } from "./triage/TriageCode";
 
@@ -91,7 +91,7 @@ class Session {
             new Date(),
             new EmployeeID("123-123"),
             [new PatientEvent(new Date(), "Take medication", "Take them drugs", PatientEventCategory.Medication)],
-            SessionAllocated.Afternoon,
+            ShiftTime.afternoon
         );
         const patient2 = new Patient(
             new MRN("temp-222-222"),
@@ -110,7 +110,7 @@ class Session {
             new Date(),
             new EmployeeID("456-456"),
             [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.Other)],
-            SessionAllocated.Morning,
+            ShiftTime.night
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;
