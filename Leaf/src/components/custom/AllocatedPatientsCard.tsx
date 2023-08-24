@@ -62,7 +62,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         <Spacer/>
                         <TouchableOpacity onPress={() => null}>
                             <LeafIcon
-                                icon="minus-thick"
+                                icon="minus"
                                 color={LeafColors.fillBackgroundRed}
                                 size={LeafIconSize.Large}
                             />
