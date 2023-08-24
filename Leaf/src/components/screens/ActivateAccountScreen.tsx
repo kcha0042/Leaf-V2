@@ -52,7 +52,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
         // Hashing the provided password
         const salt = bcrypt.genSaltSync(10);
-        let hashedPassword = "";
+        let hashedPassword = undefined;
         if (password != undefined) {
             hashedPassword = bcrypt.hashSync(password, salt);
         }
@@ -63,7 +63,10 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             worker.setAccountActivated(true);
             worker.setEmail(email!);
-            worker.setPassword(hashedPassword);
+            // @Reviewer: Not sure if I need to wrap this or not since the allisValid check does not allow for no password
+            if (hashedPassword != undefined) {
+                worker.setPassword(hashedPassword);
+            }
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
             // TODO: Provide feedback (login successful)
@@ -77,6 +80,9 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             leader.setAccountActivated(true);
             leader.setEmail(email!);
+            if (hashedPassword != undefined) {
+                leader.setPassword(hashedPassword);
+            }
             Session.inst.updateLeader(leader);
             Session.inst.setLoggedInAccount(leader);
             // TODO: Provide feedback (login successful)
@@ -90,6 +96,9 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             admin.setAccountActivated(true);
             admin.setEmail(email!);
+            if (hashedPassword != undefined) {
+                admin.setPassword(hashedPassword);
+            }
             Session.inst.updateAdmin(admin);
             Session.inst.setLoggedInAccount(admin);
             // TODO: Provide feedback (login successful)
