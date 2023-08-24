@@ -11,6 +11,9 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import LeafIcon from "../base/LeafIcon/LeafIcon";
+import Spacer from "../containers/layout/Spacer";
 
 interface Props {
     patient: Patient;
@@ -52,9 +55,19 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         flex: 1,
                     }}
                 >
-                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                        {patient.fullName}
-                    </LeafText>
+                    <HStack>
+                        <LeafText wide={false} typography={LeafTypography.title3} verticalWrap={true}>
+                            {patient.fullName}
+                        </LeafText>
+                        <Spacer/>
+                        <TouchableOpacity onPress={() => null}>
+                            <LeafIcon
+                                icon="minus-thick"
+                                color={LeafColors.fillBackgroundRed}
+                                size={LeafIconSize.Large}
+                            />
+                        </TouchableOpacity>
+                    </HStack>
 
                     <VGap size={16} />
 
@@ -89,14 +102,6 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         ))}
                     </HStack>
                 </VStack>
-
-                <LeafIconButton
-                    icon="minus-thick"
-                    color={LeafColors.fillBackgroundLight}
-                    iconColor={LeafColors.fillBackgroundRed}
-                    size={LeafIconSize.Large}
-                    onPress={() => {}}
-                />
             </HStack>
         </FlatContainer>
     );

@@ -10,14 +10,11 @@ import { FlatList } from "react-native";
 import PatientAllocationCard from "../custom/PatientAllocationCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
-import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
-import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
 import { strings } from "../../localisation/Strings";
 import LeafButton from "../base/LeafButton/LeafButton";
 import HStack from "../containers/HStack";
 import HGap from "../containers/layout/HGap";
 import LeafTypography from "../styling/LeafTypography";
-import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafColors from "../styling/LeafColors";
 
 interface Props {

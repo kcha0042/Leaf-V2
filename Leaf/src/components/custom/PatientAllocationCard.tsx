@@ -25,12 +25,20 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const [selected, setSelected] = useState(false);
 
     const typography = LeafTypography.subscriptLabel;
-    typography.leafColor = LeafColors.accent;
+    typography.leafColor = LeafColors.textDark;
 
     const onPressAllocate = (patient) => {
         //TODO: set allocate patient to nurse
         //TODO: Update patient allocated counter
     };
+
+
+    const formatTime = (date: Date): string => {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()}`
+    }
 
     return (
         <FlatContainer>
@@ -80,7 +88,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                                 }}
                             >
                                 <LeafText wide={false} typography={typography}>
-                                    {event.title.toString()}
+                                    {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
                                 </LeafText>
                             </View>
                         ))}
