@@ -110,7 +110,7 @@ class Session {
             new Date(),
             new EmployeeID("456-456"),
             [new PatientEvent(new Date(), "Eat pizza", "Yum Yum Yum", PatientEventCategory.Other)],
-            ShiftTime.night,
+            ShiftTime.none,
         );
         this.patientStore[patient1.mrn.toString()] = patient1;
         this.patientStore[patient2.mrn.toString()] = patient2;

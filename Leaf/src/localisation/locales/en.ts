@@ -86,6 +86,7 @@ export default {
     "label.id": "ID: ",
     "label.date": "Date: ",
     "label.allocated": "Last Allocated: {0} Shift",
+    "label.notAllocated": "Not Allocated",
     "label.loading": "Loading",
     "label.details": "Details",
     "label.viewPatient": "View patient information and medical history.",
