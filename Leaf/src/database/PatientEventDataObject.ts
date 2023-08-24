@@ -34,7 +34,14 @@ class PatientEventDataObject {
             console.error("[PatientEventDataObject] Failed to restore PatientEvent");
             return null;
         }
-        return new PatientEvent(new UUID(id), triggerTime, title, description, new PatientEventCategory(category), lastCompleted);
+        return new PatientEvent(
+            new UUID(id),
+            triggerTime,
+            title,
+            description,
+            new PatientEventCategory(category),
+            lastCompleted,
+        );
     }
 }
 

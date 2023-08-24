@@ -17,7 +17,14 @@ class PatientEvent {
         return `${hours}:${minutes}`;
     }
 
-    constructor(id: UUID, triggerTime: Date, title: string, description: string, category: PatientEventCategory, lastCompleted: Date) {
+    constructor(
+        id: UUID,
+        triggerTime: Date,
+        title: string,
+        description: string,
+        category: PatientEventCategory,
+        lastCompleted: Date,
+    ) {
         this.id = id;
         this.triggerTime = triggerTime;
         this.title = title;
@@ -51,7 +58,11 @@ class PatientEvent {
 
     public completedToday(): boolean {
         const now = new Date();
-        return now.getFullYear() === this.lastCompleted.getFullYear() && now.getMonth() === this.lastCompleted.getMonth() && now.getDate() === this.lastCompleted.getDate();
+        return (
+            now.getFullYear() === this.lastCompleted.getFullYear() &&
+            now.getMonth() === this.lastCompleted.getMonth() &&
+            now.getDate() === this.lastCompleted.getDate()
+        );
     }
 }
 

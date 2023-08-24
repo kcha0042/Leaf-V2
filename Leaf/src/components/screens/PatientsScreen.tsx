@@ -104,10 +104,7 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard
-                            patient={patient}
-                            onPress={() => onPatientPress(patient)}
-                        />
+                        <PatientCard patient={patient} onPress={() => onPatientPress(patient)} />
                     )}
                     keyExtractor={(patient: Patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}

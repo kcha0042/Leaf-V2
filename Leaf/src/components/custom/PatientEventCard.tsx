@@ -40,7 +40,7 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
         }
         Session.inst.updatePatient(patient);
         setIsDone(!isDone);
-    }
+    };
 
     return (
         <FlatContainer
@@ -54,11 +54,13 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
         >
             <HStack style={{ alignItems: "center" }}>
                 <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.subscript}>
-                        {patient.fullName}
-                    </LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{patient.fullName}</LeafText>
 
-                    <LeafText typography={LeafTypography.title3.withColor(isDone ? LeafColors.textSuccess : LeafColors.textDark)}>
+                    <LeafText
+                        typography={LeafTypography.title3.withColor(
+                            isDone ? LeafColors.textSuccess : LeafColors.textDark,
+                        )}
+                    >
                         {event.title}
                     </LeafText>
 
@@ -66,12 +68,10 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
 
                     <LeafText typography={LeafTypography.subscript.withColor(LeafColors.accent)}>
                         {event.triggerTimeDescription}
-                        <LeafText typography={LeafTypography.subscript}>
-                            {" • " + event.category.toString()}
-                        </LeafText>
+                        <LeafText typography={LeafTypography.subscript}>{" • " + event.category.toString()}</LeafText>
                     </LeafText>
 
-                    { isExpanded ? (
+                    {isExpanded ? (
                         <VStack>
                             <LeafText typography={LeafTypography.subscript.withColor(LeafColors.textDark)}>
                                 {event.description}
@@ -80,52 +80,60 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
                             <VGap size={16} />
 
                             <HStack>
-                            <LeafChip
-                                color={LeafColors.accent}
-                                onPress={() => {
-                                    Session.inst.setActivePatient(patient);
-                                    NavigationSession.inst.navigateTo(PatientOptionsScreen, navigation, patient.fullName);
-                                }}
-                                style={{flex: 1}}
-                            >
-                                <HStack>
-                                    <LeafIcon 
-                                        icon="chevron-right"
-                                        color={LeafColors.textLight}
-                                        size={LeafIconSize.Small}
-                                    />
+                                <LeafChip
+                                    color={LeafColors.accent}
+                                    onPress={() => {
+                                        Session.inst.setActivePatient(patient);
+                                        NavigationSession.inst.navigateTo(
+                                            PatientOptionsScreen,
+                                            navigation,
+                                            patient.fullName,
+                                        );
+                                    }}
+                                    style={{ flex: 1 }}
+                                >
+                                    <HStack>
+                                        <LeafIcon
+                                            icon="chevron-right"
+                                            color={LeafColors.textLight}
+                                            size={LeafIconSize.Small}
+                                        />
 
-                                    <LeafText typography={LeafTypography.chip} wide={false} style={{paddingRight: 10}}>
-                                        {"View Patient"}
-                                    </LeafText>
-                                </HStack>
-                            </LeafChip>
+                                        <LeafText
+                                            typography={LeafTypography.chip}
+                                            wide={false}
+                                            style={{ paddingRight: 10 }}
+                                        >
+                                            {"View Patient"}
+                                        </LeafText>
+                                    </HStack>
+                                </LeafChip>
 
-                            <HGap size={8} />
+                                <HGap size={8} />
 
-                            <LeafChip
-                                color={isDone ? LeafColors.textSuccess : LeafColors.accent}
-                                onPress={onToggleDone}
-                                style={{flex: 1, justifyContent: "center"}}
-                            >
-                                <HStack>
-                                    <LeafText typography={LeafTypography.chip} wide={false} style={{paddingHorizontal: 10}}>
-                                        {isDone ? "Done" : "Mark Done"}
-                                    </LeafText>
-                                </HStack>
-                            </LeafChip>
+                                <LeafChip
+                                    color={isDone ? LeafColors.textSuccess : LeafColors.accent}
+                                    onPress={onToggleDone}
+                                    style={{ flex: 1, justifyContent: "center" }}
+                                >
+                                    <HStack>
+                                        <LeafText
+                                            typography={LeafTypography.chip}
+                                            wide={false}
+                                            style={{ paddingHorizontal: 10 }}
+                                        >
+                                            {isDone ? "Done" : "Mark Done"}
+                                        </LeafText>
+                                    </HStack>
+                                </LeafChip>
                             </HStack>
                         </VStack>
-                    ) : undefined }
+                    ) : undefined}
                 </VStack>
 
-                { isDone ? 
-                <LeafIcon 
-                    icon="check-bold"
-                    color={LeafColors.textSuccess}
-                    size={LeafIconSize.Large}
-                /> : undefined
-            }
+                {isDone ? (
+                    <LeafIcon icon="check-bold" color={LeafColors.textSuccess} size={LeafIconSize.Large} />
+                ) : undefined}
             </HStack>
         </FlatContainer>
     );

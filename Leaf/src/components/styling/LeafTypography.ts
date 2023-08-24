@@ -70,12 +70,7 @@ class LeafTypography {
     }
 
     static get chip(): LeafTypographyConfig {
-        return new LeafTypographyConfig(
-            11.5,
-            LeafFontFamily.Poppins,
-            LeafColors.textLight,
-            LeafFontWeight.SemiBold,
-        );
+        return new LeafTypographyConfig(11.5, LeafFontFamily.Poppins, LeafColors.textLight, LeafFontWeight.SemiBold);
     }
 
     // Button

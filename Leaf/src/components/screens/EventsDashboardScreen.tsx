@@ -26,18 +26,18 @@ interface MatchedPatientEvent {
 const EventDashboardScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllocatedPatients());
     const [matchedPatientEvents, setMatchedPatientEvents] = React.useState<MatchedPatientEvent[]>([]);
-    
+
     const filterValues = [new LeafSegmentedValue(true, "Remaining"), new LeafSegmentedValue(false, "All")];
     const [segmentedValue, setSegmentedValue] = React.useState<LeafSegmentedValue | undefined>(filterValues[0]);
 
     const onSetSegmentedValue = (segmentedValue: LeafSegmentedValue | undefined) => {
         setSegmentedValue(segmentedValue);
-    }
+    };
 
     const getMatchedPatientEvents: () => MatchedPatientEvent[] = () => {
         // Collect all the patient events and their respective patient
-        const allMatchedPatientEvents: MatchedPatientEvent[] = patients.flatMap(
-            patient => patient.events.map(event => ({ patientEvent: event, patient: patient }))
+        const allMatchedPatientEvents: MatchedPatientEvent[] = patients.flatMap((patient) =>
+            patient.events.map((event) => ({ patientEvent: event, patient: patient })),
         );
         // Sort them by time (first to last)
         allMatchedPatientEvents.sort((a, b) => {
@@ -47,10 +47,12 @@ const EventDashboardScreen: React.FC<Props> = ({ navigation }) => {
             // If we only want to see the remaining ones
             // Filter to show only ones that occur after now, or that are incomplete
             const now = new Date();
-            return allMatchedPatientEvents.filter(matched => (matched.patientEvent.occursAfter(now) || !matched.patientEvent.completedToday()));
+            return allMatchedPatientEvents.filter(
+                (matched) => matched.patientEvent.occursAfter(now) || !matched.patientEvent.completedToday(),
+            );
         }
         return allMatchedPatientEvents;
-    }
+    };
 
     useEffect(() => {
         const unsubscribePatientFetch = StateManager.patientsFetched.subscribe(() => {
@@ -84,21 +86,21 @@ const EventDashboardScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSegmentedButtons 
+                <LeafSegmentedButtons
                     label={""}
                     labeled={false}
                     options={filterValues}
                     value={segmentedValue}
                     onSetValue={onSetSegmentedValue}
                     style={{
-                        paddingBottom: 12
+                        paddingBottom: 12,
                     }}
                 />
 
                 <FlatList
                     data={matchedPatientEvents}
                     renderItem={({ item: matched }) => (
-                        <PatientEventCard 
+                        <PatientEventCard
                             navigation={navigation}
                             patient={matched.patient}
                             event={matched.patientEvent}
