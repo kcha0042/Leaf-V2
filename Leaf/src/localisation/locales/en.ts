@@ -17,7 +17,8 @@ export default {
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
-    "tabBar.worker.patients": "Patients",
+    "tabBar.worker.events": "Dashboard",
+    "tabBar.worker.patients": "All Patients",
     "tabBar.worker.account": "Account",
 
     // Admin Tab Bar
@@ -34,6 +35,7 @@ export default {
     // Worker Headers
     "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
+    "header.worker.events": "Events Dashboard",
     "header.worker.patients": "Patients",
     "header.worker.account": "Your Account",
     "header.worker.addEvent": "Add Event",

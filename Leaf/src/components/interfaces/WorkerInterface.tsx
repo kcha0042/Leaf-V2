@@ -48,6 +48,23 @@ export const WorkerInterface = new LeafInterface()
     )
     .addSection(
         new LeafInterfaceSection(
+            strings("tabBar.worker.events"),
+            () => {
+                // Tab bar
+                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, strings("header.worker.events"));
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
+            },
+            () => {
+                // Drawer
+                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, strings("header.worker.events"));
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
+            },
+            "calendar-clock",
+            "calendar-clock-outline",
+        ),
+    )
+    .addSection(
+        new LeafInterfaceSection(
             strings("tabBar.worker.patients"),
             () => {
                 // Tab bar
@@ -61,23 +78,6 @@ export const WorkerInterface = new LeafInterface()
             },
             "account-injury",
             "account-injury-outline",
-        ),
-    )
-    .addSection(
-        new LeafInterfaceSection(
-            "Dashboard",
-            () => {
-                // Tab bar
-                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, "Patient Events");
-                NavigationSession.inst.setSidebarComponent(undefined, undefined);
-            },
-            () => {
-                // Drawer
-                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, "Patient Events");
-                NavigationSession.inst.setSidebarComponent(undefined, undefined);
-            },
-            "calendar-clock",
-            "calendar-clock-outline",
         ),
     )
     .addSection(
