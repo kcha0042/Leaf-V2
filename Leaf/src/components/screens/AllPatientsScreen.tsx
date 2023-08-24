@@ -42,7 +42,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
         NavigationSession.inst.navigateTo(
             AllocatePatientToNurseScreen,
             navigation,
-            strings("header.leader.allocateTo"),
+            strings("header.leader.allocateTo", patient.fullName),
         );
     };
 
