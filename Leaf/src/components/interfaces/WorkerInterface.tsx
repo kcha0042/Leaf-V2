@@ -6,6 +6,7 @@ import YourPatientsScreen from "../screens/YourPatientsScreen";
 import LeafInterface from "../navigation/LeafInterface";
 import LeafInterfaceSection from "../navigation/LeafInterfaceSection";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
+import EventDashboardScreen from "../screens/EventsDashboardScreen";
 
 export const WorkerInterface = new LeafInterface()
     .addSection(
@@ -60,6 +61,23 @@ export const WorkerInterface = new LeafInterface()
             },
             "account-injury",
             "account-injury-outline",
+        ),
+    )
+    .addSection(
+        new LeafInterfaceSection(
+            "Dashboard",
+            () => {
+                // Tab bar
+                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, "Patient Events");
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
+            },
+            () => {
+                // Drawer
+                NavigationSession.inst.navigateTo(EventDashboardScreen, undefined, "Patient Events");
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
+            },
+            "calendar-clock",
+            "calendar-clock-outline",
         ),
     )
     .addSection(

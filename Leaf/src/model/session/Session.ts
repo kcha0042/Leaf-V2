@@ -108,6 +108,14 @@ class Session {
         return NewEmployeeManager.inst.newLeaderCreated(leader);
     }
 
+    public async updatePatient(patient: Patient): Promise<boolean> {
+        const success = await PatientsManager.inst.updatePatient(patient);
+        if (success) {
+            StateManager.patientUpdated.publish();
+        }
+        return success;
+    }
+
     public async updateWorker(worker: Worker): Promise<boolean> {
         return WorkersManager.inst.updateWorker(worker);
     }

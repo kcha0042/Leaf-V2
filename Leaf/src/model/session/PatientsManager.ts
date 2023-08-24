@@ -33,6 +33,11 @@ class PatientsManager {
         }
         return PatientDataObject.restore(dataObject);
     }
+
+    public async updatePatient(patient: Patient): Promise<boolean> {
+        const dataObject = PatientDataObject.create(patient);
+        return DatabaseSession.inst.update(DatabaseCollection.Patients, patient.mrn.toString(), dataObject.data);
+    }
 }
 
 export default PatientsManager;

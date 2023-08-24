@@ -17,6 +17,7 @@ import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafText from "../base/LeafText/LeafText";
 import VGap from "../containers/layout/VGap";
+import { FlatList } from "react-native-gesture-handler";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -100,13 +101,23 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={6} />
 
-                {patients.map((patient) => (
-                    <PatientCard
-                        key={patient.mrn.toString()}
-                        patient={patient}
-                        onPress={() => onPatientPress(patient)}
-                    />
-                ))}
+                <FlatList
+                    data={patients}
+                    renderItem={({ item: patient }) => (
+                        <PatientCard
+                            patient={patient}
+                            onPress={() => onPatientPress(patient)}
+                        />
+                    )}
+                    keyExtractor={(patient: Patient) => patient.mrn.toString()}
+                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                    scrollEnabled={false}
+                    style={{
+                        width: "100%",
+                        overflow: "visible", // Stop shadows getting clipped
+                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                    }}
+                />
             </VStack>
         </DefaultScreenContainer>
     );
