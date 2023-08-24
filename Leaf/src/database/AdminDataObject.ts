@@ -10,7 +10,7 @@ export enum AdminField {
     Email = "email",
     CurrentHospitalID = "currentHospitalId",
     AccountActivated = "accountActivated",
-    Password = "password"
+    Password = "password",
 }
 
 class AdminDataObject {

@@ -24,6 +24,7 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
 import bcrypt from "bcryptjs";
+import ResetPasswordScreen from "./ResetPasswordScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -172,9 +173,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     <Spacer />
 
                     <LeafTextButton
-                        label={strings("button.activateAccount")}
+                        label={strings("button.resetPassword")}
                         onPress={() => {
-                            NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                            NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
                         }}
                         typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
                     />
@@ -188,6 +189,17 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     color={LeafColors.accent}
                     style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
+                />
+                <LeafButton
+                    label={strings("button.activateAccount")}
+                    icon="arrow-right-circle"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    style={{ marginTop: 12 }}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                    }}
                 />
             </View>
 

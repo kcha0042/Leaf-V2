@@ -73,10 +73,13 @@ export default {
     "button.submit": "Submit",
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
+    "button.resetPassword": "Reset Password",
+    "button.reset": "Reset",
 
     // Login
     "login.title": "Login",
     "login.activateAccount": "Activate Account",
+    "login.resetPassword": "Reset Password",
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
@@ -115,6 +118,8 @@ export default {
     "inputLabel.password": "Password",
     "inputLabel.setPassword": "Set Password",
     "inputLabel.confirmPassword": "Confirm Password",
+    "inputLabel.newPassword": "New Password",
+    "inputLabel.confirmNewPassword": "Confirm New Password",
     "inputLabel.givenName": "Name",
     "inputLabel.surname": "Surname",
     "inputLabel.mrn": "MRN",
