@@ -22,7 +22,14 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     const typography = LeafTypography.subscriptLabel;
-    typography.leafColor = LeafColors.accent;
+    typography.leafColor = LeafColors.textDark;
+
+    const formatTime = (date: Date): string => {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()}`
+    }
 
     return (
         <FlatContainer>
@@ -60,6 +67,8 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                     </LeafText>
 
                     <VGap size={16} />
+
+                    {/* // TODO: change to cusotm chip component on merge */}
                     <HStack spacing={10}>
                         {patient.events.map((event) => (
                             <View
@@ -74,7 +83,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                                 }}
                             >
                                 <LeafText wide={false} typography={typography}>
-                                    {event.title.toString()}
+                                    {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
                                 </LeafText>
                             </View>
                         ))}
