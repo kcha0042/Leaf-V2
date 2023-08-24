@@ -113,6 +113,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         description={strings("label.removePatient")}
                         onPress={() => {
                             // TODO: Delete patient, then navigate back when activePatient is none
+                            // TODO: Remember to remove the deleted patient from the cache
                         }}
                         icon="delete"
                     />
