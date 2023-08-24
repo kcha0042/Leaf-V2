@@ -2,7 +2,7 @@ import VStack from "../containers/VStack";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VGap from "../containers/layout/VGap";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Patient from "../../model/patient/Patient";
 import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
@@ -16,12 +16,14 @@ import HStack from "../containers/HStack";
 import HGap from "../containers/layout/HGap";
 import LeafTypography from "../styling/LeafTypography";
 import LeafColors from "../styling/LeafColors";
+import LeafText from "../base/LeafText/LeafText";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
+    const [nurse, setNurse] = useState(Session.inst.getActiveWorker());
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
     const [filteredPatients, setFilteredPatients] = React.useState<Patient[]>(patients);
     const [searchQuery, setSearchQuery] = React.useState("");
@@ -35,6 +37,11 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
         });
         setFilteredPatients(Session.inst.getAllPatients());
         Session.inst.fetchAllPatients();
+
+        StateManager.activeWorkerChanged.subscribe(() => {
+            setNurse(Session.inst.getActiveWorker());
+        });
+        
     }, []);
 
     return (
@@ -43,15 +50,21 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                 style={{
                     flex: 1,
                 }}
+                spacing={20}
             >
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("label.patientAllocateToNurse")}{"\n"}
+                    <LeafText typography={LeafTypography.title4}>
+                        {nurse?.fullName || "..." + strings("label.loading")}
+                    </LeafText>
+                </LeafText>
+
                 <LeafSearchBarNew
                     onTextChange={onSearch}
                     data={patients}
                     setData={setFilteredPatients}
                     dataToString={(patient: Patient) => patient.fullName}
                 />
-
-                <VGap size={20} />
 
                 <HStack>
                     {/* 
@@ -75,8 +88,6 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         wide={false}
                     ></LeafButton>
                 </HStack>
-
-                <VGap size={20} />
 
                 <FlatList
                     data={filteredPatients}
