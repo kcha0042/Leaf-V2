@@ -52,15 +52,15 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
                 <VStack
                     style={{
-                        flex: 1,
+                        flex: 1
                     }}
                 >
                     <HStack>
-                        <LeafText wide={false} typography={LeafTypography.title3} verticalWrap={true}>
+                        <LeafText wide={false} typography={LeafTypography.title3} style={{ alignSelf: "flex-start" }}>
                             {patient.fullName}
                         </LeafText>
                         <Spacer/>
-                        <TouchableOpacity onPress={() => null}>
+                        <TouchableOpacity onPress={() => null} style={{ alignSelf: "flex-start" }}>
                             <LeafIcon
                                 icon="minus"
                                 color={LeafColors.fillBackgroundRed}
