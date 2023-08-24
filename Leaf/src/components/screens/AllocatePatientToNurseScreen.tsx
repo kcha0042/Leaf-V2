@@ -1,5 +1,5 @@
 import VStack from "../containers/VStack";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VGap from "../containers/layout/VGap";
@@ -10,12 +10,12 @@ import Session from "../../model/Session";
 import NurseAllocationCard from "../custom/NurseAllocationCard";
 import StateManager from "../../state/publishers/StateManager";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
-
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
+    const [patient, setPatient] = useState(Session.inst.getActivePatient());
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
     const [filteredWorkers, setFilteredWorkers] = React.useState<Worker[]>(workers);
     const [searchQuery, setSearchQuery] = React.useState("");
@@ -25,11 +25,17 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(null);
 
     useEffect(() => {
+        Session.inst.fetchAllWorkers();
         StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
         });
         setFilteredWorkers(Session.inst.getAllWorkers());
-        Session.inst.fetchAllWorkers();
+
+        StateManager.activePatientChanged.subscribe(() => {
+            setPatient(Session.inst.getActivePatient());
+        });
+
     }, []);
 
     return (
@@ -38,15 +44,15 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                 style={{
                     flex: 1,
                 }}
+                spacing={20}
             >
+               
                 <LeafSearchBarNew
                     onTextChange={onSearch}
                     data={workers}
                     setData={setFilteredWorkers}
                     dataToString={(worker: Worker) => worker.fullName}
                 />
-
-                <VGap size={25} />
 
                 <FlatList
                     data={filteredWorkers}

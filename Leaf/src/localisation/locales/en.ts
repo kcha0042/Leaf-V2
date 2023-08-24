@@ -47,7 +47,7 @@ export default {
     "header.leader.viewPatients": "Patients",
     "header.leader.allocatePatient": "Allocate Patient",
     "header.leader.nurses": "Nurses",
-    "header.leader.allocateTo": "Allocate To {0}",
+    "header.leader.allocateTo": "Allocate Nurse To {0}",
     "header.leader.account": "Your Account",
 
     // Buttons
@@ -94,6 +94,7 @@ export default {
     "label.removePatient": "Delete patient from the system.",
     "label.done": "Exit patient options.",
     "label.patientAllocateToNurse": "Select patients to allocate to",
+    "label.allocateToPatient": "Allocate nurse to",
 
     // Triage Form
     "triageForm.title.identity": "Patient Identity",
