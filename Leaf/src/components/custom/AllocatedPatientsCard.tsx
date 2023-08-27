@@ -1,8 +1,6 @@
 import { View, ViewStyle } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Patient from "../../model/patient/Patient";
-import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
-import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
@@ -12,8 +10,8 @@ import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
 import Spacer from "../containers/layout/Spacer";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     patient: Patient;
@@ -23,6 +21,10 @@ interface Props {
 const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
+
+    const buttonTypography = LeafTypography.subscript;
+    buttonTypography.leafColor = LeafColors.textError;
+    buttonTypography.weight = LeafFontWeight.Bold;
 
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
@@ -55,17 +57,19 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         flex: 1
                     }}
                 >
-                    <HStack>
+                    <HStack
+                        style={{
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
+                    >
                         <LeafText wide={false} typography={LeafTypography.title3} style={{ alignSelf: "flex-start" }}>
                             {patient.fullName}
                         </LeafText>
                         <Spacer/>
-                        <TouchableOpacity onPress={() => null} style={{ alignSelf: "flex-start" }}>
-                            <LeafIcon
-                                icon="minus"
-                                color={LeafColors.fillBackgroundRed}
-                                size={LeafIconSize.Large}
-                            />
+                        {/* // TODO: change to text button after merge */}
+                        <TouchableOpacity onPress={() => null}>
+                            <LeafText wide={false} typography={buttonTypography}>{strings("button.remove")}</LeafText>
                         </TouchableOpacity>
                     </HStack>
 
