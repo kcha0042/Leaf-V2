@@ -207,12 +207,16 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 onCancel={onCancel}
             >
                 <LeafTextInputShort label={strings("label.hospital")} onTextChange={onHospitalChange} />
-                <LeafText
-                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    {strings("error.hospitalExists")}
-                </LeafText>
+                {
+                    !errTextVisible ? null : (
+                        <LeafText
+                            style={{ paddingTop: 10 }}
+                            typography={LeafTypography.error}
+                        >
+                            {strings("error.hospitalExists")}
+                        </LeafText>
+                    )
+                }
             </LeafPopUp>
 
             {/* Check password */}
@@ -223,12 +227,16 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 onCancel={onCancel}
             >
                 <LeafTextInputShort label={strings("inputLabel.password")} onTextChange={() => null /* TODO */} />
-                <LeafText
-                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    Incorrect password
-                </LeafText>
+                {
+                    !errTextVisible ? null : (
+                        <LeafText
+                            style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
+                            typography={LeafTypography.error}
+                        >
+                            {strings("error.incorrectPassword")}
+                        </LeafText>
+                    )
+                }
             </LeafPopUp>
         </View>
     );
