@@ -237,5 +237,4 @@ export default {
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
     "error.invalidTime": "Invalid time",
-    "error.incorrectPassword": "Incorrect password"
 };
