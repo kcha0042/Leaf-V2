@@ -39,7 +39,8 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     if (componentWidth < 375) {
         columnCount = 1;
     }
-    // TODO: this doesnt look right
+    // TODO: this doesnt look right on web, why? This formula should calculate the size needed to fit buttons into x columns and fill the screen?
+    // btw it works fine on tablet
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     const typography = LeafTypography.body;
@@ -104,7 +105,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                     <LargeMenuButton
                         label={strings("actions.emergency")}
                         description={strings("actions.callEmergency")}
-                        icon={"exclamation"}
+                        icon={"alert"}
                         size={buttonWidth}
                         onPress={onEmergencyPress}
                     />
