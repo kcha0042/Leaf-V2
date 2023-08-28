@@ -169,7 +169,7 @@ export default {
     // Actions
     "actions.emergency": "Emergency",
     "actions.call": "Call",
-    "actions.steps": "Steps",
+    "actions.steps": "Your next steps",
     "actions.department": "Department",
 
     // Search

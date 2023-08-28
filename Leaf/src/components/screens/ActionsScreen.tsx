@@ -15,6 +15,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { ErrorScreen } from "./ErrorScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import VGap from "../containers/layout/VGap";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -51,6 +52,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatContainer>
                     <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
+                    <VGap size={20}/>
                     <VStack spacing={20}>
                         {patient.triageCase.triageCode.getSteps().map((step, i) => (
                             <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>
@@ -58,6 +60,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                             </LeafText>
                         ))}
                     </VStack>
+                    <VGap size={20} />
                 </FlatContainer>
 
                 <HStack
