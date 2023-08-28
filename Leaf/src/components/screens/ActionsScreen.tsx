@@ -1,5 +1,5 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -16,12 +16,31 @@ import LeafTypography from "../styling/LeafTypography";
 import { ErrorScreen } from "./ErrorScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import VGap from "../containers/layout/VGap";
+import LargeMenuButton from "../custom/LargeMenuButton";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
+
+    useEffect(() => {
+        const unsubscribe = StateManager.contentWidth.subscribe(() => {
+            setComponentWidth(StateManager.contentWidth.read())
+        })
+
+        return unsubscribe;
+    }, [])
+
+    const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
+    const buttonSpacing = LeafDimensions.screenSpacing;
+    let columnCount = 2;
+    if (componentWidth < 375) {
+        columnCount = 1;
+    }
+    // TODO: this doesnt look right
+    const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     const typography = LeafTypography.body;
     typography.size = 18;
@@ -50,8 +69,8 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <FlatContainer style={{ width: "100%" }}>
-                    <LeafText typography={LeafTypography.subscript}>{strings("actions.department")}</LeafText>
-                    <LeafText typography={LeafTypography.title3}>{patient.triageCase.medicalUnit.name}</LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{strings("actions.arrivalWard")}</LeafText>
+                    <LeafText typography={LeafTypography.title2}>{patient.triageCase.arrivalWard.name}</LeafText>
                 </FlatContainer>
 
                 <FlatContainer>
@@ -68,39 +87,27 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                 </FlatContainer>
 
                 <HStack
-                    spacing={LeafDimensions.screenSpacing}
+                    spacing={buttonSpacing}
                     style={{
                         flex: 1,
+                        justifyContent: "center"
                     }}
                 >
-                    <FlatContainer
-                        style={{
-                            flex: 1,
-                            alignItems: "center",
-                        }}
+                    <LargeMenuButton
+                        label={patient.phoneNumber}
+                        description={strings("actions.callPatient", patient.fullName)}
+                        icon={"phone"}
+                        size={buttonWidth}
                         onPress={onCallPress}
-                    >
-                        <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark} />
-                        {/* TODO: is there supposed to be a phone number attatched to patient? */}
-                        <Spacer />
-                        <LeafText wide={false} typography={LeafTypography.title3}>
-                            {strings("actions.call")} {patient.phoneNumber}
-                        </LeafText>
-                    </FlatContainer>
+                    />
 
-                    <FlatContainer
-                        style={{
-                            flex: 1,
-                            alignItems: "center",
-                        }}
+                    <LargeMenuButton
+                        label={strings("actions.emergency")}
+                        description={strings("actions.callEmergency")}
+                        icon={"exclamation"}
+                        size={buttonWidth}
                         onPress={onEmergencyPress}
-                    >
-                        <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark} />
-                        <Spacer />
-                        <LeafText wide={false} typography={LeafTypography.title3}>
-                            {strings("actions.emergency")}
-                        </LeafText>
-                    </FlatContainer>
+                    />
                 </HStack>
 
                 <Spacer />

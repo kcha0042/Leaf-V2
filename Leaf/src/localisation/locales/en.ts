@@ -167,10 +167,11 @@ export default {
     "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
-    "actions.emergency": "Emergency",
-    "actions.call": "Call",
+    "actions.emergency": "000",
+    "actions.callEmergency": "Call emergency services",
+    "actions.callPatient": "Call {0}",
     "actions.steps": "Your next steps",
-    "actions.department": "Department",
+    "actions.arrivalWard": "Arrival ward",
 
     // Search
     "search.underlying": "Search",
