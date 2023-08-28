@@ -22,6 +22,10 @@ interface Props {
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
+
+    const typography = LeafTypography.body;
+    typography.size = 18;
+
     const patient = Session.inst.getActivePatient();
 
     if (!patient) {
@@ -55,7 +59,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                     <VGap size={20}/>
                     <VStack spacing={20}>
                         {patient.triageCase.triageCode.getSteps().map((step, i) => (
-                            <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>
+                            <LeafText key={step} wide={false} typography={typography} style={{ alignSelf: "flex-start" }}>
                                 {i + 1}: {step}
                             </LeafText>
                         ))}
