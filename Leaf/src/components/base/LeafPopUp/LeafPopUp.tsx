@@ -7,6 +7,11 @@ import LeafTextButton from "../LeafTextButton/LeafTextButton";
 import LeafTypography from "../../styling/LeafTypography";
 import { LeafFontWeight } from "../../styling/typography/LeafFontWeight";
 import LeafColors from "../../styling/LeafColors";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
+import { ScreenType } from "../../../state/environment/types/ScreenType";
+import HStack from "../../containers/HStack";
+import Spacer from "../../containers/layout/Spacer";
 
 interface Props {
     visible: boolean;
@@ -29,6 +34,7 @@ export const LeafPopUp: React.FC<Props> = ({
 }) => {
     const cancelFont = LeafTypography.textButton;
     cancelFont.weight = LeafFontWeight.Regular;
+    cancelFont.leafColor = LeafColors.mediumAccent;
 
     return (
         <Portal>
@@ -36,6 +42,16 @@ export const LeafPopUp: React.FC<Props> = ({
                 visible={visible}
                 style={{
                     backgroundColor: backgroundColour.getColor(),
+                    shadowColor: LeafColors.shadow.getColor(),
+                    shadowOffset: {
+                        width: 0,
+                        height: 4,
+                    },
+                    // Shadows appear sligntly differnt on web
+                    shadowOpacity: Environment.inst.getOS() == OS.Web ? 0.16 : 0.12,
+                    shadowRadius: Environment.inst.getOS() == OS.Web ? 12 : 7,
+                    width: Environment.inst.getScreenType() == ScreenType.Large ? "50%" : "90%",
+                    alignSelf: "center"
                 }}
             >
                 <Dialog.Title>
@@ -45,9 +61,17 @@ export const LeafPopUp: React.FC<Props> = ({
                 <Dialog.Content>{children}</Dialog.Content>
 
                 <Dialog.Actions>
-                    <LeafTextButton label={"Cancel"} typography={cancelFont} onPress={onCancel} />
-
-                    <LeafTextButton label={"Done"} typography={LeafTypography.textButton} onPress={onDone} />
+                    <HStack
+                        style={{
+                            flex: 1,
+                        }}
+                    >    
+                        <Spacer/>
+                        <LeafTextButton label={"Cancel"} typography={cancelFont} onPress={onCancel}/>
+                        <Spacer/>
+                        <LeafTextButton label={"Done"} typography={LeafTypography.textButton} onPress={onDone}/>
+                        <Spacer/>
+                    </HStack>
                 </Dialog.Actions>
             </Dialog>
         </Portal>
