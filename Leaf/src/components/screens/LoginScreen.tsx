@@ -25,6 +25,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
 import bcrypt from "bcryptjs";
 import ResetPasswordScreen from "./ResetPasswordScreen";
+import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -142,7 +143,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={LeafDimensions.textInputSpacing} />
 
-                <LeafTextInputShort
+                <LeafPasswordInput
                     label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
