@@ -29,7 +29,7 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
 
     useEffect(() => {
         const unsubscribe = StateManager.activePatientChanged.subscribe(() => {
-            const newPatient = Session.inst.getActivePatient(); 
+            const newPatient = Session.inst.getActivePatient();
             if (newPatient == null) {
                 NavigationSession.inst.navigateBack(navigation);
             } else {

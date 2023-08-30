@@ -30,7 +30,9 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
         const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             // Whenever any patients are fetched, update the list of patients
             // (Based on whether we want to display allocated or all patients)
-            setPatients(showAllPatientsRef.current ? Session.inst.getAllPatients() : Session.inst.getAllocatedPatients());
+            setPatients(
+                showAllPatientsRef.current ? Session.inst.getAllPatients() : Session.inst.getAllocatedPatients(),
+            );
         });
 
         // By default we start by showing all allocated patients
@@ -63,7 +65,11 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
     const onPressPatient = (patient: Patient) => {
         Session.inst.setActivePatient(patient);
-        NavigationSession.inst.navigateTo(showAllPatients ? PatientPreviewScreen : PatientOptionsScreen, navigation, patient.fullName);
+        NavigationSession.inst.navigateTo(
+            showAllPatients ? PatientPreviewScreen : PatientOptionsScreen,
+            navigation,
+            patient.fullName,
+        );
     };
 
     return (

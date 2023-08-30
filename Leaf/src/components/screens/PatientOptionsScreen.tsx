@@ -33,7 +33,7 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
         });
 
         const unsubscribePatientChanged = StateManager.activePatientChanged.subscribe(() => {
-            const newPatient = Session.inst.getActivePatient(); 
+            const newPatient = Session.inst.getActivePatient();
             if (newPatient == null) {
                 NavigationSession.inst.navigateBack(navigation);
             }

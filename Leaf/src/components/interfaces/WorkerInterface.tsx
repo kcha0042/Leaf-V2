@@ -19,10 +19,7 @@ export const WorkerInterface = new LeafInterface()
             () => {
                 // Drawer
                 NavigationSession.inst.clearScreens();
-                NavigationSession.inst.setSidebarComponent(
-                    <YourPatientsScreen />,
-                    strings("header.worker.patients"),
-                );
+                NavigationSession.inst.setSidebarComponent(<YourPatientsScreen />, strings("header.worker.patients"));
             },
             "home-variant",
             "home-variant-outline",
