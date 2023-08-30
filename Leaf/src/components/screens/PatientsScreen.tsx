@@ -1,12 +1,13 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { FlatList } from "react-native-gesture-handler";
 import Patient from "../../model/patient/Patient";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
+import VGap from "../containers/layout/VGap";
 import PatientCard from "../custom/PatientCard";
 import PatientsPicker from "../custom/PatientsPicker";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
@@ -15,9 +16,9 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
-import LeafText from "../base/LeafText/LeafText";
-import VGap from "../containers/layout/VGap";
-import { FlatList } from "react-native-gesture-handler";
+
+// TODO: This file is unused and can be removed
+// We're keeping it for now as a reference
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

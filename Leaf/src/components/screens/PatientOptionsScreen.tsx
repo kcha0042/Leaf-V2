@@ -28,12 +28,20 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     useEffect(() => {
-        const unsubscribe = StateManager.contentWidth.subscribe(() => {
+        const unsubscribeContentWidth = StateManager.contentWidth.subscribe(() => {
             setComponentWidth(StateManager.contentWidth.read());
         });
 
+        const unsubscribePatientChanged = StateManager.activePatientChanged.subscribe(() => {
+            const newPatient = Session.inst.getActivePatient(); 
+            if (newPatient == null) {
+                NavigationSession.inst.navigateBack(navigation);
+            }
+        });
+
         return () => {
-            unsubscribe();
+            unsubscribeContentWidth();
+            unsubscribePatientChanged();
         };
     }, []);
 
