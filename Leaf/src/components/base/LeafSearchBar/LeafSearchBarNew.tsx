@@ -51,24 +51,24 @@ function LeafSearchBarNew<T>({
     const calculateLevenshteinDistance = (source, target) => {
         const sourceLength = source.length;
         const targetLength = target.length;
-
-        const distanceMatrix = Array.from({ length: sourceLength + 1 }, (_, i) => Array(targetLength + 1).fill(i));
-
-        for (let j = 1; j <= targetLength; j++) {
-            distanceMatrix[0][j] = j;
+    
+        const distanceMatrix = Array.from({ length: sourceLength + 1 }, (_, row) => Array(targetLength + 1).fill(row));
+    
+        for (let columnIndex = 1; columnIndex <= targetLength; columnIndex++) {
+            distanceMatrix[0][columnIndex] = columnIndex;
         }
-
-        for (let i = 1; i <= sourceLength; i++) {
-            for (let j = 1; j <= targetLength; j++) {
-                const cost = source[i - 1] === target[j - 1] ? 0 : 1;
-                distanceMatrix[i][j] = Math.min(
-                    distanceMatrix[i - 1][j] + 1,
-                    distanceMatrix[i][j - 1] + 1,
-                    distanceMatrix[i - 1][j - 1] + cost,
+    
+        for (let rowIndex = 1; rowIndex <= sourceLength; rowIndex++) {
+            for (let columnIndex = 1; columnIndex <= targetLength; columnIndex++) {
+                const cost = source[rowIndex - 1] === target[columnIndex - 1] ? 0 : 1;
+                distanceMatrix[rowIndex][columnIndex] = Math.min(
+                    distanceMatrix[rowIndex - 1][columnIndex] + 1,
+                    distanceMatrix[rowIndex][columnIndex - 1] + 1,
+                    distanceMatrix[rowIndex - 1][columnIndex - 1] + cost,
                 );
             }
         }
-
+    
         return distanceMatrix[sourceLength][targetLength];
     };
 
