@@ -12,6 +12,7 @@ import { strings } from "../../localisation/Strings";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { useState } from "react";
+import { ShiftTime } from "../../model/employee/ShiftTime";
 
 interface Props {
     patient: Patient;
@@ -20,7 +21,7 @@ interface Props {
 const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated.toString();
-    const isAllocated = session === "None";
+    const isAllocated = session === ShiftTime.none.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     const [selected, setSelected] = useState(false);
