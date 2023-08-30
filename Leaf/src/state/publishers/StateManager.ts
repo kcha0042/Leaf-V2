@@ -63,6 +63,9 @@ class StateManager {
 
     // Notifies all input components to clear themselves
     public static readonly clearAllInputs = new LeafPublisher();
+
+    // Notifies when a patient is updated
+    public static readonly patientUpdated = new LeafPublisher();
 }
 
 export default StateManager;
