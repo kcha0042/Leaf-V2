@@ -18,6 +18,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
         NavigationSession.inst.focusedInterfaceSection != undefined &&
         NavigationSession.inst.focusedInterfaceSection.matches(interfaceSection.id);
     const icon = isFocused ? interfaceSection.focusedIcon : interfaceSection.icon;
+    const color = isFocused ? LeafColors.textDark : LeafColors.textSemiDark;
     const size = LeafIconSize.Medium;
     const padding = 10;
     return (
@@ -32,7 +33,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
             <TouchableWithoutFeedback onPress={interfaceSection.activateOnTabBar}>
                 {/* Nest view to ensure compatability with Android */}
                 <View style={{ paddingVertical: padding, paddingHorizontal: 30 }}>
-                    <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
+                    <LeafIcon icon={icon} color={color} size={size} />
                 </View>
             </TouchableWithoutFeedback>
 
@@ -44,7 +45,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
                 }}
             >
                 <LeafText
-                    typography={LeafTypography.subscriptLabel}
+                    typography={LeafTypography.subscriptLabel.withColor(color)}
                     style={{ alignSelf: "center", textAlign: "center" }}
                 >
                     {interfaceSection.title}
