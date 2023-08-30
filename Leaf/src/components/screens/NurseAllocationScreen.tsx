@@ -1,48 +1,48 @@
-import VStack from "../containers/VStack";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import LeafText from "../base/LeafText/LeafText";
-import LeafTypography from "../styling/LeafTypography";
-import VGap from "../containers/layout/VGap";
-import NavigationSession from "../navigation/state/NavigationEnvironment";
-import AllocateNurseToPatientScreen from "./AllocateNurseToPatientScreen";
+import React, { useEffect } from "react";
+import { FlatList } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/Session";
 import Patient from "../../model/patient/Patient";
-import React, { useEffect } from "react";
 import StateManager from "../../state/publishers/StateManager";
-import AllocatedPatientsCard from "../custom/AllocatedPatientsCard";
-import LeafDimensions from "../styling/LeafDimensions";
-import { FlatList, View } from "react-native";
 import LeafButton from "../base/LeafButton/LeafButton";
-import LeafDropDown from "../base/LeafDropDown/LeafDropDown";
-import HStack from "../containers/HStack";
+import LeafText from "../base/LeafText/LeafText";
+import VStack from "../containers/VStack";
+import VGap from "../containers/layout/VGap";
+import AllocatedPatientsCard from "../custom/AllocatedPatientsCard";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import LeafDimensions from "../styling/LeafDimensions";
+import LeafTypography from "../styling/LeafTypography";
+import AllocateNurseToPatientScreen from "./AllocateNurseToPatientScreen";
+import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
-    const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const worker = Session.inst.getActiveWorker();
+    const [allocatedPatients, setAllocatedPatients] = React.useState<Patient[]>([]);
 
     useEffect(() => {
         StateManager.patientsFetched.subscribe(() => {
-            setPatients(Session.inst.getAllPatients());
+            refreshAllocatedPatients();
         });
 
+        refreshAllocatedPatients();
         Session.inst.fetchAllPatients();
     }, []);
 
-    let allocatedPatients: Patient[] = [];
-
-    const worker = Session.inst.getActiveWorker();
-
-    for (let i = 0; i < patients.length; i++) {
-        for (let j = 0; j < worker.allocatedPatients.length; j++) {
-            if (patients[i].mrn.matches(worker.allocatedPatients[j])) {
-                allocatedPatients.push(patients[i]);
+    const refreshAllocatedPatients = () => {
+        // Find all patients that are allocated to the worker
+        const newAllocatedPatients: Patient[] = [];
+        for (const allocatedPatientID of worker.allocatedPatients) {
+            const allocatedPatient = Session.inst.getPatient(allocatedPatientID);
+            if (allocatedPatient != null) {
+                newAllocatedPatients.push(allocatedPatient);
             }
         }
+        setAllocatedPatients(newAllocatedPatients);
     }
 
     return (
