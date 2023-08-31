@@ -82,8 +82,10 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             leader.setAccountActivated(true);
             leader.setEmail(email!);
+            // Create new account in the database with ID and password
             if (hashedPassword != undefined) {
-                leader.setPassword(hashedPassword);
+                const newAccount = new Account(id, hashedPassword);
+                Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateLeader(leader);
             Session.inst.setLoggedInAccount(leader);
@@ -98,8 +100,10 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             admin.setAccountActivated(true);
             admin.setEmail(email!);
+            // Create new account in the database with ID and password
             if (hashedPassword != undefined) {
-                admin.setPassword(hashedPassword);
+                const newAccount = new Account(id, hashedPassword);
+                Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateAdmin(admin);
             Session.inst.setLoggedInAccount(admin);
