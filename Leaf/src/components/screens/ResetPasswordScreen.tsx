@@ -19,7 +19,6 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import bcrypt from "bcryptjs";
-import * as crypto from "crypto";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -47,6 +46,14 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
+        // Check if the account exists
+        const account = await Session.inst.fetchAccount(id);
+        if (account == null) {
+            // TODO: Provide feedback (no account found)
+            console.log("Account not found.");
+            return;
+        }
+
         // Hashing the provided password
         const salt = bcrypt.genSaltSync(10);
         let hashedPassword = undefined;
@@ -54,50 +61,11 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             hashedPassword = bcrypt.hashSync(newPassword, salt);
         }
 
-        await Session.inst.fetchWorker(id);
-        const worker = Session.inst.getWorker(id);
-        if (worker != null && worker.accountActivated) {
-            // set new password
-            if (hashedPassword != undefined) {
-                worker.setPassword(hashedPassword);
-            }
-            Session.inst.updateWorker(worker);
-            // TODO: Provide feedback
-            console.log("Password Reset!");
-            NavigationSession.inst.navigateBack(navigation);
-            return;
+        // Update password on account
+        if (hashedPassword != undefined) {
+            account.setPassword(hashedPassword);
+            Session.inst.updateAccount(account);
         }
-
-        await Session.inst.fetchLeader(id);
-        const leader = Session.inst.getLeader(id);
-        if (leader != null && leader.accountActivated) {
-            // set new password
-            if (hashedPassword != undefined) {
-                leader.setPassword(hashedPassword);
-            }
-            Session.inst.updateLeader(leader);
-            // TODO: Provide feedback
-            console.log("Password Reset!");
-            NavigationSession.inst.navigateBack(navigation);
-            return;
-        }
-
-        // No need to fetch admin - we don't maintain an admin store
-        const admin = await Session.inst.getAdmin(id);
-        if (admin != null && admin.accountActivated) {
-            // set new password
-            if (hashedPassword != undefined) {
-                admin.setPassword(hashedPassword);
-            }
-            Session.inst.updateAdmin(admin);
-            // TODO: Provide feedback
-            console.log("Password Reset!")
-            NavigationSession.inst.navigateBack(navigation);
-            return;
-        }
-
-        // TODO: Provide feedback
-        console.log("No account found with id");
     };
 
     return (

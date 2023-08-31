@@ -8,7 +8,6 @@ import LeafText from "../LeafText/LeafText";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafIcon from "../LeafIcon/LeafIcon";
 import { LeafIconSize } from "../LeafIcon/LeafIconSize";
-import HStack from "../../containers/HStack";
 
 interface Props {
     label: string;

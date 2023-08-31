@@ -12,7 +12,6 @@ export enum WorkerField {
     CurrentHospitalID = "currentHospitalId",
     AllocatedPatients = "allocatedPatients",
     AccountActivated = "accountActivated",
-    Password = "password",
 }
 
 class WorkerDataObject {
@@ -27,8 +26,7 @@ class WorkerDataObject {
             .addStringArray(
                 WorkerField.AllocatedPatients,
                 worker.allocatedPatients.map((mrn) => mrn.toString()),
-            )
-            .addString(WorkerField.Password, worker.password);
+            );
     }
 
     public static restore(data: DataObject): Worker | null {
@@ -39,7 +37,6 @@ class WorkerDataObject {
         const currentHospitalID = data.getStringOrNull(WorkerField.CurrentHospitalID);
         const allocatedPatients = data.getStringArrayOrNull(WorkerField.AllocatedPatients);
         const accountActivated = data.getBooleanOrNull(WorkerField.AccountActivated);
-        const password = data.getStringOrNull(WorkerField.Password);
         if (!id || !firstName || !lastName || !allocatedPatients || accountActivated == null) {
             // NB: email and current hospital are allowed to be null
             console.error("[WorkerDataObject] Failed to restore Worker");
@@ -53,7 +50,6 @@ class WorkerDataObject {
             currentHospitalID == null ? null : Hospitals[currentHospitalID],
             accountActivated,
             allocatedPatients.map((data) => new MRN(data)),
-            password,
         );
     }
 }

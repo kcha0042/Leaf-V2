@@ -57,18 +57,17 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
+        // check if the account exists and check if the password matches
         const account = await Session.inst.fetchAccount(id);
         if (account == null || !bcrypt.compareSync(password, account.password)) {
-            // TODO: Provide feedback
+            // TODO: Provide feedback (probably split this into if elif to provide separate feedback)
             return;
         }
 
+        // Log the user in
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
         if (worker != null) {
-            // Hash and check the entered password to the hashed password retrieve from database
-            //if (bcrypt.compareSync(password, account.password)) {
-                // We found the matching account!
             Session.inst.setLoggedInAccount(worker);
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Worker);
@@ -82,9 +81,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         await Session.inst.fetchLeader(id);
         const leader = Session.inst.getLeader(id);
         if (leader != null) {
-            // Hash and check the entered password to the hashed password retrieve from database
-            //if (bcrypt.compareSync(password, leader.password)) {
-                // We found the matching account!
             Session.inst.setLoggedInAccount(leader);
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Leader);
@@ -99,9 +95,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
         if (admin != null) {
-        // Hash and check the entered password to the hashed password retrieve from database
-        //if (bcrypt.compareSync(password, admin.password)) {
-            // We found the matching account!
             Session.inst.setLoggedInAccount(admin);
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Admin);
