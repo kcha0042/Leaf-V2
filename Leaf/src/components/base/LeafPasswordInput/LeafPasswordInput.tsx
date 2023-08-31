@@ -91,11 +91,6 @@ const LeafPasswordInput: React.FC<Props> = ({
                 </LeafText>
             </TouchableWithoutFeedback>
             
-            <HStack
-                style={{
-                    flex:1,
-                }}
-            >
                 <TextInput
                     ref={textInputRef}
                     style={[
@@ -130,9 +125,8 @@ const LeafPasswordInput: React.FC<Props> = ({
                     }}
                     onPress={() => setIsPasswordShown(!isPasswordShown)}
                     >
-                    <LeafIcon icon={isPasswordShown ? "eye-off" : "eye"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
+                    <LeafIcon icon={isPasswordShown ? "eye" : "eye-off"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
                 </TouchableOpacity>
-            </HStack>
         </View>
     );
 };
