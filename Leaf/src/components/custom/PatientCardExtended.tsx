@@ -19,8 +19,9 @@ interface Props {
 
 const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated.toString();
-    const isAllocated = session === ShiftTime.none.toString();
+    const session = patient.sessionAllocated;
+    const sessionText = session.toString();
+    const isAllocated = session === ShiftTime.none;
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (
@@ -51,7 +52,7 @@ const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
-                        {isAllocated ? strings("label.notAllocated") : strings("label.allocated", `${session}`)}
+                        {isAllocated ? strings("label.notAllocated") : strings("label.allocated", `${sessionText}`)}
                     </LeafText>
 
                     <VGap size={1} />
