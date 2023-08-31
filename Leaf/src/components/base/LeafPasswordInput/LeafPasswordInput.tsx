@@ -8,6 +8,7 @@ import LeafText from "../LeafText/LeafText";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafIcon from "../LeafIcon/LeafIcon";
 import { LeafIconSize } from "../LeafIcon/LeafIconSize";
+import HStack from "../../containers/HStack";
 
 interface Props {
     label: string;
@@ -89,40 +90,48 @@ const LeafPasswordInput: React.FC<Props> = ({
                     {text.length == 0 ? label : ""}
                 </LeafText>
             </TouchableWithoutFeedback>
-
-            <TextInput
-                ref={textInputRef}
-                style={[
-                    wide ? { width: "100%" } : { alignSelf: "center" },
-                    {
-                        paddingVertical: 12,
-                        paddingHorizontal: 16,
-                        ...Platform.select({
-                            web: { outlineStyle: "none" },
-                        }),
-                    },
-                    typography.getStylesheet(),
-                    style,
-                ]}
-                onChangeText={(text) => {
-                    setText(text);
-                    onTextChange(text);
+            
+            <HStack
+                style={{
+                    justifyContent:"space-between",
+                    flex: 1,
                 }}
-                value={text}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                secureTextEntry={isPasswordShown}
-            />
+            >
+                <TextInput
+                    ref={textInputRef}
+                    style={[
+                        {
+                            width: "88%",
+                            alignSelf: "center",
+                            paddingVertical: 12,
+                            paddingHorizontal: 16,
+                            ...Platform.select({
+                                web: { outlineStyle: "none" },
+                            }),
+                        },
+                        typography.getStylesheet(),
+                        style,
+                    ]}
+                    onChangeText={(text) => {
+                        setText(text);
+                        onTextChange(text);
+                    }}
+                    value={text}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    secureTextEntry={isPasswordShown}
+                />
 
-            <TouchableOpacity
-                style = {{
-                    alignSelf: "center",
-                    marginRight: 15,
-                }}
-                onPress={() => setIsPasswordShown(!isPasswordShown)}
-                >
-                <LeafIcon icon={isPasswordShown ? "eye-off" : "eye"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style = {{
+                        marginRight: 12,
+                        alignSelf:"center",
+                    }}
+                    onPress={() => setIsPasswordShown(!isPasswordShown)}
+                    >
+                    <LeafIcon icon={isPasswordShown ? "eye-off" : "eye"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
+                </TouchableOpacity>
+            </HStack>
         </View>
     );
 };
