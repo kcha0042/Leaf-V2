@@ -57,57 +57,60 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
+        const account = await Session.inst.fetchAccount(id);
+        if (account == null || !bcrypt.compareSync(password, account.password)) {
+            // TODO: Provide feedback
+            return;
+        }
+
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
-        if (worker != null && worker.accountActivated && worker.password != null) {
+        if (worker != null) {
             // Hash and check the entered password to the hashed password retrieve from database
-            if (bcrypt.compareSync(password, worker.password)) {
+            //if (bcrypt.compareSync(password, account.password)) {
                 // We found the matching account!
-                Session.inst.setLoggedInAccount(worker);
-                // TODO: Provide feedback (login successful)
-                StateManager.loginStatus.publish(LoginStatus.Worker);
-                return;
+            Session.inst.setLoggedInAccount(worker);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Worker);
+            return;
             }
-            else {
-                // TODO: Provide feedback (login failed)
-                console.log("Login Failed");
-            }
+        else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed");
         }
 
         await Session.inst.fetchLeader(id);
         const leader = Session.inst.getLeader(id);
-        if (leader != null && leader.accountActivated && leader.password != null) {
+        if (leader != null) {
             // Hash and check the entered password to the hashed password retrieve from database
-            if (bcrypt.compareSync(password, leader.password)) {
+            //if (bcrypt.compareSync(password, leader.password)) {
                 // We found the matching account!
-                Session.inst.setLoggedInAccount(leader);
-                // TODO: Provide feedback (login successful)
-                StateManager.loginStatus.publish(LoginStatus.Leader);
-                return;
-            }
-            else {
-                // TODO: Provide feedback (login failed)
-                console.log("Login Failed");
-            }
+            Session.inst.setLoggedInAccount(leader);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Leader);
+            return;
         }
+        else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed");
+        }
+        
 
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
-        if (admin != null && admin.accountActivated && admin.password != null) {
-            // Hash and check the entered password to the hashed password retrieve from database
-            if (bcrypt.compareSync(password, admin.password)) {
-                // We found the matching account!
-                Session.inst.setLoggedInAccount(admin);
-                // TODO: Provide feedback (login successful)
-                StateManager.loginStatus.publish(LoginStatus.Admin);
-                return;
-            }
-            else {
-                // TODO: Provide feedback (login failed)
-                console.log("Login Failed")
-            }
-            
+        if (admin != null) {
+        // Hash and check the entered password to the hashed password retrieve from database
+        //if (bcrypt.compareSync(password, admin.password)) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(admin);
+            // TODO: Provide feedback (login successful)
+            StateManager.loginStatus.publish(LoginStatus.Admin);
+            return;
         }
+        else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed")
+        }     
     };
 
     return (

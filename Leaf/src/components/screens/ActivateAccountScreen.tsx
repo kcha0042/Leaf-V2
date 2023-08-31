@@ -21,6 +21,7 @@ import EmployeeID from "../../model/employee/EmployeeID";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import bcrypt from "bcryptjs";
+import Account from "../../model/account/Account";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -63,9 +64,10 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             worker.setAccountActivated(true);
             worker.setEmail(email!);
-            // @Reviewer: Not sure if I need to wrap this or not since the allisValid check does not allow for no password
+            // Create new account in the database with ID and password
             if (hashedPassword != undefined) {
-                worker.setPassword(hashedPassword);
+                const newAccount = new Account(id, hashedPassword);
+                Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
