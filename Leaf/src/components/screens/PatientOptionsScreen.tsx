@@ -13,6 +13,7 @@ import NewTriageScreen from "./NewTriageScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import AddEventScreen from "./AddEventScreen";
+import PatientChangelogScreen from "./PatientChangelogScreen";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -117,17 +118,6 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LargeMenuButton
                         size={buttonWidth}
-                        label={strings("button.deletePatient")}
-                        description={strings("label.removePatient")}
-                        onPress={() => {
-                            // TODO: Delete patient, then navigate back when activePatient is none
-                            // TODO: Remember to remove the deleted patient from the cache
-                        }}
-                        icon="delete"
-                    />
-
-                    <LargeMenuButton
-                        size={buttonWidth}
                         label={strings("button.addEvent")}
                         description={strings("label.addEvent")}
                         onPress={() => {
@@ -138,6 +128,37 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                             );
                         }}
                         icon="calendar-clock"
+                    />
+
+                    <LargeMenuButton
+                        size={buttonWidth}
+                        label={strings("button.changelog")}
+                        description={strings("label.changelog")}
+                        onPress={() => {
+                            const patient = Session.inst.getActivePatient();
+                            if (!patient) {
+                                // We've lost the active patient - bail!
+                                NavigationSession.inst.navigateBack(navigation);
+                                return;
+                            }
+                            NavigationSession.inst.navigateTo(
+                                PatientChangelogScreen,
+                                navigation,
+                                strings("header.worker.changelog1Param", patient.fullName),
+                            );
+                        }}
+                        icon="timeline-text"
+                    />
+
+                    <LargeMenuButton
+                        size={buttonWidth}
+                        label={strings("button.deletePatient")}
+                        description={strings("label.removePatient")}
+                        onPress={() => {
+                            // TODO: Delete patient, then navigate back when activePatient is none
+                            // TODO: Remember to remove the deleted patient from the cache
+                        }}
+                        icon="delete"
                     />
 
                     <LargeMenuButton

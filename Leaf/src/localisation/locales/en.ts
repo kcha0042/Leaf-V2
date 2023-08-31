@@ -40,6 +40,7 @@ export default {
     "header.worker.view1Param": "{0} History",
     "header.worker.actions1Param": "Code {0} Responses",
     "header.worker.edit1Param": "Edit {0}",
+    "header.worker.changelog1Param": "{0} Changelog",
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
@@ -73,6 +74,7 @@ export default {
     "button.submit": "Submit",
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
+    "button.changelog": "Changelog",
 
     // Login
     "login.title": "Login",
@@ -108,6 +110,7 @@ export default {
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
     "label.accountCreated1Param": "{0} Account Created",
+    "label.changelog": "View the edit history of the patient.",
 
     // Input Labels
     "inputLabel.username": "Username",
