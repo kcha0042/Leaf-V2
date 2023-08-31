@@ -93,16 +93,14 @@ const LeafPasswordInput: React.FC<Props> = ({
             
             <HStack
                 style={{
-                    justifyContent:"space-between",
-                    flex: 1,
+                    flex:1,
                 }}
             >
                 <TextInput
                     ref={textInputRef}
                     style={[
+                        wide ? { width: "100%" } : { alignSelf: "center" },
                         {
-                            width: "88%",
-                            alignSelf: "center",
                             paddingVertical: 12,
                             paddingHorizontal: 16,
                             ...Platform.select({
@@ -124,8 +122,11 @@ const LeafPasswordInput: React.FC<Props> = ({
 
                 <TouchableOpacity
                     style = {{
-                        marginRight: 12,
+                        position:"absolute",
+                        padding: 3,
+                        right:12,
                         alignSelf:"center",
+                        zIndex: 1,
                     }}
                     onPress={() => setIsPasswordShown(!isPasswordShown)}
                     >
