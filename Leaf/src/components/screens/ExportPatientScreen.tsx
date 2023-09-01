@@ -39,9 +39,14 @@ const exportPatient = async (patient: Patient) => {
             console.log("Permission denied");
         }
     } else if (Environment.inst.getOS() == OS.IOS) {
-        const filePath = FileSystem.documentDirectory + filename;
+        // Define a regular expression to match white spaces, commas, colons, and slashes
+        const regex = /[,\s:\/]/g;
+        // Replace white spaces, commas, colons, and slashes with underscores
+        const sanitizedFileName = filename.replace(regex, "_");
+        const filePath = FileSystem.documentDirectory + sanitizedFileName;
+
         try {
-            await FileSystem.writeAsStringAsync(filePath, csvData);
+            await FileSystem.writeAsStringAsync(filePath, csvData, { encoding: FileSystem.EncodingType.UTF8 });
             await shareAsync(filePath);
         } catch (e) {
             console.log(e);
