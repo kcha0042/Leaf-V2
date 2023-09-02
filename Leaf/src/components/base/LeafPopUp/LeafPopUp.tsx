@@ -88,12 +88,12 @@ export const LeafPopUp: React.FC<Props> = ({
                 }}
             >
                 {/* This pressable is here to stop the pop up closing if you press on it */}
-                <Pressable onPressOut={e => e.stopPropagation()}>
+                <Pressable onPressOut={e => e.stopPropagation()} style={{ width: screenWidth > 800 ? "50%" : "90%", }}>
                     <VStack
                         style={{
                             justifyContent: "center",
                             alignItems: "center",
-                            width: screenWidth > 800 ? "50%" : "90%",
+                            width: "100%",
                             backgroundColor: backgroundColour?.getColor() || LeafColors.fillBackgroundLightPopUp.getColor(),
                             borderRadius: 20,
                             shadowColor: LeafColors.shadow.getColor(),
@@ -108,7 +108,8 @@ export const LeafPopUp: React.FC<Props> = ({
                     >   
                         <VStack
                             style={{
-                                padding: 20
+                                padding: 20,
+                                width: "100%"
                             }}
                             spacing={10}
                         >
@@ -119,7 +120,8 @@ export const LeafPopUp: React.FC<Props> = ({
                             style={{
                                 borderTopWidth: 1,
                                 borderTopColor: LeafColors.lightDivider.getColor(),
-                                paddingVertical: 10
+                                paddingVertical: 10,
+                                width: "100%"
                             }}
                         >
                             <View
