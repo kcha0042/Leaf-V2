@@ -15,7 +15,6 @@ class EmployeeManager {
     private constructor() {}
 
     public async updateEmployee(employee: Employee): Promise<boolean> {
-        console.log(employee);
         switch (StateManager.loginStatus.read()){
             case LoginStatus.Admin:
                 return AdminsManager.inst.updateAdmin(employee as Admin);

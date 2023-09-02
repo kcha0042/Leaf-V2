@@ -72,9 +72,9 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         newEmail = email;
     };
 
-    let newHospital = "";
+    let newHospitalName = "";
     const onHospitalChange = (hospital: string) => {
-        newHospital = hospital;
+        newHospitalName = hospital;
     };
 
     const updateEmployee = (employee: Employee | null) => {
@@ -111,22 +111,22 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const onHospitalDone = () => {
         const hospitals = HospitalsArray;
         // Checking hospital exists
-        let hospitalId = null;
+        let newHospital = null;
         for (let hospital of hospitals) {
-            if (hospital.name == newHospital) {
-                hospitalId = hospital.id;
-                setHospital(newHospital);
+            if (hospital.name == newHospitalName) {
+                newHospital = hospital;
+                setHospital(newHospitalName);
                 setEditHospitalVisible(false);
                 break;
             }
         }
 
-        if (hospitalId != null){
-            // TODO: update employee hospital
+        if (newHospital != null){
+            employee?.setHosptial(newHospital);
             updateEmployee(employee);
         }
 
-        setErrTextVisible(hospitalId == null);
+        setErrTextVisible(newHospital == null);
     };
 
     const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
