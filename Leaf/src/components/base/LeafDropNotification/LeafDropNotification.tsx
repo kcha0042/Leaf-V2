@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, Dimensions } from 'react-native';
+import { ViewStyle, Dimensions, View } from 'react-native';
 import Modal from 'react-native-modal';
 import LeafColors from '../../styling/LeafColors';
 import FlatContainer from '../../containers/FlatContainer';
 import VStack from '../../containers/VStack';
 import LeafText from '../LeafText/LeafText';
 import LeafTypography from '../../styling/LeafTypography';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
   isVisible: boolean;
@@ -24,6 +26,7 @@ const LeafDropNotification: React.FC<Props> = ({
 }) => {
   const [isModalVisible, setModalVisible] = useState(isVisible);
   const modalRef = useRef<Modal>(null);
+  const insets = useSafeAreaInsets();
 
   // Handle closing the modal
   const closeModal = () => {
@@ -54,13 +57,14 @@ const LeafDropNotification: React.FC<Props> = ({
       animationIn="slideInDown"
       animationOut="slideOutUp"
       useNativeDriver={true}
-      style={{ justifyContent: 'flex-start', alignSelf: 'center', marginTop: height * 0.01}}
+      style={{flex: 0,justifyContent: 'flex-start', marginTop: insets.top, borderWidth: 1}}
+      hideModalContentWhileAnimating={true}
     >
-      <FlatContainer style={{ marginLeft: width * 0.2, marginRight: width * 0.2, }}>
-        <VStack style={{alignSelf: 'center', borderWidth: 1}} spacing={6}>
-            <LeafText typography={LeafTypography.title3} style={{borderWidth: 1, alignSelf: 'center'}}>{title}</LeafText>
+      <FlatContainer style={{ alignItems:'center',}}>
+        <VStack style={{alignSelf: 'center'}} spacing={6}>
+            <LeafText typography={LeafTypography.title3} style={{borderWidth: 1, alignSelf: 'center'}} wide={false}>{title}</LeafText>
             <VStack style={{alignSelf: 'center'}}>
-                <LeafText typography={LeafTypography.subscript} style={{borderWidth: 1 ,alignSelf: 'center'}}>{message}</LeafText>
+                <LeafText typography={LeafTypography.subscript} style={{borderWidth: 1 , alignSelf: 'center'}} wide={false}>{message}</LeafText>
             </VStack>
         </VStack>
       </FlatContainer>
