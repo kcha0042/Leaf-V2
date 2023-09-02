@@ -2,7 +2,6 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import Worker from "../../model/employee/Worker";
 import Session from "../../model/session/Session";
 import { HospitalsArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
@@ -19,6 +18,8 @@ import Spacer from "../containers/layout/Spacer";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
+import Employee from "../../model/employee/Employee";
+import EmployeeManager from "../../model/session/EmployeeManager";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -26,19 +27,21 @@ interface Props {
 
 const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
-    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.loggedInAccount as Worker);
-    const [name, setName] = React.useState<string>(worker?.fullName || strings("label.loading"));
-    const [email, setEmail] = React.useState<string>(worker?.email || strings("label.loading"));
-    const [hospital, setHospital] = React.useState<string>(worker?.currentHospital?.name || strings("label.loading"));
+    const [employee, setEmployee] = React.useState<Employee | null>(Session.inst.loggedInAccount);
+    const [fName, setFName] = React.useState<string>(employee?.firstName || strings("label.loading"));
+    const [lName, setLName] = React.useState<string>(employee?.lastName || strings("label.loading"));
+    const [email, setEmail] = React.useState<string>(employee?.email || strings("label.loading"));
+    const [hospital, setHospital] = React.useState<string>(employee?.currentHospital?.name || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
             // If the logged in worker gets updated and hence fetched, we refresh this
-            const tmpWorker = Session.inst.loggedInAccount as Worker;
-            setWorker(tmpWorker);
-            setName(tmpWorker?.fullName || "");
-            setEmail(tmpWorker?.email || "");
-            setHospital(tmpWorker?.currentHospital?.name || "");
+            const tmpEmployee = Session.inst.loggedInAccount;
+            setEmployee(tmpEmployee);
+            setFName(tmpEmployee?.firstName || "");
+            setLName(tmpEmployee?.lastName || "");
+            setEmail(tmpEmployee?.email || "");
+            setHospital(tmpEmployee?.currentHospital?.name || "");
         });
 
         Session.inst.fetchWorker(Session.inst.loggedInAccount.id);
@@ -50,12 +53,18 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
     const logOut = () => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);
+        // TODO: Do we need to change anything in session?
     };
 
     // Text change
-    let newName = "";
-    const onNameChange = (name: string) => {
-        newName = name;
+    let newFName = "";
+    const onFNameChange = (name: string) => {
+        newFName = name;
+    };
+
+    let newLName = "";
+    const onLNameChange = (name: string) => {
+        newLName = name;
     };
 
     let newEmail = "";
@@ -68,20 +77,33 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         newHospital = hospital;
     };
 
+    const updateEmployee = (employee: Employee | null) => {
+        if (employee != null){
+            EmployeeManager.inst.updateEmployee(employee);
+        }
+    }
+
     // Pop ups
-    // I assume we are going to have an active account or something in the model? That we can
     const [editNameVisible, setEditNameVisible] = useState(false);
     const onNameDone = () => {
-        setName(newName);
+        setFName(newFName);
+        setLName(newLName);
         setEditNameVisible(false);
-        // TODO: change name in model
+        if (employee != null){
+            employee.firstName = newFName;
+            employee.lastName = newLName;
+        }
+        updateEmployee(employee);
     };
 
     const [editEmailVisible, setEditEmailVisible] = useState(false);
     const onEmailDone = () => {
         setEmail(newEmail);
         setEditEmailVisible(false);
-        // TODO: change email in model
+        if (employee != null){
+            employee.email = newEmail;
+        }
+        updateEmployee(employee);
     };
 
     const [errTextVisible, setErrTextVisible] = useState(false);
@@ -89,17 +111,22 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const onHospitalDone = () => {
         const hospitals = HospitalsArray;
         // Checking hospital exists
-        let hospitalExists = false;
+        let hospitalId = null;
         for (let hospital of hospitals) {
             if (hospital.name == newHospital) {
-                hospitalExists = true;
+                hospitalId = hospital.id;
                 setHospital(newHospital);
                 setEditHospitalVisible(false);
                 break;
             }
         }
 
-        setErrTextVisible(!hospitalExists);
+        if (hospitalId != null){
+            // TODO: update employee hospital
+            updateEmployee(employee);
+        }
+
+        setErrTextVisible(hospitalId == null);
     };
 
     const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
@@ -146,7 +173,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}>
-                            {name}
+                            {fName} {lName}
                         </LeafText>
                         <Spacer />
                         <LeafTextButton label={strings("button.edit")} typography={typography} onPress={() => setEditNameVisible(true)} />
@@ -187,7 +214,8 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 onDone={onNameDone}
                 onCancel={onCancel}
             >
-                <LeafTextInputShort label={strings("inputLabel.givenName")} onTextChange={onNameChange} />
+                <LeafTextInputShort label={strings("inputLabel.givenName")} onTextChange={onFNameChange} />
+                <LeafTextInputShort label={strings("inputLabel.surname")} onTextChange={onLNameChange} />
             </LeafPopUp>
 
             {/* Edit email */}

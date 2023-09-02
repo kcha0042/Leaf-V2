@@ -4,14 +4,17 @@ import { Role } from "./Role";
 
 abstract class Employee {
     public readonly id: EmployeeID;
-    public readonly firstName: string;
-    public readonly lastName: string;
+    public firstName: string;
+    public lastName: string;
     protected _email: string | null;
     protected _currentHospital: Hospital | null;
     protected _accountActivated: boolean;
     public abstract readonly role: Role;
     public get email(): string | null {
         return this._email;
+    }
+    public set email(email: string | null){
+        this._email = email;
     }
     public get currentHospital(): Hospital | null {
         return this._currentHospital;
