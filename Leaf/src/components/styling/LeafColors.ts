@@ -156,6 +156,10 @@ class LeafColors {
         return new LeafColor("gray");
     }
 
+    static get lightDivider(): LeafColor {
+        return new LeafColor("#d3d3d3");
+    }
+
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {

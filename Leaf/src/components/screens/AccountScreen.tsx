@@ -182,6 +182,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Edit name */}
             <LeafPopUp
                 visible={editNameVisible}
+                setVisible={setEditNameVisible}
                 title={strings("label.editName")}
                 onDone={onNameDone}
                 onCancel={onCancel}
@@ -192,6 +193,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Edit email */}
             <LeafPopUp
                 visible={editEmailVisible}
+                setVisible={setEditEmailVisible}
                 title={strings("label.editEmail")}
                 onDone={onEmailDone}
                 onCancel={onCancel}
@@ -202,6 +204,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Edit hospital */}
             <LeafPopUp
                 visible={editHospitalVisible}
+                setVisible={setEditHospitalVisible}
                 title={strings("label.editHospital")}
                 onDone={onHospitalDone}
                 onCancel={onCancel}
@@ -222,6 +225,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Check password */}
             <LeafPopUp
                 visible={enterPasswordVisible}
+                setVisible={setEnterPasswordVisible}
                 title={strings("label.enterPassword")}
                 onDone={onPasswordDone}
                 onCancel={onCancel}
