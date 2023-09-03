@@ -9,6 +9,7 @@ export enum PatientEventField {
     Title = "title",
     Description = "description",
     Category = "category",
+    LastCompleted = "lastCompleted",
 }
 
 class PatientEventDataObject {
@@ -18,7 +19,8 @@ class PatientEventDataObject {
             .addDate(PatientEventField.TriggerTime, event.triggerTime)
             .addString(PatientEventField.Title, event.title)
             .addString(PatientEventField.Description, event.description)
-            .addString(PatientEventField.Category, event.category.id);
+            .addString(PatientEventField.Category, event.category.id)
+            .addDate(PatientEventField.LastCompleted, event.lastCompleted);
     }
 
     public static restore(data: DataObject): PatientEvent | null {
@@ -27,11 +29,19 @@ class PatientEventDataObject {
         const title = data.getStringOrNull(PatientEventField.Title);
         const description = data.getStringOrNull(PatientEventField.Description);
         const category = data.getStringOrNull(PatientEventField.Category);
-        if (!id || !triggerTime || !title || !description || !category) {
+        const lastCompleted = data.getDateOrNull(PatientEventField.LastCompleted);
+        if (!id || !triggerTime || !title || !description || !category || lastCompleted == null) {
             console.error("[PatientEventDataObject] Failed to restore PatientEvent");
             return null;
         }
-        return new PatientEvent(new UUID(id), triggerTime, title, description, new PatientEventCategory(category));
+        return new PatientEvent(
+            new UUID(id),
+            triggerTime,
+            title,
+            description,
+            new PatientEventCategory(category),
+            lastCompleted,
+        );
     }
 }
 

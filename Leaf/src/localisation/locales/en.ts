@@ -17,7 +17,7 @@ export default {
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
-    "tabBar.worker.patients": "Patients",
+    "tabBar.worker.events": "Dashboard",
     "tabBar.worker.account": "Account",
 
     // Admin Tab Bar
@@ -32,8 +32,8 @@ export default {
     "tabBar.leader.account": "Account",
 
     // Worker Headers
-    "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
+    "header.worker.events": "Events Dashboard",
     "header.worker.patients": "Patients",
     "header.worker.account": "Your Account",
     "header.worker.addEvent": "Add Event",
@@ -107,9 +107,11 @@ export default {
     "label.accountCreated": "Account Created",
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
+    "label.accountCreated1Param": "{0} Account Created",
 
     // Input Labels
     "inputLabel.username": "Username",
+    "inputLabel.providedUsername": "Assigned Username",
     "inputLabel.password": "Password",
     "inputLabel.setPassword": "Set Password",
     "inputLabel.confirmPassword": "Confirm Password",
@@ -118,6 +120,7 @@ export default {
     "inputLabel.mrn": "MRN",
     "inputLabel.postcode": "Postcode",
     "inputLabel.email": "Email",
+    "inputLabel.setEmail": "Set Email",
     "inputLabel.triageCode": "Triage Code",
     "inputLabel.triageDescription": "Triage Description",
     "inputLabel.dob": "Date of Birth",
@@ -161,7 +164,7 @@ export default {
     "patientHistory.descriptor.hospital": "Hospital",
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
     "patientHistory.descriptor.category": "Category",
-    "patientHistory.descriptor.triggerTime": "Trigger time",
+    "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
     "actions.emergency": "Emergency",

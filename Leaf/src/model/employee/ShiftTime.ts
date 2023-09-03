@@ -20,13 +20,13 @@ export class ShiftTime {
 
     public toString(): string {
         if (this.matches(ShiftTime.morning)) {
-            return strings("role.admin");
+            return strings("shiftTime.morning");
         }
         if (this.matches(ShiftTime.afternoon)) {
-            return strings("role.leader");
+            return strings("shiftTime.afternoon");
         }
         if (this.matches(ShiftTime.night)) {
-            return strings("role.worker");
+            return strings("shiftTime.night");
         }
         return strings("unknown");
     }

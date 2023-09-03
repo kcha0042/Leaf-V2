@@ -69,6 +69,10 @@ class LeafTypography {
         return new LeafTypographyConfig(10, LeafFontFamily.Poppins, LeafColors.textSemiDark);
     }
 
+    static get chip(): LeafTypographyConfig {
+        return new LeafTypographyConfig(11.5, LeafFontFamily.Poppins, LeafColors.textLight, LeafFontWeight.SemiBold);
+    }
+
     // Button
 
     static get button(): LeafTypographyConfig {
