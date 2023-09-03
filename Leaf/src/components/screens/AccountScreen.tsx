@@ -19,7 +19,13 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import Employee from "../../model/employee/Employee";
-import EmployeeManager from "../../model/session/EmployeeManager";
+import AdminsManager from "../../model/session/AdminsManager";
+import LeadersManager from "../../model/session/LeadersManager";
+import WorkersManager from "../../model/session/WorkersManager";
+import Admin from "../../model/employee/Admin";
+import Leader from "../../model/employee/Leader";
+import Worker from "../../model/employee/Worker";
+import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -77,9 +83,27 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         newHospitalName = hospital;
     };
 
-    const updateEmployee = (employee: Employee | null) => {
+    const updateEmployee = (employee: Employee) => {
+        switch (StateManager.loginStatus.read()){
+            case LoginStatus.Admin:
+                AdminsManager.inst.updateAdmin(employee as Admin);
+                break;
+            case LoginStatus.Leader:
+                LeadersManager.inst.updateLeader(employee as Leader);
+                break;
+            case LoginStatus.Worker:
+                WorkersManager.inst.updateWorker(employee as Worker);
+                break;
+            default:
+                throw new UnreachableCaseError("Invalid login status");
+        }
+
+        Session.inst.setLoggedInAccount(employee);
+    }
+
+    const updateEmployeeCouldBeNull = (employee: Employee | null) => {
         if (employee != null){
-            EmployeeManager.inst.updateEmployee(employee);
+            updateEmployee(employee);
         }
     }
 
@@ -93,7 +117,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             employee.firstName = newFName;
             employee.lastName = newLName;
         }
-        updateEmployee(employee);
+        updateEmployeeCouldBeNull(employee);
     };
 
     const [editEmailVisible, setEditEmailVisible] = useState(false);
@@ -103,7 +127,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         if (employee != null){
             employee.email = newEmail;
         }
-        updateEmployee(employee);
+        updateEmployeeCouldBeNull(employee);
     };
 
     const [errTextVisible, setErrTextVisible] = useState(false);
@@ -123,7 +147,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
         if (newHospital != null){
             employee?.setHosptial(newHospital);
-            updateEmployee(employee);
+            updateEmployeeCouldBeNull(employee);
         }
 
         setErrTextVisible(newHospital == null);
