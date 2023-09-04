@@ -15,10 +15,11 @@ import Spacer from "../containers/layout/Spacer";
 interface Props {
     patient: Patient;
     style?: ViewStyle;
+    isSelected: Boolean;
     onPress: () => void;
 }
 
-const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
+const ExportPatientCard: React.FC<Props> = ({ patient, style, isSelected, onPress }) => {
     const timeText = patient.triageCase.arrivalDate
         .toLocaleTimeString("en-AU", {
             hour: "numeric",
@@ -33,6 +34,8 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
             color={LeafColors.fillBackgroundLight}
             style={{
                 ...style,
+                borderColor: isSelected ?LeafColors.textSuccess.getColor(): LeafColors.fillBackgroundLight.getColor(),
+                borderWidth: 2,
             }}
             onPress={onPress}
         >
