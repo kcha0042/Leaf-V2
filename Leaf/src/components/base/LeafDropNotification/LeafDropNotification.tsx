@@ -1,3 +1,7 @@
+/*
+Currently not in use, as using Modal removes the ability to interact with Parent View.
+*/
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ViewStyle, Dimensions, View } from 'react-native';
 import Modal from 'react-native-modal';
