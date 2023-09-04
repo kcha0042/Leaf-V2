@@ -141,10 +141,6 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
         togglePatientSelect(patient);
     };
 
-    useEffect(() => {
-        console.log(selectedPatients); // This will log the updated state
-    }, [selectedPatients]); // Add selectedPatients as a dependency
-
     return (
         <DefaultScreenContainer>
             <VStack spacing={16}>
@@ -173,11 +169,11 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                     >
                         {selectedPatients.length === 0
-                            ? strings("navigation.noScreen")
-                            : selectedPatients.length + "/" + patients.length + " patient selected"}
+                            ? strings("label.noPatientSelected")
+                            : selectedPatients.length + "/" + patients.length + " " + strings("label.patientSelected")}
                     </LeafText>
                     <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
-                        {selectAll ? "Deselect All" : "Select All"}
+                        {selectAll ? strings("operation.deselectAll") : strings("operation.selectAll")}
                     </LeafText>
                     <LeafCheckbox
                         isChecked={!selectAll}

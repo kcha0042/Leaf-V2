@@ -82,6 +82,8 @@ export default {
     "operation.removeAccount": "This will remove this account and all associated data",
     "operation.activeAccount":
         "To activate the account and set the password, select 'Activate Account' on the login page.",
+    "operation.selectAll": "Select All",
+    "operation.deselectAll": "Deselect All",
 
     // Labels
     "label.id": "ID: ",
@@ -108,6 +110,8 @@ export default {
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
     "label.accountCreated1Param": "{0} Account Created",
+    "label.noPatientSelected": "No patient selected",
+    "label.patientSelected": "patient selected",
 
     // Input Labels
     "inputLabel.username": "Username",
