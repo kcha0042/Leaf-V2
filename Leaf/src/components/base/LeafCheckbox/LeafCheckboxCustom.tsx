@@ -23,7 +23,6 @@ const LeafCheckbox: React.FC<Props> = ({
     isChecked,
     onValueChange,
 }) => {
-
     const handleChange = () => {
         if (onValueChange) {
             onValueChange(!isChecked);
@@ -42,7 +41,11 @@ const LeafCheckbox: React.FC<Props> = ({
             }}
             onPress={handleChange}
         >
-            <LeafIcon icon={isChecked ? "check-bold" : "close-thick"} color={isChecked ? checkColor : color} size={size} />
+            <LeafIcon
+                icon={isChecked ? "check-bold" : "close-thick"}
+                color={isChecked ? checkColor : color}
+                size={size}
+            />
         </TouchableOpacity>
     );
 };

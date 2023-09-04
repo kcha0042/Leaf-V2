@@ -22,14 +22,13 @@ import { strings } from "../../localisation/Strings";
 import LeafText from "../base/LeafText/LeafText";
 import LeafCheckbox from "../base/LeafCheckbox/LeafCheckboxCustom";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
-import LeafColor from "../styling/color/LeafColor";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const exportPatient = async (selectedPatients: Patient[]) => {    
-    if (selectedPatients.length == 0){
+const exportPatient = async (selectedPatients: Patient[]) => {
+    if (selectedPatients.length == 0) {
         return;
     }
     const date = new Date();
@@ -38,12 +37,12 @@ const exportPatient = async (selectedPatients: Patient[]) => {
     const regex = /[,\s:\/]/g;
     // Replace white spaces, commas, colons, and slashes with underscores.
     const sanitizedDatestring = dateString.replace(regex, "_");
-    
+
     // Generate file.
-    const filename = `${sanitizedDatestring}.csv`   // Assuming the file name is the date time
+    const filename = `${sanitizedDatestring}.csv`; // Assuming the file name is the date time
     var csvData = "MRN,DOB,FirstName,LastName,Gender,PhoneNumber,PostCode,TimeLastAllocated,AllocatedTo,Events\n";
-    for (const patient of selectedPatients){
-        csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}\n`
+    for (const patient of selectedPatients) {
+        csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}\n`;
     }
     console.log(csvData);
 
@@ -93,7 +92,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
         if (selectedPatients.length == 0) {
             setNotify(true);
         }
-    }
+    };
 
     const togglePatientSelect = (patient: Patient) => {
         setNotify(false);
@@ -109,13 +108,12 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
         // Change the select all status when all the cards are manually selected.
         if (updatedSelectedPatients.length == patients.length) {
             setSelectAll(true);
-        }
-        else {
+        } else {
             setSelectAll(false);
         }
-      };
+    };
 
-      const toggleSelectAll = () => {
+    const toggleSelectAll = () => {
         setNotify(false);
         // Update the selectedPatient list.
         if (selectAll) {
@@ -124,7 +122,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
             updateSelectedPatients(patients);
         }
         setSelectAll(!selectAll);
-      };
+    };
 
     useEffect(() => {
         const unsubscribe = StateManager.patientsFetched.subscribe(() => {
@@ -151,58 +149,63 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
         <DefaultScreenContainer>
             <VStack spacing={16}>
                 <LeafButton
-                        label="Export"
-                        icon="file-export"
-                        typography={LeafTypography.button}
-                        type={LeafButtonType.Filled}
-                        color={LeafColors.accent}
-                        onPress={async () => {
-                            notifyHandler()
-                            await exportPatient(selectedPatients)
-                        }}
-                    />
-                <HStack spacing={16}
+                    label="Export"
+                    icon="file-export"
+                    typography={LeafTypography.button}
+                    type={LeafButtonType.Filled}
+                    color={LeafColors.accent}
+                    onPress={async () => {
+                        notifyHandler();
+                        await exportPatient(selectedPatients);
+                    }}
+                />
+                <HStack
+                    spacing={16}
                     style={{
-                        alignItems: "center"
-                    }}>
-                    <LeafText typography={LeafTypography.body.withColor(LeafColors.textSemiDark)} style={{ 
-                        flex: 1, 
-                        color: notify?LeafColors.textError.getColor(): LeafColors.accent.getColor(),
-                        }}>
-                        {selectedPatients.length === 0 ? strings("navigation.noScreen") : selectedPatients.length + "/" +patients.length + " patient selected"}
+                        alignItems: "center",
+                    }}
+                >
+                    <LeafText
+                        typography={LeafTypography.body.withColor(LeafColors.textSemiDark)}
+                        style={{
+                            flex: 1,
+                            color: notify ? LeafColors.textError.getColor() : LeafColors.accent.getColor(),
+                        }}
+                    >
+                        {selectedPatients.length === 0
+                            ? strings("navigation.noScreen")
+                            : selectedPatients.length + "/" + patients.length + " patient selected"}
                     </LeafText>
                     <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
-                        {selectAll ? "Deselect All":"Select All"}
+                        {selectAll ? "Deselect All" : "Select All"}
                     </LeafText>
                     <LeafCheckbox
                         isChecked={!selectAll}
                         initialValue={true}
                         onValueChange={(isTicked) => {
-                            setSelectAll(isTicked)
-                            toggleSelectAll()
+                            setSelectAll(isTicked);
+                            toggleSelectAll();
                         }}
                         color={LeafColors.textSemiDark}
                         style={{
                             marginRight: 8,
                         }}
-                        
                     />
                 </HStack>
             </VStack>
-            
+
             <VGap size={12} />
-           
+
             <VStack>
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
                         <ExportPatientCard
                             patient={patient}
-                            isSelected={selectedPatients.some((p)=>p.mrn.matches(patient.mrn))}
+                            isSelected={selectedPatients.some((p) => p.mrn.matches(patient.mrn))}
                             onPress={() => {
                                 onPressPatient(patient);
                             }}
-                            
                         />
                     )}
                     keyExtractor={(patient) => patient.mrn.toString()}

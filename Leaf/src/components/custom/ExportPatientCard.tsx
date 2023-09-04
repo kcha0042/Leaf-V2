@@ -34,7 +34,7 @@ const ExportPatientCard: React.FC<Props> = ({ patient, style, isSelected, onPres
             color={LeafColors.fillBackgroundLight}
             style={{
                 ...style,
-                borderColor: isSelected ?LeafColors.textSuccess.getColor(): LeafColors.fillBackgroundLight.getColor(),
+                borderColor: isSelected ? LeafColors.textSuccess.getColor() : LeafColors.fillBackgroundLight.getColor(),
                 borderWidth: 2,
             }}
             onPress={onPress}
