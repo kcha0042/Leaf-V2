@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import VGap from "../containers/layout/VGap";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VStack from "../containers/VStack";
@@ -44,7 +45,6 @@ const exportPatient = async (selectedPatients: Patient[]) => {
     for (const patient of selectedPatients) {
         csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}\n`;
     }
-    console.log(csvData);
 
     if (Environment.inst.getOS() == OS.Android) {
         const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync(); // Getting permission for android.
@@ -141,6 +141,11 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
         togglePatientSelect(patient);
     };
 
+    const checkboxPressHandler = () => {
+        setSelectAll(!selectAll);
+        toggleSelectAll();
+    };
+
     return (
         <DefaultScreenContainer>
             <VStack spacing={16}>
@@ -172,21 +177,29 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
                             ? strings("label.noPatientSelected")
                             : selectedPatients.length + "/" + patients.length + " " + strings("label.patientSelected")}
                     </LeafText>
-                    <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
-                        {selectAll ? strings("operation.deselectAll") : strings("operation.selectAll")}
-                    </LeafText>
-                    <LeafCheckbox
-                        isChecked={!selectAll}
-                        initialValue={true}
-                        onValueChange={(isTicked) => {
-                            setSelectAll(isTicked);
-                            toggleSelectAll();
-                        }}
-                        color={LeafColors.textSemiDark}
-                        style={{
-                            marginRight: 8,
-                        }}
-                    />
+
+                    <TouchableOpacity onPress={checkboxPressHandler}>
+                        <HStack spacing={8}>
+                            <LeafText
+                                typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                                wide={false}
+                            >
+                                {selectAll ? strings("operation.deselectAll") : strings("operation.selectAll")}
+                            </LeafText>
+                            <LeafCheckbox
+                                isChecked={!selectAll}
+                                initialValue={true}
+                                // On mobile devices, the checkbox cannot be recognized within the TouchableOpacity, so it
+                                // also needs to call the checkboxPressHandler. However, on the web, it can be recognized within
+                                // the TouchableOpacity, so this condition is needed to avoid executing it twice in a single interaction.
+                                onPress={Environment.inst.getOS() !== OS.Web ? checkboxPressHandler : undefined}
+                                color={LeafColors.textSemiDark}
+                                style={{
+                                    marginRight: 8,
+                                }}
+                            />
+                        </HStack>
+                    </TouchableOpacity>
                 </HStack>
             </VStack>
 

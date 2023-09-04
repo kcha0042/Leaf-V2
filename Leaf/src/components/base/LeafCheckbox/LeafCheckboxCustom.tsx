@@ -12,7 +12,7 @@ interface Props {
     size?: number;
     style?: ViewStyle;
     isChecked: boolean;
-    onValueChange?: (isTicked: boolean) => void;
+    onPress?: () => void;
 }
 
 const LeafCheckbox: React.FC<Props> = ({
@@ -21,14 +21,8 @@ const LeafCheckbox: React.FC<Props> = ({
     size = 16,
     style,
     isChecked,
-    onValueChange,
+    onPress,
 }) => {
-    const handleChange = () => {
-        if (onValueChange) {
-            onValueChange(!isChecked);
-        }
-    };
-
     return (
         <TouchableOpacity
             style={{
@@ -39,7 +33,7 @@ const LeafCheckbox: React.FC<Props> = ({
                 borderColor: color.getColor(),
                 ...style,
             }}
-            onPress={handleChange}
+            onPress={onPress}
         >
             <LeafIcon
                 icon={isChecked ? "check-bold" : "close-thick"}
