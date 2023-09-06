@@ -62,12 +62,15 @@ const PatientChangelogScreen: React.FC<Props> = ({ navigation }) => {
                     data={patient.changelog.generateTimeline()}
                     renderItem={({ item: changelogPoint }) => (
                         <FlatContainer>
-                            <LeafChip color={LeafColors.textDark}>
-                                <LeafText typography={LeafTypography.chip}>
-                                    {changelogPoint.date.toDateString()}
-                                </LeafText>
-                            </LeafChip>
-                            <LeafText>{changelogPoint.description}</LeafText>
+                            <HStack spacing={12}>
+                                <LeafChip color={LeafColors.textDark} style={{ borderRadius: 8 }}>
+                                    <LeafText typography={LeafTypography.chip}>
+                                        {changelogPoint.dateDescription}
+                                    </LeafText>
+                                </LeafChip>
+
+                                <LeafText wide={false}>{changelogPoint.description}</LeafText>
+                            </HStack>
                         </FlatContainer>
                     )}
                     keyExtractor={(changelogPoint: ChangelogPoint) => changelogPoint.id.toString()}
