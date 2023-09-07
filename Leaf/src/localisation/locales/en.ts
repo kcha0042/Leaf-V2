@@ -240,4 +240,12 @@ export default {
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
     "error.invalidTime": "Invalid time",
+
+    // Changelog
+    "changelog.creation": "Entered system",
+    "changelog.eventCreation3Param": 'Event "{0}" created by {1} ({2})',
+    "changelog.eventCompletion3Param": 'Event "{0}" marked COMPLETED by {1} ({2})',
+    "changelog.eventIncompletion3Param": 'Event "{0}" marked INCOMPLETE by {1} ({2})',
+    "changelog.allocation4Param": "Allocated by {0} ({1}) to nurse {2} ({3})",
+    "changelog.edit2Param": "Record edited by {0} ({1})",
 };

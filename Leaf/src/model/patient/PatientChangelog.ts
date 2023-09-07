@@ -1,3 +1,4 @@
+import { strings } from "../../localisation/Strings";
 import UUID from "../core/UUID";
 import Employee from "../employee/Employee";
 import EmployeeID from "../employee/EmployeeID";
@@ -87,7 +88,7 @@ class PatientChangelog {
     }
 
     private generateCreationDatePoint(): ChangelogPoint {
-        return ChangelogPoint.new(this._creationDate, `Entered system`);
+        return ChangelogPoint.new(this._creationDate, strings("changelog.creation"));
     }
 
     private generateEventCreationsPoints(
@@ -106,7 +107,7 @@ class PatientChangelog {
                 }
                 return ChangelogPoint.new(
                     eventCreation.date,
-                    `Event "${patientEvent.title}" created by ${nurse.fullName} (${nurse.id.toString()})`,
+                    strings("changelog.eventCreation3Param", patientEvent.title, nurse.fullName, nurse.id.toString()),
                 );
             })
             .filter((point) => point !== null) as ChangelogPoint[];
@@ -129,12 +130,22 @@ class PatientChangelog {
                 if (eventCompletion.completed) {
                     return ChangelogPoint.new(
                         eventCompletion.date,
-                        `Event "${patientEvent.title}" marked COMPLETED by ${nurse.fullName} (${nurse.id.toString()})`,
+                        strings(
+                            "changelog.eventCompletion3Param",
+                            patientEvent.title,
+                            nurse.fullName,
+                            nurse.id.toString(),
+                        ),
                     );
                 } else {
                     return ChangelogPoint.new(
                         eventCompletion.date,
-                        `Event "${patientEvent.title}" marked INCOMPLETE by ${nurse.fullName} (${nurse.id.toString()})`,
+                        strings(
+                            "changelog.eventIncompletion3Param",
+                            patientEvent.title,
+                            nurse.fullName,
+                            nurse.id.toString(),
+                        ),
                     );
                 }
             })
@@ -160,9 +171,13 @@ class PatientChangelog {
                 }
                 return ChangelogPoint.new(
                     allocation.date,
-                    `Allocated by ${allocatedBy.fullName} (${allocatedBy.id.toString()}) to nurse ${
-                        nurse.fullName
-                    } (${nurse.id.toString()})`,
+                    strings(
+                        "changelog.allocation4Param",
+                        allocatedBy.fullName,
+                        allocatedBy.id.toString(),
+                        nurse.fullName,
+                        nurse.id.toString(),
+                    ),
                 );
             })
             .filter((point) => point !== null) as ChangelogPoint[];
@@ -175,7 +190,10 @@ class PatientChangelog {
                 if (!nurse) {
                     return null;
                 }
-                return ChangelogPoint.new(edit.date, `Record edited by ${nurse.fullName} (${nurse.id.toString()})`);
+                return ChangelogPoint.new(
+                    edit.date,
+                    strings("changelog.edit2Param", nurse.fullName, nurse.id.toString()),
+                );
             })
             .filter((point) => point !== null) as ChangelogPoint[];
     }
