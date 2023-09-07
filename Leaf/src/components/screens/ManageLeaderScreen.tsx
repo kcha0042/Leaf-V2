@@ -2,6 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
 import { strings } from "../../localisation/Strings";
 import { Role } from "../../model/employee/Role";
+import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
@@ -17,17 +18,41 @@ import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { ErrorScreen } from "./ErrorScreen";
+import { set } from "react-native-reanimated";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
+
 const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
+    const [popUpVisible, setPopUpVisible] = React.useState(false);
 
     if (!leader) {
         return <ErrorScreen />;
     }
+
+    const onDelete = async () => {
+        setPopUpVisible(false);
+    
+        const success = await Session.inst.deleteLeader(leader);
+        console.log(`Leader deleted: ${success}`);
+        if (success) {
+            Session.inst.fetchAllLeaders();
+            NavigationSession.inst.navigateBack(navigation);
+        }
+        else {
+            console.error("Error Occurs when deleting leader account.");
+        }
+        
+    };
+
+    const onCancel = () => {
+        setPopUpVisible(false);
+    };
 
     return (
         <DefaultScreenContainer>
@@ -47,15 +72,19 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={32} />
 
+                <LeafPopUp visible={popUpVisible} title={"Remove Leader " + leader.fullName} onCancel={onCancel} onDone={onDelete}>
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {"Are you sure you want to delete this account? This action is irreversible."}
+                    </LeafText>
+                </LeafPopUp>
+
                 <LeafButton
                     label={strings("button.deleteAccount")}
                     icon="delete"
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.textError}
-                    onPress={() => {
-                        StateManager.loginStatus.publish(LoginStatus.LoggedOut); // should change to delete account method later.
-                    }}
+                    onPress={() => setPopUpVisible(true)}
                 />
 
                 <LeafText typography={LeafTypography.subscript} wide={false}>

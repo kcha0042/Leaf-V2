@@ -180,6 +180,18 @@ class Session {
         return LeadersManager.inst.updateLeader(leader);
     }
 
+    public async deleteLeader(leader: Leader): Promise<boolean> {
+        const success = await LeadersManager.inst.deleteLeader(leader);
+        if (success) {
+            delete this._leaderStore[leader.id.toString()];
+        }
+        else {
+            console.log("Error Occurs when deleting leader account.");
+        }
+
+        return success;
+    }
+
     public setLoggedInAccount(employee: Employee) {
         this._loggedInAccount = employee;
     }
