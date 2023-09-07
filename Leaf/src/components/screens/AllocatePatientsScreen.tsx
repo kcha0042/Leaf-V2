@@ -12,6 +12,9 @@ import PatientCard from "../custom/PatientCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafButton from "../base/LeafButton/LeafButton";
+import LeafDropNotification from "../base/LeafDropNotification/LeafDropNotification";;
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 const AllocatePatientsScreen: React.FC = () => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
@@ -37,6 +40,10 @@ const AllocatePatientsScreen: React.FC = () => {
         // TODO: Patient Allocation Page
         console.log("new Allocation");
     };
+    const { showNotification } = useNotificationSession();
+    const handleShowNotification = () => {
+    showNotification('Hello!','This is a notification message.');
+  };
 
     return (
         <DefaultScreenContainer>
@@ -53,7 +60,9 @@ const AllocatePatientsScreen: React.FC = () => {
                         onPressNewAllocation;
                     }}
                 />
-
+                <LeafButton label="Show notification" onPress={handleShowNotification}/>
+                {/*<LeafDropNotification isVisible={notificationVisible} title="Hello!" message="This is a notification" onClose={closeNotification}/>*/}
+                
                 <FlatList
                     data={patients}
                     renderItem={({ item: patient }) => (
