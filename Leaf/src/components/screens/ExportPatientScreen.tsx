@@ -43,7 +43,11 @@ const exportPatient = async (selectedPatients: Patient[]) => {
     const filename = `${sanitizedDatestring}.csv`; // Assuming the file name is the date time
     var csvData = "MRN,DOB,FirstName,LastName,Gender,PhoneNumber,PostCode,TimeLastAllocated,AllocatedTo,Events\n";
     for (const patient of selectedPatients) {
-        csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${patient.events}\n`;
+        var allEvents = "";
+        for (const event of patient.events) {
+            allEvents += `[${event.getSummary()}]`;
+        }
+        csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${allEvents}\n`;
     }
 
     if (Environment.inst.getOS() == OS.Android) {
