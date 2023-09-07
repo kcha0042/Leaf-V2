@@ -47,7 +47,7 @@ const exportPatient = async (selectedPatients: Patient[]) => {
         for (const event of patient.events) {
             allEvents += `[${event.getSummary()}]`;
         }
-        csvData += ` ${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${allEvents}\n`;
+        csvData += `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${allEvents}\n`;
     }
 
     if (Environment.inst.getOS() == OS.Android) {
