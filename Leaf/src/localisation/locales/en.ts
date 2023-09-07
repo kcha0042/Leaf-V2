@@ -111,6 +111,7 @@ export default {
     "label.noEvents": "No Events",
     "label.accountCreated1Param": "{0} Account Created",
     "label.changelog": "View the edit history of the patient.",
+    "label.triageCode2Param": "CODE {0}  •  {1}",
 
     // Input Labels
     "inputLabel.username": "Username",

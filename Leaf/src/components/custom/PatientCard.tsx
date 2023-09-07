@@ -7,6 +7,9 @@ import VStack from "../containers/VStack";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
+import TriageCodeLabel from "./TriageCodeLabel";
+import VGap from "../containers/layout/VGap";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     patient: Patient;
@@ -32,26 +35,19 @@ const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
             }}
             onPress={onPress}
         >
-            <HStack>
-                <TriageCodeBadge
-                    code={patient.triageCase.triageCode}
-                    fillSpace={false}
-                    style={{
-                        alignSelf: "flex-start",
-                        marginRight: 12,
-                    }}
-                />
+            <VStack spacing={6} style={{ flex: 1, flexWrap: "nowrap" }}>
+                <LeafText typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}>
+                    {patient.fullName}
+                </LeafText>
 
-                <VStack spacing={16} style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                        {patient.fullName}
-                    </LeafText>
+                <TriageCodeLabel code={patient.triageCase.triageCode} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        {datetimeText}
-                    </LeafText>
-                </VStack>
-            </HStack>
+                <VGap size={10} />
+
+                <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
+                    {datetimeText}
+                </LeafText>
+            </VStack>
         </FlatContainer>
     );
 };
