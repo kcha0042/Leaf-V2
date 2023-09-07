@@ -45,7 +45,7 @@ const exportPatient = async (selectedPatients: Patient[]) => {
     for (const patient of selectedPatients) {
         var allEvents = "";
         for (const event of patient.events) {
-            allEvents += `[${event.getSummary()}]`;
+            allEvents += `[${event.getExportSummary()}]`;
         }
         csvData += `${patient.mrn},${patient.dob},${patient.firstName},${patient.lastName},${patient.sex},${patient.phoneNumber},${patient.postCode},${patient.timeLastAllocated},${patient.idAllocatedTo},${allEvents}\n`;
     }

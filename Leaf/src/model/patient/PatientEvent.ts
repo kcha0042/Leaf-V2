@@ -65,8 +65,8 @@ class PatientEvent {
         );
     }
 
-    public getSummary(): string {
-        return `ID:${this.id} TriggerTime:${this.triggerTimeDescription} Title:${this.title}Description:${this.description} Category:${this.category} LastCompleted:${this.lastCompleted}`.replace(
+    public getExportSummary(): string {
+        return `ID:${this.id} TriggerTime:${this.triggerTimeDescription} Title:${this.title} Description:${this.description} Category:${this.category} LastCompleted:${this.lastCompleted}`.replace(
             /,|\n/g,
             " ",
         );
