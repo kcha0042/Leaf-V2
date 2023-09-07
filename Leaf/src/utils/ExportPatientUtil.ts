@@ -6,17 +6,17 @@ import { shareAsync } from "expo-sharing";
 
 /**
  * Exports a list of selected patients into a CSV file format.
- * 
+ *
  * @function
  * @async
  * @param {Patient[]} selectedPatients - An array of patients to be exported.
- * 
+ *
  * @description
  * The function generates a CSV file with the following headers:
  * "MRN,DOB,FirstName,LastName,Gender,PhoneNumber,PostCode,TimeLastAllocated,AllocatedTo,Events".
  * The file name is generated based on the current date and time, sanitized to replace white spaces,
  * commas, colons, and slashes with underscores.
- * 
+ *
  * Depending on the operating system, the function handles the file export differently:
  * 1. Android: Requests directory permissions and creates a file in the granted directory.
  * 2. iOS: Writes the CSV data directly into the file system and then shares the file.

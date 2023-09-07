@@ -184,8 +184,7 @@ class Session {
         const success = await LeadersManager.inst.deleteLeader(leader);
         if (success) {
             delete this._leaderStore[leader.id.toString()];
-        }
-        else {
+        } else {
             console.log("Error Occurs when deleting leader account.");
         }
 
