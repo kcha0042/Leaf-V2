@@ -25,6 +25,8 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     // Use a reference within the callback closure
     // If we just reference the useState value, its literal gets captured rather than its reference
     const showAllPatientsRef = useRef(showAllPatients);
+    // Checks if this is the first mount
+    const didMountRef = useRef(false);
 
     useEffect(() => {
         const unsubscribe = StateManager.patientsFetched.subscribe(() => {
@@ -45,6 +47,12 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
+        // Check if it's the initial render
+        // we only want this executing when we change between showing allocated/all patients
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+            return;
+        }
         // Whenever we change between showing allocated/all patients
         // 1. Update the reference
         showAllPatientsRef.current = showAllPatients;
