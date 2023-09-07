@@ -22,7 +22,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated;
     const sessionText = session.toString();
-    const isAllocated = session === ShiftTime.none;
+    const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     const [selected, setSelected] = useState(false);
