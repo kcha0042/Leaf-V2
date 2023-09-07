@@ -13,6 +13,7 @@ export enum PatientChangelogField {
     EventID = "eventId",
     NurseID = "nurseId",
     EmployeeID = "allocatedById",
+    Completed = "completed",
 }
 
 class PatientChangelogDataObject {
@@ -34,7 +35,8 @@ class PatientChangelogDataObject {
                     new DataObject()
                         .addDate(PatientChangelogField.Date, eventCompletion.date)
                         .addString(PatientChangelogField.EventID, eventCompletion.eventID.toString())
-                        .addString(PatientChangelogField.NurseID, eventCompletion.nurseID.toString()),
+                        .addString(PatientChangelogField.NurseID, eventCompletion.nurseID.toString())
+                        .addBoolean(PatientChangelogField.Completed, eventCompletion.completed),
                 ),
             )
             .addObjectArray(
@@ -86,12 +88,14 @@ class PatientChangelogDataObject {
                 date: obj.getDateOrNull(PatientChangelogField.Date),
                 eventID: obj.getStringOrNull(PatientChangelogField.EventID),
                 nurseID: obj.getStringOrNull(PatientChangelogField.NurseID),
+                completed: obj.getBooleanOrNull(PatientChangelogField.Completed),
             }))
-            .filter((entry) => entry.date && entry.eventID && entry.nurseID)
+            .filter((entry) => entry.date && entry.eventID && entry.nurseID && entry.completed != null)
             .map((entry) => ({
                 date: entry.date!,
                 eventID: new UUID(entry.eventID!),
                 nurseID: new EmployeeID(entry.nurseID!),
+                completed: entry.completed!,
             }));
 
         const allocations = allocationsData

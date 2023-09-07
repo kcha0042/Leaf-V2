@@ -109,6 +109,14 @@ class Patient {
             PatientChangelog.new(),
         );
     }
+
+    public addEvent(event: PatientEvent) {
+        this._events.push(event);
+    }
+
+    public allocateTo(employeeID: EmployeeID) {
+        this._allocatedTo = employeeID;
+    }
 }
 
 export default Patient;

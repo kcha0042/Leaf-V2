@@ -108,7 +108,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSubmit = async () => {
         if (allIsValid()) {
-            const loggedInID = Session.inst.loggedInAccount.id;
             // We force-unwrap everything because we assume everything is validated already
             // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
             // Otherwise this WILL cause errors
@@ -127,10 +126,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     triageCode!,
                 ),
                 postcode!,
-                loggedInID,
+                Session.inst.loggedInAccount.id,
             );
-            // When you triage a new patient, you are allocating them to yourself
-            patient.changelog.logAllocation(loggedInID, loggedInID);
             const successful = await Session.inst.submitTriage(patient);
             if (successful) {
                 console.log("SUCCESS"); // TODO: Provide user feedback

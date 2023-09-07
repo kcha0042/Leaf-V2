@@ -30,6 +30,7 @@ interface Props {
 
 const PatientChangelogScreen: React.FC<Props> = ({ navigation }) => {
     const [patient, setPatient] = React.useState<Patient | null>(Session.inst.getActivePatient());
+    const [changelogPoints, setChangelogPoints] = React.useState<ChangelogPoint[]>([]);
 
     useEffect(() => {
         const unsubscribe = StateManager.activePatientChanged.subscribe(() => {
@@ -39,7 +40,10 @@ const PatientChangelogScreen: React.FC<Props> = ({ navigation }) => {
             } else {
                 setPatient(newPatient);
             }
+            retrieveChangelogPoints();
         });
+
+        retrieveChangelogPoints();
 
         return () => {
             unsubscribe();
@@ -50,6 +54,20 @@ const PatientChangelogScreen: React.FC<Props> = ({ navigation }) => {
         return <ErrorScreen />;
     }
 
+    const retrieveChangelogPoints = async () => {
+        // TODO: Right now this is fine, but one day when there are a LOT of
+        // workers and leaders, this won't be suitable - we will need to
+        // fetch all the needed workers and leaders by id instead of just
+        // grabbing all of them.
+        await Promise.all([Session.inst.fetchAllWorkers(), Session.inst.fetchAllLeaders()]);
+        const points = await patient.changelog.generateTimeline(
+            patient.events,
+            Session.inst.getAllHashedWorkers(),
+            Session.inst.getAllHashedLeaders(),
+        );
+        setChangelogPoints(points);
+    };
+
     return (
         <DefaultScreenContainer>
             <VStack
@@ -59,7 +77,7 @@ const PatientChangelogScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <FlatList
-                    data={patient.changelog.generateTimeline()}
+                    data={changelogPoints}
                     renderItem={({ item: changelogPoint }) => (
                         <FlatContainer>
                             <HStack spacing={12}>

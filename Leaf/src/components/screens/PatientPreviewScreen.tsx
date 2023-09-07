@@ -116,7 +116,8 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     ) : (
                         patient.events.map((event) => {
                             return (
-                                <HStack key={event.id.toString()} spacing={12}>
+                                // Disabling flex wrap resolves very long text descriptions having incorrect layouts
+                                <HStack key={event.id.toString()} spacing={12} style={{ flexWrap: "nowrap" }}>
                                     <View
                                         style={{
                                             backgroundColor: LeafColors.accent.getColor(),
@@ -125,12 +126,16 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                         }}
                                     />
 
-                                    <VStack>
+                                    <VStack style={{ flex: 1 }}>
                                         <LeafText typography={LeafTypography.body.withWeight(LeafFontWeight.Bold)}>
                                             {event.title}
                                         </LeafText>
 
-                                        <LeafText typography={LeafTypography.subscript.withItalic(true)}>
+                                        <LeafText
+                                            typography={LeafTypography.subscript.withItalic(true)}
+                                            wide={false} // Required for text wrapping here
+                                            style={{ alignSelf: "flex-start" }}
+                                        >
                                             {event.description}
                                         </LeafText>
 

@@ -31,14 +31,8 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
     const [isDone, setIsDone] = useState(event.completedToday());
 
     const onToggleDone = async () => {
-        if (!isDone) {
-            event.markCompleted();
-            Session.inst.updatePatient(patient);
-        } else {
-            event.markIncomplete();
-            Session.inst.updatePatient(patient);
-        }
         Session.inst.updatePatient(patient);
+        Session.inst.markPatientEvent(patient, event, !isDone);
         setIsDone(!isDone);
     };
 
