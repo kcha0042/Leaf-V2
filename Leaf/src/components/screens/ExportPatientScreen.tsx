@@ -21,7 +21,7 @@ import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafColors from "../styling/LeafColors";
 import { strings } from "../../localisation/Strings";
 import LeafText from "../base/LeafText/LeafText";
-import LeafCheckbox from "../base/LeafCheckbox/LeafCheckboxCustom";
+import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
@@ -190,7 +190,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
                             >
                                 {selectAll ? strings("operation.deselectAll") : strings("operation.selectAll")}
                             </LeafText>
-                            <LeafCheckbox
+                            <LeafCheckboxStatic
                                 isChecked={!selectAll}
                                 initialValue={true}
                                 // On mobile devices, the checkbox cannot be recognized within the TouchableOpacity, so it

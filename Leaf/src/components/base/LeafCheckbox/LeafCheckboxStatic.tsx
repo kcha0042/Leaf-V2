@@ -15,7 +15,11 @@ interface Props {
     onPress?: () => void;
 }
 
-const LeafCheckbox: React.FC<Props> = ({
+/**
+ * This is the same as LeafCheckbox but it doesn't automatically change on tap.
+ * It takes an isChecked prop to update its displayed state.
+ */
+const LeafCheckboxStatic: React.FC<Props> = ({
     color = LeafColors.textDark,
     checkColor = LeafColors.textLight,
     size = 16,
@@ -44,4 +48,4 @@ const LeafCheckbox: React.FC<Props> = ({
     );
 };
 
-export default LeafCheckbox;
+export default LeafCheckboxStatic;
