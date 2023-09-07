@@ -30,6 +30,26 @@ const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
         };
     }, []);
 
+    const getSelectedBackgroundColor = () => {
+        if (segmentedValue == null) {
+            return undefined;
+        }
+        if ((segmentedValue.value as TriageCode).matches(TriageCode.nonUrgent)) {
+            return LeafColors.textDark;
+        }
+        return LeafColors.triageCode(segmentedValue.value);
+    };
+
+    const getSelectedLabelColor = () => {
+        if (segmentedValue == null) {
+            return undefined;
+        }
+        if ((segmentedValue.value as TriageCode).matches(TriageCode.nonUrgent)) {
+            return LeafColors.textLight;
+        }
+        return LeafColors.textTriageCode(segmentedValue.value);
+    };
+
     return (
         <LeafSegmentedButtons
             label={strings("inputLabel.triageCode")}
@@ -42,8 +62,8 @@ const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
                 new LeafSegmentedValue(TriageCode.nonUrgent, "5"),
             ]}
             value={segmentedValue}
-            selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.triageCode(segmentedValue.value)}
-            selectedLabelColor={segmentedValue == null ? undefined : LeafColors.textTriageCode(segmentedValue.value)}
+            selectedBackgroundColor={getSelectedBackgroundColor()}
+            selectedLabelColor={getSelectedLabelColor()}
             onSetValue={onSetSegmentedValue}
             style={style}
         />

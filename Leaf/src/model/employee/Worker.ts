@@ -3,6 +3,7 @@ import MRN from "../patient/MRN";
 import { Role } from "./Role";
 import Hospital from "../hospital/Hospital";
 import EmployeeID from "./EmployeeID";
+import Patient from "../patient/Patient";
 
 class Worker extends Employee {
     public readonly role: Role = Role.worker;
@@ -27,6 +28,10 @@ class Worker extends Employee {
 
     get allocatedPatients(): MRN[] {
         return this._allocatedPatients.slice();
+    }
+
+    public allocatePatient(patient: Patient) {
+        this._allocatedPatients.push(patient.mrn);
     }
 }
 
