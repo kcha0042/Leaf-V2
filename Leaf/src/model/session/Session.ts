@@ -12,10 +12,10 @@ import LeadersManager from "./LeadersManager";
 import PatientsManager from "./PatientsManager";
 import WorkersManager from "./WorkersManager";
 import NewEmployeeManager from "./NewEmployeeManager";
-import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
 import { Role } from "../employee/Role";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import { assertionFailure } from "../../language/assertions/AssertionFailsure";
 
 class Session {
     public static readonly inst = new Session();
@@ -75,6 +75,8 @@ class Session {
     private constructor() {}
 
     public async submitTriage(patient: Patient): Promise<boolean> {
+        // When you triage a new patient, you are allocating them to yourself
+        patient.changelog.logAllocation(this.loggedInAccount.id, this.loggedInAccount.id);
         return NewTriageManager.inst.newTriageSubmitted(patient);
     }
 
@@ -87,12 +89,60 @@ class Session {
         if (activePatient == null) {
             return false;
         }
-        const success = await NewPatientEventManager.inst.newPatientEventSubmitted(activePatient, event);
+        activePatient.addEvent(event);
+        activePatient.changelog.logEventCreation(event.id, this.loggedInAccount.id);
+        const success = await PatientsManager.inst.updatePatient(activePatient);
         if (success) {
             // If we successfully submitted the event, re-fetch them from the database
             // This keeps Session up to date with the latest patient instance
             this.fetchPatient(activePatient.mrn);
         }
+        return success;
+    }
+
+    public async markPatientEvent(patient: Patient, event: PatientEvent, completed: boolean): Promise<boolean> {
+        if (completed) {
+            event.markCompleted();
+        } else {
+            event.markIncomplete();
+        }
+        patient.changelog.logEventCompletion(event.id, this.loggedInAccount.id, completed);
+        const success = await PatientsManager.inst.updatePatient(patient);
+        if (success) {
+            // If we successfully marked the event, re-fetch them from the database
+            // This keeps Session up to date with the latest patient instance
+            this.fetchPatient(patient.mrn);
+        }
+        return success;
+    }
+
+    public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+        allocatedTo.allocatePatient(patient);
+        patient.allocateTo(allocatedTo.id);
+        patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
+        if (this.loggedInAccount.role == Role.leader) {
+            const success1 = this.updateLeader(this.loggedInAccount as Leader);
+            if (!success1) {
+                return false;
+            }
+        } else {
+            assertionFailure("We're trying to allocate a patient but a leader isn't logged in?");
+            return false;
+        }
+        const success2 = await PatientsManager.inst.updatePatient(patient);
+        if (success2) {
+            // If we successfully submitted, re-fetch them from the database
+            this.fetchPatient(patient.mrn);
+            this.fetchLeader(this.loggedInAccount.id);
+        }
+        return success2;
+    }
+
+    // This is used when a worker edits a patient
+    // NOT to be mixed up by updatePatient, which is a generic method to update a patient in the database
+    public async editPatient(patient: Patient): Promise<boolean> {
+        patient.changelog.logEdit(this.loggedInAccount.id);
+        const success = this.updatePatient(patient);
         return success;
     }
 
@@ -108,6 +158,8 @@ class Session {
         return NewEmployeeManager.inst.newLeaderCreated(leader);
     }
 
+    // This is used as a generic method to update a patient in the database
+    // NOT to be mixed up with editPatient, which is used when a worker edits a patient
     public async updatePatient(patient: Patient): Promise<boolean> {
         const success = await PatientsManager.inst.updatePatient(patient);
         if (success) {
@@ -187,6 +239,10 @@ class Session {
         return Object.values(this._workerStore);
     }
 
+    public getAllHashedWorkers(): { [key: string]: Worker } {
+        return { ...this._workerStore };
+    }
+
     public getWorker(id: EmployeeID): Worker | null {
         return this._workerStore[id.toString()] || null;
     }
@@ -195,12 +251,20 @@ class Session {
         return Object.values(this._leaderStore);
     }
 
+    public getAllHashedLeaders(): { [key: string]: Leader } {
+        return { ...this._leaderStore };
+    }
+
     public getLeader(id: EmployeeID): Leader | null {
         return this._leaderStore[id.toString()] || null;
     }
 
     public getAllPatients(): Patient[] {
         return Object.values(this._patientStore);
+    }
+
+    public getAllHashedPatients(): { [key: string]: Patient } {
+        return { ...this._patientStore };
     }
 
     public getAllocatedPatients(): Patient[] {

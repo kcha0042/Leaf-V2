@@ -1,6 +1,7 @@
 import EmployeeID from "../employee/EmployeeID";
 import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
+import PatientChangelog from "./PatientChangelog";
 import PatientEvent from "./PatientEvent";
 import { PatientSex } from "./PatientSex";
 
@@ -10,12 +11,13 @@ class Patient {
     protected _firstName: string;
     protected _lastName: string;
     protected _sex: PatientSex;
-    protected _phoneNumber: string; // TODO: change this to a class with validation
+    protected _phoneNumber: string;
     public readonly triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date;
     protected _allocatedTo: EmployeeID;
     protected _events: PatientEvent[];
+    protected _changelog: PatientChangelog;
     get mrn(): MRN {
         return this._mrn;
     }
@@ -49,6 +51,9 @@ class Patient {
     get events(): PatientEvent[] {
         return this._events;
     }
+    get changelog(): PatientChangelog {
+        return this._changelog;
+    }
 
     constructor(
         mrn: MRN,
@@ -62,6 +67,7 @@ class Patient {
         timeLastAllocated: Date,
         allocatedTo: EmployeeID,
         events: PatientEvent[],
+        changelog: PatientChangelog,
     ) {
         this._mrn = mrn;
         this._dob = dob;
@@ -74,6 +80,7 @@ class Patient {
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
+        this._changelog = changelog;
     }
 
     public static new(
@@ -99,7 +106,16 @@ class Patient {
             new Date(),
             allocatedTo,
             [],
+            PatientChangelog.new(),
         );
+    }
+
+    public addEvent(event: PatientEvent) {
+        this._events.push(event);
+    }
+
+    public allocateTo(employeeID: EmployeeID) {
+        this._allocatedTo = employeeID;
     }
 }
 
