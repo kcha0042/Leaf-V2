@@ -16,6 +16,8 @@ interface Props {
     title: string;
     titleTypography?: LeafTypographyConfig;
     children: any;
+    cancelLabel?: string;
+    doneLabel?: string;
 }
 
 export const LeafPopUp: React.FC<Props> = ({
@@ -26,6 +28,8 @@ export const LeafPopUp: React.FC<Props> = ({
     title,
     titleTypography = LeafTypography.title2,
     children,
+    cancelLabel = "Cancel",
+    doneLabel = "Done",
 }) => {
     const cancelFont = LeafTypography.textButton;
     cancelFont.weight = LeafFontWeight.Regular;
@@ -45,9 +49,9 @@ export const LeafPopUp: React.FC<Props> = ({
                 <Dialog.Content>{children}</Dialog.Content>
 
                 <Dialog.Actions>
-                    <LeafTextButton label={"Cancel"} typography={cancelFont} onPress={onCancel} />
+                    <LeafTextButton label={cancelLabel} typography={cancelFont} onPress={onCancel} />
 
-                    <LeafTextButton label={"Done"} typography={LeafTypography.textButton} onPress={onDone} />
+                    <LeafTextButton label={doneLabel} typography={LeafTypography.textButton} onPress={onDone} />
                 </Dialog.Actions>
             </Dialog>
         </Portal>

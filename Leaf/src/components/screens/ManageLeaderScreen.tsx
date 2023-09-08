@@ -31,12 +31,11 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
 
     const onDelete = async () => {
         setPopUpVisible(false);
-
         const success = await Session.inst.deleteLeader(leader);
-        console.log(`Leader deleted: ${success}`);
         if (success) {
             Session.inst.fetchAllLeaders();
             NavigationSession.inst.navigateBack(navigation);
+            // TODO: add a notification/popup after successfully deleted account.
         } else {
             console.error("Error Occurs when deleting leader account.");
         }
@@ -66,12 +65,13 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafPopUp
                     visible={popUpVisible}
-                    title={"Remove Leader " + leader.fullName}
+                    title={strings("label.removeLeader") + ' "' + leader.fullName + '"'}
                     onCancel={onCancel}
                     onDone={onDelete}
+                    doneLabel="Remove"
                 >
                     <LeafText typography={LeafTypography.title4} wide={false}>
-                        {"Are you sure you want to delete this account? This action is irreversible."}
+                        {strings("label.removeAccountWarning")}
                     </LeafText>
                 </LeafPopUp>
 

@@ -22,8 +22,6 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
 
     useEffect(() => {
         const unsubscribe = StateManager.leadersFetched.subscribe(() => {
-            console.log("Leaders fetched. Updating state.");
-            console.log(leaders);
             setLeaders(Session.inst.getAllLeaders());
         });
 

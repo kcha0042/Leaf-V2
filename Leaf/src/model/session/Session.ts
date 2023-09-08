@@ -183,7 +183,7 @@ class Session {
     public async deleteLeader(leader: Leader): Promise<boolean> {
         const success = await LeadersManager.inst.deleteLeader(leader);
         if (success) {
-            delete this._leaderStore[leader.id.toString()];
+            delete this._leaderStore[leader.id.toString()]; // Fixed "_leaderStore is not updated after deleting the leader".
         } else {
             console.log("Error Occurs when deleting leader account.");
         }

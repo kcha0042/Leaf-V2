@@ -75,6 +75,7 @@ export default {
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
     "button.changelog": "Changelog",
+    "button.removeAccount": "Remove",
 
     // Login
     "login.title": "Login",
@@ -116,6 +117,8 @@ export default {
     "label.patientSelected": "patient selected",
     "label.changelog": "View the edit history of the patient.",
     "label.triageCode2Param": "CODE {0}  •  {1}",
+    "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
+    "label.removeLeader": "Remove Leader",
 
     // Input Labels
     "inputLabel.username": "Username",
