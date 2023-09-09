@@ -161,7 +161,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setGivenName(text);
                         }}
-                        
+                        initialValue={givenName}
                     />
 
                     <LeafTextInput
@@ -171,6 +171,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setSurname(text);
                         }}
+                        initialValue={surname}
                     />
 
                     <LeafTextInput
@@ -180,6 +181,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setMRN(text);
                         }}
+                        initialValue={mrn}
                     />
 
                     <LeafTextInput
@@ -189,6 +191,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setPostcode(text);
                         }}
+                        initialValue={postcode}
                     />
 
                     <LeafDateInput
@@ -197,6 +200,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onChange={(date) => {
                             setDOB(date);
                         }}
+                        initialValue={dob}
                     />
 
                     <LeafTextInput
@@ -206,6 +210,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setPhone(text);
                         }}
+                        initialValue={phone}
                     />
 
                     <LeafSegmentedButtons
