@@ -17,6 +17,7 @@ interface Props {
     style?: ViewStyle;
     maskText?: (text: string) => string;
     onTextChange: (text: string) => void;
+    initialValue?: string;
 }
 
 const LeafTextInput: React.FC<Props> = ({
@@ -28,8 +29,9 @@ const LeafTextInput: React.FC<Props> = ({
     style,
     maskText,
     onTextChange,
+    initialValue
 }) => {
-    const [text, setText] = useState("");
+    const [text, setText] = useState(initialValue ?? "");
     const [isFocused, setIsFocused] = useState(false);
     const borderWidth = 2.0;
     const textInputRef = useRef<TextInput>(null);

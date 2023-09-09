@@ -161,6 +161,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setGivenName(text);
                         }}
+                        
                     />
 
                     <LeafTextInput

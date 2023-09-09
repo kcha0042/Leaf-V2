@@ -18,6 +18,7 @@ interface Props {
     valid?: boolean;
     style?: ViewStyle;
     onChange: (date: Date | undefined) => void; // called when date string is completed
+    initialValue?: string;
 }
 
 /**
@@ -34,24 +35,8 @@ const LeafDateInput: React.FC<Props> = ({
     valid = undefined,
     style,
     onChange,
+    initialValue
 }) => {
-    const [text, setText] = useState("");
-    const [error, setError] = useState(false);
-    const [currentTextColor, setCurrentTextColor] = useState(textColor);
-    const [borderColor, setBorderColor] = useState(color);
-
-    const maskText = (text: string): string => {
-        let value = text.replace(/\D/g, ""); // Remove any non-digit characters
-
-        // Apply mask
-        if (value.length <= 2) {
-            return value;
-        } else if (value.length <= 4) {
-            return value.slice(0, 2) + "/" + value.slice(2);
-        } else {
-            return value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
-        }
-    };
 
     const validateText = (text: string): boolean => {
         if (text.length < 10) return false; // If not a full date string
@@ -76,6 +61,24 @@ const LeafDateInput: React.FC<Props> = ({
         }
 
         return day <= daysInMonth;
+    };
+
+    const [text, setText] = useState(validateText(initialValue ?? "") ? initialValue : "");
+    const [error, setError] = useState(false);
+    const [currentTextColor, setCurrentTextColor] = useState(textColor);
+    const [borderColor, setBorderColor] = useState(color);
+
+    const maskText = (text: string): string => {
+        let value = text.replace(/\D/g, ""); // Remove any non-digit characters
+
+        // Apply mask
+        if (value.length <= 2) {
+            return value;
+        } else if (value.length <= 4) {
+            return value.slice(0, 2) + "/" + value.slice(2);
+        } else {
+            return value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+        }
     };
 
     const onTextChange = (text: string) => {
