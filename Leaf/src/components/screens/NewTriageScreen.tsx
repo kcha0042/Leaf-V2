@@ -1,5 +1,5 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
 import Hospital from "../../model/hospital/Hospital";
 import MedicalUnit from "../../model/hospital/MedicalUnit";
@@ -37,18 +37,23 @@ interface Props {
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
+
+    const activePatient = Session.inst.getActivePatient();
+
+    console.log(activePatient);
+
     const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
     const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(undefined);
     const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
         undefined,
     );
-    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(undefined);
-    const [givenName, setGivenName] = useState<string | undefined>(undefined);
-    const [surname, setSurname] = useState<string | undefined>(undefined);
-    const [mrn, setMRN] = useState<string | undefined>(undefined);
-    const [postcode, setPostcode] = useState<string | undefined>(undefined);
-    const [phone, setPhone] = useState<string | undefined>(undefined);
-    const [dob, setDOB] = useState<Date | undefined>(undefined);
+    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(activePatient != undefined ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString()) : undefined);
+    const [givenName, setGivenName] = useState<string | undefined>(activePatient?.firstName);
+    const [surname, setSurname] = useState<string | undefined>(activePatient?.lastName);
+    const [mrn, setMRN] = useState<string | undefined>(activePatient?.mrn.toString());
+    const [postcode, setPostcode] = useState<string | undefined>(activePatient?.postCode);
+    const [phone, setPhone] = useState<string | undefined>(activePatient?.phoneNumber);
+    const [dob, setDOB] = useState<Date | undefined>(activePatient?.dob);
     const [triageCode, setTriageCode] = useState<TriageCode | undefined>(undefined);
     const [triageDescription, setTriageDescription] = useState<string | undefined>(undefined);
 
