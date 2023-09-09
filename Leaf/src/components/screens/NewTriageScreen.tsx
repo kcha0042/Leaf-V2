@@ -31,6 +31,7 @@ import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue"
 import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -180,8 +181,10 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     activePatient.changelog,
                 );
                 const successful = await Session.inst.editPatient(patient);
+                // TODO: activity indicator?
                 if (successful) {
                     console.log("SUCCESS"); // TODO: Provide user feedback
+                    NavigationSession.inst.navigateBack(navigation)
                     Session.inst.fetchPatient(activePatient.mrn);
                 } else {
                     console.log("FAILED"); // TODO: Provide user feedback
