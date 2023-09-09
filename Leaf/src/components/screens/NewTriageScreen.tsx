@@ -39,14 +39,22 @@ interface Props {
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
     const activePatient = Session.inst.getActivePatient();
+    const patientHospital = activePatient?.triageCase.hospital;
+    const patientWard = activePatient?.triageCase.arrivalWard;
+    const patientUnit = activePatient?.triageCase.medicalUnit;
 
     console.log(activePatient);
 
-    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
-    const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(undefined);
-    const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
-        undefined,
+    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
+        patientHospital != undefined ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital) : undefined
     );
+    const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(
+        patientWard != undefined ? new LeafSelectionItem(patientWard.name, patientWard.hosptialCode, patientWard) : undefined
+    );
+    const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
+        patientUnit != undefined ? new LeafSelectionItem(patientUnit.name, patientUnit.group, patientUnit) : undefined
+    );
+
     const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(activePatient != undefined ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString()) : undefined);
     const [givenName, setGivenName] = useState<string | undefined>(activePatient?.firstName);
     const [surname, setSurname] = useState<string | undefined>(activePatient?.lastName);
