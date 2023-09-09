@@ -60,8 +60,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const [postcode, setPostcode] = useState<string | undefined>(activePatient?.postCode);
     const [phone, setPhone] = useState<string | undefined>(activePatient?.phoneNumber);
     const [dob, setDOB] = useState<Date | undefined>(activePatient?.dob);
-    const [triageCode, setTriageCode] = useState<TriageCode | undefined>(undefined);
-    const [triageDescription, setTriageDescription] = useState<string | undefined>(undefined);
+    const [triageCode, setTriageCode] = useState<TriageCode | undefined>(activePatient?.triageCase?.triageCode);
+    const [triageDescription, setTriageDescription] = useState<string | undefined>(activePatient?.triageCase?.triageText);
 
     const sexIsValid: () => boolean = () => {
         return ValidateUtil.valueIsDefined(sex);
@@ -150,8 +150,26 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     console.log("FAILED"); // TODO: Provide user feedback
                 }
             } else {
-                activePatient.editTriage(selectedWard!.value, selectedHosptial!.value, selectedMedicalUnit!.value, triageDescription!, triageCode!);
-                const successful = await Session.inst.editPatient(activePatient);
+                const patient = new Patient(
+                    new MRN(mrn!),
+                    dob!,
+                    givenName!,
+                    surname!,
+                    sex!.value,
+                    phone!,
+                    TriageCase.new(
+                        selectedWard!.value, 
+                        selectedHosptial!.value, 
+                        selectedMedicalUnit!.value, 
+                        triageDescription!, triageCode!
+                    ),
+                    postcode!,
+                    activePatient.timeLastAllocated,
+                    activePatient.idAllocatedTo,
+                    activePatient.events,
+                    activePatient.changelog
+                )
+                const successful = await Session.inst.editPatient(patient);
                 if (successful){
                     console.log("SUCCESS"); // TODO: Provide user feedback
                     Session.inst.fetchPatient(activePatient.mrn);
@@ -180,7 +198,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setGivenName(text);
                         }}
                         initialValue={givenName}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafTextInput
@@ -191,7 +208,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setSurname(text);
                         }}
                         initialValue={surname}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafTextInput
@@ -202,7 +218,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setMRN(text);
                         }}
                         initialValue={mrn}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafTextInput
@@ -213,7 +228,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setPostcode(text);
                         }}
                         initialValue={postcode}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafDateInput
@@ -223,7 +237,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setDOB(date);
                         }}
                         initialValue={dob}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafTextInput
@@ -234,7 +247,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setPhone(text);
                         }}
                         initialValue={phone}
-                        locked={activePatient != undefined}
                     />
 
                     <LeafSegmentedButtons
@@ -248,7 +260,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onSetValue={(segmentedValue) => {
                             setSex(segmentedValue);
                         }}
-                        locked={activePatient != undefined}
                     />
                 </VStack>
 
@@ -259,7 +270,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onSelection={(code) => {
                             setTriageCode(code);
                         }}
+                        initialValue={triageCode}
                         style={{ paddingBottom: 8 }}
+                        
                     />
 
                     <LeafMultilineTextInput
@@ -272,6 +285,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                                 ? LeafColors.textDark
                                 : LeafColors.textError
                         }
+                        initialValue={triageDescription}
                     />
                 </VStack>
 
