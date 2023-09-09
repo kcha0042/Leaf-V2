@@ -38,7 +38,6 @@ interface Props {
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
-
     const activePatient = Session.inst.getActivePatient();
     const patientHospital = activePatient?.triageCase.hospital;
     const patientWard = activePatient?.triageCase.arrivalWard;
@@ -61,9 +60,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     );
 
     const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(
-        editPatientMode
-            ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString())
-            : undefined,
+        editPatientMode ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString()) : undefined,
     );
     const [givenName, setGivenName] = useState<string | undefined>(activePatient?.firstName);
     const [surname, setSurname] = useState<string | undefined>(activePatient?.lastName);
@@ -187,7 +184,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 // TODO: activity indicator?
                 if (successful) {
                     console.log("SUCCESS"); // TODO: Provide user feedback
-                    NavigationSession.inst.navigateBack(navigation)
+                    NavigationSession.inst.navigateBack(navigation);
                     Session.inst.fetchPatient(activePatient.mrn);
                 } else {
                     console.log("FAILED"); // TODO: Provide user feedback
@@ -351,20 +348,18 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <FormHeader title={strings("triageForm.title.end")} style={{ paddingVertical: formPadding }} />
 
                 <HStack spacing={24}>
-                    {
-                        editPatientMode ? null : (
-                            <LeafButton
-                                label={strings("button.clear")}
-                                wide={false}
-                                onPress={() => {
-                                    StateManager.clearAllInputs.publish();
-                                }}
-                                style={{ flex: 1 }}
-                                color={LeafColors.fillBackgroundLight}
-                                typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
-                            />
-                        )
-                    }
+                    {editPatientMode ? null : (
+                        <LeafButton
+                            label={strings("button.clear")}
+                            wide={false}
+                            onPress={() => {
+                                StateManager.clearAllInputs.publish();
+                            }}
+                            style={{ flex: 1 }}
+                            color={LeafColors.fillBackgroundLight}
+                            typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
+                        />
+                    )}
 
                     <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
                 </HStack>
