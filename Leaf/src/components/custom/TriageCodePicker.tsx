@@ -10,10 +10,11 @@ import StateManager from "../../state/publishers/StateManager";
 interface Props {
     style?: ViewStyle;
     onSelection: (code: TriageCode | undefined) => void;
+    initialValue?: TriageCode;
 }
 
-const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
-    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(undefined);
+const TriageCodePicker: React.FC<Props> = ({ style, onSelection, initialValue }) => {
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(initialValue != undefined ? new LeafSegmentedValue(initialValue, initialValue.toString()) : undefined);
     const onSetSegmentedValue = (segmentedValue: LeafSegmentedValue | undefined) => {
         setSegmentedValue(segmentedValue);
         onSelection(segmentedValue?.value);
