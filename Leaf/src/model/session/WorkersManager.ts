@@ -27,6 +27,10 @@ class WorkersManager {
         const dataObject = WorkerDataObject.create(worker);
         return DatabaseSession.inst.update(DatabaseCollection.Workers, worker.id.toString(), dataObject.data);
     }
+
+    public async deleteWorker(worker: Worker): Promise<boolean> {
+        return DatabaseSession.inst.delete(DatabaseCollection.Workers, worker.id.toString());
+    }
 }
 
 export default WorkersManager;

@@ -180,12 +180,23 @@ class Session {
         return LeadersManager.inst.updateLeader(leader);
     }
 
+    public async deleteWorker(worker: Worker): Promise<boolean> {
+        const success = await WorkersManager.inst.deleteWorker(worker);
+        if (success) {
+            delete this._workerStore[worker.id.toString()]; // Fixed "_workderStore is not updated after deleting the worker."
+        } else {
+            console.error("Error Occurs when deleting worker account.");
+        }
+
+        return success;
+    }
+
     public async deleteLeader(leader: Leader): Promise<boolean> {
         const success = await LeadersManager.inst.deleteLeader(leader);
         if (success) {
             delete this._leaderStore[leader.id.toString()]; // Fixed "_leaderStore is not updated after deleting the leader".
         } else {
-            console.log("Error Occurs when deleting leader account.");
+            console.error("Error Occurs when deleting leader account.");
         }
 
         return success;

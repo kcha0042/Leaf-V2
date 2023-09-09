@@ -119,6 +119,7 @@ export default {
     "label.triageCode2Param": "CODE {0}  •  {1}",
     "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
     "label.removeLeader": "Remove Leader",
+    "label.removeNurse": "Remove Nurse",
 
     // Input Labels
     "inputLabel.username": "Username",
