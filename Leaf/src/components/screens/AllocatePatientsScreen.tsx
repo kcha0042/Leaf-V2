@@ -13,7 +13,6 @@ import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafButton from "../base/LeafButton/LeafButton";
-import LeafDropNotification from "../base/LeafDropNotification/LeafDropNotification";;
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 const AllocatePatientsScreen: React.FC = () => {
