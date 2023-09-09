@@ -38,10 +38,13 @@ interface Props {
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
+
     const activePatient = Session.inst.getActivePatient();
     const patientHospital = activePatient?.triageCase.hospital;
     const patientWard = activePatient?.triageCase.arrivalWard;
     const patientUnit = activePatient?.triageCase.medicalUnit;
+
+    const editPatientMode = activePatient != undefined;
 
     const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
         patientHospital != undefined
@@ -58,7 +61,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     );
 
     const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(
-        activePatient != undefined
+        editPatientMode
             ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString())
             : undefined,
     );
@@ -231,7 +234,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setMRN(text);
                         }}
                         initialValue={mrn}
-                        locked={activePatient != undefined}
+                        locked={editPatientMode}
                     />
 
                     <LeafTextInput
@@ -348,16 +351,20 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <FormHeader title={strings("triageForm.title.end")} style={{ paddingVertical: formPadding }} />
 
                 <HStack spacing={24}>
-                    <LeafButton
-                        label={strings("button.clear")}
-                        wide={false}
-                        onPress={() => {
-                            StateManager.clearAllInputs.publish();
-                        }}
-                        style={{ flex: 1 }}
-                        color={LeafColors.fillBackgroundLight}
-                        typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
-                    />
+                    {
+                        editPatientMode ? null : (
+                            <LeafButton
+                                label={strings("button.clear")}
+                                wide={false}
+                                onPress={() => {
+                                    StateManager.clearAllInputs.publish();
+                                }}
+                                style={{ flex: 1 }}
+                                color={LeafColors.fillBackgroundLight}
+                                typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
+                            />
+                        )
+                    }
 
                     <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
                 </HStack>
