@@ -43,6 +43,7 @@ interface Props {
     style?: ViewStyle;
     onSetValue: (value: LeafSegmentedValue | undefined) => void;
     locked?: boolean;
+    clearSelectionAllowed?: boolean;
 }
 
 const LeafSegmentedButtons: React.FC<Props> = ({
@@ -55,19 +56,22 @@ const LeafSegmentedButtons: React.FC<Props> = ({
     valueLabel,
     style,
     onSetValue,
-    locked = false
+    locked = false,
+    clearSelectionAllowed = true,
 }) => {
     const [selectedOption, setSelectedOption] = useState<LeafSegmentedValue | undefined>(value);
 
     useEffect(() => {
-        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
-            setSelectedOption(undefined);
-            onSetValue(undefined);
-        });
-
-        return () => {
-            unsubscribe();
-        };
+        if (clearSelectionAllowed) {
+            const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+                setSelectedOption(undefined);
+                onSetValue(undefined);
+            });
+    
+            return () => {
+                unsubscribe();
+            };
+        }
     }, []);
 
     return (

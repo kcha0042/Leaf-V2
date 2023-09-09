@@ -22,6 +22,7 @@ const PatientsPicker: React.FC<Props> = ({ style, onSelection }) => {
         <LeafSegmentedButtons
             label={""}
             labeled={false} // Can delete this if you want and have the label as filter?
+            clearSelectionAllowed={false}
             options={[
                 new LeafSegmentedValue(false, strings("label.allocated")),
                 new LeafSegmentedValue(true, strings("label.all")),
