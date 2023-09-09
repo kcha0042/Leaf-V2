@@ -43,8 +43,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const patientWard = activePatient?.triageCase.arrivalWard;
     const patientUnit = activePatient?.triageCase.medicalUnit;
 
-    console.log(activePatient);
-
     const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
         patientHospital != undefined ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital) : undefined
     );
