@@ -18,6 +18,8 @@ interface Props {
     maskText?: (text: string) => string;
     onTextChange: (text: string) => void;
     initialValue?: string;
+    locked?: boolean;
+    lockedColor?: LeafColor;
 }
 
 const LeafTextInput: React.FC<Props> = ({
@@ -29,7 +31,9 @@ const LeafTextInput: React.FC<Props> = ({
     style,
     maskText,
     onTextChange,
-    initialValue
+    initialValue,
+    locked = false,
+    lockedColor = LeafColors.textBackgroundLight
 }) => {
     const [text, setText] = useState(initialValue ?? "");
     const [isFocused, setIsFocused] = useState(false);
@@ -69,7 +73,7 @@ const LeafTextInput: React.FC<Props> = ({
                 style={{
                     width: wide ? "100%" : undefined,
                     alignSelf: wide ? undefined : "center",
-                    backgroundColor: color.getColor(),
+                    backgroundColor: !locked ? color.getColor() : lockedColor.getColor(),
                     paddingVertical: 12 - borderWidth,
                     paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
@@ -85,7 +89,7 @@ const LeafTextInput: React.FC<Props> = ({
                     ref={textInputRef}
                     style={[
                         {
-                            backgroundColor: color.getColor(),
+                            backgroundColor: !locked ? color.getColor() : lockedColor.getColor(),
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
@@ -94,12 +98,15 @@ const LeafTextInput: React.FC<Props> = ({
                         style,
                     ]}
                     onChangeText={(text) => {
-                        setText(maskText != undefined ? maskText(text) : text);
-                        onTextChange(text);
+                        if (!locked){
+                            setText(maskText != undefined ? maskText(text) : text);
+                            onTextChange(text);
+                        }
                     }}
                     value={text}
-                    onFocus={() => setIsFocused(true)}
+                    onFocus={() => !locked ? setIsFocused(true) : null}
                     onBlur={() => setIsFocused(false)}
+                    editable={!locked}
                 />
             </VStack>
         </TouchableWithoutFeedback>
