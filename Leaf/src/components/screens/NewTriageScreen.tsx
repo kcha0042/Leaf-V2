@@ -117,35 +117,47 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         );
     };
 
+    // Should refactor and split up this func? Has become quite ugly.
     const onSubmit = async () => {
         if (allIsValid()) {
             // We force-unwrap everything because we assume everything is validated already
             // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
             // Otherwise this WILL cause errors
-            const patient = Patient.new(
-                new MRN(mrn!),
-                dob!,
-                givenName!,
-                surname!,
-                sex!.value,
-                phone!,
-                TriageCase.new(
-                    selectedWard!.value,
-                    selectedHosptial!.value,
-                    selectedMedicalUnit!.value,
-                    triageDescription!,
-                    triageCode!,
-                ),
-                postcode!,
-                Session.inst.loggedInAccount.id,
-            );
-            const successful = await Session.inst.submitTriage(patient);
-            if (successful) {
-                console.log("SUCCESS"); // TODO: Provide user feedback
-                StateManager.clearAllInputs.publish();
-                Session.inst.fetchPatient(patient.mrn);
+            if (activePatient == undefined){
+                const patient = Patient.new(
+                    new MRN(mrn!),
+                    dob!,
+                    givenName!,
+                    surname!,
+                    sex!.value,
+                    phone!,
+                    TriageCase.new(
+                        selectedWard!.value,
+                        selectedHosptial!.value,
+                        selectedMedicalUnit!.value,
+                        triageDescription!,
+                        triageCode!,
+                    ),
+                    postcode!,
+                    Session.inst.loggedInAccount.id,
+                );
+                const successful = await Session.inst.submitTriage(patient);
+                if (successful) {
+                    console.log("SUCCESS"); // TODO: Provide user feedback
+                    StateManager.clearAllInputs.publish();
+                    Session.inst.fetchPatient(patient.mrn);
+                } else {
+                    console.log("FAILED"); // TODO: Provide user feedback
+                }
             } else {
-                console.log("FAILED"); // TODO: Provide user feedback
+                activePatient.editTriage(selectedWard!.value, selectedHosptial!.value, selectedMedicalUnit!.value, triageDescription!, triageCode!);
+                const successful = await Session.inst.editPatient(activePatient);
+                if (successful){
+                    console.log("SUCCESS"); // TODO: Provide user feedback
+                    Session.inst.fetchPatient(activePatient.mrn);
+                } else {
+                    console.log("FAILED"); // TODO: Provide user feedback
+                }
             }
         } else {
             console.log("INVALID INPUTS"); // TODO: Provide user feedback

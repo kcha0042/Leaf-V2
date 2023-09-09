@@ -43,9 +43,6 @@ class Patient {
     get phoneNumber(): string {
         return this._phoneNumber;
     }
-    set phoneNumber(number: string){
-        this._phoneNumber = number;
-    }
     get triageCase(): TriageCase {
         return this._triageCase;
     }
