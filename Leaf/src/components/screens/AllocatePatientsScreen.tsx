@@ -41,7 +41,7 @@ const AllocatePatientsScreen: React.FC = () => {
     };
     const { showNotification } = useNotificationSession();
     const handleShowNotification = () => {
-    showNotification('Hello!','This is a notification message.');
+    showNotification('Hello!','This is a notification message.', LeafTypography.buttonSmall, "alert-box-outline");
   };
 
     return (

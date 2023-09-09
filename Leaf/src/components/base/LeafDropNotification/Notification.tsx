@@ -5,14 +5,21 @@ import FlatContainer from '../../containers/FlatContainer';
 import LeafText from '../LeafText/LeafText';
 import VStack from '../../containers/VStack';
 import LeafTypography from '../../styling/LeafTypography';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import LeafColor from '../../styling/color/LeafColor';
+import HStack from '../../containers/HStack';
+import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
 
 interface NotificationProps {
     title: string;
   message: string;
+  typography: LeafTypographyConfig;
+  icon?: string;
+  iconColor?: LeafColor;
   onAnimationEnd: () => void;
 }
 
-const Notification: React.FC<NotificationProps> = ({ title, message, onAnimationEnd }) => {
+const Notification: React.FC<NotificationProps> = ({ title, message, typography, icon = "", iconColor, onAnimationEnd }) => {
   const translateY = useRef(new Animated.Value(-100)).current;
 
   useEffect(() => {
@@ -49,13 +56,16 @@ const Notification: React.FC<NotificationProps> = ({ title, message, onAnimation
         right: 0,
         zIndex: 9999, // Ensure the notification is on top of everything
       }, { transform: [{ translateY }] }]}>
-        <FlatContainer style={{flex: 1, alignItems: 'center'}}>
-            <VStack spacing={6} style={{flex: 1, alignSelf: 'center'}}>
+        <FlatContainer style={{maxWidth: 400, alignItems: 'center'}}>
+          <HStack>
+            <Icon name={icon} size={40} color={typography.color} style={{alignSelf: 'center'}}/>
+            <VStack spacing={6} style={{alignItems: 'center'}}>
                 <LeafText typography={LeafTypography.title3} wide={false} style={{alignSelf: 'center'}}>{title}</LeafText>
                 <VStack style={{alignSelf: 'center'}}>
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{alignSelf: 'center'}}>{message}</LeafText>
                 </VStack>
             </VStack>
+            </HStack>
         </FlatContainer>
     </Animated.View>
   );
