@@ -19,6 +19,8 @@ interface Props {
     style?: ViewStyle;
     onChange: (date: Date | undefined) => void; // called when date string is completed
     initialValue?: Date;
+    locked?: boolean;
+    lockedColor?: LeafColor;
 }
 
 /**
@@ -35,7 +37,9 @@ const LeafDateInput: React.FC<Props> = ({
     valid = undefined,
     style,
     onChange,
-    initialValue
+    initialValue,
+    locked = false,
+    lockedColor = LeafColors.textBackgroundLight
 }) => {
 
     const formatDate = (date?: Date): string => {
@@ -95,23 +99,29 @@ const LeafDateInput: React.FC<Props> = ({
     };
 
     const onTextChange = (text: string) => {
-        setText(maskText(text));
-        onChange(toDate(text));
-        if (!validateText(text)) {
-            setBorderColor(LeafColors.textError);
-            setCurrentTextColor(LeafColors.textError);
-        } else {
-            setBorderColor(color);
-            setCurrentTextColor(textColor);
+        if (!locked){
+            setText(maskText(text));
+            onChange(toDate(text));
+            if (!validateText(text)) {
+                setBorderColor(LeafColors.textError);
+                setCurrentTextColor(LeafColors.textError);
+            } else {
+                setBorderColor(color);
+                setCurrentTextColor(textColor);
+            }
         }
     };
 
     const onFocus = () => {
-        setError(false);
-        setBorderColor(textColor);
+        if (!locked){
+            setError(false);
+            setBorderColor(textColor);
+            setIsFocused(true);
+        }
     };
 
     const onBlur = () => {
+        setIsFocused(false);
         setError(!validateText(text) && text != "");
         setBorderColor(color);
     };
@@ -163,7 +173,7 @@ const LeafDateInput: React.FC<Props> = ({
                 style={{
                     width: wide ? "100%" : undefined,
                     alignSelf: wide ? undefined : "center",
-                    backgroundColor: color.getColor(),
+                    backgroundColor: !locked ? color.getColor() : lockedColor.getColor(),
                     paddingVertical: 12 - borderWidth,
                     paddingHorizontal: 16 - borderWidth,
                     borderRadius: 12,
@@ -190,7 +200,7 @@ const LeafDateInput: React.FC<Props> = ({
                     ref={textInputRef}
                     style={[
                         {
-                            backgroundColor: color.getColor(),
+                            backgroundColor: !locked ? color.getColor() : lockedColor.getColor(),
                             ...Platform.select({
                                 web: { outlineStyle: "none" },
                             }),
@@ -206,13 +216,12 @@ const LeafDateInput: React.FC<Props> = ({
                     value={text}
                     onFocus={() => {
                         onFocus();
-                        setIsFocused(true);
                     }}
                     onBlur={() => {
-                        setIsFocused(false);
                         onBlur();
                     }}
                     keyboardType={"numeric"}
+                    editable={!locked}
                 />
             </VStack>
         </TouchableWithoutFeedback>
