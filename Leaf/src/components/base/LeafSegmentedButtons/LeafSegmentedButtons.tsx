@@ -42,6 +42,7 @@ interface Props {
     valueLabel?: string;
     style?: ViewStyle;
     onSetValue: (value: LeafSegmentedValue | undefined) => void;
+    locked?: boolean;
 }
 
 const LeafSegmentedButtons: React.FC<Props> = ({
@@ -54,6 +55,7 @@ const LeafSegmentedButtons: React.FC<Props> = ({
     valueLabel,
     style,
     onSetValue,
+    locked = false
 }) => {
     const [selectedOption, setSelectedOption] = useState<LeafSegmentedValue | undefined>(value);
 
@@ -110,8 +112,10 @@ const LeafSegmentedButtons: React.FC<Props> = ({
                                 paddingVertical: 16,
                             }}
                             onPress={() => {
-                                setSelectedOption(option);
-                                onSetValue(option);
+                                if (!locked){
+                                    setSelectedOption(option);
+                                    onSetValue(option);
+                                }
                             }}
                             color={(selectedOption?.id ?? "") == option.id ? selectedBackgroundColor : undefined}
                         >
