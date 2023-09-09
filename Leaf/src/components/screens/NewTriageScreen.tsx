@@ -218,6 +218,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                             setMRN(text);
                         }}
                         initialValue={mrn}
+                        locked={activePatient != undefined}
                     />
 
                     <LeafTextInput
