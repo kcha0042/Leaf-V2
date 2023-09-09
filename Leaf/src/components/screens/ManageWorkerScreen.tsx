@@ -32,6 +32,11 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
     const onDelete = async () => {
         setPopUpVisible(false);
         // TODO: has to check if there're any patients allocated to this nurse.
+        if (worker.allocatedPatients.length !== 0) {
+            setPopUpVisible(false);
+            // TODO: add a notification/popup to show fail to delete the account.
+            return;
+        }
         const success = await Session.inst.deleteWorker(worker);
         if (success) {
             Session.inst.fetchAllWorkers();
