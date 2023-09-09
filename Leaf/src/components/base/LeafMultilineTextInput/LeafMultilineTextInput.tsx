@@ -27,7 +27,7 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     valid = undefined,
     style,
     onTextChange,
-    initialValue
+    initialValue,
 }) => {
     const [text, setText] = React.useState(initialValue ?? "");
     const [isFocused, setIsFocused] = useState(false);

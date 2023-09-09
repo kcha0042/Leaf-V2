@@ -67,7 +67,7 @@ const LeafSegmentedButtons: React.FC<Props> = ({
                 setSelectedOption(undefined);
                 onSetValue(undefined);
             });
-    
+
             return () => {
                 unsubscribe();
             };
@@ -116,7 +116,7 @@ const LeafSegmentedButtons: React.FC<Props> = ({
                                 paddingVertical: 16,
                             }}
                             onPress={() => {
-                                if (!locked){
+                                if (!locked) {
                                     setSelectedOption(option);
                                     onSetValue(option);
                                 }

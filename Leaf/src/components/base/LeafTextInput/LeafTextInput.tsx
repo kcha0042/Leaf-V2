@@ -33,7 +33,7 @@ const LeafTextInput: React.FC<Props> = ({
     onTextChange,
     initialValue,
     locked = false,
-    lockedColor = LeafColors.textBackgroundLight
+    lockedColor = LeafColors.textBackgroundLight,
 }) => {
     const [text, setText] = useState(initialValue ?? "");
     const [isFocused, setIsFocused] = useState(false);
@@ -98,13 +98,13 @@ const LeafTextInput: React.FC<Props> = ({
                         style,
                     ]}
                     onChangeText={(text) => {
-                        if (!locked){
+                        if (!locked) {
                             setText(maskText != undefined ? maskText(text) : text);
                             onTextChange(text);
                         }
                     }}
                     value={text}
-                    onFocus={() => !locked ? setIsFocused(true) : null}
+                    onFocus={() => (!locked ? setIsFocused(true) : null)}
                     onBlur={() => setIsFocused(false)}
                     editable={!locked}
                 />

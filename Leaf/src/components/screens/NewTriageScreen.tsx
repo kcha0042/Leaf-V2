@@ -37,23 +37,30 @@ interface Props {
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
-
     const activePatient = Session.inst.getActivePatient();
     const patientHospital = activePatient?.triageCase.hospital;
     const patientWard = activePatient?.triageCase.arrivalWard;
     const patientUnit = activePatient?.triageCase.medicalUnit;
 
     const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
-        patientHospital != undefined ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital) : undefined
+        patientHospital != undefined
+            ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital)
+            : undefined,
     );
     const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(
-        patientWard != undefined ? new LeafSelectionItem(patientWard.name, patientWard.hosptialCode, patientWard) : undefined
+        patientWard != undefined
+            ? new LeafSelectionItem(patientWard.name, patientWard.hosptialCode, patientWard)
+            : undefined,
     );
     const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
-        patientUnit != undefined ? new LeafSelectionItem(patientUnit.name, patientUnit.group, patientUnit) : undefined
+        patientUnit != undefined ? new LeafSelectionItem(patientUnit.name, patientUnit.group, patientUnit) : undefined,
     );
 
-    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(activePatient != undefined ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString()) : undefined);
+    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(
+        activePatient != undefined
+            ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString())
+            : undefined,
+    );
     const [givenName, setGivenName] = useState<string | undefined>(activePatient?.firstName);
     const [surname, setSurname] = useState<string | undefined>(activePatient?.lastName);
     const [mrn, setMRN] = useState<string | undefined>(activePatient?.mrn.toString());
@@ -61,7 +68,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
     const [phone, setPhone] = useState<string | undefined>(activePatient?.phoneNumber);
     const [dob, setDOB] = useState<Date | undefined>(activePatient?.dob);
     const [triageCode, setTriageCode] = useState<TriageCode | undefined>(activePatient?.triageCase?.triageCode);
-    const [triageDescription, setTriageDescription] = useState<string | undefined>(activePatient?.triageCase?.triageText);
+    const [triageDescription, setTriageDescription] = useState<string | undefined>(
+        activePatient?.triageCase?.triageText,
+    );
 
     const sexIsValid: () => boolean = () => {
         return ValidateUtil.valueIsDefined(sex);
@@ -123,7 +132,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
             // We force-unwrap everything because we assume everything is validated already
             // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
             // Otherwise this WILL cause errors
-            if (activePatient == undefined){
+            if (activePatient == undefined) {
                 const patient = Patient.new(
                     new MRN(mrn!),
                     dob!,
@@ -158,19 +167,20 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     sex!.value,
                     phone!,
                     TriageCase.new(
-                        selectedWard!.value, 
-                        selectedHosptial!.value, 
-                        selectedMedicalUnit!.value, 
-                        triageDescription!, triageCode!
+                        selectedWard!.value,
+                        selectedHosptial!.value,
+                        selectedMedicalUnit!.value,
+                        triageDescription!,
+                        triageCode!,
                     ),
                     postcode!,
                     activePatient.timeLastAllocated,
                     activePatient.idAllocatedTo,
                     activePatient.events,
-                    activePatient.changelog
-                )
+                    activePatient.changelog,
+                );
                 const successful = await Session.inst.editPatient(patient);
-                if (successful){
+                if (successful) {
                     console.log("SUCCESS"); // TODO: Provide user feedback
                     Session.inst.fetchPatient(activePatient.mrn);
                 } else {
@@ -273,7 +283,6 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         }}
                         initialValue={triageCode}
                         style={{ paddingBottom: 8 }}
-                        
                     />
 
                     <LeafMultilineTextInput

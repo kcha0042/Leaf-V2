@@ -39,21 +39,19 @@ const LeafDateInput: React.FC<Props> = ({
     onChange,
     initialValue,
     locked = false,
-    lockedColor = LeafColors.textBackgroundLight
+    lockedColor = LeafColors.textBackgroundLight,
 }) => {
-
     const formatDate = (date?: Date): string => {
-
-        if (date == undefined){
+        if (date == undefined) {
             return "";
         }
 
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
-      
+
         return `${day}/${month}/${year}`;
-    }
+    };
 
     const [text, setText] = useState(formatDate(initialValue));
     const [error, setError] = useState(false);
@@ -99,7 +97,7 @@ const LeafDateInput: React.FC<Props> = ({
     };
 
     const onTextChange = (text: string) => {
-        if (!locked){
+        if (!locked) {
             setText(maskText(text));
             onChange(toDate(text));
             if (!validateText(text)) {
@@ -113,7 +111,7 @@ const LeafDateInput: React.FC<Props> = ({
     };
 
     const onFocus = () => {
-        if (!locked){
+        if (!locked) {
             setError(false);
             setBorderColor(textColor);
             setIsFocused(true);

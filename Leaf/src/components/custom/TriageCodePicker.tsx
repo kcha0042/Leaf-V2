@@ -14,7 +14,9 @@ interface Props {
 }
 
 const TriageCodePicker: React.FC<Props> = ({ style, onSelection, initialValue }) => {
-    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(initialValue != undefined ? new LeafSegmentedValue(initialValue, initialValue.code.toString()) : undefined);
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(
+        initialValue != undefined ? new LeafSegmentedValue(initialValue, initialValue.code.toString()) : undefined,
+    );
     const onSetSegmentedValue = (segmentedValue: LeafSegmentedValue | undefined) => {
         setSegmentedValue(segmentedValue);
         onSelection(segmentedValue?.value);

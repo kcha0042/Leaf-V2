@@ -125,14 +125,8 @@ class Patient {
         this._allocatedTo = employeeID;
     }
 
-    public editTriage(ward: Ward, hospital: Hospital, unit: MedicalUnit, description: string, code: TriageCode){
-        this._triageCase = TriageCase.new(
-            ward,
-            hospital,
-            unit,
-            description,
-            code
-        )
+    public editTriage(ward: Ward, hospital: Hospital, unit: MedicalUnit, description: string, code: TriageCode) {
+        this._triageCase = TriageCase.new(ward, hospital, unit, description, code);
     }
 }
 
