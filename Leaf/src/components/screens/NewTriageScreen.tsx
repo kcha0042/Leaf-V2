@@ -248,6 +248,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onSetValue={(segmentedValue) => {
                             setSex(segmentedValue);
                         }}
+                        locked={activePatient != undefined}
                     />
                 </VStack>
 
