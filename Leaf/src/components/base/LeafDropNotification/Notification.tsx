@@ -57,7 +57,7 @@ const Notification: React.FC<NotificationProps> = ({ title, message, typography,
         zIndex: 9999, // Ensure the notification is on top of everything
       }, { transform: [{ translateY }] }]}>
         <FlatContainer style={{maxWidth: 400, alignItems: 'center'}}>
-          <HStack>
+          <HStack spacing={16}>
             <Icon name={icon} size={40} color={typography.color} style={{alignSelf: 'center'}}/>
             <VStack spacing={6} style={{alignItems: 'center'}}>
                 <LeafText typography={LeafTypography.title3} wide={false} style={{alignSelf: 'center'}}>{title}</LeafText>
@@ -65,6 +65,7 @@ const Notification: React.FC<NotificationProps> = ({ title, message, typography,
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{alignSelf: 'center'}}>{message}</LeafText>
                 </VStack>
             </VStack>
+            <Icon name={icon} size={40} color={typography.color} style={{alignSelf: 'center', opacity: 0}}/>
             </HStack>
         </FlatContainer>
     </Animated.View>
