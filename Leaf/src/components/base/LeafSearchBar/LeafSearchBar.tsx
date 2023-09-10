@@ -6,8 +6,27 @@ import LeafColors from "../../styling/LeafColors";
 import LeafIcon from "../LeafIcon/LeafIcon";
 import LeafTypography from "../../styling/LeafTypography";
 
+/*
+// EXAMPLE
+
+const [searchQuery, setSearchQuery] = React.useState("");
+const onSearch = (query: string) => {
+    setSearchQuery(query);
+
+    // Do something with query
+    // ...
+}
+
+// ...
+
+<LeafSearchBar searchQuery={searchQuery} onSearch={onSearch}></LeafSearchBar>
+ */
+
 interface Props {
+    // The search query (what text is being searched)
+    // (Passed in so parent components can manage the search query - e.g. a "clear filters" button may want to clear the search query)
     searchQuery: string;
+    // Callback for when the user changes the search text
     onSearch: (query: string) => void;
 }
 

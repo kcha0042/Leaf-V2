@@ -27,7 +27,7 @@ export default {
     "tabBar.admin.export": "Export",
 
     // Leader Tab Bar
-    "tabBar.leader.viewNurses": "Home",
+    "tabBar.leader.viewNurses": "Nurses",
     "tabBar.leader.viewPatients": "Patients",
     "tabBar.leader.account": "Account",
 
@@ -54,20 +54,35 @@ export default {
     "header.leader.viewPatients": "Patients",
     "header.leader.allocatePatient": "Allocate Patient",
     "header.leader.nurses": "Nurses",
+    "header.leader.allocateTo": "Allocate Nurse To {0}",
+    "header.leader.account": "Your Account",
 
     // Buttons
     "button.login": "Login",
     "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
+    "button.newAllocation": "New Allocation",
+    "button.allocate": "Allocate",
+    "button.allocated": "Allocated",
     "button.edit": "edit",
-    "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
     "button.deletePatient": "Remove",
+    "button.morning": "Morning",
+    "button.noon": "Noon",
+    "button.afternoon": "Afternoon",
+    "button.none": "None",
+    "button.code.1": "1",
+    "button.code.2": "2",
+    "button.code.3": "3",
+    "button.code.4": "4",
+    "button.code.5": "5",
+    "button.selectAnOption": "Select an option",
+    "button.remove": "REMOVE",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
     "button.clear": "Clear",
@@ -87,6 +102,9 @@ export default {
 
     // Labels
     "label.id": "ID: ",
+    "label.date": "Date: ",
+    "label.lastAllocated": "Last Allocated: {0} Shift",
+    "label.notAllocated": "Last Allocated: None",
     "label.loading": "Loading",
     "label.details": "Details",
     "label.viewPatient": "View patient information and medical history.",
@@ -95,6 +113,8 @@ export default {
     "label.removePatient": "Delete patient from the system.",
     "label.addEvent": "Add a scheduled event for the patient.",
     "label.done": "Exit patient options.",
+    "label.patientAllocateToNurse": "Select patients to allocate to",
+    "label.allocateToPatient": "Allocate nurse to",
     "label.hospital": "Hospital",
     "label.rememberMe": "Remember Me",
     "label.editHospital": "Edit hospital",
@@ -186,6 +206,19 @@ export default {
     "triageCode.4": "Semi-Urgent",
     "triageCode.5": "Non-Urgent",
 
+    // Search Bar Filters
+    "searchBarFilter.time": "Time",
+    "searchBarFilter.triageCode": "Code",
+
+    // WorkerCard
+    "workerCard.numPatients": "{0} Allocated",
+    "workerCard.id": "ID: {0}",
+
+    //AllocateToNurseCard
+    "allocateToNurseCard.id": "ID: {0}",
+    "allocateToNurseCard.date": "Date: {0}",
+    "allocateToNurseCard.session": "Allocated: {0}",
+
     // Triage Steps
     // Immediate
     "triageCodeSteps.immediate.1": "Alert medical staff immediately",
@@ -223,6 +256,10 @@ export default {
     "shiftTime.morning": "Morning",
     "shiftTime.afternoon": "Afternoon",
     "shiftTime.night": "Night",
+    "shiftTime.none": "None",
+
+    // Nurse Allocation Screen
+    "nurseAllocationScreen.subtitle": "Patients Allocated",
 
     // Patient event categories
     "patientEventCategory.medication": "Medication",

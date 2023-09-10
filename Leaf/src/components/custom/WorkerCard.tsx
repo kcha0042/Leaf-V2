@@ -2,11 +2,12 @@ import { View, ViewStyle } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
-import FlatContainer from "../containers/FlatContainer";
 import Worker from "../../model/employee/Worker";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
+import FlatContainer from "../containers/FlatContainer";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     worker: Worker;
@@ -18,20 +19,18 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     // TODO: Add Worker full name instead of First Name
     const idText = worker.id.toString();
     return (
-        <FlatContainer color={LeafColors.fillBackgroundLight} style={style} onPress={onPress}>
-            <HStack>
-                <VStack>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3}>{worker.firstName}</LeafText>
-                    </View>
+        <FlatContainer onPress={onPress}>
+            <VStack style={{ flex: 1 }}>
+                <LeafText typography={LeafTypography.title3}>{worker.fullName}</LeafText>
 
-                    <VGap size={6} />
+                <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        {"ID: " + idText}
-                    </LeafText>
-                </VStack>
-            </HStack>
+                <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
+
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("workerCard.numPatients", `${worker.allocatedPatients.length}`)}
+                </LeafText>
+            </VStack>
         </FlatContainer>
     );
 };

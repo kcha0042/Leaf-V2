@@ -9,13 +9,27 @@ import VGap from "../containers/layout/VGap";
 import WorkerCard from "../custom/WorkerCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import NurseAllocationScreen from "./NurseAllocationScreen";
+import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
 
-const YourWorkersScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [filteredWorkers, setFilteredWorkers] = React.useState<Worker[]>(workers);
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
@@ -26,8 +40,8 @@ const YourWorkersScreen: React.FC = () => {
     }, []);
 
     const onPressWorker = (worker: Worker) => {
-        // TODO: Navigation
-        console.log(worker.firstName); // TODO: Add worker fullname instead of first name
+        Session.inst.setActiveWorker(worker);
+        NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
 
     return (
@@ -38,8 +52,17 @@ const YourWorkersScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <FlatList
+                <LeafSearchBarNew
+                    onTextChange={onSearch}
                     data={workers}
+                    setData={setFilteredWorkers}
+                    dataToString={(worker: Worker) => worker.fullName}
+                />
+
+                <VGap size={10} />
+
+                <FlatList
+                    data={filteredWorkers}
                     renderItem={({ item: worker }) => (
                         <WorkerCard
                             worker={worker}
@@ -52,6 +75,7 @@ const YourWorkersScreen: React.FC = () => {
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
@@ -63,4 +87,4 @@ const YourWorkersScreen: React.FC = () => {
     );
 };
 
-export default YourWorkersScreen;
+export default AllWorkersScreen;

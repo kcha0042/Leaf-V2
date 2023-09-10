@@ -1,4 +1,5 @@
 import EmployeeID from "../employee/EmployeeID";
+import { ShiftTime } from "../employee/ShiftTime";
 import TriageCase from "../triage/TriageCase";
 import MRN from "./MRN";
 import PatientChangelog from "./PatientChangelog";
@@ -17,6 +18,7 @@ class Patient {
     protected _timeLastAllocated: Date;
     protected _allocatedTo: EmployeeID;
     protected _events: PatientEvent[];
+    protected _sessionAllocated: ShiftTime;
     protected _changelog: PatientChangelog;
     get mrn(): MRN {
         return this._mrn;
@@ -51,6 +53,9 @@ class Patient {
     get events(): PatientEvent[] {
         return this._events;
     }
+    get sessionAllocated(): ShiftTime {
+        return this._sessionAllocated;
+    }
     get changelog(): PatientChangelog {
         return this._changelog;
     }
@@ -67,6 +72,7 @@ class Patient {
         timeLastAllocated: Date,
         allocatedTo: EmployeeID,
         events: PatientEvent[],
+        sessionAllocated: ShiftTime,
         changelog: PatientChangelog,
     ) {
         this._mrn = mrn;
@@ -80,6 +86,7 @@ class Patient {
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
+        this._sessionAllocated = sessionAllocated;
         this._changelog = changelog;
     }
 
@@ -93,6 +100,7 @@ class Patient {
         triageCase: TriageCase,
         postCode: string,
         allocatedTo: EmployeeID,
+        sessionAllocated: ShiftTime,
     ): Patient {
         return new Patient(
             mrn,
@@ -106,6 +114,7 @@ class Patient {
             new Date(),
             allocatedTo,
             [],
+            sessionAllocated,
             PatientChangelog.new(),
         );
     }

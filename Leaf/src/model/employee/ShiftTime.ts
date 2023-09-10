@@ -6,7 +6,9 @@ export class ShiftTime {
     // Afternoon shift, 3pm - 11pm
     public static afternoon = new ShiftTime("AFTERNOON");
     // Night shift, 11pm - 7am
-    public static night = new ShiftTime("AFTERNOON");
+    public static night = new ShiftTime("NIGHT");
+    // None, not allocated to a shift
+    public static none = new ShiftTime("NONE");
 
     public readonly id: string;
 
@@ -27,6 +29,9 @@ export class ShiftTime {
         }
         if (this.matches(ShiftTime.night)) {
             return strings("shiftTime.night");
+        }
+        if (this.matches(ShiftTime.none)) {
+            return strings("shiftTime.none");
         }
         return strings("unknown");
     }
