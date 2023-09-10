@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FlatContainer from '../../containers/FlatContainer';
 import LeafText from '../LeafText/LeafText';
@@ -8,18 +8,19 @@ import LeafTypography from '../../styling/LeafTypography';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import LeafColor from '../../styling/color/LeafColor';
 import HStack from '../../containers/HStack';
-import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
+import LeafColors from '../../styling/LeafColors';
 
 interface NotificationProps {
     title: string;
   message: string;
-  typography: LeafTypographyConfig;
+  titleColor?: LeafColor;
+  messageColor?: LeafColor;
   icon?: string;
   iconColor?: LeafColor;
   onAnimationEnd: () => void;
 }
 
-const Notification: React.FC<NotificationProps> = ({ title, message, typography, icon = "", iconColor, onAnimationEnd }) => {
+const Notification: React.FC<NotificationProps> = ({ title, message, titleColor = LeafColors.textDark, messageColor = LeafColors.textSemiDark, icon = "", iconColor = LeafColors.textDark, onAnimationEnd }) => {
   const translateY = useRef(new Animated.Value(-100)).current;
 
   useEffect(() => {
@@ -58,14 +59,14 @@ const Notification: React.FC<NotificationProps> = ({ title, message, typography,
       }, { transform: [{ translateY }] }]}>
         <FlatContainer style={{maxWidth: 400, alignItems: 'center'}}>
           <HStack spacing={16}>
-            <Icon name={icon} size={40} color={typography.color} style={{alignSelf: 'center'}}/>
+            <Icon name={icon} size={40} color={iconColor.getColor()} style={{alignSelf: 'center'}}/>
             <VStack spacing={6} style={{alignItems: 'center'}}>
-                <LeafText typography={LeafTypography.title3} wide={false} style={{alignSelf: 'center'}}>{title}</LeafText>
+                <LeafText typography={LeafTypography.title3.withColor(titleColor)} wide={false} style={{alignSelf: 'center'}}>{title}</LeafText>
                 <VStack style={{alignSelf: 'center'}}>
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{alignSelf: 'center'}}>{message}</LeafText>
+                    <LeafText typography={LeafTypography.subscript.withColor(messageColor)} wide={false} style={{alignSelf: 'center'}}>{message}</LeafText>
                 </VStack>
             </VStack>
-            <Icon name={icon} size={40} color={typography.color} style={{alignSelf: 'center', opacity: 0}}/>
+            <Icon name={icon} size={40} style={{alignSelf: 'center', opacity: 0}}/>
             </HStack>
         </FlatContainer>
     </Animated.View>

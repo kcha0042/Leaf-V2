@@ -1,18 +1,18 @@
  import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import Notification from './Notification';
-import LeafTypographyConfig from '../../styling/typography/LeafTypographyConfig';
+import LeafColor from '../../styling/color/LeafColor';
 
 interface NotificationSessionContextProps {
-  showNotification: (title:string, message: string, typography: LeafTypographyConfig, icon?: string) => void;
+  showNotification: (title:string, message: string, titleColor?: LeafColor, messageColor?: LeafColor, icon?: string, iconColor?: LeafColor) => void;
 }
 
 const NotificationSessionContext = createContext<NotificationSessionContextProps | undefined>(undefined);
 
 export function NotificationSessionProvider({ children }: { children: ReactNode }) {
-  const [notificationQueue, setNotificationQueue] = useState<{title: string; message: string, typography: LeafTypographyConfig, icon?: string} []>([]);
+  const [notificationQueue, setNotificationQueue] = useState<{title:string, message: string, titleColor?: LeafColor, messageColor?: LeafColor, icon?: string, iconColor?: LeafColor} []>([]);
 
-  const showNotification = (title:string, message: string, typography: LeafTypographyConfig, icon?: string) => {
-    setNotificationQueue((prevQueue) => [...prevQueue, { title, message, typography, icon },]);
+  const showNotification = (title:string, message: string, titleColor?: LeafColor, messageColor?: LeafColor, icon?: string, iconColor?: LeafColor) => {
+    setNotificationQueue((prevQueue) => [...prevQueue, { title, message, titleColor, messageColor, icon, iconColor },]);
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
     <NotificationSessionContext.Provider value={{ showNotification }}>
       {children}
       {notificationQueue.map((notification, index) => (
-        <Notification key={index} title={notification.title} message={notification.message} typography={notification.typography} icon={notification.icon} onAnimationEnd={() => {}} />
+        <Notification key={index} title={notification.title} message={notification.message} titleColor={notification.titleColor} messageColor={notification.messageColor} icon={notification.icon} iconColor={notification.iconColor} onAnimationEnd={() => {}} />
       ))}
     </NotificationSessionContext.Provider>
   );
