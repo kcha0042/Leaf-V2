@@ -31,7 +31,7 @@ class NavigationSession {
 
     private constructor() {}
 
-    public setSidebarComponent(component: JSX.Element, header: string) {
+    public setSidebarComponent(component: JSX.Element | undefined, header: string | undefined) {
         this._sidebarComponent = component;
         this._sidebarHeader = header;
         NavigationStateManager.sidebarComponentChanged.publish();
@@ -46,7 +46,7 @@ class NavigationSession {
         this._screens = [to];
     }
 
-    public navigateBack(navigation: NavigationProp<ParamListBase>) {
+    public navigateBack(navigation: NavigationProp<ParamListBase> | undefined) {
         if (navigation == undefined || !navigation.canGoBack()) {
             this._screens = [];
         } else {
@@ -56,11 +56,15 @@ class NavigationSession {
         NavigationStateManager.screenStackUpdated.publish();
     }
 
-    public navigateTo(component: React.FC, navigation: NavigationProp<ParamListBase>, title: string) {
+    public navigateTo(
+        component: React.FC,
+        navigation: NavigationProp<ParamListBase> | undefined,
+        title: string | undefined,
+    ) {
         if (navigation == undefined) {
             this._screens = [];
         }
-        const newScreen = new LeafScreen(title, component);
+        const newScreen = new LeafScreen(title ?? "", component);
         this._screens.push(newScreen);
         this.loadedNavigation = () => {
             if (this._screens.length > 1 && navigation != undefined) {

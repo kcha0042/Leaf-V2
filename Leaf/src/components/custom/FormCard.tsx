@@ -14,7 +14,7 @@ interface Props {
     // Title
     title: string;
     // No type - can be any component(s)
-    children;
+    children: any;
     // Custom style
     style?: ViewStyle;
 }

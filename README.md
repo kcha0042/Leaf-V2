@@ -1,5 +1,5 @@
 # Leaf
-A multi-platform mental health triage application.
+A multi-platform mental health triage application. [Project Page](https://jonny-low.github.io/projects/mentaltac/).
 
 Try out the latest release on web [here](https://fit4002-team9.github.io/Leaf/).
 

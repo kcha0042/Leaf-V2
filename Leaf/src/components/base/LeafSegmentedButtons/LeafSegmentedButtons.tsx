@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ViewStyle } from "react-native";
 import FlatContainer from "../../containers/FlatContainer";
 import HStack from "../../containers/HStack";
@@ -10,6 +10,7 @@ import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
 import LeafSegmentedValue from "./LeafSegmentedValue";
+import StateManager from "../../../state/publishers/StateManager";
 
 /*
 // EXAMPLE
@@ -33,14 +34,14 @@ const onSetSegmentedValue = (segmentedValue) => {
 
 interface Props {
     options: LeafSegmentedValue[];
-    value: LeafSegmentedValue | null;
+    value: LeafSegmentedValue | undefined;
     selectedLabelColor?: LeafColor;
     selectedBackgroundColor?: LeafColor;
     label: string;
     labeled?: boolean;
     valueLabel?: string;
     style?: ViewStyle;
-    onSetValue: (value: LeafSegmentedValue) => void;
+    onSetValue: (value: LeafSegmentedValue | undefined) => void;
 }
 
 const LeafSegmentedButtons: React.FC<Props> = ({
@@ -54,7 +55,18 @@ const LeafSegmentedButtons: React.FC<Props> = ({
     style,
     onSetValue,
 }) => {
-    const [selectedOption, setSelectedOption] = useState<LeafSegmentedValue | null>(value);
+    const [selectedOption, setSelectedOption] = useState<LeafSegmentedValue | undefined>(value);
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setSelectedOption(undefined);
+            onSetValue(undefined);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <VStack

@@ -14,12 +14,11 @@ interface Props {
     label: string;
     description: string;
     size: number;
-    icon?: string; // https://pictogrammers.com/library/mdi/
-    style?: StyleProp<ViewStyle>;
+    icon: string; // https://pictogrammers.com/library/mdi/
     onPress: () => void;
 }
 
-const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon = null, style, onPress }) => {
+const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon, onPress }) => {
     const typography = LeafTypography.title3;
     // -20 because web is funky with scroll bars - play it safe with spacing
     const width = Environment.inst.getOS() == OS.Web ? size - 20 : size;

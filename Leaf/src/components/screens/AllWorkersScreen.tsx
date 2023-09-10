@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import { FlatList } from "react-native";
 import Worker from "../../model/employee/Worker";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import LeafDimensions from "../styling/LeafDimensions";
 import WorkerCard from "../custom/WorkerCard";
+import LeafDimensions from "../styling/LeafDimensions";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
@@ -27,15 +27,19 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     useEffect(() => {
-        StateManager.workersFetched.subscribe(() => {
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
             setFilteredWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
-    const onPressWorker = (worker) => {
+    const onPressWorker = (worker: Worker) => {
         Session.inst.setActiveWorker(worker);
         NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
@@ -70,7 +74,6 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
-                    // Don't use overflow prop - doesn't work on web
                     style={{
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped

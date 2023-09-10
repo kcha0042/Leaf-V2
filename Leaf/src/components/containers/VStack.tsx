@@ -3,7 +3,7 @@ import React from "react";
 import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from "react-native";
 
 interface Props {
-    children;
+    children: any;
     spacing?: number;
     horizontalSpacing?: number;
     onLayout?: (event: LayoutChangeEvent) => void;

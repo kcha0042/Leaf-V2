@@ -71,7 +71,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     </LeafText>
 
                     <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
-                        {isAllocated ? strings("label.notAllocated") : strings("label.allocated", `${session}`)}
+                        {isAllocated ? strings("label.notAllocated") : strings("label.lastAllocated", `${session}`)}
                     </LeafText>
 
                     <VGap size={16} />

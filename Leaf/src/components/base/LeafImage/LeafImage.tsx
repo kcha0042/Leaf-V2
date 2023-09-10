@@ -21,8 +21,8 @@ interface Props {
 }
 
 const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = LeafImageScale.None, style }) => {
-    const [size, setSize] = useState({ width: width, height: height });
-    const [resizeMode, setResizeMode] = useState<ImageResizeMode>(null);
+    const [size, setSize] = useState<{ width: number; height: number | undefined }>({ width: width, height: height });
+    const [resizeMode, setResizeMode] = useState<ImageResizeMode>("stretch");
     const [imageSize, setImageSize] = useState({
         // Don't set these to 0, causes NaN issues
         width: 1,
@@ -35,7 +35,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
             image.onload = function () {
                 setImageSize({ width: image.width, height: image.height });
             };
-            image.src = ImageMap[fileName];
+            image.src = ImageMap[fileName as keyof typeof ImageMap];
             if (scale == LeafImageScale.ScaleToFill) {
                 if (width > height) {
                     setSize({ width: width, height: undefined });
@@ -47,7 +47,7 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
                 }
             }
         } else {
-            const source = ImageMap[fileName];
+            const source = ImageMap[fileName as keyof typeof ImageMap];
             const image = Image.resolveAssetSource(source);
             setImageSize({ width: image.width, height: image.height });
             if (scale == LeafImageScale.ScaleToFill) {
@@ -84,12 +84,12 @@ const LeafImage: React.FC<Props> = ({ fileName, width = 0, height = 0, scale = L
 
     return (
         <Image
-            source={ImageMap[fileName]}
+            source={ImageMap[fileName as keyof typeof ImageMap]}
             resizeMode={resizeMode}
             style={{
                 width: size.width,
                 height: size.height,
-                aspectRatio: scale == LeafImageScale.None ? null : 1,
+                aspectRatio: scale == LeafImageScale.None ? undefined : 1,
                 ...style,
             }}
         />

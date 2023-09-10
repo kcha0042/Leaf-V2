@@ -1,10 +1,9 @@
-import { View, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import Patient from "../../model/patient/Patient";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
-import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
@@ -43,14 +42,10 @@ const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
                     }}
                 />
 
-                <VStack style={{ flexShrink: 1 }}>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {patient.fullName}
-                        </LeafText>
-                    </View>
-
-                    <VGap size={16} />
+                <VStack spacing={16} style={{ flex: 1 }}>
+                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                        {patient.fullName}
+                    </LeafText>
 
                     <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         {datetimeText}

@@ -1,6 +1,5 @@
 import React from "react";
-import { View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { View, TouchableWithoutFeedback } from "react-native";
 import LeafIcon from "../../base/LeafIcon/LeafIcon";
 import LeafText from "../../base/LeafText/LeafText";
 import VStack from "../../containers/VStack";
@@ -19,6 +18,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
         NavigationSession.inst.focusedInterfaceSection != undefined &&
         NavigationSession.inst.focusedInterfaceSection.matches(interfaceSection.id);
     const icon = isFocused ? interfaceSection.focusedIcon : interfaceSection.icon;
+    const color = isFocused ? LeafColors.textDark : LeafColors.textSemiDark;
     const size = LeafIconSize.Medium;
     const padding = 10;
     return (
@@ -30,11 +30,11 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
                 paddingBottom: 8,
             }}
         >
-            <TouchableWithoutFeedback
-                onPress={interfaceSection.activateOnTabBar}
-                style={{ paddingVertical: padding, paddingHorizontal: 30 }}
-            >
-                <LeafIcon icon={icon} color={LeafColors.textDark} size={size} />
+            <TouchableWithoutFeedback onPress={interfaceSection.activateOnTabBar}>
+                {/* Nest view to ensure compatability with Android */}
+                <View style={{ paddingVertical: padding, paddingHorizontal: 30 }}>
+                    <LeafIcon icon={icon} color={color} size={size} />
+                </View>
             </TouchableWithoutFeedback>
 
             <View
@@ -45,7 +45,7 @@ const TabBarItem: React.FC<Props> = ({ interfaceSection }) => {
                 }}
             >
                 <LeafText
-                    typography={LeafTypography.subscriptLabel}
+                    typography={LeafTypography.subscriptLabel.withColor(color)}
                     style={{ alignSelf: "center", textAlign: "center" }}
                 >
                     {interfaceSection.title}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Session from "../../model/Session";
+import { FlatList } from "react-native";
 import Patient from "../../model/patient/Patient";
+import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
@@ -28,12 +28,16 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
             setFilteredPatients(Session.inst.getAllPatients());
         });
 
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     const onPressPatient = (patient: Patient) => {
@@ -76,7 +80,6 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
-                    // Don't use overflow prop - doesn't work on web
                     style={{
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped

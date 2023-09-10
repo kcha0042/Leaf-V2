@@ -22,11 +22,11 @@ const TriageCodeBadge: React.FC<Props> = ({ code, fillSpace, style }) => {
             style={[
                 {
                     borderRadius: 10,
-                    width: platformIsWeb ? typography.size * 1.6 : null,
+                    width: platformIsWeb ? typography.size * 1.6 : undefined,
                     backgroundColor: LeafColors.triageCode(code).getColor(),
                     justifyContent: "center",
                     aspectRatio: 1,
-                    alignSelf: fillSpace ? null : "center",
+                    alignSelf: fillSpace ? undefined : "center",
                 },
                 style,
             ]}
@@ -40,7 +40,7 @@ const TriageCodeBadge: React.FC<Props> = ({ code, fillSpace, style }) => {
                     aspectRatio: 1,
                 }}
             >
-                {code}
+                {code.code}
             </LeafText>
         </View>
     );
