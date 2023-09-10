@@ -9,6 +9,7 @@ import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
 import { strings } from "../../localisation/Strings";
+import { ShiftTime } from "../../model/employee/ShiftTime";
 
 interface Props {
     patient: Patient;
@@ -18,8 +19,9 @@ interface Props {
 
 const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated.toString();
-    const isAllocated = session === "None";
+    const session = patient.sessionAllocated;
+    const sessionText = session.toString();
+    const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
 
     return (

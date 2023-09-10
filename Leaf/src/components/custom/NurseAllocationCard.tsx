@@ -23,7 +23,6 @@ interface Props {
 const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex, onSelect }) => {
     // check if allocate button is clicked (false=white, true=green)
     const isSelected = itemIndex === selectedIndex;
-    const [active, setActive] = useState(false);
     const idText = worker.id.toString();
 
     const onPressAllocate = (worker) => {

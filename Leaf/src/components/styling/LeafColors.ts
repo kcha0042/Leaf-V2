@@ -1,4 +1,5 @@
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { ShiftTime } from "../../model/employee/ShiftTime";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafColor from "./color/LeafColor";
 
@@ -191,13 +192,13 @@ class LeafColors {
 
     // Session Allocated
 
-    public static sessionAllocated(session: string): LeafColor {
+    public static sessionAllocated(session: ShiftTime): LeafColor {
         switch (session) {
-            case "Morning":
+            case ShiftTime.morning:
                 return new LeafColor("#74b816");
-            case "Afternoon":
+            case ShiftTime.afternoon:
                 return new LeafColor("#fd7e14");
-            case "Night":
+            case ShiftTime.night:
                 return new LeafColor("#1765e3");
             default:
                 return new LeafColor("#e03131");
