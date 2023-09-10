@@ -28,7 +28,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
 
-    const onPressAllocate = (patient) => {
+    const onPressAllocate = (patient: Patient) => {
         //TODO: set allocate patient to nurse
         //TODO: Update patient allocated counter
     };
