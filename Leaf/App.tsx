@@ -39,9 +39,9 @@ export default function App() {
     return (
         <PaperProvider theme={theme}>
             <NotificationSessionProvider>
-            <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-                <MainScreen />
-            </View>
+                <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+                    <MainScreen />
+                </View>
             </NotificationSessionProvider>
         </PaperProvider>
     );
