@@ -1,5 +1,6 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import UUID from "../../../model/core/UUID";
+import Session from "../../../model/session/Session";
 import StateManager from "../../../state/publishers/StateManager";
 import LeafScreen from "../LeafScreen";
 import NavigationStateManager from "./NavigationStateManager";
@@ -77,6 +78,7 @@ class NavigationSession {
     public setFocusedInterfaceSection(id: UUID | undefined) {
         // If we want in the future, we can check if the incoming id matches the current id
         // and if they do, unfocus the current interface section
+        Session.inst.setActivePatient(null);
         this._focusedInterfaceSection = id;
     }
 }
