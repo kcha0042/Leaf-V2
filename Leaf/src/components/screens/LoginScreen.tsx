@@ -23,12 +23,14 @@ import ActivateAccountScreen from "./ActivateAccountScreen";
 import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification } = useNotificationSession();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -48,8 +50,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
     const onLoginPressed = async () => {
         if (!allIsValid()) {
-            // TODO: Provide feedback
-            console.log("Wrong username/password");
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
             return;
         }
         const id = new EmployeeID(username!);
@@ -59,7 +60,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (worker != null && worker.accountActivated) {
             // We found the matching account!
             Session.inst.setLoggedInAccount(worker);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Worker);
             return;
         }
@@ -69,7 +69,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (leader != null && leader.accountActivated) {
             // We found the matching account!
             Session.inst.setLoggedInAccount(leader);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Leader);
             return;
         }
@@ -79,7 +78,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (admin != null && admin.accountActivated) {
             // We found the matching account!
             Session.inst.setLoggedInAccount(admin);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Admin);
             return;
         }

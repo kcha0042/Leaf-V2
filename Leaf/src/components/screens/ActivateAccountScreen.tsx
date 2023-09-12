@@ -2,30 +2,30 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
+import EmployeeID from "../../model/employee/EmployeeID";
+import Session from "../../model/session/Session";
+import StateManager from "../../state/publishers/StateManager";
+import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
-import ValidateUtil from "../../utils/ValidateUtil";
-import Session from "../../model/session/Session";
-import EmployeeID from "../../model/employee/EmployeeID";
-import StateManager from "../../state/publishers/StateManager";
-import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
@@ -43,8 +43,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSubmit = async () => {
         if (!allIsValid()) {
-            // TODO: Provide feedback
-            console.log("Invalid inputs");
+            showErrorNotification(strings("feedback.invalidInputs"));
             return;
         }
         const id = new EmployeeID(username!);
@@ -57,7 +56,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             worker.setEmail(email!);
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Worker);
             return;
         }
@@ -70,7 +69,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             leader.setEmail(email!);
             Session.inst.updateLeader(leader);
             Session.inst.setLoggedInAccount(leader);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Leader);
             return;
         }
@@ -83,13 +82,12 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             admin.setEmail(email!);
             Session.inst.updateAdmin(admin);
             Session.inst.setLoggedInAccount(admin);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Admin);
             return;
         }
 
-        // TODO: Provide feedback
-        console.log("No unactivated account found with id");
+        showErrorNotification(strings("feedback.noUnactiviatedAccount"));
     };
 
     return (
