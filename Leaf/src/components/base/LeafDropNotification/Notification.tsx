@@ -18,6 +18,7 @@ interface NotificationProps {
     messageColor?: LeafColor;
     icon?: string;
     iconColor?: LeafColor;
+    backgroundColor?: LeafColor;
     onAnimationEnd: () => void;
 }
 
@@ -28,6 +29,7 @@ const Notification: React.FC<NotificationProps> = ({
     messageColor = LeafColors.textSemiDark,
     icon = "",
     iconColor = LeafColors.textDark,
+    backgroundColor,
     onAnimationEnd,
 }) => {
     const translateY = useRef(new Animated.Value(-100)).current;
@@ -73,7 +75,7 @@ const Notification: React.FC<NotificationProps> = ({
                 { transform: [{ translateY }] },
             ]}
         >
-            <FlatContainer style={{ maxWidth: 350 }}>
+            <FlatContainer color={backgroundColor} style={{ maxWidth: 350 }}>
                 <HStack spacing={16} style={{ flexWrap: "nowrap" }}>
                     {icon == undefined ? (
                         <HGap size={32} />
