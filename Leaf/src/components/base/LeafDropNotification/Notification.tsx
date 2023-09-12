@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, Easing } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FlatContainer from "../../containers/FlatContainer";
 import LeafText from "../LeafText/LeafText";
@@ -34,14 +34,15 @@ const Notification: React.FC<NotificationProps> = ({
     useEffect(() => {
         Animated.timing(translateY, {
             toValue: 0,
-            duration: 400,
+            duration: 300,
             useNativeDriver: false,
         }).start(() => {
             // Wait for a duration and then trigger the slide-out animation
             setTimeout(() => {
                 Animated.timing(translateY, {
                     toValue: -200,
-                    duration: 500,
+                    duration: 400,
+                    easing: Easing.inOut(Easing.cubic),
                     useNativeDriver: false,
                 }).start(() => {
                     onAnimationEnd();
