@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import LeafColor from "../../styling/color/LeafColor";
 import HStack from "../../containers/HStack";
 import LeafColors from "../../styling/LeafColors";
+import HGap from "../../containers/layout/HGap";
 
 interface NotificationProps {
     title: string;
@@ -71,28 +72,36 @@ const Notification: React.FC<NotificationProps> = ({
                 { transform: [{ translateY }] },
             ]}
         >
-            <FlatContainer style={{ maxWidth: 400, alignItems: "center" }}>
-                <HStack spacing={16}>
-                    <Icon name={icon} size={40} color={iconColor.getColor()} style={{ alignSelf: "center" }} />
-                    <VStack spacing={6} style={{ alignItems: "center" }}>
+            <FlatContainer style={{ maxWidth: 350 }}>
+                <HStack spacing={16} style={{ flexWrap: "nowrap" }}>
+                    {icon == undefined ? (
+                        <HGap size={32} />
+                    ) : (
+                        <Icon
+                            name={icon}
+                            size={40}
+                            color={iconColor.getColor()}
+                            style={{ alignSelf: "center", paddingLeft: 8 }}
+                        />
+                    )}
+
+                    <VStack spacing={6} style={{ paddingRight: 32, maxWidth: 200 }}>
                         <LeafText
                             typography={LeafTypography.title3.withColor(titleColor)}
                             wide={false}
-                            style={{ alignSelf: "center" }}
+                            style={{ alignSelf: "flex-start" }}
                         >
                             {title}
                         </LeafText>
-                        <VStack style={{ alignSelf: "center" }}>
-                            <LeafText
-                                typography={LeafTypography.subscript.withColor(messageColor)}
-                                wide={false}
-                                style={{ alignSelf: "center" }}
-                            >
-                                {message}
-                            </LeafText>
-                        </VStack>
+
+                        <LeafText
+                            typography={LeafTypography.subscript.withColor(messageColor)}
+                            wide={false}
+                            style={{ alignSelf: "flex-start" }}
+                        >
+                            {message}
+                        </LeafText>
                     </VStack>
-                    <Icon name={icon} size={40} style={{ alignSelf: "center", opacity: 0 }} />
                 </HStack>
             </FlatContainer>
         </Animated.View>
