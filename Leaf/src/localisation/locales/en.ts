@@ -253,4 +253,17 @@ export default {
     "changelog.eventIncompletion3Param": 'Event "{0}" marked INCOMPLETE by {1} ({2})',
     "changelog.allocation4Param": "Allocated by {0} ({1}) to nurse {2} ({3})",
     "changelog.edit2Param": "Record edited by {0} ({1})",
+
+    // Feedback
+    "feedback.error": "Error",
+    "feedback.success": "Success",
+    "feedback.invalidInputs": "Invalid inputs",
+    "feedback.noUnactiviatedAccount": "Unactivated account could not be found",
+    "feedback.accountActivated": "Account activated",
+    "feedback.eventCreated": "Event created",
+    "feedback.incorrectUsernamePassword": "Incorrect username or password",
+    "feedback.triageCreated": "Triage created",
+    "feedback.patientEdited": "Patient edited",
+    "feedback.triageNotCreated": "Triage creation failed",
+    "feedback.patientNotEdited": "Patient edit failed",
 };

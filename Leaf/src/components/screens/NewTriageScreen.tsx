@@ -32,12 +32,14 @@ import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const activePatient = Session.inst.getActivePatient();
     const patientHospital = activePatient?.triageCase.hospital;
     const patientWard = activePatient?.triageCase.arrivalWard;
@@ -153,11 +155,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 );
                 const successful = await Session.inst.submitTriage(patient);
                 if (successful) {
-                    console.log("SUCCESS"); // TODO: Provide user feedback
+                    showSuccessNotification(strings("feedback.triageCreated"));
                     StateManager.clearAllInputs.publish();
                     Session.inst.fetchPatient(patient.mrn);
                 } else {
-                    console.log("FAILED"); // TODO: Provide user feedback
+                    showErrorNotification(strings("feedback.triageNotCreated"));
                 }
             } else {
                 const patient = new Patient(
@@ -183,15 +185,15 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 const successful = await Session.inst.editPatient(patient);
                 // TODO: activity indicator?
                 if (successful) {
-                    console.log("SUCCESS"); // TODO: Provide user feedback
+                    showSuccessNotification(strings("feedback.patientEdited"));
                     NavigationSession.inst.navigateBack(navigation);
                     Session.inst.fetchPatient(activePatient.mrn);
                 } else {
-                    console.log("FAILED"); // TODO: Provide user feedback
+                    showErrorNotification(strings("feedback.patientNotEdited"));
                 }
             }
         } else {
-            console.log("INVALID INPUTS"); // TODO: Provide user feedback
+            showErrorNotification(strings("feedback.invalidInputs"));
         }
     };
 

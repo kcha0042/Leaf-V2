@@ -18,6 +18,7 @@ interface NotificationProps {
     messageColor?: LeafColor;
     icon?: string;
     iconColor?: LeafColor;
+    backgroundColor?: LeafColor;
     onAnimationEnd: () => void;
 }
 
@@ -28,6 +29,7 @@ const Notification: React.FC<NotificationProps> = ({
     messageColor = LeafColors.textSemiDark,
     icon = "",
     iconColor = LeafColors.textDark,
+    backgroundColor,
     onAnimationEnd,
 }) => {
     const translateY = useRef(new Animated.Value(-100)).current;
@@ -36,19 +38,20 @@ const Notification: React.FC<NotificationProps> = ({
         Animated.timing(translateY, {
             toValue: 0,
             duration: 300,
+            easing: Easing.out(Easing.cubic),
             useNativeDriver: false,
         }).start(() => {
             // Wait for a duration and then trigger the slide-out animation
             setTimeout(() => {
                 Animated.timing(translateY, {
                     toValue: -200,
-                    duration: 400,
-                    easing: Easing.inOut(Easing.cubic),
+                    duration: 300,
+                    easing: Easing.in(Easing.cubic),
                     useNativeDriver: false,
                 }).start(() => {
                     onAnimationEnd();
                 });
-            }, 2000); // Auto-hide after 2 seconds
+            }, 1500); // Auto-hide after 1.5 seconds
         });
     }, [translateY, onAnimationEnd]);
 
@@ -72,7 +75,7 @@ const Notification: React.FC<NotificationProps> = ({
                 { transform: [{ translateY }] },
             ]}
         >
-            <FlatContainer style={{ maxWidth: 350 }}>
+            <FlatContainer color={backgroundColor} style={{ maxWidth: 350 }}>
                 <HStack spacing={16} style={{ flexWrap: "nowrap" }}>
                     {icon == undefined ? (
                         <HGap size={32} />

@@ -53,6 +53,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
                     type={LeafButtonType.Filled}
                     color={LeafColors.textError}
                     onPress={() => {
+                        // TODO: provide feedback if successful / unsuccessful
                         StateManager.loginStatus.publish(LoginStatus.LoggedOut); // should change to delete account method later.
                     }}
                 />

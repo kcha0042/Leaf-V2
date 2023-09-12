@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import Notification from "./Notification";
 import LeafColor from "../../styling/color/LeafColor";
+import LeafColors from "../../styling/LeafColors";
+import { strings } from "../../../localisation/Strings";
 
 interface NotificationSessionContextProps {
     showNotification: (
@@ -11,7 +13,12 @@ interface NotificationSessionContextProps {
         icon?: string,
         iconColor?: LeafColor,
     ) => void;
+
     showDefaultNotification: (title: string, message: string, icon?: string) => void;
+
+    showErrorNotification: (message: string) => void;
+
+    showSuccessNotification: (message: string) => void;
 }
 
 const NotificationSessionContext = createContext<NotificationSessionContextProps | undefined>(undefined);
@@ -25,6 +32,7 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
             messageColor?: LeafColor;
             icon?: string;
             iconColor?: LeafColor;
+            backgroundColor?: LeafColor;
         }[]
     >([]);
 
@@ -35,16 +43,25 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
         messageColor?: LeafColor,
         icon?: string,
         iconColor?: LeafColor,
+        backgroundColor?: LeafColor,
     ) => {
         setNotificationQueue((prevQueue) => [
             ...prevQueue,
-            { title, message, titleColor, messageColor, icon, iconColor },
+            { title, message, titleColor, messageColor, icon, iconColor, backgroundColor },
         ]);
     };
 
     const showDefaultNotification = (title: string, message: string, icon?: string) => {
-        showNotification(title, message, undefined, undefined, icon);
+        showNotification(title, message, undefined, undefined, icon, undefined);
     };
+
+    const showErrorNotification = (message: string) => {
+        showNotification(strings("feedback.error"), message, LeafColors.textLight, LeafColors.textLight, "alert-circle-outline", LeafColors.textLight, LeafColors.textError)
+    }
+
+    const showSuccessNotification = (message: string) => {
+        showNotification(strings("feedback.success"), message, LeafColors.textLight, LeafColors.textLight, "check-circle-outline", LeafColors.textLight, LeafColors.textSuccess)
+    }
 
     useEffect(() => {
         if (notificationQueue.length > 0) {
@@ -57,7 +74,7 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
     }, [notificationQueue]);
 
     return (
-        <NotificationSessionContext.Provider value={{ showNotification, showDefaultNotification }}>
+        <NotificationSessionContext.Provider value={{ showNotification, showDefaultNotification, showErrorNotification, showSuccessNotification }}>
             {children}
             {notificationQueue.map((notification, index) => (
                 <Notification
@@ -68,6 +85,7 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
                     messageColor={notification.messageColor}
                     icon={notification.icon}
                     iconColor={notification.iconColor}
+                    backgroundColor={notification.backgroundColor}
                     onAnimationEnd={() => {}}
                 />
             ))}

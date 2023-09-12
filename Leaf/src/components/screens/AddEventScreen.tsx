@@ -13,16 +13,17 @@ import VStack from "../containers/VStack";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import PatientEvent from "../../model/patient/PatientEvent";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AddEventScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [title, setTitle] = useState<string | undefined>();
     const [triggerTime, setTriggerTime] = useState<Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
@@ -45,11 +46,11 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
             const event = PatientEvent.new(triggerTime!, title!, description!, category!);
             const successful = await Session.inst.submitPatientEvent(event);
             if (successful) {
-                // TODO: snackbar
+                showSuccessNotification(strings("feedback.eventCreated"));
                 NavigationSession.inst.navigateBack(navigation);
             }
         } else {
-            // TODO: snackbar
+            showErrorNotification(strings("feedback.invalidInputs"));
         }
     };
 
