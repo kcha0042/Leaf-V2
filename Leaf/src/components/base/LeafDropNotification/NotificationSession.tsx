@@ -56,12 +56,28 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
     };
 
     const showErrorNotification = (message: string) => {
-        showNotification(strings("feedback.error"), message, LeafColors.textLight, LeafColors.textLight, "alert-circle-outline", LeafColors.textLight, LeafColors.textError)
-    }
+        showNotification(
+            strings("feedback.error"),
+            message,
+            LeafColors.textLight,
+            LeafColors.textLight,
+            "alert-circle-outline",
+            LeafColors.textLight,
+            LeafColors.textError,
+        );
+    };
 
     const showSuccessNotification = (message: string) => {
-        showNotification(strings("feedback.success"), message, LeafColors.textLight, LeafColors.textLight, "check-circle-outline", LeafColors.textLight, LeafColors.textSuccess)
-    }
+        showNotification(
+            strings("feedback.success"),
+            message,
+            LeafColors.textLight,
+            LeafColors.textLight,
+            "check-circle-outline",
+            LeafColors.textLight,
+            LeafColors.textSuccess,
+        );
+    };
 
     useEffect(() => {
         if (notificationQueue.length > 0) {
@@ -74,7 +90,9 @@ export function NotificationSessionProvider({ children }: { children: ReactNode 
     }, [notificationQueue]);
 
     return (
-        <NotificationSessionContext.Provider value={{ showNotification, showDefaultNotification, showErrorNotification, showSuccessNotification }}>
+        <NotificationSessionContext.Provider
+            value={{ showNotification, showDefaultNotification, showErrorNotification, showSuccessNotification }}
+        >
             {children}
             {notificationQueue.map((notification, index) => (
                 <Notification
