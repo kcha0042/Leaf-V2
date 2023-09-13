@@ -16,6 +16,7 @@ interface Props {
     valid?: boolean;
     style?: ViewStyle;
     onTextChange: (text: string) => void;
+    initialValue?: string;
 }
 
 const LeafMultilineTextInput: React.FC<Props> = ({
@@ -26,8 +27,9 @@ const LeafMultilineTextInput: React.FC<Props> = ({
     valid = undefined,
     style,
     onTextChange,
+    initialValue,
 }) => {
-    const [text, setText] = React.useState("");
+    const [text, setText] = React.useState(initialValue ?? "");
     const [isFocused, setIsFocused] = useState(false);
     const textInputRef = useRef<TextInput>(null);
     const borderWidth = 2.0;
