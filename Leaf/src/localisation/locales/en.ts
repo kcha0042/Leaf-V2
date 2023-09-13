@@ -118,8 +118,6 @@ export default {
     "label.changelog": "View the edit history of the patient.",
     "label.triageCode2Param": "CODE {0}  •  {1}",
     "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
-    "label.removeLeader": "Remove Leader",
-    "label.removeNurse": "Remove Nurse",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -183,6 +181,9 @@ export default {
     "actions.call": "Call",
     "actions.steps": "Steps",
     "actions.department": "Department",
+    "actions.removeLeader": "Remove Leader",
+    "actions.removeNurse": "Remove Nurse",
+    "actions.removePatient": "Remove Patient",
 
     // Search
     "search.underlying": "Search",

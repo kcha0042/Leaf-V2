@@ -180,6 +180,17 @@ class Session {
         return LeadersManager.inst.updateLeader(leader);
     }
 
+    public async deletePatient(patient: Patient): Promise<boolean> {
+        const success = await PatientsManager.inst.deletePatient(patient);
+        if (success) {
+            delete this._patientStore[patient.mrn.toString()]; // Fixed "_patientStore is not updated after deleting the patient."
+        } else {
+            console.error("Error Occurs when deleting patient account.");
+        }
+
+        return success;
+    }
+
     public async deleteWorker(worker: Worker): Promise<boolean> {
         const success = await WorkersManager.inst.deleteWorker(worker);
         if (success) {

@@ -73,7 +73,7 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafPopUp
                     visible={popUpVisible}
-                    title={strings("label.removeNurse") + ' "' + worker.fullName + '"'}
+                    title={strings("actions.removeNurse") + ' "' + worker.fullName + '"'}
                     onCancel={onCancel}
                     onDone={onDelete}
                     doneLabel="Remove"
