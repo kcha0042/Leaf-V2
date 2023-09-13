@@ -16,6 +16,8 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { ErrorScreen } from "./ErrorScreen";
 import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -24,6 +26,7 @@ interface Props {
 const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
     const worker = Session.inst.getActiveWorker();
     const [popUpVisible, setPopUpVisible] = React.useState(false);
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
 
     if (!worker) {
         return <ErrorScreen />;
@@ -31,19 +34,19 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
 
     const onDelete = async () => {
         setPopUpVisible(false);
-        // TODO: has to check if there're any patients allocated to this nurse.
         if (worker.allocatedPatients.length !== 0) {
             setPopUpVisible(false);
-            // TODO: add a notification/popup to show fail to delete the account.
+            showErrorNotification(strings("feedback.failDeleteNurseAccount"));
             return;
         }
         const success = await Session.inst.deleteWorker(worker);
         if (success) {
             Session.inst.fetchAllWorkers();
             NavigationSession.inst.navigateBack(navigation);
-            // TODO: add a notification/popup after successfully deleted account.
+            showSuccessNotification(strings("feedback.successDeleteAccount"));
         } else {
-            console.error("Error Occurs when deleting leader account.");
+            showErrorNotification(strings("feedback.accountNotExist"));
+            console.error("Error Occurs when deleting leader account");
         }
     };
 

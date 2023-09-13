@@ -16,6 +16,8 @@ import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { ErrorScreen } from "./ErrorScreen";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -24,6 +26,8 @@ interface Props {
 const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
     const [popUpVisible, setPopUpVisible] = React.useState(false);
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
+
 
     if (!leader) {
         return <ErrorScreen />;
@@ -35,8 +39,9 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
         if (success) {
             Session.inst.fetchAllLeaders();
             NavigationSession.inst.navigateBack(navigation);
-            // TODO: add a notification/popup after successfully deleted account.
+            showSuccessNotification(strings("feedback.successDeleteAccount"));
         } else {
+            showErrorNotification(strings("feedback.accountNotExist"));
             console.error("Error Occurs when deleting leader account.");
         }
     };
