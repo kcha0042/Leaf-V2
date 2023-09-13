@@ -18,7 +18,6 @@ import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
-
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }

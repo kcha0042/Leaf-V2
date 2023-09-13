@@ -18,7 +18,6 @@ import { ErrorScreen } from "./ErrorScreen";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
-
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
@@ -27,7 +26,6 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
     const [popUpVisible, setPopUpVisible] = React.useState(false);
     const { showErrorNotification, showSuccessNotification } = useNotificationSession();
-
 
     if (!leader) {
         return <ErrorScreen />;
