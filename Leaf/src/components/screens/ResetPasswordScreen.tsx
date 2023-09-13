@@ -18,7 +18,7 @@ import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContai
 import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
-import bcrypt from "bcryptjs";
+import PasswordUtil from "../../utils/PasswordUtil";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -55,10 +55,9 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
         }
 
         // Hashing the provided password
-        const salt = bcrypt.genSaltSync(10);
         let hashedPassword = undefined;
         if (newPassword != undefined) {
-            hashedPassword = bcrypt.hashSync(newPassword, salt);
+            hashedPassword = PasswordUtil.hashPassword(newPassword);
         }
 
         // Update password on account

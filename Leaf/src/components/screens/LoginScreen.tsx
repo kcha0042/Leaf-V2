@@ -23,9 +23,9 @@ import ActivateAccountScreen from "./ActivateAccountScreen";
 import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
-import bcrypt from "bcryptjs";
 import ResetPasswordScreen from "./ResetPasswordScreen";
 import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
+import PasswordUtil from "../../utils/PasswordUtil";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -58,8 +58,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         const id = new EmployeeID(username!);
 
         // check if the account exists and check if the password matches
-        const account = await Session.inst.fetchAccount(id);
-        if (account == null || !bcrypt.compareSync(password, account.password)) {
+        const account = await Session.inst.fetchAccount(id);       
+        if (account == null || !PasswordUtil.isCorrectPassword(password, account.password)) {
             // TODO: Provide feedback (probably split this into if elif to provide separate feedback)
             return;
         }

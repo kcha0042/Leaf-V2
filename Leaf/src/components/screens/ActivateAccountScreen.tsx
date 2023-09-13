@@ -20,8 +20,9 @@ import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
-import bcrypt from "bcryptjs";
 import Account from "../../model/account/Account";
+import PasswordUtil from "../../utils/PasswordUtil";
+
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -51,11 +52,10 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
-        // Hashing the provided password
-        const salt = bcrypt.genSaltSync(10);
+        // hashing password
         let hashedPassword = undefined;
         if (password != undefined) {
-            hashedPassword = bcrypt.hashSync(password, salt);
+            hashedPassword = PasswordUtil.hashPassword(password);
         }
 
         await Session.inst.fetchWorker(id);
