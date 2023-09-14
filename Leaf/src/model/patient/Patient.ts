@@ -100,7 +100,6 @@ class Patient {
         triageCase: TriageCase,
         postCode: string,
         allocatedTo: EmployeeID,
-        sessionAllocated: ShiftTime,
     ): Patient {
         return new Patient(
             mrn,
@@ -114,7 +113,7 @@ class Patient {
             new Date(),
             allocatedTo,
             [],
-            sessionAllocated,
+            ShiftTime.none,
             PatientChangelog.new(),
         );
     }

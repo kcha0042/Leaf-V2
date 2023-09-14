@@ -1,5 +1,6 @@
 import { compactMap } from "../language/functions/CompactMap";
 import EmployeeID from "../model/employee/EmployeeID";
+import { ShiftTime } from "../model/employee/ShiftTime";
 import MRN from "../model/patient/MRN";
 import Patient from "../model/patient/Patient";
 import { PatientSex } from "../model/patient/PatientSex";
@@ -20,6 +21,7 @@ export enum PatientField {
     TimeLastAllocated = "timeLastAllocated",
     IDAllocatedTo = "idAllocatedTo",
     Events = "events",
+    SessionAllocated = "sessionAllocated",
     Changelog = "changelog",
 }
 
@@ -45,6 +47,7 @@ class PatientDataObject {
             .addDate(PatientField.TimeLastAllocated, patient.timeLastAllocated)
             .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo.toString())
             .addObjectArray(PatientField.Events, patientEventsData)
+            .addString(PatientField.SessionAllocated, patient.sessionAllocated.toString())
             .addObject(PatientField.Changelog, patientChangelogData);
     }
 
@@ -61,6 +64,7 @@ class PatientDataObject {
         const timeLastAllocated = data.getDateOrNull(PatientField.TimeLastAllocated);
         const idAllocatedTo = data.getStringOrNull(PatientField.IDAllocatedTo);
         const eventsData = data.getDataObjectArray(PatientField.Events);
+        const sessionAllocated = data.getStringOrNull(PatientField.SessionAllocated);
         const restoredTriage = TriageCaseDataObject.restore(triageCaseData);
         const restoredChangelog = PatientChangelogDataObject.restore(changelogData);
         if (
@@ -74,6 +78,7 @@ class PatientDataObject {
             !timeLastAllocated ||
             !idAllocatedTo ||
             !restoredTriage ||
+            !sessionAllocated ||
             !restoredChangelog
         ) {
             console.error("[PatientDataObject] Failed to restore Patient");
@@ -91,6 +96,7 @@ class PatientDataObject {
             timeLastAllocated,
             new EmployeeID(idAllocatedTo),
             compactMap(eventsData, (data) => PatientEventDataObject.restore(data)),
+            new ShiftTime(sessionAllocated),
             restoredChangelog,
         );
     }
