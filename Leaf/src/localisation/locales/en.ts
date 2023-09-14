@@ -116,6 +116,7 @@ export default {
     "label.patientSelected": "patient selected",
     "label.changelog": "View the edit history of the patient.",
     "label.triageCode2Param": "CODE {0}  •  {1}",
+    "label.createdAt1Param": "Created {0}",
 
     // Input Labels
     "inputLabel.username": "Username",
