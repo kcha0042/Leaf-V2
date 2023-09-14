@@ -73,7 +73,7 @@ export default {
     "button.submit": "Submit",
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
-    "button.resetPassword": "Reset Password",
+    "button.resetPassword": "Forgot Password?",
     "button.reset": "Reset",
 
     // Login

@@ -19,6 +19,7 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import PasswordUtil from "../../utils/PasswordUtil";
+import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -65,6 +66,11 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             account.setPassword(hashedPassword);
             Session.inst.updateAccount(account);
         }
+
+        //TODO: Provide Feedback
+
+        // Navigate back
+        NavigationSession.inst.navigateBack(navigation);
     };
 
     return (

@@ -170,9 +170,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     <Spacer />
 
                     <LeafTextButton
-                        label={strings("button.resetPassword")}
+                        label={strings("button.activateAccount")}
                         onPress={() => {
-                            NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
+                            NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
                         }}
                         typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
                     />
@@ -188,14 +188,13 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     onPress={onLoginPressed}
                 />
                 <LeafButton
-                    label={strings("button.activateAccount")}
-                    icon="arrow-right-circle"
+                    label={strings("button.resetPassword")}
                     typography={LeafTypography.button}
-                    type={LeafButtonType.Filled}
-                    color={LeafColors.accent}
+                    type={LeafButtonType.Outlined}
+                    color={LeafColors.textSemiDark}
                     style={{ marginTop: 12 }}
                     onPress={() => {
-                        NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                        NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
                     }}
                 />
             </View>
