@@ -45,7 +45,6 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
             showSuccessNotification(strings("feedback.successDeleteAccount"));
         } else {
             showErrorNotification(strings("feedback.accountNotExist"));
-            console.error("Error Occurs when deleting leader account");
         }
     };
 

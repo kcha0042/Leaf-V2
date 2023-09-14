@@ -22,6 +22,7 @@ import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { exportPatient } from "../../utils/ExportPatientUtil";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -32,10 +33,14 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedPatients, updateSelectedPatients] = React.useState<Patient[]>([]);
     const [selectAll, setSelectAll] = useState(false);
     const [notify, setNotify] = useState(false);
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
 
     const notifyHandler = () => {
         if (selectedPatients.length == 0) {
             setNotify(true);
+            showErrorNotification(strings("label.noPatientSelected"));
+        } else {
+            showSuccessNotification(strings("feedback.successExportPatient"));
         }
     };
 

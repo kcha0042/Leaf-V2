@@ -271,7 +271,8 @@ export default {
     "feedback.patientEdited": "Patient edited",
     "feedback.triageNotCreated": "Triage creation failed",
     "feedback.patientNotEdited": "Patient edit failed",
-    "feedback.successDeleteAccount": "The account has been successfully removed",
+    "feedback.successDeleteAccount": "Account deleted",
     "feedback.accountNotExist": "The account does not exist",
-    "feedback.failDeleteNurseAccount": "The nurse has been assigned a patient, so the account cannot be removed",
+    "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
+    "feedback.successExportPatient": "Patient exported",
 };

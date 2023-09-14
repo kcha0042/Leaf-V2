@@ -7,6 +7,7 @@ import LeafTextButton from "../LeafTextButton/LeafTextButton";
 import LeafTypography from "../../styling/LeafTypography";
 import { LeafFontWeight } from "../../styling/typography/LeafFontWeight";
 import LeafColors from "../../styling/LeafColors";
+import { strings } from "../../../localisation/Strings";
 
 interface Props {
     visible: boolean;
@@ -28,8 +29,8 @@ export const LeafPopUp: React.FC<Props> = ({
     title,
     titleTypography = LeafTypography.title2,
     children,
-    cancelLabel = "Cancel",
-    doneLabel = "Done",
+    cancelLabel = undefined,
+    doneLabel = undefined,
 }) => {
     const cancelFont = LeafTypography.textButton;
     cancelFont.weight = LeafFontWeight.Regular;
@@ -49,9 +50,17 @@ export const LeafPopUp: React.FC<Props> = ({
                 <Dialog.Content>{children}</Dialog.Content>
 
                 <Dialog.Actions>
-                    <LeafTextButton label={cancelLabel} typography={cancelFont} onPress={onCancel} />
+                    <LeafTextButton
+                        label={cancelLabel || strings("button.cancel")}
+                        typography={cancelFont}
+                        onPress={onCancel}
+                    />
 
-                    <LeafTextButton label={doneLabel} typography={LeafTypography.textButton} onPress={onDone} />
+                    <LeafTextButton
+                        label={doneLabel || strings("button.done")}
+                        typography={LeafTypography.textButton}
+                        onPress={onDone}
+                    />
                 </Dialog.Actions>
             </Dialog>
         </Portal>

@@ -57,7 +57,6 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
         const patient = Session.inst.getActivePatient();
         if (!patient) {
             showErrorNotification(strings("feedback.accountNotExist"));
-            console.error("Error Occurs when deleting leader account.");
         } else {
             const success = await Session.inst.deletePatient(patient);
             if (success) {
@@ -66,7 +65,6 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                 showSuccessNotification(strings("feedback.successDeleteAccount"));
             } else {
                 showErrorNotification(strings("feedback.accountNotExist"));
-                console.error("Error Occurs when deleting leader account.");
             }
         }
     };
