@@ -25,7 +25,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
     const isSelected = itemIndex === selectedIndex;
     const idText = worker.id.toString();
 
-    const onPressAllocate = (worker) => {
+    const onPressAllocate = (worker: Worker) => {
         //TODO: set allocate nurse to patient
         //TODO: Update patient allocated counter
     };

@@ -2,7 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { FlatList } from "react-native";
 import { strings } from "../../localisation/Strings";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import Patient from "../../model/patient/Patient";
 import StateManager from "../../state/publishers/StateManager";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -36,6 +36,9 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     const refreshAllocatedPatients = () => {
         // Find all patients that are allocated to the worker
         const newAllocatedPatients: Patient[] = [];
+        if (worker == null){
+            throw new Error("Cannot fetch active worker!")
+        }
         for (const allocatedPatientID of worker.allocatedPatients) {
             const allocatedPatient = Session.inst.getPatient(allocatedPatientID);
             if (allocatedPatient != null) {
@@ -54,7 +57,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     }}
                 >
                     <LeafText typography={LeafTypography.title1} style={{ textAlign: "center" }}>
-                        {worker.allocatedPatients.length + " "}
+                        {worker?.allocatedPatients.length + " "}
                     </LeafText>
                     <LeafText typography={LeafTypography.subscript} style={{ textAlign: "center" }}>
                         {strings("nurseAllocationScreen.subtitle")}

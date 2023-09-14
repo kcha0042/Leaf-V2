@@ -6,7 +6,7 @@ import VGap from "../containers/layout/VGap";
 import LeafDimensions from "../styling/LeafDimensions";
 import { FlatList } from "react-native";
 import Worker from "../../model/employee/Worker";
-import Session from "../../model/Session";
+import Session from "../../model/session/Session";
 import NurseAllocationCard from "../custom/NurseAllocationCard";
 import StateManager from "../../state/publishers/StateManager";
 import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
@@ -22,7 +22,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
-    const [selectedIndex, setSelectedIndex] = React.useState(null);
+    const [selectedIndex, setSelectedIndex] = React.useState(NaN);
 
     useEffect(() => {
         Session.inst.fetchAllWorkers();

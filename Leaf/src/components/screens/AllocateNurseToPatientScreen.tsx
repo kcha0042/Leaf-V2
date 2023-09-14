@@ -4,7 +4,6 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import VGap from "../containers/layout/VGap";
 import React, { useEffect, useState } from "react";
 import Patient from "../../model/patient/Patient";
-import Session from "../../model/Session";
 import StateManager from "../../state/publishers/StateManager";
 import { FlatList } from "react-native";
 import PatientAllocationCard from "../custom/PatientAllocationCard";
@@ -17,6 +16,7 @@ import HGap from "../containers/layout/HGap";
 import LeafTypography from "../styling/LeafTypography";
 import LeafColors from "../styling/LeafColors";
 import LeafText from "../base/LeafText/LeafText";
+import Session from "../../model/session/Session";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;

@@ -40,15 +40,15 @@ function LeafSearchBarNew<T>({
 
     const [searchQuery, setSearchQuery] = React.useState("");
     const [filteredData, setFilteredData] = React.useState(data);
-    const textInputRef = useRef(null);
+    const textInputRef = useRef<TextInput>(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
         typography.withColor(valid ? LeafColors.textSuccess : LeafColors.textError);
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
 
-    const cleanupQuery = (searchQuery) => searchQuery.replace(/\s/g, "");
-    const calculateLevenshteinDistance = (source, target) => {
+    const cleanupQuery = (searchQuery: string) => searchQuery.replace(/\s/g, "");
+    const calculateLevenshteinDistance = (source: string, target: string) => {
         const sourceLength = source.length;
         const targetLength = target.length;
     
@@ -72,12 +72,12 @@ function LeafSearchBarNew<T>({
         return distanceMatrix[sourceLength][targetLength];
     };
 
-    const isFuzzyMatch = (query, data, localMaxDistance) => {
+    const isFuzzyMatch = (query: string, data: any, localMaxDistance: number) => {
         const calculateMatch = calculateLevenshteinDistance(query, dataToString(data));
         return calculateMatch <= localMaxDistance;
     };
 
-    const handleSearch = (searchQuery) => {
+    const handleSearch = (searchQuery: string) => {
         const cleanQuery = cleanupQuery(searchQuery);
         let filtered = data.filter((item) =>
             cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase()),
@@ -122,7 +122,9 @@ function LeafSearchBarNew<T>({
                     }),
                 }}
                 onPress={() => {
-                    textInputRef.current.focus();
+                    if (textInputRef.current) {
+                        textInputRef.current.focus();
+                    }
                 }}
             >
                 <LeafText
