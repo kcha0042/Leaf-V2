@@ -16,7 +16,6 @@ interface Props {
 }
 
 const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
-    // TODO: Add Worker full name instead of First Name
     const idText = worker.id.toString();
     return (
         <FlatContainer onPress={onPress}>
