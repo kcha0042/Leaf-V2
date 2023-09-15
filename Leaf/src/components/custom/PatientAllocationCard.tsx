@@ -15,6 +15,7 @@ import { useState } from "react";
 import { ShiftTime } from "../../model/employee/ShiftTime";
 import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
+import LeafChip from "../base/LeafChip/LeafChip";
 
 interface Props {
     patient: Patient;
@@ -101,22 +102,8 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
                     <VGap size={16} />
                     <HStack spacing={10}>
-                        {patient.events.map((event) => (
-                            <View
-                                key={event.id.toString()}
-                                style={{
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    borderColor: typography.color,
-                                    paddingHorizontal: 10,
-                                    paddingVertical: 5,
-                                    alignSelf: "flex-start",
-                                }}
-                            >
-                                <LeafText wide={false} typography={typography}>
-                                    {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
-                                </LeafText>
-                            </View>
+                    {patient.events.map((event) => (
+                            <LeafChip key={event.id.toString()} children={<LeafText wide={false} typography={typography}>{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>} color={LeafColors.fillBackgroundAccent} />
                         ))}
                     </HStack>
                 </VStack>
