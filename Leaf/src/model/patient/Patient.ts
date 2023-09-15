@@ -16,7 +16,7 @@ class Patient {
     public readonly triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date;
-    protected _allocatedTo: EmployeeID;
+    protected _allocatedTo: EmployeeID | null;
     protected _events: PatientEvent[];
     protected _sessionAllocated: ShiftTime;
     protected _changelog: PatientChangelog;
@@ -47,7 +47,7 @@ class Patient {
     get timeLastAllocated(): Date {
         return this._timeLastAllocated;
     }
-    get idAllocatedTo(): EmployeeID {
+    get idAllocatedTo(): EmployeeID | null{
         return this._allocatedTo;
     }
     get events(): PatientEvent[] {
@@ -70,7 +70,7 @@ class Patient {
         triageCase: TriageCase,
         postCode: string,
         timeLastAllocated: Date,
-        allocatedTo: EmployeeID,
+        allocatedTo: EmployeeID | null,
         events: PatientEvent[],
         sessionAllocated: ShiftTime,
         changelog: PatientChangelog,
@@ -99,7 +99,7 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        allocatedTo: EmployeeID,
+        allocatedTo: EmployeeID | null,
     ): Patient {
         return new Patient(
             mrn,
@@ -127,7 +127,7 @@ class Patient {
     }
 
     public deallocate() {
-        this._allocatedTo = new MRN("");
+        this._allocatedTo = null;
     }
 }
 

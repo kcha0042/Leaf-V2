@@ -45,7 +45,7 @@ class PatientDataObject {
             .addObject(PatientField.TriageCase, triageCaseData)
             .addString(PatientField.PostCode, patient.postCode)
             .addDate(PatientField.TimeLastAllocated, patient.timeLastAllocated)
-            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo.toString())
+            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo?.toString())
             .addObjectArray(PatientField.Events, patientEventsData)
             .addString(PatientField.SessionAllocated, patient.sessionAllocated.toString())
             .addObject(PatientField.Changelog, patientChangelogData);
@@ -76,7 +76,6 @@ class PatientDataObject {
             !phoneNumber ||
             !postCode ||
             !timeLastAllocated ||
-            !idAllocatedTo ||
             !restoredTriage ||
             !sessionAllocated ||
             !restoredChangelog
@@ -94,7 +93,7 @@ class PatientDataObject {
             restoredTriage,
             postCode,
             timeLastAllocated,
-            new EmployeeID(idAllocatedTo),
+            idAllocatedTo == null ? null : new EmployeeID(idAllocatedTo),
             compactMap(eventsData, (data) => PatientEventDataObject.restore(data)),
             new ShiftTime(sessionAllocated),
             restoredChangelog,

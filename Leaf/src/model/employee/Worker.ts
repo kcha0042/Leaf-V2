@@ -33,6 +33,14 @@ class Worker extends Employee {
     public allocatePatient(patient: Patient) {
         this._allocatedPatients.push(patient.mrn);
     }
+
+    public deallocatePatient(mrn: MRN) {
+        this.allocatedPatients.forEach((value: MRN, index: number) => {
+            if (value.matches(mrn)) {
+                this._allocatedPatients.splice(index, 1);
+            }
+        })
+    }
 }
 
 export default Worker;

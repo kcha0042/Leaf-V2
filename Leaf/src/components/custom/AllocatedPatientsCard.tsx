@@ -25,16 +25,17 @@ interface Props {
 const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
-    const worker = Session.inst.getActiveWorker;
+    const worker = Session.inst.getActiveWorker();
 
     const buttonTypography = LeafTypography.subscript;
     buttonTypography.leafColor = LeafColors.textError;
     buttonTypography.weight = LeafFontWeight.Bold;
 
 
-    const removePatient= (patient: Patient) => {
-        Session.inst.removeAllocatedPatient(patient);
-        
+    const removePatient = (patient: Patient) => {
+        if (worker != null) {
+            Session.inst.unallocatePatient(patient, worker);
+        }
     }
 
     const typography = LeafTypography.subscriptLabel;
