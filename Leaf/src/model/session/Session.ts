@@ -116,33 +116,26 @@ class Session {
         return success;
     }
 
-    public async allocatePatient(patient: Patient|null, allocatedTo: Worker): Promise<boolean> {
-        if (patient == null) {
-            throw new Error("Can't get active patient!")
-        }
+    public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
         allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
-        if (this.loggedInAccount.role == Role.leader) {
-            const success1 = this.updateWorker(allocatedTo);
-            if (!success1) {
-                return false;
-            }
-        } else {
-            assertionFailure("We're trying to allocate a patient but a leader isn't logged in?");
+
+        const success1 = this.updateWorker(allocatedTo);
+        if (!success1) {
             return false;
         }
+
         const success2 = await PatientsManager.inst.updatePatient(patient);
         if (success2) {
             // If we successfully submitted, re-fetch them from the database
             this.fetchPatient(patient.mrn);
-            this.fetchLeader(this.loggedInAccount.id);
+            this.fetchWorker(allocatedTo.id);
         }
         return success2;
     }
 
     public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
-        
         allocatedTo.deallocatePatient(patient.mrn)
         patient.deallocate();
        

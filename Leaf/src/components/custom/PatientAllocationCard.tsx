@@ -13,6 +13,8 @@ import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { useState } from "react";
 import { ShiftTime } from "../../model/employee/ShiftTime";
+import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
+import Session from "../../model/session/Session";
 
 interface Props {
     patient: Patient;
@@ -24,15 +26,35 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const sessionText = session.toString();
     const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
+    const worker = Session.inst.getActiveWorker();
 
-    const [selected, setSelected] = useState(false);
+    const refreshAllocation = () => {
+        if (worker != null && patient.idAllocatedTo != null) {
+            for (const allocatedPatientID of worker.allocatedPatients) {
+                if (allocatedPatientID.matches(patient.mrn)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    const [initialValue, setInitialValue] = useState(refreshAllocation());
 
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
 
     const onPressAllocate = (patient: Patient) => {
-        //TODO: set allocate patient to nurse
-        //TODO: Update patient allocated counter
+        if (worker != null) {
+            if (initialValue) {
+                // deallocate patient
+                Session.inst.unallocatePatient(patient, worker);
+            
+            } else {
+                // allocate patient
+                Session.inst.allocatePatient(patient, worker);
+            }
+        }
     };
 
 
@@ -48,6 +70,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
             <HStack
                 style={{
                     flex: 1,
+                    alignItems: 'center',
                 }}
             >
                 <TriageCodeBadge
@@ -101,7 +124,8 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafIconButton
+                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => onPressAllocate(patient)}/>
+                {/*<LeafIconButton
                     icon={selected ? "check" : "plus"}
                     size={LeafIconSize.Large}
                     iconColor={selected ? LeafColors.textLight : LeafColors.textDark}
@@ -116,7 +140,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                         borderWidth: 1,
                         borderColor: selected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
-                />
+                />*/}
             </HStack>
         </FlatContainer>
     );
