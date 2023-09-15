@@ -8,10 +8,12 @@ import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
 import { strings } from "../../localisation/Strings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FlatContainer from "../containers/FlatContainer";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
+import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
+import Session from "../../model/session/Session";
 
 interface Props {
     worker: Worker;
@@ -24,10 +26,34 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
     // check if allocate button is clicked (false=white, true=green)
     const isSelected = itemIndex === selectedIndex;
     const idText = worker.id.toString();
+    const patient = Session.inst.getActivePatient();
+
+    const refreshAllocation = () => {
+        if (patient != null && patient.idAllocatedTo != null) {
+            for (const allocatedPatientID of worker.allocatedPatients) {
+                if (allocatedPatientID.matches(patient.mrn)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    const [initialValue, setInitialValue] = useState(refreshAllocation());
 
     const onPressAllocate = (worker: Worker) => {
         //TODO: set allocate nurse to patient
         //TODO: Update patient allocated counter
+        if (patient != null) {
+            if (initialValue) {
+                // deallocate patient
+                Session.inst.unallocatePatient(patient, worker);
+            
+            } else {
+                // allocate patient
+                Session.inst.allocatePatient(patient, worker);
+            }
+        }
     };
 
     return (
@@ -52,7 +78,8 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafIconButton
+                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => {onPressAllocate(worker); onSelect(itemIndex)}}/>
+                {/*<LeafIconButton
                     icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
                     iconColor={isSelected ? LeafColors.textLight : LeafColors.textDark}
@@ -67,7 +94,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
                         borderWidth: 1,
                         borderColor: isSelected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
                     }}
-                />
+                />*/}
             </HStack>
         </FlatContainer>
     );
