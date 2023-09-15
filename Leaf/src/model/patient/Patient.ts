@@ -125,6 +125,10 @@ class Patient {
     public allocateTo(employeeID: EmployeeID) {
         this._allocatedTo = employeeID;
     }
+
+    public deallocate() {
+        this._allocatedTo = new MRN("");
+    }
 }
 
 export default Patient;

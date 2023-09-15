@@ -12,6 +12,10 @@ import TriageCodeBadge from "./TriageCodeBadge";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Spacer from "../containers/layout/Spacer";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import Worker from "../../model/employee/Worker";
+import { useEffect } from "react";
+import Session from "../../model/session/Session";
 
 interface Props {
     patient: Patient;
@@ -21,10 +25,17 @@ interface Props {
 const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     const idText = patient.mrn.toString();
     const dateText = patient.triageCase.arrivalDate.toDateString();
+    const worker = Session.inst.getActiveWorker;
 
     const buttonTypography = LeafTypography.subscript;
     buttonTypography.leafColor = LeafColors.textError;
     buttonTypography.weight = LeafFontWeight.Bold;
+
+
+    const removePatient= (patient: Patient) => {
+        Session.inst.removeAllocatedPatient(patient);
+        
+    }
 
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
@@ -67,10 +78,9 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                             {patient.fullName}
                         </LeafText>
                         <Spacer/>
-                        {/* // TODO: change to text button after merge */}
-                        <TouchableOpacity onPress={() => null}>
-                            <LeafText wide={false} typography={buttonTypography}>{strings("button.remove")}</LeafText>
-                        </TouchableOpacity>
+                        
+                        <LeafTextButton label={strings("button.remove")} typography={buttonTypography} onPress={() => removePatient(patient)}/>
+                        
                     </HStack>
 
                     <VGap size={16} />

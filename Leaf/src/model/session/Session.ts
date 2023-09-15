@@ -116,12 +116,15 @@ class Session {
         return success;
     }
 
-    public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+    public async allocatePatient(patient: Patient|null, allocatedTo: Worker): Promise<boolean> {
+        if (patient == null) {
+            throw new Error("Can't get active patient!")
+        }
         allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
         if (this.loggedInAccount.role == Role.leader) {
-            const success1 = this.updateLeader(this.loggedInAccount as Leader);
+            const success1 = this.updateWorker(allocatedTo);
             if (!success1) {
                 return false;
             }
@@ -134,6 +137,42 @@ class Session {
             // If we successfully submitted, re-fetch them from the database
             this.fetchPatient(patient.mrn);
             this.fetchLeader(this.loggedInAccount.id);
+        }
+        return success2;
+    }
+
+    public async removeAllocatedPatient(patient: Patient): Promise<boolean> {
+        const allocatedTo = this.getActiveWorker();
+        if (allocatedTo == null) {
+            throw new Error("Cannot fetch active worker!")
+        }
+        for (const allocatedPatientID of allocatedTo.allocatedPatients) {
+            if (patient.mrn.toString() == allocatedPatientID.toString()) {
+                const index = allocatedTo.allocatedPatients.indexOf(allocatedPatientID);
+                if (index > -1) {
+                    allocatedTo.allocatedPatients.splice(index, 1);
+                    patient.deallocate; 
+                    console.log("Removed allocated patient from worker");
+                } else {
+                    console.log("Cannot find selected patient in worker!")
+                }
+            }
+        }
+        if (this.loggedInAccount.role == Role.leader) {
+            const success1 = this.updateWorker(allocatedTo)
+            console.log("Updated worker");
+            if (!success1) {
+                return false;
+            }
+        } else {
+            assertionFailure("We're trying to deallocate a patient but a leader isn't logged in?");
+            return false;
+        }
+        const success2 = await PatientsManager.inst.updatePatient(patient);
+        if (success2) {
+            this.fetchPatient(patient.mrn);
+            this.fetchWorker(allocatedTo.id);
+            console.log("Fetched patient and worker");
         }
         return success2;
     }
