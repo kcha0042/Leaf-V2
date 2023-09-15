@@ -55,7 +55,8 @@ export const LeaderInterface = new LeafInterface()
             () => {
                 // Drawer
                 NavigationSession.inst.clearScreens();
-                NavigationSession.inst.setSidebarComponent(<AccountScreen />, strings("header.leader.account"));
+                NavigationSession.inst.navigateTo(AccountScreen, undefined, strings("header.worker.account"));
+                NavigationSession.inst.setSidebarComponent(undefined, undefined);
             },
             "account-circle",
             "account-circle-outline",
