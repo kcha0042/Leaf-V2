@@ -22,7 +22,6 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
-    const [selectedIndex, setSelectedIndex] = React.useState(NaN);
 
     useEffect(() => {
         Session.inst.fetchAllWorkers();
@@ -35,6 +34,12 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.activePatientChanged.subscribe(() => {
             setPatient(Session.inst.getActivePatient());
         });
+
+        StateManager.patientsFetched.subscribe(() => {
+            setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
+            Session.inst.fetchAllWorkers();
+        })
 
     }, []);
 
@@ -59,9 +64,6 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                     renderItem={({ item: worker, index: index }) => (
                         <NurseAllocationCard
                             worker={worker}
-                            itemIndex={index}
-                            selectedIndex={selectedIndex}
-                            onSelect={setSelectedIndex}
                         />
                     )}
                     keyExtractor={(worker) => worker.id.toString()}

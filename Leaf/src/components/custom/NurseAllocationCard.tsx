@@ -14,17 +14,13 @@ import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     worker: Worker;
-    itemIndex: number;
-    selectedIndex: number;
-    onSelect: (index: number) => void;
 }
 
-const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex, onSelect }) => {
-    // check if allocate button is clicked (false=white, true=green)
-    const isSelected = itemIndex === selectedIndex;
+const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const idText = worker.id.toString();
     const patient = Session.inst.getActivePatient();
 
@@ -39,17 +35,30 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
         return false;
     }
 
-    const [initialValue, setInitialValue] = useState(refreshAllocation());
+    const [isTicked, setIsTicked] = useState(refreshAllocation());
+
+    useEffect(() => {
+        StateManager.patientsFetched.subscribe(() => {
+            setIsTicked(refreshAllocation());
+        });
+    }, []);
 
     const onPressAllocate = () => {
         //TODO: set allocate nurse to patient
         //TODO: Update patient allocated counter
         if (patient != null) {
-            if (initialValue) {
+            if (isTicked) {
                 // deallocate patient
                 Session.inst.unallocatePatient(patient, worker);
             
             } else {
+                // deallocate patient from previous worker
+                    if (patient.idAllocatedTo != null) {
+                        const allocatedWorker = Session.inst.getWorker(patient.idAllocatedTo);
+                        if (allocatedWorker != null) {
+                            Session.inst.unallocatePatient(patient, allocatedWorker);
+                        }                   
+                }
                 // allocate patient
                 Session.inst.allocatePatient(patient, worker);
             }
@@ -78,7 +87,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => {onPressAllocate(); onSelect(itemIndex)}}/>
+                <LeafCheckbox size={LeafIconSize.Large} initialValue={isTicked} onValueChange={() => onPressAllocate()}/>
                 {/*<LeafIconButton
                     icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
