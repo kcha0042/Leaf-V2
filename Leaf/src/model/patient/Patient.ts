@@ -18,7 +18,6 @@ class Patient {
     protected _timeLastAllocated: Date;
     protected _allocatedTo: EmployeeID | null;
     protected _events: PatientEvent[];
-    protected _sessionAllocated: ShiftTime;
     protected _changelog: PatientChangelog;
     get mrn(): MRN {
         return this._mrn;
@@ -54,7 +53,7 @@ class Patient {
         return this._events;
     }
     get sessionAllocated(): ShiftTime {
-        return this._sessionAllocated;
+        return ShiftTime.getCurrent(this._timeLastAllocated);
     }
     get changelog(): PatientChangelog {
         return this._changelog;
@@ -72,7 +71,6 @@ class Patient {
         timeLastAllocated: Date,
         allocatedTo: EmployeeID | null,
         events: PatientEvent[],
-        sessionAllocated: ShiftTime,
         changelog: PatientChangelog,
     ) {
         this._mrn = mrn;
@@ -86,7 +84,6 @@ class Patient {
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
-        this._sessionAllocated = sessionAllocated;
         this._changelog = changelog;
     }
 
@@ -113,7 +110,6 @@ class Patient {
             new Date(),
             allocatedTo,
             [],
-            ShiftTime.none,
             PatientChangelog.new(),
         );
     }
@@ -124,6 +120,7 @@ class Patient {
 
     public allocateTo(employeeID: EmployeeID) {
         this._allocatedTo = employeeID;
+        this._timeLastAllocated = new Date();
     }
 
     public deallocate() {

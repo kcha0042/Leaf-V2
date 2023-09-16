@@ -16,6 +16,18 @@ export class ShiftTime {
         this.id = id.toUpperCase();
     }
 
+    public static getCurrent(time: Date = new Date()): ShiftTime {
+        const hour = time.getHours();
+
+        if (hour >= 7 && hour <15) {
+            return ShiftTime.morning;
+        }
+        else if (hour >=15 && hour <23) {
+            return ShiftTime.afternoon;
+        }
+        return ShiftTime.night;
+    }
+
     public matches(other: ShiftTime) {
         return this.id == other.id;
     }
