@@ -41,7 +41,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
 
     const [initialValue, setInitialValue] = useState(refreshAllocation());
 
-    const onPressAllocate = (worker: Worker) => {
+    const onPressAllocate = () => {
         //TODO: set allocate nurse to patient
         //TODO: Update patient allocated counter
         if (patient != null) {
@@ -78,7 +78,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker, itemIndex, selectedIndex
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => {onPressAllocate(worker); onSelect(itemIndex)}}/>
+                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => {onPressAllocate(); onSelect(itemIndex)}}/>
                 {/*<LeafIconButton
                     icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
