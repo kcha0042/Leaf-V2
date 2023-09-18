@@ -21,12 +21,14 @@ interface Props {
 }
 
 const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
-    const worker = Session.inst.getActiveWorker();
     const [allocatedPatients, setAllocatedPatients] = React.useState<Patient[]>([]);
+    let worker = Session.inst.getActiveWorker();
 
     useEffect(() => {
+        worker = Session.inst.getActiveWorker();
         StateManager.patientsFetched.subscribe(() => {
             refreshAllocatedPatients();
+            worker = Session.inst.getActiveWorker();
         });
 
         refreshAllocatedPatients();
@@ -57,7 +59,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     }}
                 >
                     <LeafText typography={LeafTypography.title1} style={{ textAlign: "center" }}>
-                        {worker?.allocatedPatients.length + " "}
+                        {allocatedPatients.length + " "}
                     </LeafText>
                     <LeafText typography={LeafTypography.subscript} style={{ textAlign: "center" }}>
                         {strings("nurseAllocationScreen.subtitle")}
