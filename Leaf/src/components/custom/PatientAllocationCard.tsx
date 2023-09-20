@@ -16,6 +16,7 @@ import { ShiftTime } from "../../model/employee/ShiftTime";
 import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
+import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 
 interface Props {
     patient: Patient;
@@ -45,15 +46,17 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
 
-    const onPressAllocate = (patient: Patient) => {
+    const onPressAllocate = () => {
         if (worker != null) {
             if (initialValue) {
                 // deallocate patient
                 Session.inst.unallocatePatient(patient, worker);
+                setInitialValue(false);
             
             } else {
                 // allocate patient
                 Session.inst.allocatePatient(patient, worker);
+                setInitialValue(true);
             }
         }
     };
@@ -111,7 +114,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafCheckbox size={LeafIconSize.Large} initialValue={initialValue} onValueChange={() => onPressAllocate(patient)}/>
+                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={initialValue} initialValue={initialValue} onPress={onPressAllocate}/>
                 {/*<LeafIconButton
                     icon={selected ? "check" : "plus"}
                     size={LeafIconSize.Large}

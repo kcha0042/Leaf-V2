@@ -30,6 +30,10 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
             refreshAllocatedPatients();
             worker = Session.inst.getActiveWorker();
         });
+        StateManager.patientUpdated.subscribe(() => {
+            refreshAllocatedPatients();
+            worker = Session.inst.getActiveWorker();
+        });
 
         refreshAllocatedPatients();
         Session.inst.fetchAllPatients();

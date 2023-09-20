@@ -33,7 +33,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     buttonTypography.weight = LeafFontWeight.Bold;
 
 
-    const removePatient = (patient: Patient) => {
+    const removePatient = () => {
         if (worker != null) {
             Session.inst.unallocatePatient(patient, worker);
         }
@@ -81,7 +81,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         </LeafText>
                         <Spacer/>
                         
-                        <LeafTextButton label={strings("button.remove")} typography={buttonTypography} onPress={() => removePatient(patient)}/>
+                        <LeafTextButton label={strings("button.remove")} typography={buttonTypography} onPress={removePatient}/>
                         
                     </HStack>
 

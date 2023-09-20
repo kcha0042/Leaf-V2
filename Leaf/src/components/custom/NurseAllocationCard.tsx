@@ -26,6 +26,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     let patient = Session.inst.getActivePatient();
 
     const refreshAllocation = () => {
+        patient = Session.inst.getActivePatient();
         if (patient != null && patient.idAllocatedTo != null) {
             for (const allocatedPatientID of worker.allocatedPatients) {
                 if (allocatedPatientID.matches(patient.mrn)) {
@@ -39,19 +40,12 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const [isTicked, setIsTicked] = useState(refreshAllocation());
 
     useEffect(() => {
-        const unsubscribeReallocationOccured = StateManager.reallocationOccured.subscribe(() => {
+        StateManager.patientUpdated.subscribe(() => {
             setIsTicked(refreshAllocation());
-            //console.log(worker.fullName + " allocation refreshed.");
-        });
-
-        return () => {
-            unsubscribeReallocationOccured();
-        }
+        })
     }, []);
 
     const onPressAllocate = () => {
-        //TODO: set allocate nurse to patient
-        //TODO: Update patient allocated counter
         if (patient != null) {
             if (isTicked) {
                 // deallocate patient

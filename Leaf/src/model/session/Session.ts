@@ -126,8 +126,10 @@ class Session {
             return false;
         }
 
-        const success2 = await PatientsManager.inst.updatePatient(patient);
-        if (success2) {
+        const success2 = this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
             // If we successfully submitted, re-fetch them from the database
             this.fetchPatient(patient.mrn);
             this.fetchWorker(allocatedTo.id);
@@ -144,8 +146,10 @@ class Session {
                 return false;
         }
 
-        const success2 = await PatientsManager.inst.updatePatient(patient);
-        if (success2) {
+        const success2 = this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
             this.fetchPatient(patient.mrn);
             this.fetchWorker(allocatedTo.id);
         }
