@@ -35,10 +35,9 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
             setPatient(Session.inst.getActivePatient());
         });
 
-        StateManager.patientsFetched.subscribe(() => {
+        StateManager.reallocationOccured.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
             setFilteredWorkers(Session.inst.getAllWorkers());
-            Session.inst.fetchAllWorkers();
         })
 
     }, []);

@@ -15,6 +15,7 @@ import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
+import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 
 interface Props {
     worker: Worker;
@@ -22,13 +23,13 @@ interface Props {
 
 const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const idText = worker.id.toString();
-    const patient = Session.inst.getActivePatient();
+    let patient = Session.inst.getActivePatient();
 
     const refreshAllocation = () => {
         if (patient != null && patient.idAllocatedTo != null) {
             for (const allocatedPatientID of worker.allocatedPatients) {
                 if (allocatedPatientID.matches(patient.mrn)) {
-                    return true;
+                    return true;                  
                 }
             }
         }
@@ -38,9 +39,14 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const [isTicked, setIsTicked] = useState(refreshAllocation());
 
     useEffect(() => {
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribeReallocationOccured = StateManager.reallocationOccured.subscribe(() => {
             setIsTicked(refreshAllocation());
+            //console.log(worker.fullName + " allocation refreshed.");
         });
+
+        return () => {
+            unsubscribeReallocationOccured();
+        }
     }, []);
 
     const onPressAllocate = () => {
@@ -50,17 +56,21 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
             if (isTicked) {
                 // deallocate patient
                 Session.inst.unallocatePatient(patient, worker);
+                setIsTicked(false);
+                StateManager.reallocationOccured.publish();
             
             } else {
                 // deallocate patient from previous worker
                     if (patient.idAllocatedTo != null) {
                         const allocatedWorker = Session.inst.getWorker(patient.idAllocatedTo);
                         if (allocatedWorker != null) {
-                            Session.inst.unallocatePatient(patient, allocatedWorker);
+                            Session.inst.unallocatePatient(patient, allocatedWorker);                          
                         }                   
                 }
                 // allocate patient
                 Session.inst.allocatePatient(patient, worker);
+                setIsTicked(true);
+                StateManager.reallocationOccured.publish();
             }
         }
     };
@@ -87,7 +97,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafCheckbox size={LeafIconSize.Large} initialValue={isTicked} onValueChange={() => onPressAllocate()}/>
+                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked} initialValue={isTicked} onPress={onPressAllocate}/>
                 {/*<LeafIconButton
                     icon={isSelected ? "check" : "plus"}
                     size={LeafIconSize.Large}
