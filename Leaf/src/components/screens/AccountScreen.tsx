@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
-import { HospitalsArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -37,17 +36,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [fName, setFName] = React.useState<string>(employee?.firstName || strings("label.loading"));
     const [lName, setLName] = React.useState<string>(employee?.lastName || strings("label.loading"));
     const [email, setEmail] = React.useState<string>(employee?.email || strings("label.loading"));
-    const [hospital, setHospital] = React.useState<string>(employee?.currentHospital?.name || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
-            // If the logged in worker gets updated and hence fetched, we refresh this
-            const tmpEmployee = Session.inst.loggedInAccount;
-            setEmployee(tmpEmployee);
-            setFName(tmpEmployee?.firstName || "");
-            setLName(tmpEmployee?.lastName || "");
-            setEmail(tmpEmployee?.email || "");
-            setHospital(tmpEmployee?.currentHospital?.name || "");
+            // If the logged in worker gets updated and hence fetched, we refresh the details
+            const activeEmployee = Session.inst.loggedInAccount;
+            setEmployee(activeEmployee);
+            setFName(activeEmployee?.firstName || "");
+            setLName(activeEmployee?.lastName || "");
+            setEmail(activeEmployee?.email || "");
         });
 
         Session.inst.fetchWorker(Session.inst.loggedInAccount.id);
@@ -60,27 +57,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const logOut = () => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);
         // TODO: Do we need to change anything in session?
-    };
-
-    // Text change
-    let newFName = "";
-    const onFNameChange = (name: string) => {
-        newFName = name;
-    };
-
-    let newLName = "";
-    const onLNameChange = (name: string) => {
-        newLName = name;
-    };
-
-    let newEmail = "";
-    const onEmailChange = (email: string) => {
-        newEmail = email;
-    };
-
-    let newHospitalName = "";
-    const onHospitalChange = (hospital: string) => {
-        newHospitalName = hospital;
     };
 
     const updateEmployee = (employee: Employee) => {
@@ -108,6 +84,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     // Pop ups
+    let newFName = "";
+    const onFNameChange = (name: string) => {
+        newFName = name;
+    };
+
+    let newLName = "";
+    const onLNameChange = (name: string) => {
+        newLName = name;
+    };
     const [editNameVisible, setEditNameVisible] = useState(false);
     const onNameDone = () => {
         setFName(newFName);
@@ -120,6 +105,10 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         updateEmployeeCouldBeNull(employee);
     };
 
+    let newEmail = "";
+    const onEmailChange = (email: string) => {
+        newEmail = email;
+    };
     const [editEmailVisible, setEditEmailVisible] = useState(false);
     const onEmailDone = () => {
         setEmail(newEmail);
@@ -130,47 +119,9 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         updateEmployeeCouldBeNull(employee);
     };
 
-    const [errTextVisible, setErrTextVisible] = useState(false);
-    const [editHospitalVisible, setEditHospitalVisible] = useState(false);
-    const onHospitalDone = () => {
-        const hospitals = HospitalsArray;
-        // Checking hospital exists
-        let newHospital = null;
-        for (let hospital of hospitals) {
-            if (hospital.name == newHospitalName) {
-                newHospital = hospital;
-                setHospital(newHospitalName);
-                setEditHospitalVisible(false);
-                break;
-            }
-        }
-
-        if (newHospital != null){
-            employee?.setHosptial(newHospital);
-            updateEmployeeCouldBeNull(employee);
-        }
-
-        setErrTextVisible(newHospital == null);
-    };
-
-    const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
-    const onPasswordDone = () => {
-        // TODO: replace with password validation
-        const validPassword = true;
-        if (validPassword) {
-            setEditHospitalVisible(true);
-            setEnterPasswordVisible(false);
-        }
-
-        setErrTextVisible(!validPassword);
-    };
-
     const onCancel = () => {
         setEditNameVisible(false);
         setEditEmailVisible(false);
-        setEditHospitalVisible(false);
-        setEnterPasswordVisible(false);
-        setErrTextVisible(false);
     };
 
     const typography = LeafTypography.textButton;
@@ -212,19 +163,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                     </HStack>
                 </FlatContainer>
 
-                {/* Hospital */}
-                <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("label.hospital")}</LeafText>
-
-                    <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}>
-                            {hospital}
-                        </LeafText>
-                        <Spacer />
-                        <LeafTextButton label={strings("button.edit")} typography={typography} onPress={() => setEnterPasswordVisible(true)} />
-                    </HStack>
-                </FlatContainer>
-
                 <Spacer />
 
                 <LeafButton label={strings("button.logout")} onPress={logOut} />
@@ -253,47 +191,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 <LeafTextInputShort label={strings("inputLabel.email")} onTextChange={onEmailChange} />
             </LeafPopUp>
 
-            {/* Edit hospital */}
-            <LeafPopUp
-                visible={editHospitalVisible}
-                setVisible={setEditHospitalVisible}
-                title={strings("label.editHospital")}
-                onDone={onHospitalDone}
-                onCancel={onCancel}
-            >
-                <LeafTextInputShort label={strings("label.hospital")} onTextChange={onHospitalChange} />
-                {
-                    !errTextVisible ? null : (
-                        <LeafText
-                            style={{ paddingTop: 10 }}
-                            typography={LeafTypography.error}
-                        >
-                            {strings("error.hospitalExists")}
-                        </LeafText>
-                    )
-                }
-            </LeafPopUp>
-
-            {/* Check password */}
-            <LeafPopUp
-                visible={enterPasswordVisible}
-                setVisible={setEnterPasswordVisible}
-                title={strings("label.enterPassword")}
-                onDone={onPasswordDone}
-                onCancel={onCancel}
-            >
-                <LeafTextInputShort label={strings("inputLabel.password")} onTextChange={() => null /* TODO */} />
-                {
-                    !errTextVisible ? null : (
-                        <LeafText
-                            style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                            typography={LeafTypography.error}
-                        >
-                            {strings("error.incorrectPassword")}
-                        </LeafText>
-                    )
-                }
-            </LeafPopUp>
         </View>
     );
 };
