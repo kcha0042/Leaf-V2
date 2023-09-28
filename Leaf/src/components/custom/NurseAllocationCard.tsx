@@ -32,7 +32,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         for (const allocatedPatientID of worker.allocatedPatients) {
             if (allocatedPatientID.matches(patient.mrn)) return true;                 
         }
-        
+
         return false;
     }
 
@@ -70,26 +70,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
-                {/* 
-                    // TODO: replace with checkbox after merge
-                */}
-                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked} initialValue={isTicked} onPress={onPressAllocate}/>
-                {/*<LeafIconButton
-                    icon={isSelected ? "check" : "plus"}
-                    size={LeafIconSize.Large}
-                    iconColor={isSelected ? LeafColors.textLight : LeafColors.textDark}
-                    color={isSelected ? LeafColors.accent : LeafColors.transparent}
-                    onPress={() => {
-                        onSelect(itemIndex);
-                        onPressAllocate(worker);
-                    }}
-                    style={{
-                        alignSelf: "center",
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: isSelected ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
-                    }}
-                />*/}
+                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked ?? false} initialValue={isTicked} onPress={onPressAllocate}/>
             </HStack>
         </FlatContainer>
     );
