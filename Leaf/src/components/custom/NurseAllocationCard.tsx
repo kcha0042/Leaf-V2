@@ -27,13 +27,12 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
 
     const refreshAllocation = () => {
         patient = Session.inst.getActivePatient();
-        if (patient != null && patient.idAllocatedTo != null) {
-            for (const allocatedPatientID of worker.allocatedPatients) {
-                if (allocatedPatientID.matches(patient.mrn)) {
-                    return true;                  
-                }
-            }
+        if (patient == null || patient.idAllocatedTo == null) return;
+
+        for (const allocatedPatientID of worker.allocatedPatients) {
+            if (allocatedPatientID.matches(patient.mrn)) return true;                 
         }
+        
         return false;
     }
 
