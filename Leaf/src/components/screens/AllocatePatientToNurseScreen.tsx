@@ -62,6 +62,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                     data={filteredWorkers}
                     renderItem={({ item: worker, index: index }) => (
                         <NurseAllocationCard
+                            key={worker.id.toString()}
                             worker={worker}
                         />
                     )}

@@ -45,28 +45,11 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         })
     }, []);
 
-    const onPressAllocate = () => {
-        if (patient != null) {
-            if (isTicked) {
-                // deallocate patient
-                Session.inst.unallocatePatient(patient, worker);
-                setIsTicked(false);
-                StateManager.reallocationOccured.publish();
-            
-            } else {
-                // deallocate patient from previous worker
-                    if (patient.idAllocatedTo != null) {
-                        const allocatedWorker = Session.inst.getWorker(patient.idAllocatedTo);
-                        if (allocatedWorker != null) {
-                            Session.inst.unallocatePatient(patient, allocatedWorker);                          
-                        }                   
-                }
-                // allocate patient
-                Session.inst.allocatePatient(patient, worker);
-                setIsTicked(true);
-                StateManager.reallocationOccured.publish();
-            }
-        }
+    const onPressAllocate = async () => {
+        if (patient == null) return;
+        isTicked ? await Session.inst.unallocatePatient(patient, worker) : await Session.inst.allocatePatient(patient, worker);
+        setIsTicked(!isTicked);
+        StateManager.reallocationOccured.publish();
     };
 
     return (
