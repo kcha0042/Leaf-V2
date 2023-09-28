@@ -117,6 +117,13 @@ class Session {
     }
 
     public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+        // deallocate patient from previous woker if already allocated
+        if (patient.idAllocatedTo != null) {
+            const allocatedWorker = this.getWorker(patient.idAllocatedTo);
+            if (allocatedWorker != null) {
+                this.unallocatePatient(patient, allocatedWorker);
+            } 
+        }
         allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
