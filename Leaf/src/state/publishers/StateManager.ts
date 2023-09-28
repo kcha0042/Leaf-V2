@@ -49,9 +49,6 @@ class StateManager {
     // Notifies when patients are done async fetching and can be retrieved from Session
     public static readonly patientsFetched = new LeafPublisher();
 
-    // Notifies when reallocation of a patient occurs
-    public static readonly reallocationOccured = new LeafPublisher();
-
     // Notifies when the active patient has changed so components can update
     public static readonly activePatientChanged = new LeafPublisher();
 

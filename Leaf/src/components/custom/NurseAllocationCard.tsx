@@ -43,14 +43,12 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         StateManager.patientUpdated.subscribe(() => {
             setIsTicked(refreshAllocation());
         })
-
     }, []);
 
     const onPressAllocate = async () => {
         if (patient == null) return;
         isTicked ? await Session.inst.unallocatePatient(patient, worker) : await Session.inst.allocatePatient(patient, worker);
         setIsTicked(!isTicked);
-        StateManager.reallocationOccured.publish();
     };
 
     return (
