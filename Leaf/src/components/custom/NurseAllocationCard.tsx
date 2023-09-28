@@ -24,10 +24,11 @@ interface Props {
 const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const idText = worker.id.toString();
     let patient = Session.inst.getActivePatient();
+    console.log(patient)
 
     const refreshAllocation = () => {
         patient = Session.inst.getActivePatient();
-        if (patient == null || patient.idAllocatedTo == null) return;
+        if (patient == null || patient.idAllocatedTo == null) return false;
 
         for (const allocatedPatientID of worker.allocatedPatients) {
             if (allocatedPatientID.matches(patient.mrn)) return true;                 
@@ -36,12 +37,13 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         return false;
     }
 
-    const [isTicked, setIsTicked] = useState(refreshAllocation());
+    const [isTicked, setIsTicked] = useState<boolean>(refreshAllocation());
 
     useEffect(() => {
         StateManager.patientUpdated.subscribe(() => {
             setIsTicked(refreshAllocation());
         })
+
     }, []);
 
     const onPressAllocate = async () => {
@@ -70,7 +72,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked ?? false} initialValue={isTicked} onPress={onPressAllocate}/>
+                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked} initialValue={isTicked} onPress={onPressAllocate}/>
             </HStack>
         </FlatContainer>
     );
