@@ -3,20 +3,19 @@ import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
 import LeafButton from "../base/LeafButton/LeafButton";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { ErrorScreen } from "./ErrorScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import VGap from "../containers/layout/VGap";
 import LargeMenuButton from "../custom/LargeMenuButton";
+import { Linking } from "react-native";
 import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
@@ -53,13 +52,33 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     const onDone = () => {
-        // TODO: save
         NavigationSession.inst.navigateBack(navigation);
     };
 
-    const onCallPress = () => {};
+    const dialCall = async (number: string) => {
+        let dial = `tel:${number}`;
+        const canCall = await Linking.canOpenURL(dial);
+        if (!canCall){
+            console.log("[ACTION SSCREEN] Phone number is not available");
+            // TODO: status update, this should be done after merge
+        }
 
-    const onEmergencyPress = () => {};
+        try {
+            await Linking.openURL(dial);
+        } catch (error) {
+            console.log("[ACTIONS SCREEN] Could not call number");
+            // TODO: status update, this should be done after merge
+        }
+      };
+
+    const onCallPress = () => {
+        dialCall(patient.phoneNumber);
+    };
+
+    const onEmergencyPress = () => {
+        // TODO: how can we test this?
+        dialCall(strings("emergencyPhone.number"));
+    };
 
     return (
         <DefaultScreenContainer>
