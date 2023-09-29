@@ -60,7 +60,7 @@ export default {
     "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
-    "button.edit": "edit",
+    "button.edit": "Edit",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
