@@ -6,47 +6,80 @@ import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import LeafText from "../base/LeafText/LeafText";
-import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import LeafTextInputShort from "../base/LeafTextInputShort/LeafTextInputShort";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import ActivateAccountScreen from "./ActivateAccountScreen";
+import ValidateUtil from "../../utils/ValidateUtil";
+import EmployeeID from "../../model/employee/EmployeeID";
+import Session from "../../model/session/Session";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification } = useNotificationSession();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    const onUsernameInput = (text) => {
+    const onUsernameInput = (text: string) => {
         setUsername(text);
     };
 
-    const onPasswordInput = (text) => {
+    const onPasswordInput = (text: string) => {
         setPassword(text);
     };
 
-    const onLoginPressed = () => {
-        // TODO: Obviously this entire thing will be reworked in time
-        switch (username.toLowerCase()) {
-            case "worker":
-            case "w":
-                StateManager.loginStatus.publish(LoginStatus.Worker);
-                break;
-            case "leader":
-            case "l":
-                StateManager.loginStatus.publish(LoginStatus.Leader);
-                break;
-            case "admin":
-            case "a":
-                StateManager.loginStatus.publish(LoginStatus.Admin);
-                break;
+    const allIsValid: () => boolean = () => {
+        return ValidateUtil.stringIsValid(username);
+        // TODO: Uncomment this when we implement passwords
+        // ValidateUtil.stringIsValid(password)
+    };
+
+    const onLoginPressed = async () => {
+        if (!allIsValid()) {
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
+            return;
+        }
+        const id = new EmployeeID(username!);
+
+        await Session.inst.fetchWorker(id);
+        const worker = Session.inst.getWorker(id);
+        if (worker != null && worker.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(worker);
+            StateManager.loginStatus.publish(LoginStatus.Worker);
+            return;
+        }
+
+        await Session.inst.fetchLeader(id);
+        const leader = Session.inst.getLeader(id);
+        if (leader != null && leader.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(leader);
+            StateManager.loginStatus.publish(LoginStatus.Leader);
+            return;
+        }
+
+        // No need to fetch admin - we don't maintain an admin store
+        const admin = await Session.inst.getAdmin(id);
+        if (admin != null && admin.accountActivated) {
+            // We found the matching account!
+            Session.inst.setLoggedInAccount(admin);
+            StateManager.loginStatus.publish(LoginStatus.Admin);
+            return;
         }
     };
 
@@ -75,20 +108,52 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.username")}
+                    label={strings("inputLabel.username")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onUsernameInput}
                 />
 
-                <VGap size={8} />
+                <VGap size={LeafDimensions.textInputSpacing} />
 
                 <LeafTextInputShort
-                    label={strings("login.inputLabel.password")}
+                    label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
                     onTextChange={onPasswordInput}
                 />
+
+                <VGap size={LeafDimensions.textInputSpacing} />
+
+                <HStack
+                    style={{
+                        alignItems: "center",
+                        width: "100%",
+                    }}
+                >
+                    <LeafCheckbox
+                        initialValue={true}
+                        onValueChange={(isTicked) => {}}
+                        color={LeafColors.textSemiDark}
+                        style={{
+                            marginRight: 8,
+                        }}
+                    />
+
+                    <LeafText typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)} wide={false}>
+                        {strings("label.rememberMe")}
+                    </LeafText>
+
+                    <Spacer />
+
+                    <LeafTextButton
+                        label={strings("button.activateAccount")}
+                        onPress={() => {
+                            NavigationSession.inst.navigateTo(ActivateAccountScreen, navigation, undefined);
+                        }}
+                        typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                    />
+                </HStack>
 
                 <LeafButton
                     label={strings("button.login")}
@@ -96,7 +161,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
-                    style={{ marginTop: 40 }}
+                    style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
                 />
             </View>

@@ -5,7 +5,7 @@ import LeafColor from "../styling/color/LeafColor";
 
 interface Props {
     color: LeafColor;
-    children; // No type - can be any component
+    children: any; // No type - can be any component
     style?: ViewStyle;
 }
 

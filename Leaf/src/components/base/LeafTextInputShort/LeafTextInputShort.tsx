@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import { Platform, TextInput, View, ViewStyle } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import React, { useEffect, useRef, useState } from "react";
+import { Platform, TextInput, View, ViewStyle, TouchableWithoutFeedback } from "react-native";
 import LeafColors from "../../styling/LeafColors";
 import LeafTypography from "../../styling/LeafTypography";
 import LeafColor from "../../styling/color/LeafColor";
 import LeafText from "../LeafText/LeafText";
+import StateManager from "../../../state/publishers/StateManager";
 
 interface Props {
     label: string;
@@ -25,43 +25,67 @@ const LeafTextInputShort: React.FC<Props> = ({
     style,
     onTextChange,
 }) => {
-    const [text, setText] = React.useState("");
-    const textInputRef = useRef(null);
+    const [text, setText] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+    const borderWidth = 2.0;
+    const textInputRef = useRef<TextInput>(null);
     const typography = LeafTypography.body.withColor(textColor);
     if (valid != undefined) {
         typography.withColor(valid ? LeafColors.textSuccess : LeafColors.textError);
     }
     const labelTypography = LeafTypography.body.withColor(LeafColors.textSemiDark);
 
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setText("");
+            onTextChange("");
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
     return (
         <View
             style={[
                 wide ? { width: "100%" } : { alignSelf: "center" },
-                { flexDirection: "row", backgroundColor: color.getColor(), borderRadius: 12 },
+                {
+                    flexDirection: "row",
+                    backgroundColor: color.getColor(),
+                    borderRadius: 12,
+                    borderColor: isFocused ? typography.color : color.getColor(),
+                    borderWidth: borderWidth,
+                },
             ]}
         >
             <TouchableWithoutFeedback
-                style={{
-                    position: "absolute",
-                    flexDirection: "row",
-                    height: "100%",
-                    paddingHorizontal: 16,
-                    ...Platform.select({
-                        web: { cursor: "text" },
-                    }),
-                }}
                 onPress={() => {
-                    textInputRef.current.focus();
+                    if (textInputRef.current) {
+                        textInputRef.current.focus();
+                    }
                 }}
             >
-                <LeafText
-                    typography={labelTypography}
+                <View
                     style={{
-                        alignSelf: "center",
+                        position: "absolute",
+                        flexDirection: "row",
+                        height: "100%",
+                        paddingHorizontal: 16,
+                        ...Platform.select({
+                            web: { cursor: "text" },
+                        }),
                     }}
                 >
-                    {text.length == 0 ? label : ""}
-                </LeafText>
+                    <LeafText
+                        typography={labelTypography}
+                        style={{
+                            alignSelf: "center",
+                        }}
+                    >
+                        {text.length == 0 ? label : ""}
+                    </LeafText>
+                </View>
             </TouchableWithoutFeedback>
 
             <TextInput
@@ -83,6 +107,8 @@ const LeafTextInputShort: React.FC<Props> = ({
                     onTextChange(text);
                 }}
                 value={text}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
             />
         </View>
     );

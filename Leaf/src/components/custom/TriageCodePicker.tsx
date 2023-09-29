@@ -1,57 +1,75 @@
-import { View, ViewStyle } from "react-native";
-import LeafColors from "../styling/LeafColors";
-import LeafTypography from "../styling/LeafTypography";
-import LeafText from "../base/LeafText/LeafText";
-import FloatingContainer from "../containers/FloatingContainer";
-import Worker from "../../model/employee/Worker";
-import VGap from "../containers/layout/VGap";
-import VStack from "../containers/VStack";
-import HStack from "../containers/HStack";
+import { useEffect, useState } from "react";
+import { ViewStyle } from "react-native";
+import { strings } from "../../localisation/Strings";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafSegmentedButtons from "../base/LeafSegmentedButtons/LeafSegmentedButtons";
 import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue";
-import { useState } from "react";
-import { strings } from "../../localisation/Strings";
+import LeafColors from "../styling/LeafColors";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     style?: ViewStyle;
-    onSelection: (code: TriageCode) => void;
+    onSelection: (code: TriageCode | undefined) => void;
+    initialValue?: TriageCode;
 }
 
-const TriageCodePicker: React.FC<Props> = ({ style, onSelection }) => {
-    const [segmentedValue, setSegmentedValue] = useState(null);
-    const onSetSegmentedValue = (value) => {
-        setSegmentedValue(value);
-        onSelection(value);
+const TriageCodePicker: React.FC<Props> = ({ style, onSelection, initialValue }) => {
+    const [segmentedValue, setSegmentedValue] = useState<LeafSegmentedValue | undefined>(
+        initialValue != undefined ? new LeafSegmentedValue(initialValue, initialValue.code.toString()) : undefined,
+    );
+    const onSetSegmentedValue = (segmentedValue: LeafSegmentedValue | undefined) => {
+        setSegmentedValue(segmentedValue);
+        onSelection(segmentedValue?.value);
     };
+
+    useEffect(() => {
+        const unsubscribe = StateManager.clearAllInputs.subscribe(() => {
+            setSegmentedValue(undefined);
+            onSelection(undefined);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    const getSelectedBackgroundColor = () => {
+        if (segmentedValue == null) {
+            return undefined;
+        }
+        if ((segmentedValue.value as TriageCode).matches(TriageCode.nonUrgent)) {
+            return LeafColors.textDark;
+        }
+        return LeafColors.triageCode(segmentedValue.value);
+    };
+
+    const getSelectedLabelColor = () => {
+        if (segmentedValue == null) {
+            return undefined;
+        }
+        if ((segmentedValue.value as TriageCode).matches(TriageCode.nonUrgent)) {
+            return LeafColors.textLight;
+        }
+        return LeafColors.textTriageCode(segmentedValue.value);
+    };
+
     return (
-        <View>
-            <VStack spacing={8}>
-                <LeafText typography={LeafTypography.subscript}>
-                    {"Triage Code: "}
-                    <LeafText
-                        typography={LeafTypography.body.withColor(
-                            segmentedValue == null ? LeafColors.textError : LeafColors.triageCode(segmentedValue),
-                        )}
-                    >
-                        {segmentedValue == null ? strings("triageCode.none") : TriageCode.toString(segmentedValue)}
-                    </LeafText>
-                </LeafText>
-                <LeafSegmentedButtons
-                    options={[
-                        new LeafSegmentedValue(TriageCode.Immediate, "1"),
-                        new LeafSegmentedValue(TriageCode.Emergency, "2"),
-                        new LeafSegmentedValue(TriageCode.Urgent, "3"),
-                        new LeafSegmentedValue(TriageCode.SemiUrgent, "4"),
-                        new LeafSegmentedValue(TriageCode.NonUrgent, "5"),
-                    ]}
-                    value={segmentedValue}
-                    selectedBackgroundColor={segmentedValue == null ? undefined : LeafColors.triageCode(segmentedValue)}
-                    selectedLabelColor={segmentedValue == null ? undefined : LeafColors.textTriageCode(segmentedValue)}
-                    onSetValue={onSetSegmentedValue}
-                />
-            </VStack>
-        </View>
+        <LeafSegmentedButtons
+            label={strings("inputLabel.triageCode")}
+            valueLabel={segmentedValue == null ? strings("triageCode.none") : segmentedValue.value.toString()}
+            options={[
+                new LeafSegmentedValue(TriageCode.immediate, TriageCode.immediate.code.toString()),
+                new LeafSegmentedValue(TriageCode.emergency, TriageCode.emergency.code.toString()),
+                new LeafSegmentedValue(TriageCode.urgent, TriageCode.urgent.code.toString()),
+                new LeafSegmentedValue(TriageCode.semiUrgent, TriageCode.semiUrgent.code.toString()),
+                new LeafSegmentedValue(TriageCode.nonUrgent, TriageCode.nonUrgent.code.toString()),
+            ]}
+            value={segmentedValue}
+            selectedBackgroundColor={getSelectedBackgroundColor()}
+            selectedLabelColor={getSelectedLabelColor()}
+            onSetValue={onSetSegmentedValue}
+            style={style}
+        />
     );
 };
 

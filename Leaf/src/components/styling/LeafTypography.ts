@@ -15,7 +15,7 @@ class LeafTypography {
     // Headers
 
     static get display(): LeafTypographyConfig {
-        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textBlack, LeafFontWeight.Black);
+        return new LeafTypographyConfig(70, LeafFontFamily.Gilroy, LeafColors.textDark, LeafFontWeight.Black);
     }
 
     static get headerScreen(): LeafTypographyConfig {
@@ -69,6 +69,10 @@ class LeafTypography {
         return new LeafTypographyConfig(10, LeafFontFamily.Poppins, LeafColors.textSemiDark);
     }
 
+    static get chip(): LeafTypographyConfig {
+        return new LeafTypographyConfig(11.5, LeafFontFamily.Poppins, LeafColors.textLight, LeafFontWeight.SemiBold);
+    }
+
     // Button
 
     static get button(): LeafTypographyConfig {
@@ -77,6 +81,15 @@ class LeafTypography {
 
     static get buttonSmall(): LeafTypographyConfig {
         return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textDark);
+    }
+
+    static get textButton(): LeafTypographyConfig {
+        return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.accent, LeafFontWeight.Bold);
+    }
+
+    // Same colour as text
+    static get plainTextButton(): LeafTypographyConfig {
+        return new LeafTypographyConfig(18, LeafFontFamily.Poppins, LeafColors.textDark, LeafFontWeight.Bold);
     }
 
     // Drawer
@@ -102,6 +115,10 @@ class LeafTypography {
 
     static get badge(): LeafTypographyConfig {
         return new LeafTypographyConfig(18, LeafFontFamily.Poppins, undefined, LeafFontWeight.Bold);
+    }
+
+    static get error(): LeafTypographyConfig {
+        return new LeafTypographyConfig(15, LeafFontFamily.Poppins, LeafColors.textError, LeafFontWeight.Regular, true);
     }
 }
 

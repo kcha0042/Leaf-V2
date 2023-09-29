@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 
-const ZStack = ({ children, style }) => {
+interface Props {
+    children: any;
+    style?: ViewStyle;
+}
+
+const ZStack: React.FC<Props> = ({ children, style }) => {
     const childrenWithPosition = React.Children.map(children, (child) => {
         return React.cloneElement(child, {
             style: [{ position: "absolute" }, child.props.style],

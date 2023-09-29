@@ -15,9 +15,13 @@ export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
     const [deviceIsTablet, setDeviceIsTablet] = useState<boolean>(Environment.inst.getScreenType() == ScreenType.Large);
 
     useEffect(() => {
-        StateManager.contentWidth.subscribe(() => {
+        const unsubscribe = StateManager.contentWidth.subscribe(() => {
             setDeviceIsTablet(Environment.inst.getScreenType() == ScreenType.Large);
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

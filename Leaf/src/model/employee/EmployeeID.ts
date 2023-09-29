@@ -9,7 +9,10 @@ class EmployeeID extends ID {
 
     public static generate(): EmployeeID {
         // TODO: Implement actual generation
-        return new EmployeeID(UUID.generate().toString());
+        const length = 6;
+        const max = Math.pow(10, length) - 1;
+        const randomNum = Math.floor(Math.random() * (max + 1));
+        return new EmployeeID(randomNum.toString().padStart(length, "0"));
     }
 
     public matches(other: EmployeeID): boolean {

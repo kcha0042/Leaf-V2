@@ -2,7 +2,7 @@
 
 ```
 App
-↳ Main Screen
+↳ MainScreen
   ↳ LinearNavigator
     ↳ screens
   ↳ InterfaceNavigator

@@ -38,6 +38,8 @@ const LeafButton: React.FC<Props> = ({
     let labelStyle = {};
     if (Environment.inst.getOS() == OS.IOS) {
         labelStyle = { lineHeight: 0 }; // Centres the text
+    } else if (Environment.inst.getOS() == OS.Android) {
+        labelStyle = { lineHeight: 24 }; // Centres the text for android
     }
 
     if (disabled) {
@@ -47,16 +49,20 @@ const LeafButton: React.FC<Props> = ({
 
     return (
         <Button
-            icon={({ size }) => (
-                <Icon
-                    name={icon}
-                    size={size + 8}
-                    color={typography.color}
-                    style={{
-                        paddingLeft: 6,
-                    }}
-                />
-            )}
+            icon={
+                icon
+                    ? ({ size }) => (
+                          <Icon
+                              name={icon}
+                              size={size + 8}
+                              color={typography.color}
+                              style={{
+                                  paddingLeft: 6,
+                              }}
+                          />
+                      )
+                    : undefined
+            }
             mode={type}
             onPress={onPress}
             disabled={disabled}

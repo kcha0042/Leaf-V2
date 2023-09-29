@@ -6,12 +6,14 @@ import LeafColor from "../../styling/color/LeafColor";
 
 interface Props {
     backgroundColor?: LeafColor;
-    children; // No type - can be any component
+    centerContent?: boolean;
+    children: any; // No type - can be any component
     style?: ViewStyle;
 }
 
 const DefaultScreenContainer: React.FC<Props> = ({
     backgroundColor = LeafColors.screenBackgroundLight,
+    centerContent = false,
     children,
     style,
 }) => {
@@ -29,8 +31,22 @@ const DefaultScreenContainer: React.FC<Props> = ({
                     paddingTop: LeafDimensions.screenTopPadding,
                     paddingHorizontal: LeafDimensions.screenPadding,
                 }}
+                contentContainerStyle={{
+                    ...(centerContent && {
+                        flexGrow: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }),
+                }}
             >
-                {children}
+                <View
+                    style={{
+                        width: "100%",
+                        paddingBottom: LeafDimensions.screenPadding,
+                    }}
+                >
+                    {children}
+                </View>
             </ScrollView>
         </View>
     );

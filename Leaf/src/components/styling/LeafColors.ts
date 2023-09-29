@@ -129,6 +129,14 @@ class LeafColors {
         return new LeafColor("#f1edfc");
     }
 
+    /**
+     * The dialog from react-native-paper changes the colour slightly, so I made this to more closly match the {@link fillBackgroundLight}
+     */
+    static get fillBackgroundLightPopUp(): LeafColor {
+        // TODO: Update for dark mode
+        return new LeafColor("#e2e2e8");
+    }
+
     // Outlines
 
     static get outlineTextBackgroundDark(): LeafColor {
@@ -151,25 +159,30 @@ class LeafColors {
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {
-        switch (code) {
-            case TriageCode.Immediate:
-                return new LeafColor("#e03131");
-            case TriageCode.Emergency:
-                return new LeafColor("#fd7e14");
-            case TriageCode.Urgent:
-                return new LeafColor("#fab005");
-            case TriageCode.SemiUrgent:
-                return new LeafColor("#74b816");
-            case TriageCode.NonUrgent:
-                return new LeafColor("#2f9e44");
-            default:
-                throw new UnreachableCaseError(code);
+        if (code.matches(TriageCode.immediate)) {
+            return new LeafColor("#e03131");
         }
+        if (code.matches(TriageCode.emergency)) {
+            return new LeafColor("#fd7e14");
+        }
+        if (code.matches(TriageCode.urgent)) {
+            return new LeafColor("#32b24a");
+        }
+        if (code.matches(TriageCode.semiUrgent)) {
+            return new LeafColor("#2c8ae6");
+        }
+        if (code.matches(TriageCode.nonUrgent)) {
+            return new LeafColor("#ffffff");
+        }
+        throw new UnreachableCaseError(code);
     }
 
     public static textTriageCode(code: TriageCode): LeafColor {
-        // At the moment all codes have light text overlays
-        return LeafColors.textLight;
+        if (code.matches(TriageCode.nonUrgent)) {
+            return LeafColors.textDark;
+        } else {
+            return LeafColors.textLight;
+        }
     }
 }
 

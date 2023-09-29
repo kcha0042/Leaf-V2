@@ -2,7 +2,7 @@ import { View, ViewStyle } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
-import FloatingContainer from "../containers/FloatingContainer";
+import FlatContainer from "../containers/FlatContainer";
 import Worker from "../../model/employee/Worker";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
@@ -18,23 +18,21 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     // TODO: Add Worker full name instead of First Name
     const idText = worker.id.toString();
     return (
-        <FloatingContainer color={LeafColors.textBackgroundLight} style={style} onPress={onPress}>
+        <FlatContainer color={LeafColors.fillBackgroundLight} style={style} onPress={onPress}>
             <HStack>
                 <VStack>
                     <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {worker.firstName}
-                        </LeafText>
+                        <LeafText typography={LeafTypography.title3}>{worker.firstName}</LeafText>
                     </View>
 
                     <VGap size={6} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false}>
+                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
                         {"ID: " + idText}
                     </LeafText>
                 </VStack>
             </HStack>
-        </FloatingContainer>
+        </FlatContainer>
     );
 };
 

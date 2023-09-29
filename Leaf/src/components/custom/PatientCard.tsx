@@ -1,13 +1,15 @@
-import { View, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import Patient from "../../model/patient/Patient";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
-import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
+import TriageCodeLabel from "./TriageCodeLabel";
+import VGap from "../containers/layout/VGap";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     patient: Patient;
@@ -33,30 +35,19 @@ const PatientCard: React.FC<Props> = ({ patient, style, onPress }) => {
             }}
             onPress={onPress}
         >
-            <HStack>
-                <TriageCodeBadge
-                    code={patient.triageCase.triageCode}
-                    fillSpace={false}
-                    style={{
-                        alignSelf: "flex-start",
-                        marginRight: 12,
-                    }}
-                />
+            <VStack spacing={6} style={{ flex: 1, flexWrap: "nowrap" }}>
+                <LeafText typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}>
+                    {patient.fullName}
+                </LeafText>
 
-                <VStack style={{ flexShrink: 1 }}>
-                    <View style={{ alignSelf: "flex-start" }}>
-                        <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                            {patient.fullName}
-                        </LeafText>
-                    </View>
+                <TriageCodeLabel code={patient.triageCase.triageCode} />
 
-                    <VGap size={16} />
+                <VGap size={10} />
 
-                    <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
-                        {datetimeText}
-                    </LeafText>
-                </VStack>
-            </HStack>
+                <LeafText typography={LeafTypography.subscript} wide={false} style={{ alignSelf: "flex-start" }}>
+                    {datetimeText}
+                </LeafText>
+            </VStack>
         </FlatContainer>
     );
 };

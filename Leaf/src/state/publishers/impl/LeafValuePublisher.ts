@@ -27,8 +27,21 @@ class LeafValuePublisher<Type> {
         });
     }
 
-    public subscribe(callback: () => void) {
-        this.publisher.subscribe(callback);
+    /*
+    // EXAMPLE
+
+    useEffect(() => {
+        const unsubscribe = StateManager.somePublisher.subscribe(() => {
+            console.log("Received!");
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+    */
+    public subscribe(callback: () => void): () => void {
+        return this.publisher.subscribe(callback);
     }
 
     public publish(value: Type) {
