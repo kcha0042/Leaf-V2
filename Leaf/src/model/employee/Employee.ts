@@ -13,7 +13,7 @@ abstract class Employee {
     public get email(): string | null {
         return this._email;
     }
-    public set email(email: string | null){
+    public set email(email: string | null) {
         this._email = email;
     }
     public get currentHospital(): Hospital | null {

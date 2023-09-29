@@ -36,19 +36,15 @@ export const LeafPopUp: React.FC<Props> = ({
     titleTypography = LeafTypography.title2,
     children,
 }) => {
-
     const [screenWidth, setScreenWidth] = useState(Environment.inst.getScreenWidth());
 
     useEffect(() => {
-
-    // Add event listener
-    Dimensions.addEventListener('change', () => {
-        const newWidth = Environment.inst.getScreenWidth();
-        setScreenWidth(newWidth);
-    });
-
+        // Add event listener
+        Dimensions.addEventListener("change", () => {
+            const newWidth = Environment.inst.getScreenWidth();
+            setScreenWidth(newWidth);
+        });
     }, []);
-
 
     const cancelTypography = LeafTypography.textButton;
     cancelTypography.weight = LeafFontWeight.Regular;
@@ -59,11 +55,10 @@ export const LeafPopUp: React.FC<Props> = ({
             visible={visible}
             animationType={"fade"}
             style={{
-                flex: 1
+                flex: 1,
             }}
             transparent={true}
         >
-
             {/* Work around for a transparent background that does not effect the child components */}
             <View
                 style={{
@@ -74,7 +69,7 @@ export const LeafPopUp: React.FC<Props> = ({
                     right: 0,
                     position: "absolute",
                     backgroundColor: "black",
-                    opacity: 0.5
+                    opacity: 0.5,
                 }}
             />
 
@@ -84,17 +79,18 @@ export const LeafPopUp: React.FC<Props> = ({
                     justifyContent: "center",
                     alignItems: "center",
                     zIndex: 1,
-                    flex: 1
+                    flex: 1,
                 }}
             >
                 {/* This pressable is here to stop the pop up closing if you press on it */}
-                <Pressable onPressOut={e => e.stopPropagation()} style={{ width: screenWidth > 800 ? "50%" : "90%", }}>
+                <Pressable onPressOut={(e) => e.stopPropagation()} style={{ width: screenWidth > 800 ? "50%" : "90%" }}>
                     <VStack
                         style={{
                             justifyContent: "center",
                             alignItems: "center",
                             width: "100%",
-                            backgroundColor: backgroundColour?.getColor() || LeafColors.fillBackgroundLightPopUp.getColor(),
+                            backgroundColor:
+                                backgroundColour?.getColor() || LeafColors.fillBackgroundLightPopUp.getColor(),
                             borderRadius: 20,
                             shadowColor: LeafColors.shadow.getColor(),
                             shadowOffset: {
@@ -105,23 +101,23 @@ export const LeafPopUp: React.FC<Props> = ({
                             shadowOpacity: Environment.inst.getOS() == OS.Web ? 0.16 : 0.12,
                             shadowRadius: Environment.inst.getOS() == OS.Web ? 12 : 7,
                         }}
-                    >   
+                    >
                         <VStack
                             style={{
                                 padding: 20,
-                                width: "100%"
+                                width: "100%",
                             }}
                             spacing={10}
                         >
-                            <LeafText typography={titleTypography}>{ title }</LeafText>
-                            { children }
+                            <LeafText typography={titleTypography}>{title}</LeafText>
+                            {children}
                         </VStack>
                         <HStack
                             style={{
                                 borderTopWidth: 1,
                                 borderTopColor: LeafColors.lightDivider.getColor(),
                                 paddingVertical: 10,
-                                width: "100%"
+                                width: "100%",
                             }}
                         >
                             <View
@@ -129,25 +125,18 @@ export const LeafPopUp: React.FC<Props> = ({
                                     flex: 1,
                                     alignItems: "center",
                                     borderRightWidth: 1,
-                                    borderRightColor: LeafColors.lightDivider.getColor()
+                                    borderRightColor: LeafColors.lightDivider.getColor(),
                                 }}
                             >
-                                <LeafTextButton 
-                                    onPress={onCancel}
-                                    label={"Cancel"}
-                                    typography={cancelTypography}
-                                />
+                                <LeafTextButton onPress={onCancel} label={"Cancel"} typography={cancelTypography} />
                             </View>
                             <View
                                 style={{
                                     flex: 1,
-                                    alignItems: "center"
+                                    alignItems: "center",
                                 }}
                             >
-                                <LeafTextButton 
-                                    onPress={onDone}
-                                    label={"Done"}
-                                />
+                                <LeafTextButton onPress={onDone} label={"Done"} />
                             </View>
                         </HStack>
                     </VStack>

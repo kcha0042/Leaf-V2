@@ -25,13 +25,14 @@ import Admin from "../../model/employee/Admin";
 import Leader from "../../model/employee/Leader";
 import Worker from "../../model/employee/Worker";
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import VGap from "../containers/layout/VGap";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AccountScreen: React.FC<Props> = ({ navigation }) => {
-
     const [employee, setEmployee] = React.useState<Employee | null>(Session.inst.loggedInAccount);
     const [fName, setFName] = React.useState<string>(employee?.firstName || strings("label.loading"));
     const [lName, setLName] = React.useState<string>(employee?.lastName || strings("label.loading"));
@@ -60,7 +61,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const updateEmployee = (employee: Employee) => {
-        switch (StateManager.loginStatus.read()){
+        switch (StateManager.loginStatus.read()) {
             case LoginStatus.Admin:
                 AdminsManager.inst.updateAdmin(employee as Admin);
                 break;
@@ -75,13 +76,13 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         }
 
         Session.inst.setLoggedInAccount(employee);
-    }
+    };
 
     const updateEmployeeCouldBeNull = (employee: Employee | null) => {
-        if (employee != null){
+        if (employee != null) {
             updateEmployee(employee);
         }
-    }
+    };
 
     // Pop ups
     let newFName = "";
@@ -98,7 +99,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         setFName(newFName);
         setLName(newLName);
         setEditNameVisible(false);
-        if (employee != null){
+        if (employee != null) {
             employee.firstName = newFName;
             employee.lastName = newLName;
         }
@@ -113,7 +114,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const onEmailDone = () => {
         setEmail(newEmail);
         setEditEmailVisible(false);
-        if (employee != null){
+        if (employee != null) {
             employee.email = newEmail;
         }
         updateEmployeeCouldBeNull(employee);
@@ -144,22 +145,38 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             >
                 {/* Details */}
                 <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("label.details")}</LeafText>
+                    <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>
+                        {strings("label.details")}
+                    </LeafText>
+
+                    <VGap size={8} />
 
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}>
                             {fName} {lName}
                         </LeafText>
+
                         <Spacer />
-                        <LeafTextButton label={strings("button.edit")} typography={typography} onPress={() => setEditNameVisible(true)} />
+
+                        <LeafTextButton
+                            label={strings("button.edit").toUpperCase()}
+                            typography={typography}
+                            onPress={() => setEditNameVisible(true)}
+                        />
                     </HStack>
 
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}>
                             {email}
                         </LeafText>
+
                         <Spacer />
-                        <LeafTextButton label={strings("button.edit")} typography={typography} onPress={() => setEditEmailVisible(true)} />
+
+                        <LeafTextButton
+                            label={strings("button.edit").toUpperCase()}
+                            typography={typography}
+                            onPress={() => setEditEmailVisible(true)}
+                        />
                     </HStack>
                 </FlatContainer>
 
@@ -190,7 +207,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             >
                 <LeafTextInputShort label={strings("inputLabel.email")} onTextChange={onEmailChange} />
             </LeafPopUp>
-
         </View>
     );
 };
