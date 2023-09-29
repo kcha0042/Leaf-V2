@@ -14,6 +14,7 @@ import LeafTextButton from "../LeafTextButton/LeafTextButton";
 import Spacer from "../../containers/layout/Spacer";
 import VGap from "../../containers/layout/VGap";
 import { OS } from "../../../state/environment/types/OS";
+import { strings } from "../../../localisation/Strings";
 
 interface Props {
     visible: boolean;
@@ -128,7 +129,11 @@ export const LeafPopUp: React.FC<Props> = ({
                                     borderRightColor: LeafColors.lightDivider.getColor(),
                                 }}
                             >
-                                <LeafTextButton onPress={onCancel} label={"Cancel"} typography={cancelTypography} />
+                                <LeafTextButton
+                                    onPress={onCancel}
+                                    label={strings("button.cancel")}
+                                    typography={cancelTypography}
+                                />
                             </View>
                             <View
                                 style={{
@@ -136,7 +141,7 @@ export const LeafPopUp: React.FC<Props> = ({
                                     alignItems: "center",
                                 }}
                             >
-                                <LeafTextButton onPress={onDone} label={"Done"} />
+                                <LeafTextButton onPress={onDone} label={strings("button.done")} />
                             </View>
                         </HStack>
                     </VStack>
