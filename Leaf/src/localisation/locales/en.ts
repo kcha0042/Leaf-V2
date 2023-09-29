@@ -14,6 +14,9 @@ export default {
     // Navigation
     "navigation.noScreen": "No item selected",
 
+    // emergency phone #
+    "emergency.phoneNumber": "000",
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
@@ -176,10 +179,11 @@ export default {
     "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
-    "actions.emergency": "Emergency",
-    "actions.call": "Call",
-    "actions.steps": "Steps",
-    "actions.department": "Department",
+    "actions.emergency": "000",
+    "actions.callEmergency": "Call emergency services",
+    "actions.callPatient": "Call {0}",
+    "actions.steps": "Your next steps",
+    "actions.arrivalWard": "Arrival ward",
 
     // Search
     "search.underlying": "Search",
