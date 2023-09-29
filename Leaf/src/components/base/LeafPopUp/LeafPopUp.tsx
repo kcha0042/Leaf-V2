@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-import LeafTypographyConfig from "../../styling/typography/LeafTypographyConfig";
-import LeafColor from "../../styling/color/LeafColor";
-import LeafTypography from "../../styling/LeafTypography";
-import { LeafFontWeight } from "../../styling/typography/LeafFontWeight";
-import LeafColors from "../../styling/LeafColors";
 import { Dimensions, Modal, Pressable, View } from "react-native";
-import Environment from "../../../state/environment/Environment";
-import { ScreenType } from "../../../state/environment/types/ScreenType";
-import LeafText from "../LeafText/LeafText";
-import VStack from "../../containers/VStack";
-import HStack from "../../containers/HStack";
-import LeafTextButton from "../LeafTextButton/LeafTextButton";
-import Spacer from "../../containers/layout/Spacer";
-import VGap from "../../containers/layout/VGap";
-import { OS } from "../../../state/environment/types/OS";
-import { strings } from "../../../localisation/Strings";
-import LeafButton from "../LeafButton/LeafButton";
 import { capitalized } from "../../../language/functions/Capitalized";
+import Environment from "../../../state/environment/Environment";
+import { OS } from "../../../state/environment/types/OS";
+import HStack from "../../containers/HStack";
+import VStack from "../../containers/VStack";
+import VGap from "../../containers/layout/VGap";
+import LeafColors from "../../styling/LeafColors";
+import LeafTypography from "../../styling/LeafTypography";
+import LeafColor from "../../styling/color/LeafColor";
+import { LeafFontWeight } from "../../styling/typography/LeafFontWeight";
+import LeafTypographyConfig from "../../styling/typography/LeafTypographyConfig";
+import LeafButton from "../LeafButton/LeafButton";
+import LeafText from "../LeafText/LeafText";
+import { strings } from "../../../localisation/Strings";
 
 interface Props {
     visible: boolean;
@@ -137,7 +134,7 @@ export const LeafPopUp: React.FC<Props> = ({
                             spacing={20}
                         >
                             <LeafButton
-                                label="Cancel"
+                                label={cancelLabel ?? strings("button.cancel")}
                                 onPress={onCancel}
                                 typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
                                 color={LeafColors.fillBackgroundLight}
@@ -148,7 +145,7 @@ export const LeafPopUp: React.FC<Props> = ({
                             />
 
                             <LeafButton
-                                label="Done"
+                                label={doneLabel ?? strings("button.done")}
                                 onPress={onDone}
                                 wide={false}
                                 style={{

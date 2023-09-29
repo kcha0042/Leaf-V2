@@ -179,9 +179,10 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafPopUp
                         visible={popUpVisible}
-                        title={
-                            strings("actions.removePatient") + ' "' + Session.inst.getActivePatient()?.fullName + '"'
-                        }
+                        setVisible={(visible) => {
+                            setPopUpVisible(visible);
+                        }}
+                        title={strings("actions.removePatient", Session.inst.getActivePatient()?.fullName ?? "")}
                         onCancel={onCancel}
                         onDone={onDelete}
                         doneLabel={strings("button.deletePatient")}

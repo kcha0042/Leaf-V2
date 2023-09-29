@@ -61,7 +61,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     const onEmergencyPress = () => {
         // We don't want to call emergency services
         // If we did, it'd be implemented here
-        // dialCall(strings("emergencyPhone.number"));
+        // dialCall(strings("phone.emergency"));
     };
 
     return (

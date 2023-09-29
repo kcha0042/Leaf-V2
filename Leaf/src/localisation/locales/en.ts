@@ -181,13 +181,11 @@ export default {
     "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
-    "actions.emergency": "Emergency",
     "actions.call": "Call",
-    "actions.steps": "Steps",
     "actions.department": "Department",
     "actions.removeLeader": "Remove Leader",
     "actions.removeNurse": "Remove Nurse",
-    "actions.removePatient": "Delete Patient",
+    "actions.removePatient": "Delete Patient {0}?",
     "actions.emergency": "000",
     "actions.callEmergency": "Call emergency services",
     "actions.callPatient": "Call {0}",
