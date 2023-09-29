@@ -16,33 +16,17 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import VGap from "../containers/layout/VGap";
 import LargeMenuButton from "../custom/LargeMenuButton";
 import { Linking } from "react-native";
-import StateManager from "../../state/publishers/StateManager";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import { capitalized } from "../../language/functions/Capitalized";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
-    useEffect(() => {
-        const unsubscribe = StateManager.contentWidth.subscribe(() => {
-            setComponentWidth(StateManager.contentWidth.read());
-        });
-
-        return unsubscribe;
-    }, []);
-
-    const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
     const buttonSpacing = LeafDimensions.screenSpacing;
-    let columnCount = 2;
-    if (componentWidth < 375) {
-        columnCount = 1;
-    }
-    // TODO: this doesnt look right on web, why? This formula should calculate the size needed to fit buttons into x columns and fill the screen?
-    // btw it works fine on tablet
-    const buttonWidth = (componentWidth - (columnCount - 1) * buttonSpacing) / columnCount;
 
     const typography = LeafTypography.body;
-    typography.size = 18;
 
     const patient = Session.inst.getActivePatient();
 
@@ -58,7 +42,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
         let dial = `tel:${number}`;
         const canCall = await Linking.canOpenURL(dial);
         if (!canCall) {
-            console.log("[ACTION SSCREEN] Phone number is not available");
+            console.log("[ACTION SCREEN] Phone number is not available");
             // TODO: status update, this should be done after merge
         }
 
@@ -75,27 +59,33 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const onEmergencyPress = () => {
-        // TODO: how can we test this?
-        dialCall(strings("emergencyPhone.number"));
+        // We don't want to call emergency services
+        // If we did, it'd be implemented here
+        // dialCall(strings("emergencyPhone.number"));
     };
 
     return (
         <DefaultScreenContainer>
             <VStack
-                spacing={LeafDimensions.screenSpacing}
+                spacing={LeafDimensions.cardSpacing}
                 style={{
                     flex: 1,
                 }}
             >
                 <FlatContainer style={{ width: "100%" }}>
                     <LeafText typography={LeafTypography.subscript}>{strings("actions.arrivalWard")}</LeafText>
+
                     <LeafText typography={LeafTypography.title2}>{patient.triageCase.arrivalWard.name}</LeafText>
                 </FlatContainer>
 
                 <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
-                    <VGap size={20} />
-                    <VStack spacing={20}>
+                    <LeafText typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}>
+                        {capitalized(strings("actions.steps"))}
+                    </LeafText>
+
+                    <VGap size={16} />
+
+                    <VStack spacing={12}>
                         {patient.triageCase.triageCode.getSteps().map((step, i) => (
                             <LeafText
                                 key={step}
@@ -107,7 +97,6 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                             </LeafText>
                         ))}
                     </VStack>
-                    <VGap size={20} />
                 </FlatContainer>
 
                 <HStack
@@ -121,7 +110,6 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={patient.phoneNumber}
                         description={strings("actions.callPatient", patient.fullName)}
                         icon={"phone"}
-                        size={buttonWidth}
                         onPress={onCallPress}
                     />
 
@@ -129,7 +117,6 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                         label={strings("actions.emergency")}
                         description={strings("actions.callEmergency")}
                         icon={"alert"}
-                        size={buttonWidth}
                         onPress={onEmergencyPress}
                     />
                 </HStack>

@@ -13,7 +13,7 @@ import LeafTypography from "../styling/LeafTypography";
 interface Props {
     label: string;
     description: string;
-    size: number;
+    size?: number;
     icon: string; // https://pictogrammers.com/library/mdi/
     onPress: () => void;
 }
@@ -21,13 +21,14 @@ interface Props {
 const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon, onPress }) => {
     const typography = LeafTypography.title3;
     // -20 because web is funky with scroll bars - play it safe with spacing
-    const width = Environment.inst.getOS() == OS.Web ? size - 20 : size;
+    const width = Environment.inst.getOS() == OS.Web ? (size ?? 20) - 20 : size;
 
     return (
         <FlatContainer
             onPress={onPress}
             style={{
-                width: width,
+                flex: size == undefined ? 1 : undefined,
+                width: size == undefined ? undefined : width,
             }}
         >
             {/* nowrap fixes text bugging out in edge cases (e.g. portrait iPad) */}
