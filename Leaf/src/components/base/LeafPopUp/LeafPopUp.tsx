@@ -110,7 +110,7 @@ export const LeafPopUp: React.FC<Props> = ({
                                 // padding: 20,
                                 paddingHorizontal: 20,
                                 paddingTop: 22,
-                                paddingBottom: 24,
+                                paddingBottom: 32,
                                 width: "100%",
                             }}
                             spacing={10}
