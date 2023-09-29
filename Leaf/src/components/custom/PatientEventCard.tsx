@@ -17,6 +17,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import PatientOptionsScreen from "../screens/PatientOptionsScreen";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -66,6 +67,10 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
 
                     {isExpanded ? (
                         <VStack>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("label.createdAt1Param", event.createdAtDescription)}
+                            </LeafText>
+
                             <LeafText typography={LeafTypography.subscript.withColor(LeafColors.textDark)}>
                                 {event.description}
                             </LeafText>

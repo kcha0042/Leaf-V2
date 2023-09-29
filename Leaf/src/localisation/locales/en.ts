@@ -14,6 +14,9 @@ export default {
     // Navigation
     "navigation.noScreen": "No item selected",
 
+    // emergency phone #
+    "emergency.phoneNumber": "000",
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
@@ -60,7 +63,7 @@ export default {
     "button.logout": "Logout",
     "button.done": "Done",
     "button.cancel": "Cancel",
-    "button.edit": "edit",
+    "button.edit": "Edit",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
@@ -118,6 +121,7 @@ export default {
     "label.changelog": "View the edit history of the patient.",
     "label.triageCode2Param": "CODE {0}  •  {1}",
     "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
+    "label.createdAt1Param": "Created {0}",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -184,6 +188,11 @@ export default {
     "actions.removeLeader": "Remove Leader",
     "actions.removeNurse": "Remove Nurse",
     "actions.removePatient": "Delete Patient",
+    "actions.emergency": "000",
+    "actions.callEmergency": "Call emergency services",
+    "actions.callPatient": "Call {0}",
+    "actions.steps": "Your next steps",
+    "actions.arrivalWard": "Arrival ward",
 
     // Search
     "search.underlying": "Search",
