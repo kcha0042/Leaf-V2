@@ -23,14 +23,13 @@ interface Props {
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
-
     useEffect(() => {
         const unsubscribe = StateManager.contentWidth.subscribe(() => {
-            setComponentWidth(StateManager.contentWidth.read())
-        })
+            setComponentWidth(StateManager.contentWidth.read());
+        });
 
         return unsubscribe;
-    }, [])
+    }, []);
 
     const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
     const buttonSpacing = LeafDimensions.screenSpacing;
@@ -58,7 +57,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     const dialCall = async (number: string) => {
         let dial = `tel:${number}`;
         const canCall = await Linking.canOpenURL(dial);
-        if (!canCall){
+        if (!canCall) {
             console.log("[ACTION SSCREEN] Phone number is not available");
             // TODO: status update, this should be done after merge
         }
@@ -69,7 +68,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
             console.log("[ACTIONS SCREEN] Could not call number");
             // TODO: status update, this should be done after merge
         }
-      };
+    };
 
     const onCallPress = () => {
         dialCall(patient.phoneNumber);
@@ -95,10 +94,15 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <FlatContainer>
                     <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
-                    <VGap size={20}/>
+                    <VGap size={20} />
                     <VStack spacing={20}>
                         {patient.triageCase.triageCode.getSteps().map((step, i) => (
-                            <LeafText key={step} wide={false} typography={typography} style={{ alignSelf: "flex-start" }}>
+                            <LeafText
+                                key={step}
+                                wide={false}
+                                typography={typography}
+                                style={{ alignSelf: "flex-start" }}
+                            >
                                 {i + 1}: {step}
                             </LeafText>
                         ))}
@@ -110,7 +114,7 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                     spacing={buttonSpacing}
                     style={{
                         flex: 1,
-                        justifyContent: "center"
+                        justifyContent: "center",
                     }}
                 >
                     <LargeMenuButton

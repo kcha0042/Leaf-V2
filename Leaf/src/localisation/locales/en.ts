@@ -16,7 +16,7 @@ export default {
 
     // emergency phone #
     "emergency.phoneNumber": "000",
-    
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
