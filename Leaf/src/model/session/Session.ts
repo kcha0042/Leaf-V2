@@ -183,33 +183,30 @@ class Session {
     public async deletePatient(patient: Patient): Promise<boolean> {
         const success = await PatientsManager.inst.deletePatient(patient);
         if (success) {
-            delete this._patientStore[patient.mrn.toString()]; // Fixed "_patientStore is not updated after deleting the patient."
-        } else {
-            console.error("Error Occurs when deleting patient account.");
+            delete this._patientStore[patient.mrn.toString()];
+            // Notify components that display patients to refresh
+            StateManager.patientsFetched.publish();
         }
-
         return success;
     }
 
     public async deleteWorker(worker: Worker): Promise<boolean> {
         const success = await WorkersManager.inst.deleteWorker(worker);
         if (success) {
-            delete this._workerStore[worker.id.toString()]; // Fixed "_workderStore is not updated after deleting the worker."
-        } else {
-            console.error("Error Occurs when deleting worker account.");
+            delete this._workerStore[worker.id.toString()];
+            // Notify components that display workers to refresh
+            StateManager.workersFetched.publish();
         }
-
         return success;
     }
 
     public async deleteLeader(leader: Leader): Promise<boolean> {
         const success = await LeadersManager.inst.deleteLeader(leader);
         if (success) {
-            delete this._leaderStore[leader.id.toString()]; // Fixed "_leaderStore is not updated after deleting the leader".
-        } else {
-            console.error("Error Occurs when deleting leader account.");
+            delete this._leaderStore[leader.id.toString()];
+            // Notify components that display leaders to refresh
+            StateManager.leadersFetched.publish();
         }
-
         return success;
     }
 
@@ -318,6 +315,9 @@ class Session {
     public async fetchAllWorkers() {
         // Restore workers from the database
         const workers = await WorkersManager.inst.getWorkers();
+        // Invalidate cache, since we're restoring all workers, and some may have been deleted
+        this._workerStore = {};
+        // Cache workers
         for (const worker of workers) {
             this._workerStore[worker.id.toString()] = worker;
         }
@@ -329,6 +329,8 @@ class Session {
         const worker = await WorkersManager.inst.getWorker(id);
         if (worker != null) {
             this._workerStore[worker.id.toString()] = worker;
+        } else {
+            delete this._workerStore[id.toString()];
         }
         // Notify subscribers
         StateManager.workersFetched.publish();
@@ -337,6 +339,9 @@ class Session {
     public async fetchAllLeaders() {
         // Restore leaders from the database
         const leaders = await LeadersManager.inst.getLeaders();
+        // Invalidate cache, since we're restoring all leaders, and some may have been deleted
+        this._leaderStore = {};
+        // Cache leaders
         for (const leader of leaders) {
             this._leaderStore[leader.id.toString()] = leader;
         }
@@ -348,6 +353,8 @@ class Session {
         const leader = await LeadersManager.inst.getLeader(id);
         if (leader != null) {
             this._leaderStore[leader.id.toString()] = leader;
+        } else {
+            delete this._leaderStore[id.toString()];
         }
         // Notify subscribers
         StateManager.leadersFetched.publish();
@@ -355,8 +362,10 @@ class Session {
 
     public async fetchAllPatients() {
         const patients = await PatientsManager.inst.getPatients();
+        // Invalidate cache, since we're restoring all patients, and some may have been deleted
+        this._patientStore = {};
+        // Cache patients
         for (const patient of patients) {
-            // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers that patients have been fetched
@@ -371,9 +380,13 @@ class Session {
             // Patients can only be allocated to workers
             return;
         }
-        const patients = await PatientsManager.inst.getPatientsAllocatedTo(this.loggedInAccount as Worker);
+        const workerAllocatedTo = this.loggedInAccount as Worker;
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(workerAllocatedTo);
+        // Invalidate cache since some may have been deleted
+        for (const invalidatedMRN of workerAllocatedTo.allocatedPatients) {
+            delete this._patientStore[invalidatedMRN.toString()];
+        }
         for (const patient of patients) {
-            // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers that patients have been fetched
@@ -384,6 +397,8 @@ class Session {
         const patient = await PatientsManager.inst.getPatient(mrn);
         if (patient != null) {
             this._patientStore[patient.mrn.toString()] = patient;
+        } else {
+            delete this._patientStore[mrn.toString()];
         }
         // Notify subscribers
         StateManager.patientsFetched.publish();
