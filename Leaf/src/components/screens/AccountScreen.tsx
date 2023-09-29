@@ -100,8 +100,8 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         setLName(newLName);
         setEditNameVisible(false);
         if (employee != null) {
-            employee.firstName = newFName;
-            employee.lastName = newLName;
+            employee.setFirstName(newFName);
+            employee.setLastName(newLName);
         }
         updateEmployeeCouldBeNull(employee);
     };

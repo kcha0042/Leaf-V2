@@ -4,12 +4,18 @@ import { Role } from "./Role";
 
 abstract class Employee {
     public readonly id: EmployeeID;
-    public firstName: string;
-    public lastName: string;
+    protected _firstName: string;
+    protected _lastName: string;
     protected _email: string | null;
     protected _currentHospital: Hospital | null;
     protected _accountActivated: boolean;
     public abstract readonly role: Role;
+    public get firstName(): string {
+        return this._firstName;
+    }
+    public get lastName(): string {
+        return this._lastName;
+    }
     public get email(): string | null {
         return this._email;
     }
@@ -35,11 +41,19 @@ abstract class Employee {
         accountActivated: boolean,
     ) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this._firstName = firstName;
+        this._lastName = lastName;
         this._email = email;
         this._currentHospital = currentHospital;
         this._accountActivated = accountActivated;
+    }
+
+    public setFirstName(firstName: string) {
+        this._firstName = firstName;
+    }
+
+    public setLastName(lastName: string) {
+        this._lastName = lastName;
     }
 
     public setEmail(email: string) {
