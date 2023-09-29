@@ -109,7 +109,6 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
                 <View
                     style={{
                         maxWidth: 400,
-                        alignItems: "center",
                         width: "100%",
                     }}
                 >
