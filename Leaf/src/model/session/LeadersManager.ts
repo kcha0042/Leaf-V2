@@ -27,6 +27,10 @@ class LeadersManager {
         const dataObject = LeaderDataObject.create(leader);
         return DatabaseSession.inst.update(DatabaseCollection.Leaders, leader.id.toString(), dataObject.data);
     }
+
+    public async deleteLeader(leader: Leader): Promise<boolean> {
+        return DatabaseSession.inst.delete(DatabaseCollection.Leaders, leader.id.toString());
+    }
 }
 
 export default LeadersManager;

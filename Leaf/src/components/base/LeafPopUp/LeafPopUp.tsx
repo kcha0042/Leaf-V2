@@ -27,6 +27,8 @@ interface Props {
     title: string;
     titleTypography?: LeafTypographyConfig;
     children: any;
+    cancelLabel?: string;
+    doneLabel?: string;
 }
 
 export const LeafPopUp: React.FC<Props> = ({
@@ -38,6 +40,8 @@ export const LeafPopUp: React.FC<Props> = ({
     title,
     titleTypography = LeafTypography.title2.withWeight(LeafFontWeight.Bold),
     children,
+    cancelLabel = undefined,
+    doneLabel = undefined,
 }) => {
     const [screenWidth, setScreenWidth] = useState(Environment.inst.getScreenWidth());
 

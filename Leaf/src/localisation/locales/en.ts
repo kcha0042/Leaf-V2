@@ -70,7 +70,7 @@ export default {
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
-    "button.deletePatient": "Remove",
+    "button.deletePatient": "Delete",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
     "button.clear": "Clear",
@@ -78,6 +78,7 @@ export default {
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
     "button.changelog": "Changelog",
+    "button.removeAccount": "Remove",
 
     // Login
     "login.title": "Login",
@@ -119,6 +120,7 @@ export default {
     "label.patientSelected": "patient selected",
     "label.changelog": "View the edit history of the patient.",
     "label.triageCode2Param": "CODE {0}  •  {1}",
+    "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
     "label.createdAt1Param": "Created {0}",
 
     // Input Labels
@@ -179,6 +181,13 @@ export default {
     "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
+    "actions.emergency": "Emergency",
+    "actions.call": "Call",
+    "actions.steps": "Steps",
+    "actions.department": "Department",
+    "actions.removeLeader": "Remove Leader",
+    "actions.removeNurse": "Remove Nurse",
+    "actions.removePatient": "Delete Patient",
     "actions.emergency": "000",
     "actions.callEmergency": "Call emergency services",
     "actions.callPatient": "Call {0}",
@@ -271,4 +280,8 @@ export default {
     "feedback.patientEdited": "Patient edited",
     "feedback.triageNotCreated": "Triage creation failed",
     "feedback.patientNotEdited": "Patient edit failed",
+    "feedback.successDeleteAccount": "Account deleted",
+    "feedback.accountNotExist": "The account does not exist",
+    "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
+    "feedback.successExportPatient": "Patient exported",
 };
