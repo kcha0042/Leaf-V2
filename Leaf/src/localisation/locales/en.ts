@@ -67,7 +67,7 @@ export default {
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
-    "button.deletePatient": "Remove",
+    "button.deletePatient": "Delete",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
     "button.clear": "Clear",
@@ -183,7 +183,7 @@ export default {
     "actions.department": "Department",
     "actions.removeLeader": "Remove Leader",
     "actions.removeNurse": "Remove Nurse",
-    "actions.removePatient": "Remove Patient",
+    "actions.removePatient": "Delete Patient",
 
     // Search
     "search.underlying": "Search",

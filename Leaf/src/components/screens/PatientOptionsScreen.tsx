@@ -184,9 +184,9 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         }
                         onCancel={onCancel}
                         onDone={onDelete}
-                        doneLabel="Remove"
+                        doneLabel={strings("button.deletePatient")}
                     >
-                        <LeafText typography={LeafTypography.title4} wide={false}>
+                        <LeafText typography={LeafTypography.body} wide={false}>
                             {strings("label.removeAccountWarning")}
                         </LeafText>
                     </LeafPopUp>
