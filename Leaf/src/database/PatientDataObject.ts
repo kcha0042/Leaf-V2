@@ -76,7 +76,7 @@ class PatientDataObject {
             !restoredTriage ||
             !restoredChangelog
         ) {
-            console.error("[PatientDataObject] Failed to restore Patient");
+            console.error("[PatientDataObject] Failed to restore Patient " + (mrn ?? "(missing MRN!!!)"));
             return null;
         }
         return new Patient(
