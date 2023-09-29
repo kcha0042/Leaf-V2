@@ -15,6 +15,8 @@ import Spacer from "../../containers/layout/Spacer";
 import VGap from "../../containers/layout/VGap";
 import { OS } from "../../../state/environment/types/OS";
 import { strings } from "../../../localisation/Strings";
+import LeafButton from "../LeafButton/LeafButton";
+import { capitalized } from "../../../language/functions/Capitalized";
 
 interface Props {
     visible: boolean;
@@ -34,7 +36,7 @@ export const LeafPopUp: React.FC<Props> = ({
     onDone,
     backgroundColour,
     title,
-    titleTypography = LeafTypography.title2,
+    titleTypography = LeafTypography.title2.withWeight(LeafFontWeight.Bold),
     children,
 }) => {
     const [screenWidth, setScreenWidth] = useState(Environment.inst.getScreenWidth());
@@ -105,44 +107,50 @@ export const LeafPopUp: React.FC<Props> = ({
                     >
                         <VStack
                             style={{
-                                padding: 20,
+                                // padding: 20,
+                                paddingHorizontal: 20,
+                                paddingTop: 22,
+                                paddingBottom: 24,
                                 width: "100%",
                             }}
                             spacing={10}
                         >
-                            <LeafText typography={titleTypography}>{title}</LeafText>
+                            <LeafText typography={titleTypography} style={{ textAlign: "center" }}>
+                                {capitalized(title)}
+                            </LeafText>
+
+                            <VGap size={2} />
+
                             {children}
                         </VStack>
+
                         <HStack
                             style={{
-                                borderTopWidth: 1,
-                                borderTopColor: LeafColors.lightDivider.getColor(),
-                                paddingVertical: 10,
+                                paddingBottom: 20,
+                                paddingHorizontal: 20,
                                 width: "100%",
                             }}
+                            spacing={20}
                         >
-                            <View
+                            <LeafButton
+                                label="Cancel"
+                                onPress={onCancel}
+                                typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
+                                color={LeafColors.fillBackgroundLight}
+                                wide={false}
                                 style={{
                                     flex: 1,
-                                    alignItems: "center",
-                                    borderRightWidth: 1,
-                                    borderRightColor: LeafColors.lightDivider.getColor(),
                                 }}
-                            >
-                                <LeafTextButton
-                                    onPress={onCancel}
-                                    label={strings("button.cancel")}
-                                    typography={cancelTypography}
-                                />
-                            </View>
-                            <View
+                            />
+
+                            <LeafButton
+                                label="Done"
+                                onPress={onDone}
+                                wide={false}
                                 style={{
                                     flex: 1,
-                                    alignItems: "center",
                                 }}
-                            >
-                                <LeafTextButton onPress={onDone} label={strings("button.done")} />
-                            </View>
+                            />
                         </HStack>
                     </VStack>
                 </Pressable>
