@@ -24,14 +24,17 @@ interface Props {
 const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const idText = worker.id.toString();
     let patient = Session.inst.getActivePatient();
-    console.log(patient)
 
     const refreshAllocation = () => {
         patient = Session.inst.getActivePatient();
+        let updatedWorker = Session.inst.getWorker(worker.id);
+        if (updatedWorker != null) {
+            worker = updatedWorker;
+        }
         if (patient == null || patient.idAllocatedTo == null) return false;
 
         for (const allocatedPatientID of worker.allocatedPatients) {
-            if (allocatedPatientID.matches(patient.mrn)) return true;                 
+            if (allocatedPatientID.matches(patient.mrn)) return true;              
         }
 
         return false;
@@ -40,7 +43,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const [isTicked, setIsTicked] = useState<boolean>(refreshAllocation());
 
     useEffect(() => {
-        StateManager.patientUpdated.subscribe(() => {
+        StateManager.reallocationOccurred.subscribe(() => {
             setIsTicked(refreshAllocation());
         })
     }, []);
