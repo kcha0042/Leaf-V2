@@ -34,23 +34,25 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         if (patient == null || patient.idAllocatedTo == null) return false;
 
         for (const allocatedPatientID of worker.allocatedPatients) {
-            if (allocatedPatientID.matches(patient.mrn)) return true;              
+            if (allocatedPatientID.matches(patient.mrn)) return true;
         }
 
         return false;
-    }
+    };
 
     const [isTicked, setIsTicked] = useState<boolean>(refreshAllocation());
 
     useEffect(() => {
         StateManager.reallocationOccurred.subscribe(() => {
             setIsTicked(refreshAllocation());
-        })
+        });
     }, []);
 
     const onPressAllocate = async () => {
         if (patient == null) return;
-        isTicked ? await Session.inst.unallocatePatient(patient, worker) : await Session.inst.allocatePatient(patient, worker);
+        isTicked
+            ? await Session.inst.unallocatePatient(patient, worker)
+            : await Session.inst.allocatePatient(patient, worker);
         setIsTicked(!isTicked);
     };
 
@@ -73,7 +75,12 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={isTicked} initialValue={isTicked} onPress={onPressAllocate}/>
+                <LeafCheckboxStatic
+                    size={LeafIconSize.Large}
+                    isChecked={isTicked}
+                    initialValue={isTicked}
+                    onPress={onPressAllocate}
+                />
             </HStack>
         </FlatContainer>
     );

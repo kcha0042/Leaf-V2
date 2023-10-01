@@ -39,7 +39,7 @@ class Worker extends Employee {
             if (value.matches(mrn)) {
                 this._allocatedPatients.splice(index, 1);
             }
-        })
+        });
     }
 }
 

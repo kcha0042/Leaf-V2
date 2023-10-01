@@ -45,7 +45,6 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                 }}
                 spacing={20}
             >
-               
                 <LeafSearchBarNew
                     onTextChange={onSearch}
                     data={workers}
@@ -56,10 +55,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                 <FlatList
                     data={filteredWorkers}
                     renderItem={({ item: worker, index: index }) => (
-                        <NurseAllocationCard
-                            key={worker.id.toString()}
-                            worker={worker}
-                        />
+                        <NurseAllocationCard key={worker.id.toString()} worker={worker} />
                     )}
                     keyExtractor={(worker) => worker.id.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}

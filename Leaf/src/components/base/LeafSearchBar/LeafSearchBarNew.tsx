@@ -51,13 +51,13 @@ function LeafSearchBarNew<T>({
     const calculateLevenshteinDistance = (source: string, target: string) => {
         const sourceLength = source.length;
         const targetLength = target.length;
-    
+
         const distanceMatrix = Array.from({ length: sourceLength + 1 }, (_, row) => Array(targetLength + 1).fill(row));
-    
+
         for (let columnIndex = 1; columnIndex <= targetLength; columnIndex++) {
             distanceMatrix[0][columnIndex] = columnIndex;
         }
-    
+
         for (let rowIndex = 1; rowIndex <= sourceLength; rowIndex++) {
             for (let columnIndex = 1; columnIndex <= targetLength; columnIndex++) {
                 const cost = source[rowIndex - 1] === target[columnIndex - 1] ? 0 : 1;
@@ -68,7 +68,7 @@ function LeafSearchBarNew<T>({
                 );
             }
         }
-    
+
         return distanceMatrix[sourceLength][targetLength];
     };
 

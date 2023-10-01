@@ -42,8 +42,8 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
     const refreshAllocatedPatients = () => {
         // Find all patients that are allocated to the worker
         const newAllocatedPatients: Patient[] = [];
-        if (worker == null){
-            throw new Error("Cannot fetch active worker!")
+        if (worker == null) {
+            throw new Error("Cannot fetch active worker!");
         }
         for (const allocatedPatientID of worker.allocatedPatients) {
             const allocatedPatient = Session.inst.getPatient(allocatedPatientID);
@@ -52,7 +52,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
             }
         }
         setAllocatedPatients(newAllocatedPatients);
-    }
+    };
 
     return (
         <DefaultScreenContainer>
@@ -72,7 +72,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafButton
                     label={strings("button.newAllocation")}
-                    icon= "plus"
+                    icon="plus"
                     onPress={() => {
                         NavigationSession.inst.navigateTo(
                             AllocateNurseToPatientScreen,

@@ -39,7 +39,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
             }
         }
         return false;
-    }
+    };
 
     const [initialValue, setInitialValue] = useState(refreshAllocation());
 
@@ -52,7 +52,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                 // deallocate patient
                 Session.inst.unallocatePatient(patient, worker);
                 setInitialValue(false);
-            
             } else {
                 // allocate patient
                 Session.inst.allocatePatient(patient, worker);
@@ -61,20 +60,21 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         }
     };
 
-
     const formatTime = (date: Date): string => {
         let hours = date.getHours();
         let minutes = date.getMinutes();
 
-        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()}`
-    }
+        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${
+            minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()
+        }`;
+    };
 
     return (
         <FlatContainer>
             <HStack
                 style={{
                     flex: 1,
-                    alignItems: 'center',
+                    alignItems: "center",
                 }}
             >
                 <TriageCodeBadge
@@ -105,8 +105,17 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
                     <VGap size={16} />
                     <HStack spacing={10}>
-                    {patient.events.map((event) => (
-                            <LeafChip key={event.id.toString()} children={<LeafText wide={false} typography={typography}>{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>} color={LeafColors.fillBackgroundAccent} />
+                        {patient.events.map((event) => (
+                            <LeafChip
+                                key={event.id.toString()}
+                                children={
+                                    <LeafText
+                                        wide={false}
+                                        typography={typography}
+                                    >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
+                                }
+                                color={LeafColors.fillBackgroundAccent}
+                            />
                         ))}
                     </HStack>
                 </VStack>
@@ -114,7 +123,12 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                 {/* 
                     // TODO: replace with checkbox after merge
                 */}
-                <LeafCheckboxStatic size={LeafIconSize.Large} isChecked={initialValue} initialValue={initialValue} onPress={onPressAllocate}/>
+                <LeafCheckboxStatic
+                    size={LeafIconSize.Large}
+                    isChecked={initialValue}
+                    initialValue={initialValue}
+                    onPress={onPressAllocate}
+                />
                 {/*<LeafIconButton
                     icon={selected ? "check" : "plus"}
                     size={LeafIconSize.Large}

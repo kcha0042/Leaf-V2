@@ -19,10 +19,9 @@ export class ShiftTime {
     public static getCurrent(time: Date = new Date()): ShiftTime {
         const hour = time.getHours();
 
-        if (hour >= 7 && hour <15) {
+        if (hour >= 7 && hour < 15) {
             return ShiftTime.morning;
-        }
-        else if (hour >=15 && hour <23) {
+        } else if (hour >= 15 && hour < 23) {
             return ShiftTime.afternoon;
         }
         return ShiftTime.night;

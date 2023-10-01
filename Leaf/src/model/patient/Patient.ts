@@ -46,7 +46,7 @@ class Patient {
     get timeLastAllocated(): Date {
         return this._timeLastAllocated;
     }
-    get idAllocatedTo(): EmployeeID | null{
+    get idAllocatedTo(): EmployeeID | null {
         return this._allocatedTo;
     }
     get events(): PatientEvent[] {

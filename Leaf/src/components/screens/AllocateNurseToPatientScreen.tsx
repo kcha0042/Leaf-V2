@@ -44,7 +44,6 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
         StateManager.patientUpdated.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
         });
-        
     }, []);
 
     return (
@@ -56,7 +55,8 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                 spacing={20}
             >
                 <LeafText typography={LeafTypography.subscript}>
-                    {strings("label.patientAllocateToNurse")}{"\n"}
+                    {strings("label.patientAllocateToNurse")}
+                    {"\n"}
                     <LeafText typography={LeafTypography.title4}>
                         {nurse?.fullName || "..." + strings("label.loading")}
                     </LeafText>

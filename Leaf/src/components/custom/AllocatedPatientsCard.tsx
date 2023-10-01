@@ -32,12 +32,11 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     buttonTypography.leafColor = LeafColors.textError;
     buttonTypography.weight = LeafFontWeight.Bold;
 
-
     const removePatient = () => {
         if (worker != null) {
             Session.inst.unallocatePatient(patient, worker);
         }
-    }
+    };
 
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
@@ -46,8 +45,10 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
         let hours = date.getHours();
         let minutes = date.getMinutes();
 
-        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()}`
-    }
+        return `${hours < 10 ? "0".concat(hours.toString()) : hours.toString()}:${
+            minutes < 10 ? "0".concat(minutes.toString()) : minutes.toString()
+        }`;
+    };
 
     return (
         <FlatContainer>
@@ -67,22 +68,25 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
                 <VStack
                     style={{
-                        flex: 1
+                        flex: 1,
                     }}
                 >
                     <HStack
                         style={{
                             alignItems: "center",
-                            justifyContent: "center"
+                            justifyContent: "center",
                         }}
                     >
                         <LeafText wide={false} typography={LeafTypography.title3} style={{ alignSelf: "flex-start" }}>
                             {patient.fullName}
                         </LeafText>
-                        <Spacer/>
-                        
-                        <LeafTextButton label={strings("button.remove")} typography={buttonTypography} onPress={removePatient}/>
-                        
+                        <Spacer />
+
+                        <LeafTextButton
+                            label={strings("button.remove")}
+                            typography={buttonTypography}
+                            onPress={removePatient}
+                        />
                     </HStack>
 
                     <VGap size={16} />
@@ -99,7 +103,16 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
                     <HStack spacing={10}>
                         {patient.events.map((event) => (
-                            <LeafChip key={event.id.toString()} children={<LeafText wide={false} typography={typography}>{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>} color={LeafColors.fillBackgroundAccent} />
+                            <LeafChip
+                                key={event.id.toString()}
+                                children={
+                                    <LeafText
+                                        wide={false}
+                                        typography={typography}
+                                    >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
+                                }
+                                color={LeafColors.fillBackgroundAccent}
+                            />
                         ))}
                     </HStack>
                 </VStack>

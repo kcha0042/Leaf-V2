@@ -122,7 +122,7 @@ class Session {
             const allocatedWorker = this.getWorker(patient.idAllocatedTo);
             if (allocatedWorker != null) {
                 this.unallocatePatient(patient, allocatedWorker);
-            } 
+            }
         }
         allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
@@ -145,12 +145,12 @@ class Session {
     }
 
     public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
-        allocatedTo.deallocatePatient(patient.mrn)
+        allocatedTo.deallocatePatient(patient.mrn);
         patient.deallocate();
-       
+
         const success1 = this.updateWorker(allocatedTo);
         if (!success1) {
-                return false;
+            return false;
         }
 
         const success2 = this.updatePatient(patient);
@@ -293,8 +293,8 @@ class Session {
     }
 
     public getAllocatedPatients(): Patient[] {
-        return Object.values(this._patientStore).filter((patient) =>
-            patient.idAllocatedTo?.matches(this.loggedInAccount.id),
+        return Object.values(this._patientStore).filter(
+            (patient) => patient.idAllocatedTo?.matches(this.loggedInAccount.id),
         );
     }
 
