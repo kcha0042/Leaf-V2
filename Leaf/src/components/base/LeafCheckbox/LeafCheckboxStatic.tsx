@@ -35,6 +35,7 @@ const LeafCheckboxStatic: React.FC<Props> = ({
                 borderWidth: size / 8,
                 aspectRatio: 1,
                 borderColor: color.getColor(),
+                justifyContent: "center",
                 ...style,
             }}
             onPress={onPress}
