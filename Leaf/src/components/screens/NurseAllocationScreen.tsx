@@ -26,17 +26,22 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
     useEffect(() => {
         worker = Session.inst.getActiveWorker();
-        StateManager.patientsFetched.subscribe(() => {
+        const unsubscribePatientsFetched = StateManager.patientsFetched.subscribe(() => {
             refreshAllocatedPatients();
             worker = Session.inst.getActiveWorker();
         });
-        StateManager.patientUpdated.subscribe(() => {
+        const unsubscribePatientUpdated = StateManager.patientUpdated.subscribe(() => {
             refreshAllocatedPatients();
             worker = Session.inst.getActiveWorker();
         });
 
         refreshAllocatedPatients();
         Session.inst.fetchAllPatients();
+
+        return () => {
+            unsubscribePatientUpdated();
+            unsubscribePatientsFetched();
+        };
     }, []);
 
     const refreshAllocatedPatients = () => {

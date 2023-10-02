@@ -83,7 +83,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         <Spacer />
 
                         <LeafTextButton
-                            label={strings("button.remove")}
+                            label={strings("button.deallocate")}
                             typography={buttonTypography}
                             onPress={removePatient}
                         />
