@@ -103,14 +103,14 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         {patient.events.map((event) => (
                             <LeafChip
                                 key={event.id.toString()}
-                                children={
+                                color={LeafColors.textDark}>
                                     <LeafText
                                         wide={false}
                                         typography={chipTypography}
-                                    >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
-                                }
-                                color={LeafColors.textDark}
-                            />
+                                    >
+                                        {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
+                                    </LeafText>
+                            </LeafChip>
                         ))}
                     </HStack>
                 </VStack>
