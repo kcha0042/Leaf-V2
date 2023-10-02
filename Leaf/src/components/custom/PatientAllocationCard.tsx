@@ -46,8 +46,11 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const typography = LeafTypography.subscriptLabel;
     typography.leafColor = LeafColors.textDark;
 
-    const onPressAllocate = () => {
-        if (worker != null) {
+    const onPressAllocate = async () => {
+        if (worker == null) return;
+        initialValue ? await Session.inst.unallocatePatient(patient, worker) : await Session.inst.allocatePatient(patient, worker);
+        setInitialValue(!initialValue);
+        /*if (worker != null) {
             if (initialValue) {
                 // deallocate patient
                 Session.inst.unallocatePatient(patient, worker);
@@ -57,7 +60,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                 Session.inst.allocatePatient(patient, worker);
                 setInitialValue(true);
             }
-        }
+        }*/
     };
 
     const formatTime = (date: Date): string => {
