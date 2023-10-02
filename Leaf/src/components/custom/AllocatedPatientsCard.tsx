@@ -37,8 +37,7 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
         await Session.inst.unallocatePatient(patient, worker);
     };
 
-    const typography = LeafTypography.subscriptLabel;
-    typography.leafColor = LeafColors.textDark;
+    const chipTypography = LeafTypography.chip;
 
     const formatTime = (date: Date): string => {
         let hours = date.getHours();
@@ -107,10 +106,10 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                                 children={
                                     <LeafText
                                         wide={false}
-                                        typography={typography}
+                                        typography={chipTypography}
                                     >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
                                 }
-                                color={LeafColors.fillBackgroundAccent}
+                                color={LeafColors.textDark}
                             />
                         ))}
                     </HStack>
