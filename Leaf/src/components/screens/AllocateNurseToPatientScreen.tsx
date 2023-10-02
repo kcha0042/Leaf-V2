@@ -8,7 +8,7 @@ import StateManager from "../../state/publishers/StateManager";
 import { FlatList } from "react-native";
 import PatientAllocationCard from "../custom/PatientAllocationCard";
 import LeafDimensions from "../styling/LeafDimensions";
-import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import { strings } from "../../localisation/Strings";
 import LeafButton from "../base/LeafButton/LeafButton";
 import HStack from "../containers/HStack";
@@ -68,7 +68,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                     </LeafText>
                 </LeafText>
 
-                <LeafSearchBarNew
+                <LeafSearchBar
                     onTextChange={onSearch}
                     data={patients}
                     setData={setFilteredPatients}

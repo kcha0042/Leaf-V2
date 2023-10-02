@@ -12,7 +12,7 @@ import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import NurseAllocationScreen from "./NurseAllocationScreen";
-import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -52,7 +52,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew
+                <LeafSearchBar
                     onTextChange={onSearch}
                     data={workers}
                     setData={setFilteredWorkers}

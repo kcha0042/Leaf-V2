@@ -9,7 +9,7 @@ import Worker from "../../model/employee/Worker";
 import Session from "../../model/session/Session";
 import NurseAllocationCard from "../custom/NurseAllocationCard";
 import StateManager from "../../state/publishers/StateManager";
-import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
@@ -50,7 +50,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                 }}
                 spacing={20}
             >
-                <LeafSearchBarNew
+                <LeafSearchBar
                     onTextChange={onSearch}
                     data={workers}
                     setData={setFilteredWorkers}

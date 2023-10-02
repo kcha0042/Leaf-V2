@@ -13,7 +13,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import AllocatePatientToNurseScreen from "./AllocatePatientToNurseScreen";
 import { strings } from "../../localisation/Strings";
-import LeafSearchBarNew from "../base/LeafSearchBar/LeafSearchBarNew";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -58,7 +58,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBarNew
+                <LeafSearchBar
                     onTextChange={onSearch}
                     data={patients}
                     setData={setFilteredPatients}
