@@ -83,11 +83,24 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     </LeafText>
                 </VStack>
 
-                <LeafCheckboxStatic
+                {/*<LeafCheckboxStatic
                     size={LeafIconSize.Large}
                     isChecked={isTicked}
                     initialValue={isTicked}
                     onPress={onPressAllocate}
+                />*/}
+                <LeafIconButton
+                    icon={isTicked ? "check" : "plus"}
+                    size={LeafIconSize.Large}
+                    iconColor={isTicked ? LeafColors.textLight : LeafColors.textDark}
+                    color={isTicked ? LeafColors.accent : LeafColors.transparent}
+                    onPress={onPressAllocate}
+                    style={{
+                        alignSelf: "center",
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: isTicked ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                    }}
                 />
             </HStack>
         </FlatContainer>

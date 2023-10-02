@@ -125,11 +125,24 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     </HStack>
                 </VStack>
 
-                <LeafCheckboxStatic
+                {/*<LeafCheckboxStatic
                     size={LeafIconSize.Large}
                     isChecked={initialValue}
                     initialValue={initialValue}
                     onPress={onPressAllocate}
+                />*/}
+                <LeafIconButton
+                    icon={initialValue ? "check" : "plus"}
+                    size={LeafIconSize.Large}
+                    iconColor={initialValue ? LeafColors.textLight : LeafColors.textDark}
+                    color={initialValue ? LeafColors.accent : LeafColors.transparent}
+                    onPress={onPressAllocate}
+                    style={{
+                        alignSelf: "center",
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: initialValue ? LeafColors.textLight.getColor() : LeafColors.textDark.getColor(),
+                    }}
                 />
             </HStack>
         </FlatContainer>
