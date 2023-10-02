@@ -32,10 +32,9 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
     buttonTypography.leafColor = LeafColors.textError;
     buttonTypography.weight = LeafFontWeight.Bold;
 
-    const removePatient = () => {
-        if (worker != null) {
-            Session.inst.unallocatePatient(patient, worker);
-        }
+    const removePatient = async () => {
+        if (worker == null) return;
+        await Session.inst.unallocatePatient(patient, worker);
     };
 
     const typography = LeafTypography.subscriptLabel;
