@@ -59,7 +59,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     dataToString={(worker: Worker) => worker.fullName}
                 />
 
-                <VGap size={10} />
+                <VGap size={8} />
 
                 <FlatList
                     data={filteredWorkers}

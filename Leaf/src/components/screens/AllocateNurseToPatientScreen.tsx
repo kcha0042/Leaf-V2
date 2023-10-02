@@ -98,7 +98,6 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                     keyExtractor={(patient) => patient.mrn.toString()}
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
-                    // Don't use overflow prop - doesn't work on web
                     style={{
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped

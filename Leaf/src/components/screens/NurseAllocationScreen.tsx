@@ -87,6 +87,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
                     }}
                 />
 
+                <VGap size={2} />
                 <FlatList
                     data={allocatedPatients}
                     renderItem={({ item: patient }) => <AllocatedPatientsCard patient={patient} />}

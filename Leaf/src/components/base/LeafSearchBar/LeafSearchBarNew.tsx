@@ -32,7 +32,7 @@ function LeafSearchBarNew<T>({
     wide = true,
     valid = undefined,
     label = "Search",
-    maxDistance = 7,
+    maxDistance = 6,
 }: Props<T>) {
     useEffect(() => {
         setFilteredData(data);

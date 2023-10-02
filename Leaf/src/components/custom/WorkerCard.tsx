@@ -22,7 +22,7 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
             <VStack style={{ flex: 1 }}>
                 <LeafText typography={LeafTypography.title3}>{worker.fullName}</LeafText>
 
-                <VGap size={16} />
+                <VGap size={8} />
 
                 <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
 

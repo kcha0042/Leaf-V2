@@ -58,7 +58,12 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
 
     return (
         <FlatContainer>
-            <HStack>
+            <HStack
+                style={{
+                    flex: 1,
+                    alignItems: "center",
+                }}
+            >
                 <VStack
                     style={{
                         flex: 1,
@@ -66,7 +71,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                 >
                     <LeafText typography={LeafTypography.title3}>{worker.fullName}</LeafText>
 
-                    <VGap size={16} />
+                    <VGap size={8} />
 
                     <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
 
