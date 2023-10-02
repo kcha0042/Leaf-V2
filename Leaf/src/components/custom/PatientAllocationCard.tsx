@@ -48,7 +48,9 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
     const onPressAllocate = async () => {
         if (worker == null) return;
-        initialValue ? await Session.inst.unallocatePatient(patient, worker) : await Session.inst.allocatePatient(patient, worker);
+        initialValue
+            ? await Session.inst.unallocatePatient(patient, worker)
+            : await Session.inst.allocatePatient(patient, worker);
         setInitialValue(!initialValue);
         /*if (worker != null) {
             if (initialValue) {

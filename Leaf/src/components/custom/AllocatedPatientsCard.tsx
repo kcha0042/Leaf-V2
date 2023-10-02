@@ -97,22 +97,21 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                         {strings("label.date")} {dateText}
                     </LeafText>
 
-                    <VGap size={16} />
-
-                    <HStack spacing={10}>
-                        {patient.events.map((event) => (
-                            <LeafChip
-                                key={event.id.toString()}
-                                color={LeafColors.textDark}>
-                                    <LeafText
-                                        wide={false}
-                                        typography={chipTypography}
-                                    >
-                                        {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
-                                    </LeafText>
-                            </LeafChip>
-                        ))}
-                    </HStack>
+                    {patient.events.length > 0 ? (
+                        <>
+                            <VGap size={16} />
+                            <HStack spacing={10}>
+                                {patient.events.map((event) => (
+                                    <LeafChip key={event.id.toString()} color={LeafColors.textDark}>
+                                        <LeafText wide={false} typography={chipTypography}>
+                                            {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
+                                        </LeafText>
+                                    </LeafChip>
+                                ))}
+                            </HStack>
+                        </>
+                    ) : undefined}
+                    
                 </VStack>
             </HStack>
         </FlatContainer>
