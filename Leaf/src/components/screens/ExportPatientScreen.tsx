@@ -174,6 +174,7 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                        ...(Environment.inst.getOS() == OS.Web ? {height: Environment.inst.getScreenHeight() - 200} : {})
                     }}
                 />
             </VStack>

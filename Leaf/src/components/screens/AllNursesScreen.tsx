@@ -12,6 +12,8 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafDimensions from "../styling/LeafDimensions";
 import ManageNurseScreen from "./ManageWorkerScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import Environment from "../../state/environment/Environment";
+import { OS } from "../../state/environment/types/OS";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -62,6 +64,7 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                        ...(Environment.inst.getOS() == OS.Web ? {height: Environment.inst.getScreenHeight() - 100} : {})
                     }}
                 />
                 <Spacer />
