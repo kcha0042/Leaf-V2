@@ -67,6 +67,7 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
 
                 <LeafPopUp
                     visible={popUpVisible}
+                    setVisible={setPopUpVisible}
                     title={strings("actions.removeLeader") + ' "' + leader.fullName + '"'}
                     onCancel={onCancel}
                     onDone={onDelete}
