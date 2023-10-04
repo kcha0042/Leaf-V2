@@ -34,6 +34,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
     useEffect(() => {
         const unsubscribePatientsFetched = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
+            StateManager.reallocationOccurred.publish();
         });
         setFilteredPatients(Session.inst.getAllPatients());
         Session.inst.fetchAllPatients();

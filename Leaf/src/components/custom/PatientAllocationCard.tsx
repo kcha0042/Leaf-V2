@@ -11,10 +11,11 @@ import TriageCodeBadge from "./TriageCodeBadge";
 import { strings } from "../../localisation/Strings";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShiftTime } from "../../model/employee/ShiftTime";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     patient: Patient;
@@ -53,6 +54,15 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
 
         return false;
     };
+
+    useEffect(() => {
+        const unsubscribeReallocationOccured = StateManager.reallocationOccurred.subscribe(() => {
+            setInitialValue(refreshAllocation());
+        });
+        return () => {
+            unsubscribeReallocationOccured();
+        };
+    }, []);
 
     const [initialValue, setInitialValue] = useState(refreshAllocation());
 
