@@ -59,6 +59,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         const unsubscribeReallocationOccured = StateManager.reallocationOccurred.subscribe(() => {
             setInitialValue(refreshAllocation());
         });
+        setInitialValue(refreshAllocation());
         return () => {
             unsubscribeReallocationOccured();
         };

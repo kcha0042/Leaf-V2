@@ -121,7 +121,7 @@ class Session {
         if (patient.idAllocatedTo != null) {
             const allocatedWorker = this.getWorker(patient.idAllocatedTo);
             if (allocatedWorker != null) {
-                this.unallocatePatient(patient, allocatedWorker);
+                await this.unallocatePatient(patient, allocatedWorker);
             }
         }
         for (const patientOfWorker of allocatedTo.allocatedPatients){
