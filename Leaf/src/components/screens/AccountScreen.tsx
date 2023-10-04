@@ -89,7 +89,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         const hospitals = HospitalsArray;
         // Checking hospital exists
         let hospitalExists = false;
-        for (let hospital of hospitals) {
+        for (const hospital of hospitals) {
             if (hospital.name == newHospital) {
                 hospitalExists = true;
                 setHospital(newHospital);

@@ -260,7 +260,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafSelectionInput
                         navigation={navigation}
                         items={WardsArray.map((ward) => {
-                            return new LeafSelectionItem(ward.name, ward.hosptialCode, ward);
+                            return new LeafSelectionItem(ward.name, ward.hospitalCode, ward);
                         })}
                         title={strings("inputLabel.ward")}
                         selected={selectedWard}
