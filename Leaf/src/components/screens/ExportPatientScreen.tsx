@@ -1,6 +1,6 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { strings } from "../../localisation/Strings";
 import Patient from "../../model/patient/Patient";
@@ -156,27 +156,31 @@ const ExportPatientScreen: React.FC<Props> = ({ navigation }) => {
             <VGap size={12} />
 
             <VStack>
-                <FlatList
-                    data={patients}
-                    renderItem={({ item: patient }) => (
-                        <ExportPatientCard
-                            patient={patient}
-                            isSelected={selectedPatients.some((p) => p.mrn.matches(patient.mrn))}
-                            onPress={() => {
-                                onPressPatient(patient);
-                            }}
-                        />
-                    )}
-                    keyExtractor={(patient) => patient.mrn.toString()}
-                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                    scrollEnabled={false}
-                    style={{
-                        width: "100%",
-                        overflow: "visible", // Stop shadows getting clipped
-                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                        ...(Environment.inst.getOS() == OS.Web ? {height: Environment.inst.getScreenHeight() - 200} : {})
-                    }}
-                />
+                <ScrollView style={{ flex: 1, width: "100%" }}>
+                    <FlatList
+                        data={patients}
+                        renderItem={({ item: patient }) => (
+                            <ExportPatientCard
+                                patient={patient}
+                                isSelected={selectedPatients.some((p) => p.mrn.matches(patient.mrn))}
+                                onPress={() => {
+                                    onPressPatient(patient);
+                                }}
+                            />
+                        )}
+                        keyExtractor={(patient) => patient.mrn.toString()}
+                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                        scrollEnabled={false}
+                        style={{
+                            width: "100%",
+                            overflow: "visible", // Stop shadows getting clipped
+                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                            ...(Environment.inst.getOS() == OS.Web
+                                ? { height: Environment.inst.getScreenHeight() - 230 }
+                                : {}),
+                        }}
+                    />
+                </ScrollView>
             </VStack>
         </DefaultScreenContainer>
     );
