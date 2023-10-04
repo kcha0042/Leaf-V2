@@ -124,6 +124,11 @@ class Session {
                 this.unallocatePatient(patient, allocatedWorker);
             }
         }
+        for (const patientOfWorker of allocatedTo.allocatedPatients){
+            if (patientOfWorker.matches(patient.mrn)){
+                return false;
+            }
+        }
         allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);

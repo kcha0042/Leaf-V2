@@ -13,10 +13,8 @@ import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { useState } from "react";
 import { ShiftTime } from "../../model/employee/ShiftTime";
-import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
-import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 
 interface Props {
     patient: Patient;
@@ -28,16 +26,31 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const sessionText = session.toString();
     const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
-    const worker = Session.inst.getActiveWorker();
+    let worker = Session.inst.getActiveWorker();
+
+    // const refreshAllocation = () => {
+    //     if (worker != null && patient.idAllocatedTo != null) {
+    //         for (const allocatedPatientID of worker.allocatedPatients) {
+    //             if (allocatedPatientID.matches(patient.mrn)) {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // };
 
     const refreshAllocation = () => {
-        if (worker != null && patient.idAllocatedTo != null) {
-            for (const allocatedPatientID of worker.allocatedPatients) {
-                if (allocatedPatientID.matches(patient.mrn)) {
-                    return true;
-                }
-            }
+        worker = Session.inst.getActiveWorker();
+        let updatedPatient = Session.inst.getPatient(patient.mrn);
+        if (updatedPatient != null) {
+            patient = updatedPatient;
         }
+        if (worker != null && patient.idAllocatedTo != null){
+            for (const allocatedPatientID of worker.allocatedPatients) {
+            if (allocatedPatientID.matches(patient.mrn)) return true;
+            }
+        }   
+
         return false;
     };
 
