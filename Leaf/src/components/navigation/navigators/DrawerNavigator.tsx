@@ -137,7 +137,8 @@ const DrawerNavigator: React.FC<Props> = ({ leafInterface }) => {
                 <VStack
                     style={{
                         height: "100%",
-                        width: LeafDimensions.sidebarWidth,
+                        width: "30%",
+                        minWidth: LeafDimensions.sidebarWidth,
                         borderRightWidth: LeafDimensions.borderWidth,
                         borderRightColor: LeafColors.divider.getColor(),
                         paddingTop: Insets.top, // Hiding/showing a safe area causes flickering
