@@ -20,6 +20,7 @@ import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import PasswordUtil from "../../utils/PasswordUtil";
 import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
+import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -92,7 +93,6 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
                 <View
                     style={{
                         maxWidth: 400,
-                        alignItems: "center",
                         width: "100%",
                     }}
                 >
@@ -111,7 +111,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.newPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(newPassword) || !newPassword
@@ -126,7 +126,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.confirmNewPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(confirmationNewPassword) && confirmationNewPassword == newPassword

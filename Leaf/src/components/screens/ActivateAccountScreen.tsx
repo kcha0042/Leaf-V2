@@ -22,6 +22,8 @@ import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import Account from "../../model/account/Account";
 import PasswordUtil from "../../utils/PasswordUtil";
+import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
+import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 
 
 interface Props {
@@ -135,7 +137,6 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
                 <View
                     style={{
                         maxWidth: 400,
-                        alignItems: "center",
                         width: "100%",
                     }}
                 >
@@ -167,7 +168,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.setPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(password) || !password
@@ -182,7 +183,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.confirmPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(confirmationPassword) && confirmationPassword == password

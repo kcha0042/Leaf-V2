@@ -187,11 +187,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
                 />
-                <LeafButton
+                <LeafTextButton
                     label={strings("button.resetPassword")}
-                    typography={LeafTypography.button}
-                    type={LeafButtonType.Outlined}
-                    color={LeafColors.textSemiDark}
+                    typography={LeafTypography.plainTextButton}
                     style={{ marginTop: 12 }}
                     onPress={() => {
                         NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
