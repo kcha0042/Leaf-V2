@@ -27,12 +27,22 @@ class FuzzySearchUtil {
         return distanceMatrix[sourceLength][targetLength];
     }
 
-    static isFuzzyMatch(query: string, data: any, dataToString: (data: any) => string, localMaxDistance: number): boolean {
+    static isFuzzyMatch(
+        query: string,
+        data: any,
+        dataToString: (data: any) => string,
+        localMaxDistance: number,
+    ): boolean {
         const calculateMatch = FuzzySearchUtil.calculateLevenshteinDistance(query, dataToString(data));
         return calculateMatch <= localMaxDistance;
     }
 
-    static handleSearch(searchQuery: string, data: any[], dataToString: (data: any) => string, maxDistance: number): any[] {
+    static handleSearch(
+        searchQuery: string,
+        data: any[],
+        dataToString: (data: any) => string,
+        maxDistance: number,
+    ): any[] {
         const cleanQuery = FuzzySearchUtil.cleanupQuery(searchQuery);
         let filtered = data.filter((item) =>
             FuzzySearchUtil.cleanupQuery(dataToString(item)).toLowerCase().includes(cleanQuery.toLowerCase()),

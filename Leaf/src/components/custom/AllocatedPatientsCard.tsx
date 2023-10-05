@@ -111,7 +111,6 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
                             </HStack>
                         </>
                     ) : undefined}
-                    
                 </VStack>
             </HStack>
         </FlatContainer>

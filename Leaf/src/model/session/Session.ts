@@ -124,8 +124,8 @@ class Session {
                 await this.unallocatePatient(patient, allocatedWorker);
             }
         }
-        for (const patientOfWorker of allocatedTo.allocatedPatients){
-            if (patientOfWorker.matches(patient.mrn)){
+        for (const patientOfWorker of allocatedTo.allocatedPatients) {
+            if (patientOfWorker.matches(patient.mrn)) {
                 return false;
             }
         }

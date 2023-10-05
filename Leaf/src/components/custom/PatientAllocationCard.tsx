@@ -46,11 +46,11 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         if (updatedPatient != null) {
             patient = updatedPatient;
         }
-        if (worker != null && patient.idAllocatedTo != null){
+        if (worker != null && patient.idAllocatedTo != null) {
             for (const allocatedPatientID of worker.allocatedPatients) {
-            if (allocatedPatientID.matches(patient.mrn)) return true;
+                if (allocatedPatientID.matches(patient.mrn)) return true;
             }
-        }   
+        }
 
         return false;
     };

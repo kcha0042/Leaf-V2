@@ -19,7 +19,7 @@ interface Props<T> {
     onTextChange: (text: string) => void;
     setData: (data: T[]) => void;
     dataToString: (data: T) => string;
-    maxDistance?: number;   
+    maxDistance?: number;
 }
 
 function LeafSearchBar<T>({
