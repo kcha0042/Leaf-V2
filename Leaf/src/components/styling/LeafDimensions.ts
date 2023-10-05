@@ -18,7 +18,9 @@ class LeafDimensions {
 
     static readonly drawerWidth = 220;
 
-    static readonly sidebarWidth = 250;
+    static readonly minSidebarWidth = 250;
+
+    static readonly maxSidebarWidth = 350;
 
     static readonly textInputSpacing = 10;
 }

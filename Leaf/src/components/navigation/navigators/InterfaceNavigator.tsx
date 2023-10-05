@@ -17,7 +17,6 @@ export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
     useEffect(() => {
         const unsubscribe = StateManager.contentWidth.subscribe(() => {
             setIsWideScreen(Environment.inst.getNavigatorFromScreenWidth() == LeafNavigator.drawerNavigator);
-            console.log(StateManager.contentWidth.read())
         });
 
         return () => {
