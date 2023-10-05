@@ -83,7 +83,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         typography={LeafTypography.title4}
                         color={LeafColors.fillBackgroundLight}
                         wide={false}
-                    ></LeafButton>
+                    />
 
                     <HGap size={6} />
 
@@ -93,7 +93,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                         typography={LeafTypography.title4}
                         color={LeafColors.fillBackgroundLight}
                         wide={false}
-                    ></LeafButton>
+                    />
                 </HStack>
 
                 <FlatList
