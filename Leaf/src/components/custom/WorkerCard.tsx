@@ -8,6 +8,7 @@ import VStack from "../containers/VStack";
 import HStack from "../containers/HStack";
 import FlatContainer from "../containers/FlatContainer";
 import { strings } from "../../localisation/Strings";
+import Session from "../../model/session/Session";
 
 interface Props {
     worker: Worker;
@@ -17,6 +18,7 @@ interface Props {
 
 const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     const idText = worker.id.toString();
+    const allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
     return (
         <FlatContainer onPress={onPress}>
             <VStack style={{ flex: 1 }}>
@@ -27,7 +29,7 @@ const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
                 <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
 
                 <LeafText typography={LeafTypography.subscript}>
-                    {strings("workerCard.numPatients", `${worker.allocatedPatients.length}`)}
+                    {strings("workerCard.numPatients", `${allocatedPatients.length}`)}
                 </LeafText>
             </VStack>
         </FlatContainer>

@@ -24,6 +24,7 @@ interface Props {
 const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
     const idText = worker.id.toString();
     let patient = Session.inst.getActivePatient();
+    let allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
 
     const refreshAllocation = () => {
         patient = Session.inst.getActivePatient();
@@ -33,8 +34,9 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
         }
         if (patient == null || patient.idAllocatedTo == null) return false;
 
-        for (const allocatedPatientID of worker.allocatedPatients) {
-            if (allocatedPatientID.matches(patient.mrn)) return true;
+        allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
+        for (const allocatedPatient of allocatedPatients) {
+            if (allocatedPatient.mrn.matches(patient.mrn)) return true;
         }
 
         return false;
@@ -79,7 +81,7 @@ const NurseAllocationCard: React.FC<Props> = ({ worker }) => {
                     <LeafText typography={LeafTypography.subscript}>{strings("workerCard.id", `${idText}`)}</LeafText>
 
                     <LeafText typography={LeafTypography.subscript}>
-                        {strings("workerCard.numPatients", `${worker.allocatedPatients.length}`)}
+                        {strings("workerCard.numPatients", `${allocatedPatients.length}`)}
                     </LeafText>
                 </VStack>
 

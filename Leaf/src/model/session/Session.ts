@@ -124,12 +124,12 @@ class Session {
                 await this.unallocatePatient(patient, allocatedWorker);
             }
         }
-        for (const patientOfWorker of allocatedTo.allocatedPatients) {
-            if (patientOfWorker.matches(patient.mrn)) {
+        const allocatedPatients = this.getAllocatedPatientsTo(allocatedTo);
+        for (const patientOfWorker of allocatedPatients) {
+            if (patientOfWorker.mrn.matches(patient.mrn)) {
                 return false;
             }
         }
-        allocatedTo.allocatePatient(patient);
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
 
@@ -150,7 +150,6 @@ class Session {
     }
 
     public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
-        allocatedTo.deallocatePatient(patient.mrn);
         patient.deallocate();
 
         const success1 = this.updateWorker(allocatedTo);

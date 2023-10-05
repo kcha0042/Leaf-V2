@@ -46,8 +46,9 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
         if (worker == null) {
             throw new Error("Cannot fetch active worker!");
         }
-        for (const allocatedPatientID of worker.allocatedPatients) {
-            const allocatedPatient = Session.inst.getPatient(allocatedPatientID);
+        const allocatedPatientsTo = Session.inst.getAllocatedPatientsTo(worker);
+        for (const allocatedPatientID of allocatedPatientsTo) {
+            const allocatedPatient = Session.inst.getPatient(allocatedPatientID.mrn);
             if (allocatedPatient != null) {
                 newAllocatedPatients.push(allocatedPatient);
             }
