@@ -57,6 +57,7 @@ hospitalB.addWard(new Ward("W24", "STB", "5.2 STB"));
 hospitalB.addWard(new Ward("W25", "STB", "Emergency Admissions STB"));
 hospitalB.addWard(new Ward("W26", "STB", "2.3 STB"));
 hospitalB.addWard(new Ward("W27", "STB", "4.3 STB"));
+
 // add hospital B medical units
 hospitalB.addMedUnit(new MedicalUnit("M1", "Short Stay Unit MA STB", "Emergency and General Medicine"));
 hospitalB.addMedUnit(new MedicalUnit("M2", "Renal Dialysis PJ STB", "Speciality Medicine"));
