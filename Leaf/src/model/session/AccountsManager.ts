@@ -4,7 +4,6 @@ import DatabaseSession from "../../database/DatabaseSession";
 import Account from "../account/Account";
 import EmployeeID from "../employee/EmployeeID";
 
-
 class AccountsManager {
     public static readonly inst = new AccountsManager();
 

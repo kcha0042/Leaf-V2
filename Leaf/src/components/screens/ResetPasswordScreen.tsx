@@ -129,7 +129,8 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafPasswordInputShort
                         label={strings("inputLabel.confirmNewPassword")}
                         textColor={
-                            ValidateUtil.stringIsValid(confirmationNewPassword) && confirmationNewPassword == newPassword
+                            ValidateUtil.stringIsValid(confirmationNewPassword) &&
+                            confirmationNewPassword == newPassword
                                 ? LeafColors.textDark
                                 : LeafColors.textError
                         }

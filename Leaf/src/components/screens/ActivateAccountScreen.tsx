@@ -25,7 +25,6 @@ import PasswordUtil from "../../utils/PasswordUtil";
 import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
 import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 
-
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }

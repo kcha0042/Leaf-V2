@@ -104,20 +104,23 @@ const LeafPasswordInputShort: React.FC<Props> = ({
                         onBlur={() => setIsFocused(false)}
                         secureTextEntry={isPasswordShown}
                     />
-
                 </VStack>
             </TouchableWithoutFeedback>
             <TouchableOpacity
-                style = {{
-                    position:"absolute",
+                style={{
+                    position: "absolute",
                     padding: 4,
-                    right:12,
+                    right: 12,
                     top: 16,
                     zIndex: 1,
                 }}
                 onPress={() => setIsPasswordShown(!isPasswordShown)}
-                >
-                <LeafIcon icon={isPasswordShown ? "eye" : "eye-off"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
+            >
+                <LeafIcon
+                    icon={isPasswordShown ? "eye" : "eye-off"}
+                    size={LeafIconSize.Small}
+                    color={LeafColors.shadow}
+                />
             </TouchableOpacity>
         </View>
     );

@@ -298,7 +298,6 @@ class Session {
     public async updateAccount(account: Account): Promise<boolean> {
         return AccountsManager.inst.updateAccount(account);
     }
-
 }
 
 export default Session;

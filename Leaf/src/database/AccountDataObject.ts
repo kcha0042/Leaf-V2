@@ -21,10 +21,7 @@ class AccountDataObject {
             console.error("[AccountDataObject] Failed to restore Admin");
             return null;
         }
-        return new Account(
-            new EmployeeID(id),
-            password,
-        );
+        return new Account(new EmployeeID(id), password);
     }
 }
 

@@ -1,6 +1,5 @@
 import EmployeeID from "../employee/EmployeeID";
 
-
 class Account {
     public readonly id: EmployeeID;
     protected _password: string;

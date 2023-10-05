@@ -63,7 +63,6 @@ const LeafPasswordInput: React.FC<Props> = ({
                 },
             ]}
         >
-
             <TouchableWithoutFeedback
                 style={{
                     position: "absolute",
@@ -89,7 +88,7 @@ const LeafPasswordInput: React.FC<Props> = ({
                     {text.length == 0 ? label : ""}
                 </LeafText>
             </TouchableWithoutFeedback>
-            
+
             <TextInput
                 ref={textInputRef}
                 style={[
@@ -115,16 +114,20 @@ const LeafPasswordInput: React.FC<Props> = ({
             />
 
             <TouchableOpacity
-                style = {{
-                    position:"absolute",
+                style={{
+                    position: "absolute",
                     padding: 3,
-                    right:12,
-                    alignSelf:"center",
+                    right: 12,
+                    alignSelf: "center",
                     zIndex: 1,
                 }}
                 onPress={() => setIsPasswordShown(!isPasswordShown)}
-                >
-                <LeafIcon icon={isPasswordShown ? "eye" : "eye-off"} size={LeafIconSize.Small} color={LeafColors.shadow}/>
+            >
+                <LeafIcon
+                    icon={isPasswordShown ? "eye" : "eye-off"}
+                    size={LeafIconSize.Small}
+                    color={LeafColors.shadow}
+                />
             </TouchableOpacity>
         </View>
     );

@@ -46,7 +46,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     const allIsValid: () => boolean = () => {
         // TODO: Uncomment this when we implement passwords
         // ValidateUtil.stringIsValid(password)
-        return (ValidateUtil.stringIsValid(username) && ValidateUtil.stringIsValid(password))
+        return ValidateUtil.stringIsValid(username) && ValidateUtil.stringIsValid(password);
     };
 
     const onLoginPressed = async () => {
@@ -58,7 +58,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         const id = new EmployeeID(username!);
 
         // check if the account exists and check if the password matches
-        const account = await Session.inst.fetchAccount(id);       
+        const account = await Session.inst.fetchAccount(id);
         if (account == null || !PasswordUtil.isCorrectPassword(password, account.password)) {
             // TODO: Provide feedback (probably split this into if elif to provide separate feedback)
             return;
@@ -72,8 +72,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Worker);
             return;
-            }
-        else {
+        } else {
             // TODO: Provide feedback (login failed)
             console.log("Login Failed");
         }
@@ -85,12 +84,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Leader);
             return;
-        }
-        else {
+        } else {
             // TODO: Provide feedback (login failed)
             console.log("Login Failed");
         }
-        
 
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
@@ -99,11 +96,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Admin);
             return;
-        }
-        else {
+        } else {
             // TODO: Provide feedback (login failed)
-            console.log("Login Failed")
-        }     
+            console.log("Login Failed");
+        }
     };
 
     return (
