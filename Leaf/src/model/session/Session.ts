@@ -298,8 +298,15 @@ class Session {
     }
 
     public getAllocatedPatients(): Patient[] {
+        if (this.loggedInAccount.role.matches(Role.worker)) {
+            return this.getAllocatedPatientsTo(this.loggedInAccount as Worker);
+        }
+        return [];
+    }
+
+    public getAllocatedPatientsTo(worker: Worker): Patient[] {
         return Object.values(this._patientStore).filter(
-            (patient) => patient.idAllocatedTo?.matches(this.loggedInAccount.id),
+            (patient) => patient.idAllocatedTo?.matches(worker.id),
         );
     }
 
