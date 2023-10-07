@@ -243,8 +243,15 @@ export default {
     "shiftTime.night": "Night",
 
     // Patient event categories
-    "patientEventCategory.medication": "Medication",
-    "patientEventCategory.other": "Other",
+    "patientEventCategory.medication": "Drug Exposure",
+    "patientEventCategory.visit": "Visit Occurrence",
+    "patientEventCategory.condition": "Condition Occurrence",
+    "patientEventCategory.procedure": "Procedure Occurrence",
+    "patientEventCategory.device": "Device Exposure",
+    "patientEventCategory.measurement": "Measurement",
+    "patientEventCategory.observation": "Observation",
+    "patientEventCategory.episode": "Episode",
+    "patientEventCategory.note": "Note",
 
     // Sex
     "sex.male": "Male",
