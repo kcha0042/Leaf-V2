@@ -117,13 +117,6 @@ class Session {
     }
 
     public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
-        // deallocate patient from previous woker if already allocated
-        if (patient.idAllocatedTo != null) {
-            const allocatedWorker = this.getWorker(patient.idAllocatedTo);
-            if (allocatedWorker != null) {
-                await this.unallocatePatient(patient, allocatedWorker);
-            }
-        }
         const allocatedPatients = this.getAllocatedPatientsTo(allocatedTo);
         for (const patientOfWorker of allocatedPatients) {
             if (patientOfWorker.mrn.matches(patient.mrn)) {
