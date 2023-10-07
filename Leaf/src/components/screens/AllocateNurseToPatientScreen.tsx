@@ -56,7 +56,7 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                 style={{
                     flex: 1,
                 }}
-                spacing={20}
+                spacing={LeafDimensions.screenPadding}
             >
                 <LeafText typography={LeafTypography.subscript}>
                     {strings("label.patientAllocateToNurse")}

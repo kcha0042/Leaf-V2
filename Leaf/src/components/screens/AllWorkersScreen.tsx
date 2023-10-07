@@ -59,7 +59,7 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     dataToString={(worker: Worker) => worker.fullName}
                 />
 
-                <VGap size={8} />
+                <VGap size={LeafDimensions.cardTopPadding} />
 
                 <FlatList
                     data={filteredWorkers}
