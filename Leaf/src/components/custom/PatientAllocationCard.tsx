@@ -29,17 +29,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const dateText = patient.triageCase.arrivalDate.toDateString();
     let worker = Session.inst.getActiveWorker();
 
-    // const refreshAllocation = () => {
-    //     if (worker != null && patient.idAllocatedTo != null) {
-    //         for (const allocatedPatientID of worker.allocatedPatients) {
-    //             if (allocatedPatientID.matches(patient.mrn)) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // };
-
     const refreshAllocation = () => {
         worker = Session.inst.getActiveWorker();
         let updatedPatient = Session.inst.getPatient(patient.mrn);
@@ -63,6 +52,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         setInitialValue(refreshAllocation());
         return () => {
             unsubscribeReallocationOccured();
+            // session = patient.sessionAllocated;
         };
     }, []);
 
@@ -77,17 +67,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
             ? await Session.inst.unallocatePatient(patient, worker)
             : await Session.inst.allocatePatient(patient, worker);
         setInitialValue(!initialValue);
-        /*if (worker != null) {
-            if (initialValue) {
-                // deallocate patient
-                Session.inst.unallocatePatient(patient, worker);
-                setInitialValue(false);
-            } else {
-                // allocate patient
-                Session.inst.allocatePatient(patient, worker);
-                setInitialValue(true);
-            }
-        }*/
     };
 
     const formatTime = (date: Date): string => {
@@ -150,12 +129,6 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     </HStack>
                 </VStack>
 
-                {/*<LeafCheckboxStatic
-                    size={LeafIconSize.Large}
-                    isChecked={initialValue}
-                    initialValue={initialValue}
-                    onPress={onPressAllocate}
-                />*/}
                 <LeafIconButton
                     icon={initialValue ? "check" : "plus"}
                     size={LeafIconSize.Large}
