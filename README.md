@@ -15,7 +15,6 @@ $ git clone https://github.com/FIT4002-TEAM9/Leaf.git
 ```
 
 2. Open the project directory and run `npm install`
-3. Replace Leaf/node_modules/bcryptjs/dist/bcrypt.js with Leaf/bcrypt.js
 
 ## Running on Simulator
 

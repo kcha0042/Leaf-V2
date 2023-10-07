@@ -12,7 +12,8 @@
         "predeploy": "expo export:web",
         "lint": "eslint . --ext .ts,.tsx",
         "prune": "ts-prune",
-        "type-check": "tsc --noEmit"
+        "type-check": "tsc --noEmit",
+        "postinstall": "cp bcrypt.js node_modules/bcryptjs/dist/bcrypt.js"
     },
     "dependencies": {
         "@expo/webpack-config": "^18.0.1",
