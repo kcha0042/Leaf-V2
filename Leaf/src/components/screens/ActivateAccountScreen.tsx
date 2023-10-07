@@ -53,12 +53,6 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
-        // hashing password
-        let hashedPassword = undefined;
-        if (password != undefined) {
-            hashedPassword = PasswordUtil.hashPassword(password);
-        }
-
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
         if (worker != null && !worker.accountActivated) {
@@ -66,8 +60,8 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             worker.setAccountActivated(true);
             worker.setEmail(email!);
             // Create new account in the database with ID and password
-            if (hashedPassword != undefined) {
-                const newAccount = new Account(id, hashedPassword);
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
                 Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateWorker(worker);
@@ -84,8 +78,8 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             leader.setAccountActivated(true);
             leader.setEmail(email!);
             // Create new account in the database with ID and password
-            if (hashedPassword != undefined) {
-                const newAccount = new Account(id, hashedPassword);
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
                 Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateLeader(leader);
@@ -102,8 +96,8 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             admin.setAccountActivated(true);
             admin.setEmail(email!);
             // Create new account in the database with ID and password
-            if (hashedPassword != undefined) {
-                const newAccount = new Account(id, hashedPassword);
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
                 Session.inst.activateNewAccount(newAccount);
             }
             Session.inst.updateAdmin(admin);

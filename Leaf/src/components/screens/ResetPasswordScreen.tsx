@@ -19,7 +19,6 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import PasswordUtil from "../../utils/PasswordUtil";
-import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
 import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 
 interface Props {
@@ -56,15 +55,9 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             return;
         }
 
-        // Hashing the provided password
-        let hashedPassword = undefined;
-        if (newPassword != undefined) {
-            hashedPassword = PasswordUtil.hashPassword(newPassword);
-        }
-
         // Update password on account
-        if (hashedPassword != undefined) {
-            account.setPassword(hashedPassword);
+        if (newPassword != undefined) {
+            account.setPassword(newPassword);
             Session.inst.updateAccount(account);
         }
 
