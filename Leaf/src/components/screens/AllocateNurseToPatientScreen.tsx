@@ -73,28 +73,9 @@ const AllocateNurseToPatientScreen: React.FC<Props> = ({ navigation }) => {
                     dataToString={(patient: Patient) => patient.fullName}
                 />
 
-                <HStack>
-                    {/* 
-                        // TODO: replace with dropdowns after merge
-                    */}
-                    <LeafButton
-                        label={strings("searchBarFilter.time")}
-                        onPress={() => null}
-                        typography={LeafTypography.title4}
-                        color={LeafColors.fillBackgroundLight}
-                        wide={false}
-                    />
-
-                    <HGap size={6} />
-
-                    <LeafButton
-                        label={strings("searchBarFilter.triageCode")}
-                        onPress={() => null}
-                        typography={LeafTypography.title4}
-                        color={LeafColors.fillBackgroundLight}
-                        wide={false}
-                    />
-                </HStack>
+                {/* <HStack>
+                        // TODO: add dropdowns after merge
+                </HStack> */}
 
                 <FlatList
                     data={filteredPatients}
