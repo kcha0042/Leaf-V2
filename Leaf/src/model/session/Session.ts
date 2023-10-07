@@ -304,9 +304,7 @@ class Session {
     }
 
     public getAllocatedPatientsTo(worker: Worker): Patient[] {
-        return Object.values(this._patientStore).filter(
-            (patient) => patient.idAllocatedTo?.matches(worker.id),
-        );
+        return Object.values(this._patientStore).filter((patient) => patient.idAllocatedTo?.matches(worker.id));
     }
 
     public getPatient(id: MRN): Patient | null {

@@ -21,7 +21,7 @@ class WorkerDataObject {
             .addString(WorkerField.LastName, worker.lastName)
             .addString(WorkerField.Email, worker.email)
             .addString(WorkerField.CurrentHospitalID, worker.currentHospital?.id?.toString())
-            .addBoolean(WorkerField.AccountActivated, worker.accountActivated)
+            .addBoolean(WorkerField.AccountActivated, worker.accountActivated);
     }
 
     public static restore(data: DataObject): Worker | null {
