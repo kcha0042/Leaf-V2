@@ -16,7 +16,8 @@ export class ShiftTime {
         this.id = id.toUpperCase();
     }
 
-    public static getCurrent(time: Date = new Date()): ShiftTime {
+    public static getCurrent(time: Date | null = new Date()): ShiftTime {
+        if (time == null) return ShiftTime.none;
         const hour = time.getHours();
 
         if (hour >= 7 && hour < 15) {

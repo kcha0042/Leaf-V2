@@ -15,7 +15,7 @@ class Patient {
     protected _phoneNumber: string;
     public readonly triageCase: TriageCase;
     protected _postCode: string;
-    protected _timeLastAllocated: Date;
+    protected _timeLastAllocated: Date | null;
     protected _allocatedTo: EmployeeID | null;
     protected _events: PatientEvent[];
     protected _changelog: PatientChangelog;
@@ -43,7 +43,7 @@ class Patient {
     get postCode(): string {
         return this._postCode;
     }
-    get timeLastAllocated(): Date {
+    get timeLastAllocated(): Date | null{
         return this._timeLastAllocated;
     }
     get idAllocatedTo(): EmployeeID | null {
@@ -68,7 +68,7 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        timeLastAllocated: Date,
+        timeLastAllocated: Date | null,
         allocatedTo: EmployeeID | null,
         events: PatientEvent[],
         changelog: PatientChangelog,

@@ -72,7 +72,6 @@ class PatientDataObject {
             !sex ||
             !phoneNumber ||
             !postCode ||
-            !timeLastAllocated ||
             !restoredTriage ||
             !restoredChangelog
         ) {
