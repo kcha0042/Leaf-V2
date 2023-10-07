@@ -48,7 +48,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
                 style={{
                     flex: 1,
                 }}
-                spacing={20}
+                spacing={LeafDimensions.screenPadding}
             >
                 <LeafSearchBar
                     onTextChange={onSearch}

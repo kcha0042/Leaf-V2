@@ -12,6 +12,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafDimensions from "../styling/LeafDimensions";
 import ManageNurseScreen from "./ManageWorkerScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -19,10 +20,16 @@ interface Props {
 
 const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
     const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [filteredWorkers, setFilteredWorkers] = React.useState<Worker[]>(workers);
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
         });
 
         Session.inst.fetchAllWorkers();
@@ -45,8 +52,18 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <FlatList
+
+                <LeafSearchBar
+                    onTextChange={onSearch}
                     data={workers}
+                    setData={setFilteredWorkers}
+                    dataToString={(worker: Worker) => worker.fullName}
+                />
+
+                <VGap size={LeafDimensions.cardTopPadding} />
+
+                <FlatList
+                    data={filteredWorkers}
                     renderItem={({ item: worker }) => (
                         <WorkerCard
                             worker={worker}

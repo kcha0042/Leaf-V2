@@ -65,7 +65,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     dataToString={(patient: Patient) => patient.fullName}
                 />
 
-                <VGap size={8} />
+                <VGap size={LeafDimensions.cardTopPadding} />
 
                 <FlatList
                     data={filteredPatients}

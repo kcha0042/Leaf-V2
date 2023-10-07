@@ -14,6 +14,7 @@ import LeafDimensions from "../styling/LeafDimensions";
 import PatientOptionsScreen from "./PatientOptionsScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -22,6 +23,11 @@ interface Props {
 const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = useState<Patient[]>(Session.inst.getAllocatedPatients());
     const [showAllPatients, setShowAllPatients] = useState<boolean>(false);
+    const [filteredPatients, setFilteredPatients] = React.useState<Patient[]>(patients);
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
     // Use a reference within the callback closure
     // If we just reference the useState value, its literal gets captured rather than its reference
     const showAllPatientsRef = useRef(showAllPatients);
@@ -35,6 +41,8 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
             setPatients(
                 showAllPatientsRef.current ? Session.inst.getAllPatients() : Session.inst.getAllocatedPatients(),
             );
+            setFilteredPatients(
+                showAllPatientsRef.current ? Session.inst.getAllPatients(): Session.inst.getAllocatedPatients());
         });
 
         // By default we start by showing all allocated patients
@@ -83,16 +91,26 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <DefaultScreenContainer>
             <VStack
+                spacing={LeafDimensions.screenSpacing}
                 style={{
                     flex: 1,
                 }}
             >
                 <PatientsPicker onSelection={onSelection} />
 
-                <VGap size={LeafDimensions.cardSpacing} />
+                <VGap size={LeafDimensions.cardTopPadding} />
+
+                <LeafSearchBar
+                    onTextChange={onSearch}
+                    data={patients}
+                    setData={setFilteredPatients}
+                    dataToString={(patient: Patient) => patient.fullName}
+                />
+
+                <VGap size={8} />
 
                 <FlatList
-                    data={patients}
+                    data={filteredPatients}
                     renderItem={({ item: patient }) => (
                         <PatientCard
                             patient={patient}
