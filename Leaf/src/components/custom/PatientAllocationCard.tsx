@@ -23,7 +23,7 @@ interface Props {
 
 const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
-    const session = patient.sessionAllocated;
+    let session = patient.sessionAllocated;
     const sessionText = session.toString();
     const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
@@ -35,6 +35,7 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
         if (updatedPatient != null) {
             patient = updatedPatient;
         }
+        session = patient.sessionAllocated;
         if (worker != null && patient.idAllocatedTo != null) {
             const allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
             for (const allocatedPatient of allocatedPatients) {

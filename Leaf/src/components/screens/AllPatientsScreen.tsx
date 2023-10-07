@@ -32,7 +32,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
             setPatients(Session.inst.getAllPatients());
             setFilteredPatients(Session.inst.getAllPatients());
         });
-
+        Session.inst.fetchAllWorkers();
         Session.inst.fetchAllPatients();
 
         return () => {
