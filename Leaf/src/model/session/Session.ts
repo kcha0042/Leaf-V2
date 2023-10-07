@@ -132,37 +132,23 @@ class Session {
         }
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
-
-        const success1 = this.updateWorker(allocatedTo);
-        if (!success1) {
-            return false;
-        }
-
         const success2 = this.updatePatient(patient);
         if (!success2) {
             return false;
         } else {
             // If we successfully submitted, re-fetch them from the database
             this.fetchPatient(patient.mrn);
-            this.fetchWorker(allocatedTo.id);
         }
         return success2;
     }
 
     public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
         patient.deallocate();
-
-        const success1 = this.updateWorker(allocatedTo);
-        if (!success1) {
-            return false;
-        }
-
         const success2 = this.updatePatient(patient);
         if (!success2) {
             return false;
         } else {
             this.fetchPatient(patient.mrn);
-            this.fetchWorker(allocatedTo.id);
         }
         return success2;
     }

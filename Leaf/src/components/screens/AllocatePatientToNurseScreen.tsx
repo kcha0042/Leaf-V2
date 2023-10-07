@@ -24,7 +24,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     useEffect(() => {
-        const unsubscribeWorkersFetched = StateManager.workersFetched.subscribe(() => {
+        const unsubscribePatientsFetched = StateManager.patientsFetched.subscribe(() => {
             setWorkers(Session.inst.getAllWorkers());
             setFilteredWorkers(Session.inst.getAllWorkers());
             StateManager.reallocationOccurred.publish();
@@ -37,7 +37,7 @@ const AllocatePatientToNurseScreen: React.FC<Props> = ({ navigation }) => {
 
         return () => {
             unsubscribeActivePatientChanged();
-            unsubscribeWorkersFetched();
+            unsubscribePatientsFetched();
         };
     }, []);
 

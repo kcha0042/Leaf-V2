@@ -26,7 +26,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
 
     useEffect(() => {
         worker = Session.inst.getActiveWorker();
-        const unsubscribeWorkersFetched = StateManager.workersFetched.subscribe(() => {
+        const unsubscribePatientsFetched = StateManager.patientsFetched.subscribe(() => {
             refreshAllocatedPatients();
             worker = Session.inst.getActiveWorker();
         });
@@ -35,7 +35,7 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
         Session.inst.fetchAllocatedPatients();
 
         return () => {
-            unsubscribeWorkersFetched();
+            unsubscribePatientsFetched();
         };
     }, []);
 
