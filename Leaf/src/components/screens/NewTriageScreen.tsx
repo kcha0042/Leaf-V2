@@ -263,8 +263,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         items={
                             selectedHospital == undefined
                                 ? []
-                                : 
-                                selectedHospital.value.wardsAsArray.map((ward) => {
+                                : selectedHospital.value.wardsAsArray.map((ward) => {
                                       return new LeafSelectionItem(ward.name, ward.hospitalCode, ward);
                                   })
                         }

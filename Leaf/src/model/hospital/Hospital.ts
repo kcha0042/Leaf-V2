@@ -5,8 +5,8 @@ class Hospital {
     public readonly id: string;
     public readonly code: string;
     public readonly name: string;
-    protected _wards: {[wardId: string]: Ward};
-    protected _medicalUnits: {[medUnitId: string]: MedicalUnit};
+    protected _wards: { [wardId: string]: Ward };
+    protected _medicalUnits: { [medUnitId: string]: MedicalUnit };
 
     constructor(id: string, code: string, name: string) {
         this.id = id;
@@ -24,25 +24,25 @@ class Hospital {
         this._medicalUnits[medUnitId] = medicalUnit;
     }
 
-    public get wards(): {[wardId: string]: Ward} {
+    public get wards(): { [wardId: string]: Ward } {
         return this._wards;
     }
 
-    public get medUnits(): {[medUnitId: string]: MedicalUnit} {
+    public get medUnits(): { [medUnitId: string]: MedicalUnit } {
         return this._medicalUnits;
     }
 
     public get wardsAsArray(): Ward[] {
         const wardsArray = Object.keys(this._wards).map((key) => {
             return this._wards[key];
-        })
+        });
         return wardsArray;
     }
 
     public get medUnitsAsArray(): MedicalUnit[] {
         const medUnitArray = Object.keys(this._medicalUnits).map((key) => {
             return this._medicalUnits[key];
-        })
+        });
         return medUnitArray;
     }
 
