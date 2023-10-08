@@ -32,7 +32,6 @@ const NurseAllocationScreen: React.FC<Props> = ({ navigation }) => {
         });
 
         refreshAllocatedPatients();
-        Session.inst.fetchAllocatedPatients();
 
         return () => {
             unsubscribePatientsFetched();
