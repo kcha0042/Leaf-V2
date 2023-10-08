@@ -290,6 +290,50 @@ class DatabaseSession {
             callback(docs.map((doc) => DataObject.fromJSON(doc.data())));
         });
     }
+
+    /**
+     * Deletes an entire collection from the Firestore.
+     *
+     * @param {DatabaseCollection} collectionName - The name of the collection.
+     * @param {number} batchSize - Number of documents to delete in each batch. Default value is 50.
+     * @returns {Promise<boolean>} - Returns true on success, false on failure.
+     *
+     * @example
+     * DatabaseSession.inst.deleteCollection('users');
+     */
+    public async deleteCollection(collectionName: DatabaseCollection, batchSize: number = 50): Promise<boolean> {
+        const collectionRef = collection(db, collectionName);
+        const querySnapshot = await getDocs(collectionRef);
+
+        // No documents in collection.
+        if (querySnapshot.empty) {
+            console.log(`[DATABASE SESSION] No documents found in collection ${collectionName}.`);
+            return true;
+        }
+
+        // Start a batch.
+        const batch = writeBatch(db);
+        let batchCount = 0;
+
+        querySnapshot.forEach((docSnap) => {
+            batch.delete(docSnap.ref);
+            batchCount++;
+
+            // If we reached the specified batchSize, commit and start a new batch.
+            if (batchCount === batchSize) {
+                batch.commit();
+                batchCount = 0;
+            }
+        });
+
+        // Commit any remaining deletes.
+        if (batchCount > 0) {
+            await batch.commit();
+        }
+
+        console.log(`[DATABASE SESSION] Deleted entire collection ${collectionName}`);
+        return true;
+    }
 }
 
 export default DatabaseSession;

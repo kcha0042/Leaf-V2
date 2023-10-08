@@ -20,6 +20,9 @@ import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
 import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
+import { setupDemo } from "../../utils/DemoUtil";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -149,6 +152,18 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
                         style={{ marginTop: 12 }}
                         onPress={() => {
                             NavigationSession.inst.navigateBack(navigation);
+                        }}
+                    />
+
+                    <LeafTextButton
+                        label="Reset Demo"
+                        style={{
+                            paddingTop: 12
+                        }}
+                        wide={false}
+                        typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                        onPress={() => {
+                            setupDemo();
                         }}
                     />
                 </View>

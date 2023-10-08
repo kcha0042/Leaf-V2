@@ -10,6 +10,7 @@ import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
 import { strings } from "../../localisation/Strings";
 import { ShiftTime } from "../../model/employee/ShiftTime";
+import TriageCodeLabel from "./TriageCodeLabel";
 
 interface Props {
     patient: Patient;
@@ -25,40 +26,33 @@ const PatientCardExtended: React.FC<Props> = ({ patient, onPress }) => {
 
     return (
         <FlatContainer onPress={onPress}>
-            <HStack>
-                <TriageCodeBadge
-                    code={patient.triageCase.triageCode}
-                    fillSpace={false}
-                    style={{
-                        alignSelf: "flex-start",
-                        marginRight: 12,
-                    }}
-                />
+            <VStack style={{ flex: 1 }}>
+                <LeafText typography={LeafTypography.title3} verticalWrap={true}>
+                    {patient.fullName}
+                </LeafText>
 
-                <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3} verticalWrap={true}>
-                        {patient.fullName}
-                    </LeafText>
+                <VGap size={4} />
 
-                    <VGap size={16} />
+                <TriageCodeLabel code={patient.triageCase.triageCode} />
 
-                    <LeafText typography={LeafTypography.subscript}>
-                        {strings("label.id")} {idText}
-                    </LeafText>
+                <VGap size={16} />
 
-                    <LeafText typography={LeafTypography.subscript}>
-                        {strings("label.date")} {dateText}
-                    </LeafText>
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("label.id")} {idText}
+                </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
-                        {isAllocated
-                            ? strings("label.notAllocated")
-                            : strings("label.lastAllocated", `${session.toString()}`)}
-                    </LeafText>
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("label.date")} {dateText}
+                </LeafText>
 
-                    <VGap size={1} />
-                </VStack>
-            </HStack>
+                <LeafText typography={LeafTypography.subscript.withColor(LeafColors.sessionAllocated(session))}>
+                    {isAllocated
+                        ? strings("label.notAllocated")
+                        : strings("label.lastAllocated", `${session.toString()}`)}
+                </LeafText>
+
+                <VGap size={1} />
+            </VStack>
         </FlatContainer>
     );
 };
