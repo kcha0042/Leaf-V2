@@ -332,4 +332,5 @@ export default {
     "feedback.accountNotExist": "The account does not exist",
     "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
     "feedback.successExportPatient": "Patient exported",
+    "feedback.updatedPassword": "Password updated",
 };

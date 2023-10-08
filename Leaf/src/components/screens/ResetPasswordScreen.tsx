@@ -18,14 +18,15 @@ import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContai
 import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import EmployeeID from "../../model/employee/EmployeeID";
-import PasswordUtil from "../../utils/PasswordUtil";
 import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [newPassword, setNewPassword] = useState<string | undefined>(undefined);
     const [confirmationNewPassword, setConfirmationNewPassword] = useState<string | undefined>(undefined);
@@ -41,8 +42,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
 
     const onResetPressed = async () => {
         if (!allIsValid()) {
-            // TODO: Provide feedback
-            console.log("Invalid inputs");
+            showErrorNotification(strings("feedback.invalidInputs"));
             return;
         }
         const id = new EmployeeID(username!);
@@ -50,8 +50,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
         // Check if the account exists
         const account = await Session.inst.fetchAccount(id);
         if (account == null) {
-            // TODO: Provide feedback (no account found)
-            console.log("Account not found.");
+            showErrorNotification(strings("feedback.accountNotExist"));
             return;
         }
 
@@ -60,8 +59,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             account.setPassword(newPassword);
             Session.inst.updateAccount(account);
         }
-
-        //TODO: Provide Feedback
+        showSuccessNotification(strings("feedback.updatedPassword"));
 
         // Navigate back
         NavigationSession.inst.navigateBack(navigation);

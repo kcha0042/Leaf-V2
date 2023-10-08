@@ -33,7 +33,7 @@ interface Props {
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
-    const { showErrorNotification } = useNotificationSession();
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -46,14 +46,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const allIsValid: () => boolean = () => {
-        // TODO: Uncomment this when we implement passwords
-        // ValidateUtil.stringIsValid(password)
         return ValidateUtil.stringIsValid(username) && ValidateUtil.stringIsValid(password);
     };
 
     const onLoginPressed = async () => {
         if (!allIsValid()) {
-            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
             return;
         }
         const id = new EmployeeID(username!);
@@ -61,7 +58,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         // check if the account exists and check if the password matches
         const account = await Session.inst.fetchAccount(id);
         if (account == null || !PasswordUtil.isCorrectPassword(password, account.password)) {
-            // TODO: Provide feedback (probably split this into if elif to provide separate feedback)
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
             return;
         }
 
@@ -71,10 +68,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (worker != null) {
             Session.inst.setLoggedInAccount(worker);
             StateManager.loginStatus.publish(LoginStatus.Worker);
+            showSuccessNotification(strings("feedback.success"));
             return;
-        } else {
-            // TODO: Provide feedback (login failed)
-            console.log("Login Failed");
         }
 
         await Session.inst.fetchLeader(id);
@@ -82,10 +77,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (leader != null) {
             Session.inst.setLoggedInAccount(leader);
             StateManager.loginStatus.publish(LoginStatus.Leader);
+            showSuccessNotification(strings("feedback.success"));
             return;
-        } else {
-            // TODO: Provide feedback (login failed)
-            console.log("Login Failed");
         }
 
         // No need to fetch admin - we don't maintain an admin store
@@ -93,10 +86,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         if (admin != null) {
             Session.inst.setLoggedInAccount(admin);
             StateManager.loginStatus.publish(LoginStatus.Admin);
+            showSuccessNotification(strings("feedback.success"));
             return;
-        } else {
-            // TODO: Provide feedback (login failed)
-            console.log("Login Failed");
         }
     };
 
