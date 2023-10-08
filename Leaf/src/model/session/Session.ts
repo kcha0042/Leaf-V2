@@ -125,7 +125,7 @@ class Session {
         }
         patient.allocateTo(allocatedTo.id);
         patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
-        const success2 = this.updatePatient(patient);
+        const success2 = await this.updatePatient(patient);
         if (!success2) {
             return false;
         } else {
@@ -137,7 +137,7 @@ class Session {
 
     public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
         patient.deallocate();
-        const success2 = this.updatePatient(patient);
+        const success2 = await this.updatePatient(patient);
         if (!success2) {
             return false;
         } else {
