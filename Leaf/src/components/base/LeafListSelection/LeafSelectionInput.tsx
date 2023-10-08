@@ -28,10 +28,11 @@ interface Props<T> {
     items: LeafSelectionItem<T>[];
     title: string;
     style?: ViewStyle;
+    disabled?: boolean;
     onSelection: (item: LeafSelectionItem<T> | undefined) => void;
 }
 
-const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, items, title, style, onSelection }) => {
+const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, items, title, style, disabled = false, onSelection }) => {
     const isSelected = selected != null;
 
     useEffect(() => {
@@ -47,15 +48,21 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, it
     return (
         <FlatContainer
             onPress={() => {
+                if (disabled) {
+                    return;
+                }
                 LeafListSelectionManager.listSelection = items;
                 LeafListSelectionManager.onSelection = onSelection;
                 NavigationSession.inst.navigateTo(LeafListSelection, navigation, title);
             }}
             style={{ width: "100%", ...style }}
+            color={disabled ? LeafColors.textSemiDark : LeafColors.fillBackgroundLight}
         >
             <HStack>
                 <VStack spacing={4}>
-                    <LeafText typography={LeafTypography.subscript}>{title}</LeafText>
+                    <LeafText typography={LeafTypography.subscript.withColor(
+                        disabled ? LeafColors.shadow : LeafColors.textSemiDark,
+                    )}>{title}</LeafText>
 
                     <LeafText
                         typography={LeafTypography.body.withColor(
@@ -63,14 +70,15 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, it
                         )}
                     >
                         {selected?.title ?? strings("inputLabel.required").toUpperCase()}
+                        
                     </LeafText>
                 </VStack>
 
                 <Spacer />
 
                 <LeafIcon
-                    icon={isSelected ? "check-circle" : "chevron-right-circle"}
-                    color={isSelected ? LeafColors.textSuccess : LeafColors.textSemiDark}
+                    icon={disabled ? "close-circle" : isSelected ? "check-circle" : "chevron-right-circle"}
+                    color={disabled ? LeafColors.shadow : isSelected ? LeafColors.textSuccess : LeafColors.textSemiDark}
                     size={LeafIconSize.Large}
                     style={{ alignSelf: "center" }}
                 />
