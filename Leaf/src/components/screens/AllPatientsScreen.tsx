@@ -14,6 +14,9 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import AllocatePatientToNurseScreen from "./AllocatePatientToNurseScreen";
 import { strings } from "../../localisation/Strings";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import Environment from "../../state/environment/Environment";
+import { OS } from "../../state/environment/types/OS";
+import { ScreenType } from "../../state/environment/types/ScreenType";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -84,6 +87,10 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                         width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                        ...(Environment.inst.getOS() == OS.Web &&
+                        Environment.inst.getScreenType() != ScreenType.Mobile
+                            ? { height: Environment.inst.getScreenHeight() - 250 }
+                            : {}),
                     }}
                 />
 

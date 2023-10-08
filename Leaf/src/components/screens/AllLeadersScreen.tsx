@@ -84,7 +84,7 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                             flexGrow: 0, // Ensures the frame wraps only the FlatList content
                             ...(Environment.inst.getOS() == OS.Web &&
                             Environment.inst.getScreenType() != ScreenType.Mobile
-                                ? { height: Environment.inst.getScreenHeight() - 85 }
+                                ? { height: Environment.inst.getScreenHeight() - 145 }
                                 : {}),
                         }}
                     />
