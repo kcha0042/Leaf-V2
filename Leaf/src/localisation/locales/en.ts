@@ -70,7 +70,6 @@ export default {
     "button.allocate": "Allocate",
     "button.allocated": "Allocated",
     "button.edit": "Edit",
-    "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
     "button.viewPatient": "View",

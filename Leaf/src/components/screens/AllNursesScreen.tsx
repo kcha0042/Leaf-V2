@@ -64,7 +64,7 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
                     />
 
                     <VGap size={LeafDimensions.cardTopPadding} />
-                
+
                     <FlatList
                         data={workers}
                         renderItem={({ item: worker }) => (
@@ -88,7 +88,7 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
                                 : {}),
                         }}
                     />
-                
+
                     <Spacer />
                 </ScrollView>
             </VStack>

@@ -113,7 +113,7 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     />
 
                     <VGap size={8} />
-                
+
                     <FlatList
                         data={patients}
                         renderItem={({ item: patient }) => (

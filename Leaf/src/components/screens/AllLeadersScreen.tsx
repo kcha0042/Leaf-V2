@@ -62,9 +62,9 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                         setData={setFilteredLeaders}
                         dataToString={(leader: Leader) => leader.fullName}
                     />
-                
+
                     <VGap size={LeafDimensions.cardTopPadding} />
-                
+
                     <FlatList
                         data={leaders}
                         renderItem={({ item: leader }) => (
@@ -88,7 +88,7 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                                 : {}),
                         }}
                     />
-                
+
                     <Spacer />
                 </ScrollView>
             </VStack>
