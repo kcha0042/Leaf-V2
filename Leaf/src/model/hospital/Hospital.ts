@@ -17,10 +17,12 @@ class Hospital {
     }
 
     public addWard(wardId: string, ward: Ward) {
+        // TODO: Add verification to check if the key already exists in the dictionary
         this._wards[wardId] = ward;
     }
 
     public addMedUnit(medUnitId: string, medicalUnit: MedicalUnit) {
+        // TODO: Add verification to check if the key already exists in the dictionary
         this._medicalUnits[medUnitId] = medicalUnit;
     }
 
@@ -33,6 +35,8 @@ class Hospital {
     }
 
     public get wardsAsArray(): Ward[] {
+        // Reads all values into an array and returns it
+        // For displaying wards in a LeafListSelection
         const wardsArray = Object.keys(this._wards).map((key) => {
             return this._wards[key];
         });
@@ -40,6 +44,8 @@ class Hospital {
     }
 
     public get medUnitsAsArray(): MedicalUnit[] {
+        // Reads all values into an array and returns it
+        // For displaying medUnits in a LeafListSelection
         const medUnitArray = Object.keys(this._medicalUnits).map((key) => {
             return this._medicalUnits[key];
         });
