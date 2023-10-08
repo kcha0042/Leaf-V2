@@ -1,8 +1,6 @@
-import { View, ViewStyle } from "react-native";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
-import FloatingContainer from "../containers/FloatingContainer";
 import Worker from "../../model/employee/Worker";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
@@ -12,10 +10,8 @@ import { useEffect, useState } from "react";
 import FlatContainer from "../containers/FlatContainer";
 import LeafIconButton from "../base/LeafIconButton/LeafIconButton";
 import { LeafIconSize } from "../base/LeafIcon/LeafIconSize";
-import LeafCheckbox from "../base/LeafCheckbox/LeafCheckbox";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
-import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 
 interface Props {
     worker: Worker;

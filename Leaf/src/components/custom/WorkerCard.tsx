@@ -1,11 +1,9 @@
-import { View, ViewStyle } from "react-native";
-import LeafColors from "../styling/LeafColors";
+import { ViewStyle } from "react-native";
 import LeafTypography from "../styling/LeafTypography";
 import LeafText from "../base/LeafText/LeafText";
 import Worker from "../../model/employee/Worker";
 import VGap from "../containers/layout/VGap";
 import VStack from "../containers/VStack";
-import HStack from "../containers/HStack";
 import FlatContainer from "../containers/FlatContainer";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";

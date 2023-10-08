@@ -1,4 +1,4 @@
-import { View, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import Patient from "../../model/patient/Patient";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
@@ -17,10 +17,9 @@ interface Props {
     onPress: () => void;
 }
 
-const PatientCardExtended: React.FC<Props> = ({ patient, style, onPress }) => {
+const PatientCardExtended: React.FC<Props> = ({ patient, onPress }) => {
     const idText = patient.mrn.toString();
     const session = patient.sessionAllocated;
-    const sessionText = session.toString();
     const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
 

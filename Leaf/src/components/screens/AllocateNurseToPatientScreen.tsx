@@ -10,11 +10,7 @@ import PatientAllocationCard from "../custom/PatientAllocationCard";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import { strings } from "../../localisation/Strings";
-import LeafButton from "../base/LeafButton/LeafButton";
-import HStack from "../containers/HStack";
-import HGap from "../containers/layout/HGap";
 import LeafTypography from "../styling/LeafTypography";
-import LeafColors from "../styling/LeafColors";
 import LeafText from "../base/LeafText/LeafText";
 import Session from "../../model/session/Session";
 

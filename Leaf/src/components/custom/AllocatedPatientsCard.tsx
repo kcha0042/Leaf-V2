@@ -9,12 +9,9 @@ import VGap from "../containers/layout/VGap";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import TriageCodeBadge from "./TriageCodeBadge";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Spacer from "../containers/layout/Spacer";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
-import Worker from "../../model/employee/Worker";
-import { useEffect } from "react";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
 

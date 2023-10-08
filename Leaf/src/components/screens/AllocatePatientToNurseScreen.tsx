@@ -10,6 +10,7 @@ import Session from "../../model/session/Session";
 import NurseAllocationCard from "../custom/NurseAllocationCard";
 import StateManager from "../../state/publishers/StateManager";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }

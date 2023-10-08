@@ -1,4 +1,3 @@
-import { View, ViewStyle } from "react-native";
 import Patient from "../../model/patient/Patient";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
@@ -24,7 +23,6 @@ interface Props {
 const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
     const idText = patient.mrn.toString();
     let session = patient.sessionAllocated;
-    const sessionText = session.toString();
     const isAllocated = session.matches(ShiftTime.none);
     const dateText = patient.triageCase.arrivalDate.toDateString();
     let worker = Session.inst.getActiveWorker();
