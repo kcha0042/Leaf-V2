@@ -252,6 +252,9 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         selected={selectedHospital}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
+                            // Reset medical unit and ward in case they don't match (belong to) the newly selected hospital
+                            setSelectedMedicalUnit(undefined);
+                            setSelectedWard(undefined);
                         }}
                     />
 

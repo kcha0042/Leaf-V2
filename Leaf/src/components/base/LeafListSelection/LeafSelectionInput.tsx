@@ -55,24 +55,21 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({
 
     return (
         <FlatContainer
-            onPress={() => {
-                if (disabled) {
-                    return;
-                }
-                LeafListSelectionManager.listSelection = items;
-                LeafListSelectionManager.onSelection = onSelection;
-                NavigationSession.inst.navigateTo(LeafListSelection, navigation, title);
-            }}
+            onPress={
+                disabled
+                    ? undefined
+                    : () => {
+                          LeafListSelectionManager.listSelection = items;
+                          LeafListSelectionManager.onSelection = onSelection;
+                          NavigationSession.inst.navigateTo(LeafListSelection, navigation, title);
+                      }
+            }
             style={{ width: "100%", ...style }}
-            color={disabled ? LeafColors.textSemiLight : LeafColors.fillBackgroundLight}
+            color={LeafColors.fillBackgroundLight}
         >
             <HStack>
                 <VStack spacing={4}>
-                    <LeafText
-                        typography={LeafTypography.subscript.withColor(
-                            disabled ? LeafColors.shadow : LeafColors.textSemiDark,
-                        )}
-                    >
+                    <LeafText typography={LeafTypography.subscript.withColor(LeafColors.textSemiDark)}>
                         {title}
                     </LeafText>
 
