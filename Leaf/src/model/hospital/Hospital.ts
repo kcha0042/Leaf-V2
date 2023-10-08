@@ -31,6 +31,14 @@ class Hospital {
     public get medUnits(): Array<MedicalUnit> {
         return this._medicalUnits
     }
+
+    public getWardFromId(wardId: string): Ward {
+        return this._wards[+wardId];
+    }
+
+    public getMedUnitFromId(medUnitId: string): MedicalUnit {
+        return this._medicalUnits[+medUnitId];
+    }
 }
 
 export default Hospital;

@@ -2,8 +2,6 @@ import UUID from "../model/core/UUID";
 import TriageCase from "../model/triage/TriageCase";
 import { TriageCode } from "../model/triage/TriageCode";
 import { Hospitals } from "../preset_data/Hospitals";
-import { MedicalUnits } from "../preset_data/MedicalUnits";
-import { Wards } from "../preset_data/Wards";
 import DataObject from "./DataObject";
 
 export enum TriageCaseField {
@@ -50,10 +48,10 @@ class TriageCaseDataObject {
             new UUID(id),
             arrivalDate,
             dischargeDate,
-            Wards[arrivalWardId],
-            dischargeWardId == null ? null : Wards[dischargeWardId],
+            Hospitals[hosptialId].getWardFromId(arrivalWardId),
+            dischargeWardId == null ? null : Hospitals[hosptialId].getWardFromId(dischargeWardId),
             Hospitals[hosptialId],
-            MedicalUnits[medicalUnitId],
+            Hospitals[hosptialId].getMedUnitFromId(medicalUnitId),
             triageText,
             new TriageCode(triageCode),
         );
