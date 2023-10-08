@@ -42,7 +42,8 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
                 showAllPatientsRef.current ? Session.inst.getAllPatients() : Session.inst.getAllocatedPatients(),
             );
             setFilteredPatients(
-                showAllPatientsRef.current ? Session.inst.getAllPatients(): Session.inst.getAllocatedPatients());
+                showAllPatientsRef.current ? Session.inst.getAllPatients() : Session.inst.getAllocatedPatients(),
+            );
         });
 
         // By default we start by showing all allocated patients

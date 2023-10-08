@@ -43,7 +43,7 @@ class Patient {
     get postCode(): string {
         return this._postCode;
     }
-    get timeLastAllocated(): Date | null{
+    get timeLastAllocated(): Date | null {
         return this._timeLastAllocated;
     }
     get idAllocatedTo(): EmployeeID | null {

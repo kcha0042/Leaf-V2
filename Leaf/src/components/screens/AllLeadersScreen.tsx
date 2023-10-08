@@ -52,7 +52,6 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-
                 <LeafSearchBar
                     onTextChange={onSearch}
                     data={leaders}
