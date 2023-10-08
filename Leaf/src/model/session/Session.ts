@@ -398,8 +398,10 @@ class Session {
         const workerAllocatedTo = this.loggedInAccount as Worker;
         const patients = await PatientsManager.inst.getPatientsAllocatedTo(workerAllocatedTo);
         // Invalidate cache since some may have been deleted
-        for (const invalidatedMRN of workerAllocatedTo.allocatedPatients) {
-            delete this._patientStore[invalidatedMRN.toString()];
+        for (const patient of this.getAllPatients()) {
+            if (patient.idAllocatedTo?.matches(workerAllocatedTo.id) ?? false) {
+                delete this._patientStore[patient.mrn.toString()];
+            }
         }
         for (const patient of patients) {
             this._patientStore[patient.mrn.toString()] = patient;

@@ -66,7 +66,7 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
                     <VGap size={LeafDimensions.cardTopPadding} />
 
                     <FlatList
-                        data={workers}
+                        data={filteredWorkers}
                         renderItem={({ item: worker }) => (
                             <WorkerCard
                                 worker={worker}

@@ -66,7 +66,7 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                     <VGap size={LeafDimensions.cardTopPadding} />
 
                     <FlatList
-                        data={leaders}
+                        data={filteredLeaders}
                         renderItem={({ item: leader }) => (
                             <LeaderCard
                                 leader={leader}

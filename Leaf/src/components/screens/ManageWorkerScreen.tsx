@@ -33,7 +33,9 @@ const ManageWorkerScreen: React.FC<Props> = ({ navigation }) => {
 
     const onDelete = async () => {
         setPopUpVisible(false);
-        if (worker.allocatedPatients.length !== 0) {
+        await Session.inst.fetchAllocatedPatientsTo(worker);
+        const allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
+        if (allocatedPatients.length !== 0) {
             setPopUpVisible(false);
             showErrorNotification(strings("feedback.failDeleteNurseAccount"));
             return;
