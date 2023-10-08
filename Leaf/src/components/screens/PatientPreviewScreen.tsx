@@ -1,5 +1,5 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
@@ -16,13 +16,31 @@ import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { ErrorScreen } from "./ErrorScreen";
+import StateManager from "../../state/publishers/StateManager";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import Patient from "../../model/patient/Patient";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
-    const patient = Session.inst.getActivePatient();
+    const [patient, setPatient] = React.useState<Patient | null>(Session.inst.getActivePatient());
+
+    useEffect(() => {
+        const unsubscribe = StateManager.activePatientChanged.subscribe(() => {
+            const newPatient = Session.inst.getActivePatient();
+            if (newPatient == null) {
+                NavigationSession.inst.navigateBack(navigation);
+            } else {
+                setPatient(newPatient);
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     if (!patient) {
         return <ErrorScreen />;
@@ -98,7 +116,8 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                     ) : (
                         patient.events.map((event) => {
                             return (
-                                <HStack key={event.id.toString()} spacing={12}>
+                                // Disabling flex wrap resolves very long text descriptions having incorrect layouts
+                                <HStack key={event.id.toString()} spacing={12} style={{ flexWrap: "nowrap" }}>
                                     <View
                                         style={{
                                             backgroundColor: LeafColors.accent.getColor(),
@@ -107,12 +126,16 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                         }}
                                     />
 
-                                    <VStack>
+                                    <VStack style={{ flex: 1 }}>
                                         <LeafText typography={LeafTypography.body.withWeight(LeafFontWeight.Bold)}>
                                             {event.title}
                                         </LeafText>
 
-                                        <LeafText typography={LeafTypography.subscript.withItalic(true)}>
+                                        <LeafText
+                                            typography={LeafTypography.subscript.withItalic(true)}
+                                            wide={false} // Required for text wrapping here
+                                            style={{ alignSelf: "flex-start" }}
+                                        >
                                             {event.description}
                                         </LeafText>
 
@@ -121,12 +144,14 @@ const PatientPreviewScreen: React.FC<Props> = ({ navigation }) => {
                                         <VStack spacing={2}>
                                             <LeafText typography={LeafTypography.subscript}>
                                                 {strings("patientHistory.descriptor.category") +
-                                                    " " +
+                                                    ": " +
                                                     event.category.toString()}
                                             </LeafText>
 
                                             <LeafText typography={LeafTypography.subscript}>
-                                                {event.triggerTimeDescription}
+                                                {strings("patientHistory.descriptor.triggerTime") +
+                                                    ": " +
+                                                    event.triggerTimeDescription}
                                             </LeafText>
                                         </VStack>
                                     </VStack>

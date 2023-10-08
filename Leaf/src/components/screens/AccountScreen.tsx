@@ -2,9 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import Worker from "../../model/employee/Worker";
 import Session from "../../model/session/Session";
-import { HospitalsArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -19,25 +17,35 @@ import Spacer from "../containers/layout/Spacer";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
+import Employee from "../../model/employee/Employee";
+import AdminsManager from "../../model/session/AdminsManager";
+import LeadersManager from "../../model/session/LeadersManager";
+import WorkersManager from "../../model/session/WorkersManager";
+import Admin from "../../model/employee/Admin";
+import Leader from "../../model/employee/Leader";
+import Worker from "../../model/employee/Worker";
+import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import VGap from "../containers/layout/VGap";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AccountScreen: React.FC<Props> = ({ navigation }) => {
-    const [worker, setWorker] = React.useState<Worker | null>(Session.inst.loggedInAccount as Worker);
-    const [name, setName] = React.useState<string>(worker?.fullName || strings("label.loading"));
-    const [email, setEmail] = React.useState<string>(worker?.email || strings("label.loading"));
-    const [hospital, setHospital] = React.useState<string>(worker?.currentHospital?.name || strings("label.loading"));
+    const [employee, setEmployee] = React.useState<Employee | null>(Session.inst.loggedInAccount);
+    const [fName, setFName] = React.useState<string>(employee?.firstName || strings("label.loading"));
+    const [lName, setLName] = React.useState<string>(employee?.lastName || strings("label.loading"));
+    const [email, setEmail] = React.useState<string>(employee?.email || strings("label.loading"));
 
     useEffect(() => {
         const unsubscribe = StateManager.workersFetched.subscribe(() => {
-            // If the logged in worker gets updated and hence fetched, we refresh this
-            const tmpWorker = Session.inst.loggedInAccount as Worker;
-            setWorker(tmpWorker);
-            setName(tmpWorker?.fullName || "");
-            setEmail(tmpWorker?.email || "");
-            setHospital(tmpWorker?.currentHospital?.name || "");
+            // If the logged in worker gets updated and hence fetched, we refresh the details
+            const activeEmployee = Session.inst.loggedInAccount;
+            setEmployee(activeEmployee);
+            setFName(activeEmployee?.firstName || "");
+            setLName(activeEmployee?.lastName || "");
+            setEmail(activeEmployee?.email || "");
         });
 
         Session.inst.fetchWorker(Session.inst.loggedInAccount.id);
@@ -49,77 +57,76 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
     const logOut = () => {
         StateManager.loginStatus.publish(LoginStatus.LoggedOut);
+        // TODO: Do we need to change anything in session?
     };
 
-    // Text change
-    let newName = "";
-    const onNameChange = (name: string) => {
-        newName = name;
+    const updateEmployee = (employee: Employee) => {
+        switch (StateManager.loginStatus.read()) {
+            case LoginStatus.Admin:
+                AdminsManager.inst.updateAdmin(employee as Admin);
+                break;
+            case LoginStatus.Leader:
+                LeadersManager.inst.updateLeader(employee as Leader);
+                break;
+            case LoginStatus.Worker:
+                WorkersManager.inst.updateWorker(employee as Worker);
+                break;
+            default:
+                throw new UnreachableCaseError("Invalid login status");
+        }
+
+        Session.inst.setLoggedInAccount(employee);
+    };
+
+    const updateEmployeeCouldBeNull = (employee: Employee | null) => {
+        if (employee != null) {
+            updateEmployee(employee);
+        }
+    };
+
+    // Pop ups
+    let newFName = "";
+    const onFNameChange = (name: string) => {
+        newFName = name;
+    };
+
+    let newLName = "";
+    const onLNameChange = (name: string) => {
+        newLName = name;
+    };
+    const [editNameVisible, setEditNameVisible] = useState(false);
+    const onNameDone = () => {
+        setFName(newFName);
+        setLName(newLName);
+        setEditNameVisible(false);
+        if (employee != null) {
+            employee.setFirstName(newFName);
+            employee.setLastName(newLName);
+        }
+        updateEmployeeCouldBeNull(employee);
     };
 
     let newEmail = "";
     const onEmailChange = (email: string) => {
         newEmail = email;
     };
-
-    let newHospital = "";
-    const onHospitalChange = (hospital: string) => {
-        newHospital = hospital;
-    };
-
-    // Pop ups
-    // I assume we are going to have an active account or something in the model? That we can
-    const [editNameVisible, setEditNameVisible] = useState(false);
-    const onNameDone = () => {
-        setName(newName);
-        setEditNameVisible(false);
-        // TODO: change name in model
-    };
-
     const [editEmailVisible, setEditEmailVisible] = useState(false);
     const onEmailDone = () => {
         setEmail(newEmail);
         setEditEmailVisible(false);
-        // TODO: change email in model
-    };
-
-    const [errTextVisible, setErrTextVisible] = useState(false);
-    const [editHospitalVisible, setEditHospitalVisible] = useState(false);
-    const onHospitalDone = () => {
-        const hospitals = HospitalsArray;
-        // Checking hospital exists
-        let hospitalExists = false;
-        for (let hospital of hospitals) {
-            if (hospital.name == newHospital) {
-                hospitalExists = true;
-                setHospital(newHospital);
-                setEditHospitalVisible(false);
-                break;
-            }
+        if (employee != null) {
+            employee.email = newEmail;
         }
-
-        setErrTextVisible(!hospitalExists);
-    };
-
-    const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
-    const onPasswordDone = () => {
-        // TODO: replace with password validation
-        const validPassword = true;
-        if (validPassword) {
-            setEditHospitalVisible(true);
-            setEnterPasswordVisible(false);
-        }
-
-        setErrTextVisible(!validPassword);
+        updateEmployeeCouldBeNull(employee);
     };
 
     const onCancel = () => {
         setEditNameVisible(false);
         setEditEmailVisible(false);
-        setEditHospitalVisible(false);
-        setEnterPasswordVisible(false);
-        setErrTextVisible(false);
     };
+
+    const typography = LeafTypography.textButton;
+    typography.size = 15;
 
     return (
         <View
@@ -138,35 +145,38 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             >
                 {/* Details */}
                 <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("label.details")}</LeafText>
+                    <LeafText typography={LeafTypography.title2.withWeight(LeafFontWeight.Bold)}>
+                        {strings("label.details")}
+                    </LeafText>
+
+                    <VGap size={8} />
 
                     <HStack spacing={6} style={{ width: "100%", paddingBottom: 5, alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}>
-                            {name}
+                            {fName} {lName}
                         </LeafText>
+
                         <Spacer />
-                        <LeafTextButton label={strings("button.edit")} onPress={() => setEditNameVisible(true)} />
+
+                        <LeafTextButton
+                            label={strings("button.edit").toUpperCase()}
+                            typography={typography}
+                            onPress={() => setEditNameVisible(true)}
+                        />
                     </HStack>
 
                     <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
                         <LeafText typography={LeafTypography.body} wide={false}>
                             {email}
                         </LeafText>
-                        <Spacer />
-                        <LeafTextButton label={strings("button.edit")} onPress={() => setEditEmailVisible(true)} />
-                    </HStack>
-                </FlatContainer>
 
-                {/* Hospital */}
-                <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("label.hospital")}</LeafText>
-
-                    <HStack spacing={6} style={{ width: "100%", alignItems: "center" }}>
-                        <LeafText typography={LeafTypography.body} wide={false}>
-                            {hospital}
-                        </LeafText>
                         <Spacer />
-                        <LeafTextButton label={strings("button.edit")} onPress={() => setEnterPasswordVisible(true)} />
+
+                        <LeafTextButton
+                            label={strings("button.edit").toUpperCase()}
+                            typography={typography}
+                            onPress={() => setEditEmailVisible(true)}
+                        />
                     </HStack>
                 </FlatContainer>
 
@@ -178,53 +188,24 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             {/* Edit name */}
             <LeafPopUp
                 visible={editNameVisible}
+                setVisible={setEditNameVisible}
                 title={strings("label.editName")}
                 onDone={onNameDone}
                 onCancel={onCancel}
             >
-                <LeafTextInputShort label={strings("inputLabel.givenName")} onTextChange={onNameChange} />
+                <LeafTextInputShort label={strings("inputLabel.givenName")} onTextChange={onFNameChange} />
+                <LeafTextInputShort label={strings("inputLabel.surname")} onTextChange={onLNameChange} />
             </LeafPopUp>
 
             {/* Edit email */}
             <LeafPopUp
                 visible={editEmailVisible}
+                setVisible={setEditEmailVisible}
                 title={strings("label.editEmail")}
                 onDone={onEmailDone}
                 onCancel={onCancel}
             >
                 <LeafTextInputShort label={strings("inputLabel.email")} onTextChange={onEmailChange} />
-            </LeafPopUp>
-
-            {/* Edit hospital */}
-            <LeafPopUp
-                visible={editHospitalVisible}
-                title={strings("label.editHospital")}
-                onDone={onHospitalDone}
-                onCancel={onCancel}
-            >
-                <LeafTextInputShort label={strings("label.hospital")} onTextChange={onHospitalChange} />
-                <LeafText
-                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    {strings("error.hospitalExists")}
-                </LeafText>
-            </LeafPopUp>
-
-            {/* Check password */}
-            <LeafPopUp
-                visible={enterPasswordVisible}
-                title={strings("label.enterPassword")}
-                onDone={onPasswordDone}
-                onCancel={onCancel}
-            >
-                <LeafTextInputShort label={strings("inputLabel.password")} onTextChange={() => null /* TODO */} />
-                <LeafText
-                    style={{ color: errTextVisible ? LeafTypography.error.color : "transparent", paddingTop: 10 }}
-                    typography={LeafTypography.error}
-                >
-                    Incorrect password
-                </LeafText>
             </LeafPopUp>
         </View>
     );

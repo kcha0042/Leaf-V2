@@ -14,10 +14,13 @@ export default {
     // Navigation
     "navigation.noScreen": "No item selected",
 
+    // emergency phone #
+    "emergency.phoneNumber": "000",
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
-    "tabBar.worker.patients": "Patients",
+    "tabBar.worker.events": "Dashboard",
     "tabBar.worker.account": "Account",
 
     // Admin Tab Bar
@@ -32,14 +35,15 @@ export default {
     "tabBar.leader.account": "Account",
 
     // Worker Headers
-    "header.worker.yourPatients": "Your Patients",
     "header.worker.newTriage": "New Triage",
+    "header.worker.events": "Events Dashboard",
     "header.worker.patients": "Patients",
     "header.worker.account": "Your Account",
     "header.worker.addEvent": "Add Event",
     "header.worker.view1Param": "{0} History",
     "header.worker.actions1Param": "Code {0} Responses",
     "header.worker.edit1Param": "Edit {0}",
+    "header.worker.changelog1Param": "{0} Changelog",
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
@@ -58,15 +62,16 @@ export default {
     "button.login": "Login",
     "button.logout": "Logout",
     "button.done": "Done",
+    "button.markDone": "Mark Done",
     "button.cancel": "Cancel",
-    "button.edit": "edit",
+    "button.edit": "Edit",
     "button.allocate": "New Allocation",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
-    "button.deletePatient": "Remove",
+    "button.deletePatient": "Delete",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
     "button.clear": "Clear",
@@ -75,6 +80,8 @@ export default {
     "button.exportPatient": "Export Patient",
     "button.resetPassword": "Forgot Password?",
     "button.reset": "Reset",
+    "button.changelog": "Changelog",
+    "button.removeAccount": "Remove",
 
     // Login
     "login.title": "Login",
@@ -85,6 +92,8 @@ export default {
     "operation.removeAccount": "This will remove this account and all associated data",
     "operation.activeAccount":
         "To activate the account and set the password, select 'Activate Account' on the login page.",
+    "operation.selectAll": "Select All",
+    "operation.deselectAll": "Deselect All",
 
     // Labels
     "label.id": "ID: ",
@@ -111,6 +120,12 @@ export default {
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
     "label.accountCreated1Param": "{0} Account Created",
+    "label.noPatientSelected": "No patient selected",
+    "label.patientSelected": "patient selected",
+    "label.changelog": "View the edit history of the patient.",
+    "label.triageCode2Param": "CODE {0}  •  {1}",
+    "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
+    "label.createdAt1Param": "Created {0}",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -169,13 +184,19 @@ export default {
     "patientHistory.descriptor.hospital": "Hospital",
     "patientHistory.descriptor.medicalUnit": "Medical Unit",
     "patientHistory.descriptor.category": "Category",
-    "patientHistory.descriptor.triggerTime": "Trigger time",
+    "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
-    "actions.emergency": "Emergency",
     "actions.call": "Call",
-    "actions.steps": "Steps",
     "actions.department": "Department",
+    "actions.removeLeader": "Remove Leader",
+    "actions.removeNurse": "Remove Nurse",
+    "actions.removePatient": "Delete Patient {0}?",
+    "actions.emergency": "000",
+    "actions.callEmergency": "Call emergency services",
+    "actions.callPatient": "Call {0}",
+    "actions.steps": "Your next steps",
+    "actions.arrivalWard": "Arrival ward",
 
     // Search
     "search.underlying": "Search",
@@ -227,8 +248,15 @@ export default {
     "shiftTime.night": "Night",
 
     // Patient event categories
-    "patientEventCategory.medication": "Medication",
-    "patientEventCategory.other": "Other",
+    "patientEventCategory.medication": "Drug Exposure",
+    "patientEventCategory.visit": "Visit Occurrence",
+    "patientEventCategory.condition": "Condition Occurrence",
+    "patientEventCategory.procedure": "Procedure Occurrence",
+    "patientEventCategory.device": "Device Exposure",
+    "patientEventCategory.measurement": "Measurement",
+    "patientEventCategory.observation": "Observation",
+    "patientEventCategory.episode": "Episode",
+    "patientEventCategory.note": "Note",
 
     // Sex
     "sex.male": "Male",
@@ -242,4 +270,29 @@ export default {
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
     "error.invalidTime": "Invalid time",
+
+    // Changelog
+    "changelog.creation": "Entered system",
+    "changelog.eventCreation3Param": 'Event "{0}" created by {1} ({2})',
+    "changelog.eventCompletion3Param": 'Event "{0}" marked COMPLETED by {1} ({2})',
+    "changelog.eventIncompletion3Param": 'Event "{0}" marked INCOMPLETE by {1} ({2})',
+    "changelog.allocation4Param": "Allocated by {0} ({1}) to nurse {2} ({3})",
+    "changelog.edit2Param": "Record edited by {0} ({1})",
+
+    // Feedback
+    "feedback.error": "Error",
+    "feedback.success": "Success",
+    "feedback.invalidInputs": "Invalid inputs",
+    "feedback.noUnactiviatedAccount": "Unactivated account could not be found",
+    "feedback.accountActivated": "Account activated",
+    "feedback.eventCreated": "Event created",
+    "feedback.incorrectUsernamePassword": "Incorrect username or password",
+    "feedback.triageCreated": "Triage created",
+    "feedback.patientEdited": "Patient edited",
+    "feedback.triageNotCreated": "Triage creation failed",
+    "feedback.patientNotEdited": "Patient edit failed",
+    "feedback.successDeleteAccount": "Account deleted",
+    "feedback.accountNotExist": "The account does not exist",
+    "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
+    "feedback.successExportPatient": "Patient exported",
 };

@@ -38,6 +38,8 @@ const LeafButton: React.FC<Props> = ({
     let labelStyle = {};
     if (Environment.inst.getOS() == OS.IOS) {
         labelStyle = { lineHeight: 0 }; // Centres the text
+    } else if (Environment.inst.getOS() == OS.Android) {
+        labelStyle = { lineHeight: 24 }; // Centres the text for android
     }
 
     if (disabled) {

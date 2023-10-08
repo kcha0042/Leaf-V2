@@ -1,10 +1,8 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
 import { strings } from "../../localisation/Strings";
-import { Role } from "../../model/employee/Role";
+import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
 import Session from "../../model/session/Session";
-import StateManager from "../../state/publishers/StateManager";
-import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafText from "../base/LeafText/LeafText";
@@ -17,6 +15,8 @@ import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import { ErrorScreen } from "./ErrorScreen";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -24,10 +24,28 @@ interface Props {
 
 const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
     const leader = Session.inst.getActiveLeader();
+    const [popUpVisible, setPopUpVisible] = React.useState(false);
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
 
     if (!leader) {
         return <ErrorScreen />;
     }
+
+    const onDelete = async () => {
+        setPopUpVisible(false);
+        const success = await Session.inst.deleteLeader(leader);
+        if (success) {
+            Session.inst.fetchAllLeaders();
+            NavigationSession.inst.navigateBack(navigation);
+            showSuccessNotification(strings("feedback.successDeleteAccount"));
+        } else {
+            showErrorNotification(strings("feedback.accountNotExist"));
+        }
+    };
+
+    const onCancel = () => {
+        setPopUpVisible(false);
+    };
 
     return (
         <DefaultScreenContainer>
@@ -47,15 +65,26 @@ const ManageLeaderScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={32} />
 
+                <LeafPopUp
+                    visible={popUpVisible}
+                    setVisible={setPopUpVisible}
+                    title={strings("actions.removeLeader") + ' "' + leader.fullName + '"'}
+                    onCancel={onCancel}
+                    onDone={onDelete}
+                    doneLabel="Remove"
+                >
+                    <LeafText typography={LeafTypography.title4} wide={false}>
+                        {strings("label.removeAccountWarning")}
+                    </LeafText>
+                </LeafPopUp>
+
                 <LeafButton
                     label={strings("button.deleteAccount")}
                     icon="delete"
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.textError}
-                    onPress={() => {
-                        StateManager.loginStatus.publish(LoginStatus.LoggedOut); // should change to delete account method later.
-                    }}
+                    onPress={() => setPopUpVisible(true)}
                 />
 
                 <LeafText typography={LeafTypography.subscript} wide={false}>

@@ -1,26 +1,33 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
 import LeafButton from "../base/LeafButton/LeafButton";
-import LeafIcon from "../base/LeafIcon/LeafIcon";
 import LeafText from "../base/LeafText/LeafText";
 import FlatContainer from "../containers/FlatContainer";
 import HStack from "../containers/HStack";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
-import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { ErrorScreen } from "./ErrorScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import VGap from "../containers/layout/VGap";
+import LargeMenuButton from "../custom/LargeMenuButton";
+import { Linking } from "react-native";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
+import { capitalized } from "../../language/functions/Capitalized";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActionsScreen: React.FC<Props> = ({ navigation }) => {
+    const buttonSpacing = LeafDimensions.screenSpacing;
+
+    const typography = LeafTypography.body;
+
     const patient = Session.inst.getActivePatient();
 
     if (!patient) {
@@ -28,32 +35,64 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     const onDone = () => {
-        // TODO: save
         NavigationSession.inst.navigateBack(navigation);
     };
 
-    const onCallPress = () => {};
+    const dialCall = async (number: string) => {
+        let dial = `tel:${number}`;
+        const canCall = await Linking.canOpenURL(dial);
+        if (!canCall) {
+            console.log("[ACTION SCREEN] Phone number is not available");
+            // TODO: status update, this should be done after merge
+        }
 
-    const onEmergencyPress = () => {};
+        try {
+            await Linking.openURL(dial);
+        } catch (error) {
+            console.log("[ACTIONS SCREEN] Could not call number");
+            // TODO: status update, this should be done after merge
+        }
+    };
+
+    const onCallPress = () => {
+        dialCall(patient.phoneNumber);
+    };
+
+    const onEmergencyPress = () => {
+        // We don't want to call emergency services
+        // If we did, it'd be implemented here
+        // dialCall(strings("phone.emergency"));
+    };
 
     return (
         <DefaultScreenContainer>
             <VStack
-                spacing={LeafDimensions.screenSpacing}
+                spacing={LeafDimensions.cardSpacing}
                 style={{
                     flex: 1,
                 }}
             >
                 <FlatContainer style={{ width: "100%" }}>
-                    <LeafText typography={LeafTypography.subscript}>{strings("actions.department")}</LeafText>
-                    <LeafText typography={LeafTypography.title3}>{patient.triageCase.medicalUnit.name}</LeafText>
+                    <LeafText typography={LeafTypography.subscript}>{strings("actions.arrivalWard")}</LeafText>
+
+                    <LeafText typography={LeafTypography.title2}>{patient.triageCase.arrivalWard.name}</LeafText>
                 </FlatContainer>
 
                 <FlatContainer>
-                    <LeafText typography={LeafTypography.title3}>{strings("actions.steps")}</LeafText>
-                    <VStack spacing={20}>
+                    <LeafText typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}>
+                        {capitalized(strings("actions.steps"))}
+                    </LeafText>
+
+                    <VGap size={16} />
+
+                    <VStack spacing={12}>
                         {patient.triageCase.triageCode.getSteps().map((step, i) => (
-                            <LeafText key={step} wide={false} style={{ alignSelf: "flex-start" }}>
+                            <LeafText
+                                key={step}
+                                wide={false}
+                                typography={typography}
+                                style={{ alignSelf: "flex-start" }}
+                            >
                                 {i + 1}: {step}
                             </LeafText>
                         ))}
@@ -61,39 +100,25 @@ const ActionsScreen: React.FC<Props> = ({ navigation }) => {
                 </FlatContainer>
 
                 <HStack
-                    spacing={LeafDimensions.screenSpacing}
+                    spacing={buttonSpacing}
                     style={{
                         flex: 1,
+                        justifyContent: "center",
                     }}
                 >
-                    <FlatContainer
-                        style={{
-                            flex: 1,
-                            alignItems: "center",
-                        }}
+                    <LargeMenuButton
+                        label={patient.phoneNumber}
+                        description={strings("actions.callPatient", patient.fullName)}
+                        icon={"phone"}
                         onPress={onCallPress}
-                    >
-                        <LeafIcon icon={"phone"} size={100} color={LeafColors.textDark} />
-                        {/* TODO: is there supposed to be a phone number attatched to patient? */}
-                        <Spacer />
-                        <LeafText wide={false} typography={LeafTypography.title3}>
-                            {strings("actions.call")} {patient.phoneNumber}
-                        </LeafText>
-                    </FlatContainer>
+                    />
 
-                    <FlatContainer
-                        style={{
-                            flex: 1,
-                            alignItems: "center",
-                        }}
+                    <LargeMenuButton
+                        label={strings("actions.emergency")}
+                        description={strings("actions.callEmergency")}
+                        icon={"alert"}
                         onPress={onEmergencyPress}
-                    >
-                        <LeafIcon icon={"exclamation"} size={100} color={LeafColors.textDark} />
-                        <Spacer />
-                        <LeafText wide={false} typography={LeafTypography.title3}>
-                            {strings("actions.emergency")}
-                        </LeafText>
-                    </FlatContainer>
+                    />
                 </HStack>
 
                 <Spacer />

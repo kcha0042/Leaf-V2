@@ -1,5 +1,5 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../../localisation/Strings";
 import Hospital from "../../model/hospital/Hospital";
 import MedicalUnit from "../../model/hospital/MedicalUnit";
@@ -31,26 +31,49 @@ import LeafSegmentedValue from "../base/LeafSegmentedButtons/LeafSegmentedValue"
 import TriageCase from "../../model/triage/TriageCase";
 import Session from "../../model/session/Session";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
-    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
-    const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(undefined);
-    const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
-        undefined,
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
+    const activePatient = Session.inst.getActivePatient();
+    const patientHospital = activePatient?.triageCase.hospital;
+    const patientWard = activePatient?.triageCase.arrivalWard;
+    const patientUnit = activePatient?.triageCase.medicalUnit;
+
+    const editPatientMode = activePatient != undefined;
+
+    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
+        patientHospital != undefined
+            ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital)
+            : undefined,
     );
-    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(undefined);
-    const [givenName, setGivenName] = useState<string | undefined>(undefined);
-    const [surname, setSurname] = useState<string | undefined>(undefined);
-    const [mrn, setMRN] = useState<string | undefined>(undefined);
-    const [postcode, setPostcode] = useState<string | undefined>(undefined);
-    const [phone, setPhone] = useState<string | undefined>(undefined);
-    const [dob, setDOB] = useState<Date | undefined>(undefined);
-    const [triageCode, setTriageCode] = useState<TriageCode | undefined>(undefined);
-    const [triageDescription, setTriageDescription] = useState<string | undefined>(undefined);
+    const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(
+        patientWard != undefined
+            ? new LeafSelectionItem(patientWard.name, patientWard.hosptialCode, patientWard)
+            : undefined,
+    );
+    const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
+        patientUnit != undefined ? new LeafSelectionItem(patientUnit.name, patientUnit.group, patientUnit) : undefined,
+    );
+
+    const [sex, setSex] = React.useState<LeafSegmentedValue | undefined>(
+        editPatientMode ? new LeafSegmentedValue(activePatient.sex, activePatient.sex.toString()) : undefined,
+    );
+    const [givenName, setGivenName] = useState<string | undefined>(activePatient?.firstName);
+    const [surname, setSurname] = useState<string | undefined>(activePatient?.lastName);
+    const [mrn, setMRN] = useState<string | undefined>(activePatient?.mrn.toString());
+    const [postcode, setPostcode] = useState<string | undefined>(activePatient?.postCode);
+    const [phone, setPhone] = useState<string | undefined>(activePatient?.phoneNumber);
+    const [dob, setDOB] = useState<Date | undefined>(activePatient?.dob);
+    const [triageCode, setTriageCode] = useState<TriageCode | undefined>(activePatient?.triageCase?.triageCode);
+    const [triageDescription, setTriageDescription] = useState<string | undefined>(
+        activePatient?.triageCase?.triageText,
+    );
 
     const sexIsValid: () => boolean = () => {
         return ValidateUtil.valueIsDefined(sex);
@@ -106,38 +129,71 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         );
     };
 
+    // Should refactor and split up this func? Has become quite ugly.
     const onSubmit = async () => {
         if (allIsValid()) {
             // We force-unwrap everything because we assume everything is validated already
             // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
             // Otherwise this WILL cause errors
-            const patient = Patient.new(
-                new MRN(mrn!),
-                dob!,
-                givenName!,
-                surname!,
-                sex!.value,
-                phone!,
-                TriageCase.new(
-                    selectedWard!.value,
-                    selectedHosptial!.value,
-                    selectedMedicalUnit!.value,
-                    triageDescription!,
-                    triageCode!,
-                ),
-                postcode!,
-                Session.inst.loggedInAccount.id,
-            );
-            const successful = await Session.inst.submitTriage(patient);
-            if (successful) {
-                console.log("SUCCESS"); // TODO: Provide user feedback
-                StateManager.clearAllInputs.publish();
-                Session.inst.fetchPatient(patient.mrn);
+            if (activePatient == undefined) {
+                const patient = Patient.new(
+                    new MRN(mrn!),
+                    dob!,
+                    givenName!,
+                    surname!,
+                    sex!.value,
+                    phone!,
+                    TriageCase.new(
+                        selectedWard!.value,
+                        selectedHosptial!.value,
+                        selectedMedicalUnit!.value,
+                        triageDescription!,
+                        triageCode!,
+                    ),
+                    postcode!,
+                    Session.inst.loggedInAccount.id,
+                );
+                const successful = await Session.inst.submitTriage(patient);
+                if (successful) {
+                    showSuccessNotification(strings("feedback.triageCreated"));
+                    StateManager.clearAllInputs.publish();
+                    Session.inst.fetchPatient(patient.mrn);
+                } else {
+                    showErrorNotification(strings("feedback.triageNotCreated"));
+                }
             } else {
-                console.log("FAILED"); // TODO: Provide user feedback
+                const patient = new Patient(
+                    new MRN(mrn!),
+                    dob!,
+                    givenName!,
+                    surname!,
+                    sex!.value,
+                    phone!,
+                    TriageCase.new(
+                        selectedWard!.value,
+                        selectedHosptial!.value,
+                        selectedMedicalUnit!.value,
+                        triageDescription!,
+                        triageCode!,
+                    ),
+                    postcode!,
+                    activePatient.timeLastAllocated,
+                    activePatient.idAllocatedTo,
+                    activePatient.events,
+                    activePatient.changelog,
+                );
+                const successful = await Session.inst.editPatient(patient);
+                // TODO: activity indicator?
+                if (successful) {
+                    showSuccessNotification(strings("feedback.patientEdited"));
+                    NavigationSession.inst.navigateBack(navigation);
+                    Session.inst.fetchPatient(activePatient.mrn);
+                } else {
+                    showErrorNotification(strings("feedback.patientNotEdited"));
+                }
             }
         } else {
-            console.log("INVALID INPUTS"); // TODO: Provide user feedback
+            showErrorNotification(strings("feedback.invalidInputs"));
         }
     };
 
@@ -156,6 +212,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setGivenName(text);
                         }}
+                        initialValue={givenName}
                     />
 
                     <LeafTextInput
@@ -165,6 +222,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setSurname(text);
                         }}
+                        initialValue={surname}
                     />
 
                     <LeafTextInput
@@ -174,6 +232,8 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setMRN(text);
                         }}
+                        initialValue={mrn}
+                        locked={editPatientMode}
                     />
 
                     <LeafTextInput
@@ -183,6 +243,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setPostcode(text);
                         }}
+                        initialValue={postcode}
                     />
 
                     <LeafDateInput
@@ -191,6 +252,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onChange={(date) => {
                             setDOB(date);
                         }}
+                        initialValue={dob}
                     />
 
                     <LeafTextInput
@@ -200,6 +262,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onTextChange={(text) => {
                             setPhone(text);
                         }}
+                        initialValue={phone}
                     />
 
                     <LeafSegmentedButtons
@@ -223,6 +286,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                         onSelection={(code) => {
                             setTriageCode(code);
                         }}
+                        initialValue={triageCode}
                         style={{ paddingBottom: 8 }}
                     />
 
@@ -236,6 +300,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                                 ? LeafColors.textDark
                                 : LeafColors.textError
                         }
+                        initialValue={triageDescription}
                     />
                 </VStack>
 
@@ -285,16 +350,18 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <FormHeader title={strings("triageForm.title.end")} style={{ paddingVertical: formPadding }} />
 
                 <HStack spacing={24}>
-                    <LeafButton
-                        label={strings("button.clear")}
-                        wide={false}
-                        onPress={() => {
-                            StateManager.clearAllInputs.publish();
-                        }}
-                        style={{ flex: 1 }}
-                        color={LeafColors.fillBackgroundLight}
-                        typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
-                    />
+                    {editPatientMode ? null : (
+                        <LeafButton
+                            label={strings("button.clear")}
+                            wide={false}
+                            onPress={() => {
+                                StateManager.clearAllInputs.publish();
+                            }}
+                            style={{ flex: 1 }}
+                            color={LeafColors.fillBackgroundLight}
+                            typography={LeafTypography.button.withColor(LeafColors.textSemiDark)}
+                        />
+                    )}
 
                     <LeafButton label={strings("button.submit")} wide={false} onPress={onSubmit} style={{ flex: 1 }} />
                 </HStack>
