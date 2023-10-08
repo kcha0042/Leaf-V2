@@ -2,7 +2,6 @@ import Hospital from "../model/hospital/Hospital";
 import Ward from "../model/hospital/Ward";
 import MedicalUnit from "../model/hospital/MedicalUnit";
 
-
 const hospitalA = new Hospital("H1", "STA", "St Care A");
 // add hospital A wards
 hospitalA.addWard(new Ward("W1", "STA", "EMER STA"));
@@ -82,7 +81,9 @@ hospitalB.addMedUnit(new MedicalUnit("M20", "Orthopaedic Surgery 1 STB", "Surger
 hospitalB.addMedUnit(new MedicalUnit("M21", "Gen Surg A STB", "Surgery"));
 hospitalB.addMedUnit(new MedicalUnit("M22", "Gen Surg D STB", "Surgery"));
 hospitalB.addMedUnit(new MedicalUnit("M23", "Obs & Gynae STB", "Women & Children"));
-hospitalB.addMedUnit(new MedicalUnit("M24", "Psych - Adult Upton House STB", "Mental Health/Turning Point/Alcohol&Drug"));
+hospitalB.addMedUnit(
+    new MedicalUnit("M24", "Psych - Adult Upton House STB", "Mental Health/Turning Point/Alcohol&Drug"),
+);
 hospitalB.addMedUnit(new MedicalUnit("M25", "Endocrinology STB", "Speciality Medicine"));
 hospitalB.addMedUnit(new MedicalUnit("M26", "Haemostasis/Thromb/Lymphoma STB", "Speciality Medicine"));
 hospitalB.addMedUnit(new MedicalUnit("M27", "Vascular Surgery STB", "Surgery"));

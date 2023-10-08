@@ -12,8 +12,8 @@ class Hospital {
         this.id = id;
         this.code = code;
         this.name = name;
-        this._wards = new Array<Ward>;
-        this._medicalUnits = new Array<MedicalUnit>;
+        this._wards = new Array<Ward>();
+        this._medicalUnits = new Array<MedicalUnit>();
     }
 
     public addWard(ward: Ward) {
@@ -29,7 +29,7 @@ class Hospital {
     }
 
     public get medUnits(): Array<MedicalUnit> {
-        return this._medicalUnits
+        return this._medicalUnits;
     }
 
     public getWardFromId(wardId: string): Ward {

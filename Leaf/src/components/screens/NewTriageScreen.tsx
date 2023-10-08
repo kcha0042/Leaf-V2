@@ -258,9 +258,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafSelectionInput
                         navigation={navigation}
                         items={
-                            selectedHospital == undefined ? [] : selectedHospital.value.wards.map((ward) => {
-                                return new LeafSelectionItem(ward.name, ward.hospitalCode, ward)
-                            })
+                            selectedHospital == undefined
+                                ? []
+                                : selectedHospital.value.wards.map((ward) => {
+                                      return new LeafSelectionItem(ward.name, ward.hospitalCode, ward);
+                                  })
                         }
                         title={strings("inputLabel.ward")}
                         selected={selectedWard}
@@ -273,13 +275,15 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafSelectionInput
                         navigation={navigation}
                         items={
-                            selectedHospital == undefined ? [] : selectedHospital.value.medUnits.map((medUnit) => {
-                                return new LeafSelectionItem(medUnit.name, medUnit.group, medUnit)
-                            })
+                            selectedHospital == undefined
+                                ? []
+                                : selectedHospital.value.medUnits.map((medUnit) => {
+                                      return new LeafSelectionItem(medUnit.name, medUnit.group, medUnit);
+                                  })
                         }
                         title={strings("inputLabel.medicalUnit")}
                         selected={selectedMedicalUnit}
-                        disabled = {selectedHospital == undefined}
+                        disabled={selectedHospital == undefined}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedMedicalUnit(item as LeafSelectionItem<MedicalUnit> | undefined);
                         }}

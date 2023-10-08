@@ -32,7 +32,15 @@ interface Props<T> {
     onSelection: (item: LeafSelectionItem<T> | undefined) => void;
 }
 
-const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, items, title, style, disabled = false, onSelection }) => {
+const LeafSelectionInput: React.FC<Props<unknown>> = ({
+    navigation,
+    selected,
+    items,
+    title,
+    style,
+    disabled = false,
+    onSelection,
+}) => {
     const isSelected = selected != null;
 
     useEffect(() => {
@@ -60,9 +68,13 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, it
         >
             <HStack>
                 <VStack spacing={4}>
-                    <LeafText typography={LeafTypography.subscript.withColor(
-                        disabled ? LeafColors.shadow : LeafColors.textSemiDark,
-                    )}>{title}</LeafText>
+                    <LeafText
+                        typography={LeafTypography.subscript.withColor(
+                            disabled ? LeafColors.shadow : LeafColors.textSemiDark,
+                        )}
+                    >
+                        {title}
+                    </LeafText>
 
                     <LeafText
                         typography={LeafTypography.body.withColor(
@@ -70,7 +82,6 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, it
                         )}
                     >
                         {selected?.title ?? strings("inputLabel.required").toUpperCase()}
-                        
                     </LeafText>
                 </VStack>
 
