@@ -130,7 +130,7 @@ class Session {
             return false;
         } else {
             // If we successfully submitted, re-fetch them from the database
-            this.fetchPatient(patient.mrn);
+            await this.fetchAllocatedPatientsTo(allocatedTo);
         }
         return success2;
     }
@@ -141,7 +141,7 @@ class Session {
         if (!success2) {
             return false;
         } else {
-            this.fetchPatient(patient.mrn);
+            await this.fetchAllocatedPatientsTo(allocatedTo);
         }
         return success2;
     }
@@ -352,6 +352,16 @@ class Session {
             return;
         }
         const patients = await PatientsManager.inst.getPatientsAllocatedTo(this.loggedInAccount as Worker);
+        for (const patient of patients) {
+            // No duplicates due to use of dictionary
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers that patients have been fetched
+        StateManager.patientsFetched.publish();
+    }
+
+    public async fetchAllocatedPatientsTo(worker: Worker) {
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(worker);
         for (const patient of patients) {
             // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
