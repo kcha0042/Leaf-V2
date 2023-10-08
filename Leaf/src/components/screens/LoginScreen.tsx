@@ -51,6 +51,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
     const onLoginPressed = async () => {
         if (!allIsValid()) {
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
             return;
         }
         const id = new EmployeeID(username!);
