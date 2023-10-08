@@ -56,7 +56,7 @@ const LeafSelectionInput: React.FC<Props<unknown>> = ({ navigation, selected, it
                 NavigationSession.inst.navigateTo(LeafListSelection, navigation, title);
             }}
             style={{ width: "100%", ...style }}
-            color={disabled ? LeafColors.textSemiDark : LeafColors.fillBackgroundLight}
+            color={disabled ? LeafColors.textSemiLight : LeafColors.fillBackgroundLight}
         >
             <HStack>
                 <VStack spacing={4}>
