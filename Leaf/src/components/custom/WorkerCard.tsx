@@ -7,6 +7,9 @@ import VStack from "../containers/VStack";
 import FlatContainer from "../containers/FlatContainer";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
+import Patient from "../../model/patient/Patient";
+import { useEffect, useState } from "react";
+import StateManager from "../../state/publishers/StateManager";
 
 interface Props {
     worker: Worker;
@@ -16,7 +19,19 @@ interface Props {
 
 const WorkerCard: React.FC<Props> = ({ worker, style, onPress }) => {
     const idText = worker.id.toString();
-    const allocatedPatients = Session.inst.getAllocatedPatientsTo(worker);
+    const [allocatedPatients, setAllocatedPatients] = useState<Patient[]>([]);
+    useEffect(() => {
+        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
+            setAllocatedPatients(Session.inst.getAllocatedPatientsTo(worker));
+        });
+
+        setAllocatedPatients(Session.inst.getAllocatedPatientsTo(worker));
+
+        return () => {
+            unsubscribe();
+        };
+    }, [worker]);
+
     return (
         <FlatContainer onPress={onPress}>
             <VStack style={{ flex: 1 }}>

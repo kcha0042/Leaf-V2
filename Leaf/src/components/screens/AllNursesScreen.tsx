@@ -35,6 +35,7 @@ const AllNursesScreen: React.FC<Props> = ({ navigation }) => {
             setFilteredWorkers(Session.inst.getAllWorkers());
         });
 
+        Session.inst.fetchAllPatients();
         Session.inst.fetchAllWorkers();
 
         return () => {
