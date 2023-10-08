@@ -119,23 +119,31 @@ class Session {
     }
 
     public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
-        allocatedTo.allocatePatient(patient);
-        patient.allocateTo(allocatedTo.id);
-        patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
-        if (this.loggedInAccount.role == Role.leader) {
-            const success1 = this.updateLeader(this.loggedInAccount as Leader);
-            if (!success1) {
+        const allocatedPatients = this.getAllocatedPatientsTo(allocatedTo);
+        for (const patientOfWorker of allocatedPatients) {
+            if (patientOfWorker.mrn.matches(patient.mrn)) {
                 return false;
             }
-        } else {
-            assertionFailure("We're trying to allocate a patient but a leader isn't logged in?");
-            return false;
         }
-        const success2 = await PatientsManager.inst.updatePatient(patient);
-        if (success2) {
+        patient.allocateTo(allocatedTo.id);
+        patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
+        const success2 = await this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
             // If we successfully submitted, re-fetch them from the database
-            this.fetchPatient(patient.mrn);
-            this.fetchLeader(this.loggedInAccount.id);
+            await this.fetchAllocatedPatientsTo(allocatedTo);
+        }
+        return success2;
+    }
+
+    public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+        patient.deallocate();
+        const success2 = await this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
+            await this.fetchAllocatedPatientsTo(allocatedTo);
         }
         return success2;
     }
@@ -300,9 +308,14 @@ class Session {
     }
 
     public getAllocatedPatients(): Patient[] {
-        return Object.values(this._patientStore).filter((patient) =>
-            patient.idAllocatedTo.matches(this.loggedInAccount.id),
-        );
+        if (this.loggedInAccount.role.matches(Role.worker)) {
+            return this.getAllocatedPatientsTo(this.loggedInAccount as Worker);
+        }
+        return [];
+    }
+
+    public getAllocatedPatientsTo(worker: Worker): Patient[] {
+        return Object.values(this._patientStore).filter((patient) => patient.idAllocatedTo?.matches(worker.id));
     }
 
     public getPatient(id: MRN): Patient | null {
@@ -389,6 +402,16 @@ class Session {
             delete this._patientStore[invalidatedMRN.toString()];
         }
         for (const patient of patients) {
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers that patients have been fetched
+        StateManager.patientsFetched.publish();
+    }
+
+    public async fetchAllocatedPatientsTo(worker: Worker) {
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(worker);
+        for (const patient of patients) {
+            // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers that patients have been fetched

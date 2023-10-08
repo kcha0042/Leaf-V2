@@ -7,7 +7,6 @@ import Patient from "../patient/Patient";
 
 class Worker extends Employee {
     public readonly role: Role = Role.worker;
-    protected _allocatedPatients: MRN[];
 
     constructor(
         id: EmployeeID,
@@ -16,22 +15,12 @@ class Worker extends Employee {
         email: string | null,
         currentHospital: Hospital | null,
         accountActivated: boolean,
-        allocatedPatients: MRN[],
     ) {
         super(id, firstName, lastName, email, currentHospital, accountActivated);
-        this._allocatedPatients = allocatedPatients;
     }
 
     public static new(firstName: string, lastName: string, hospital: Hospital | null): Worker {
-        return new Worker(EmployeeID.generate(), firstName, lastName, null, hospital, false, []);
-    }
-
-    get allocatedPatients(): MRN[] {
-        return this._allocatedPatients.slice();
-    }
-
-    public allocatePatient(patient: Patient) {
-        this._allocatedPatients.push(patient.mrn);
+        return new Worker(EmployeeID.generate(), firstName, lastName, null, hospital, false);
     }
 }
 

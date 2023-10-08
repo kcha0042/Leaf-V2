@@ -12,6 +12,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafDimensions from "../styling/LeafDimensions";
 import ManageLeaderScreen from "./ManageLeaderScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import { ScreenType } from "../../state/environment/types/ScreenType";
@@ -22,10 +23,16 @@ interface Props {
 
 const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
     const [leaders, setLeaders] = React.useState<Leader[]>(Session.inst.getAllLeaders());
+    const [filteredLeaders, setFilteredLeaders] = React.useState<Leader[]>(leaders);
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         const unsubscribe = StateManager.leadersFetched.subscribe(() => {
             setLeaders(Session.inst.getAllLeaders());
+            setFilteredLeaders(Session.inst.getAllLeaders());
         });
 
         Session.inst.fetchAllLeaders();
@@ -49,6 +56,15 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <ScrollView style={{ flex: 1, width: "100%" }}>
+                    <LeafSearchBar
+                        onTextChange={onSearch}
+                        data={leaders}
+                        setData={setFilteredLeaders}
+                        dataToString={(leader: Leader) => leader.fullName}
+                    />
+                
+                    <VGap size={LeafDimensions.cardTopPadding} />
+                
                     <FlatList
                         data={leaders}
                         renderItem={({ item: leader }) => (
@@ -72,6 +88,7 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                                 : {}),
                         }}
                     />
+                
                     <Spacer />
                 </ScrollView>
             </VStack>

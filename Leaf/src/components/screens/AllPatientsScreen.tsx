@@ -3,24 +3,36 @@ import { FlatList } from "react-native";
 import Patient from "../../model/patient/Patient";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
-import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import AllocateCard from "../custom/AllocateCard";
-import PatientCard from "../custom/PatientCard";
+import PatientCardExtended from "../custom/PatientCardExtended";
 import LeafDimensions from "../styling/LeafDimensions";
-import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import AllocatePatientToNurseScreen from "./AllocatePatientToNurseScreen";
+import { strings } from "../../localisation/Strings";
+import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 
-const AllocatePatientsScreen: React.FC = () => {
+interface Props {
+    navigation?: NavigationProp<ParamListBase>;
+}
+
+const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
+    const [filteredPatients, setFilteredPatients] = React.useState<Patient[]>(patients);
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onSearch = (query: string) => {
+        setSearchQuery(query);
+    };
 
     useEffect(() => {
         const unsubscribe = StateManager.patientsFetched.subscribe(() => {
             setPatients(Session.inst.getAllPatients());
+            setFilteredPatients(Session.inst.getAllPatients());
         });
-
+        Session.inst.fetchAllWorkers();
         Session.inst.fetchAllPatients();
 
         return () => {
@@ -30,12 +42,12 @@ const AllocatePatientsScreen: React.FC = () => {
 
     const onPressPatient = (patient: Patient) => {
         // TODO: Navigation
-        console.log(patient.fullName);
-    };
-
-    const onPressNewAllocation = () => {
-        // TODO: Patient Allocation Page
-        console.log("new Allocation");
+        Session.inst.setActivePatient(patient);
+        NavigationSession.inst.navigateTo(
+            AllocatePatientToNurseScreen,
+            navigation,
+            strings("header.leader.allocateTo", patient.fullName),
+        );
     };
 
     return (
@@ -46,18 +58,19 @@ const AllocatePatientsScreen: React.FC = () => {
                     flex: 1,
                 }}
             >
-                <LeafText typography={LeafTypography.headerScreen}>TODO</LeafText>
-
-                <AllocateCard
-                    onPress={() => {
-                        onPressNewAllocation;
-                    }}
+                <LeafSearchBar
+                    onTextChange={onSearch}
+                    data={patients}
+                    setData={setFilteredPatients}
+                    dataToString={(patient: Patient) => patient.fullName}
                 />
 
+                <VGap size={LeafDimensions.cardTopPadding} />
+
                 <FlatList
-                    data={patients}
+                    data={filteredPatients}
                     renderItem={({ item: patient }) => (
-                        <PatientCard
+                        <PatientCardExtended
                             patient={patient}
                             onPress={() => {
                                 onPressPatient(patient);
@@ -68,6 +81,7 @@ const AllocatePatientsScreen: React.FC = () => {
                     ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                     scrollEnabled={false}
                     style={{
+                        width: "100%",
                         overflow: "visible", // Stop shadows getting clipped
                         flexGrow: 0, // Ensures the frame wraps only the FlatList content
                     }}
@@ -79,4 +93,4 @@ const AllocatePatientsScreen: React.FC = () => {
     );
 };
 
-export default AllocatePatientsScreen;
+export default AllPatientsScreen;

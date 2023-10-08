@@ -1,4 +1,5 @@
 import EmployeeID from "../employee/EmployeeID";
+import { ShiftTime } from "../employee/ShiftTime";
 import Hospital from "../hospital/Hospital";
 import MedicalUnit from "../hospital/MedicalUnit";
 import Ward from "../hospital/Ward";
@@ -18,8 +19,8 @@ class Patient {
     protected _phoneNumber: string;
     protected _triageCase: TriageCase;
     protected _postCode: string;
-    protected _timeLastAllocated: Date;
-    protected _allocatedTo: EmployeeID;
+    protected _timeLastAllocated: Date | null;
+    protected _allocatedTo: EmployeeID | null;
     protected _events: PatientEvent[];
     protected _changelog: PatientChangelog;
     get mrn(): MRN {
@@ -49,14 +50,17 @@ class Patient {
     get postCode(): string {
         return this._postCode;
     }
-    get timeLastAllocated(): Date {
+    get timeLastAllocated(): Date | null {
         return this._timeLastAllocated;
     }
-    get idAllocatedTo(): EmployeeID {
+    get idAllocatedTo(): EmployeeID | null {
         return this._allocatedTo;
     }
     get events(): PatientEvent[] {
         return this._events;
+    }
+    get sessionAllocated(): ShiftTime {
+        return ShiftTime.getCurrent(this._timeLastAllocated);
     }
     get changelog(): PatientChangelog {
         return this._changelog;
@@ -71,8 +75,8 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        timeLastAllocated: Date,
-        allocatedTo: EmployeeID,
+        timeLastAllocated: Date | null,
+        allocatedTo: EmployeeID | null,
         events: PatientEvent[],
         changelog: PatientChangelog,
     ) {
@@ -99,7 +103,7 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        allocatedTo: EmployeeID,
+        allocatedTo: EmployeeID | null,
     ): Patient {
         return new Patient(
             mrn,
@@ -123,6 +127,11 @@ class Patient {
 
     public allocateTo(employeeID: EmployeeID) {
         this._allocatedTo = employeeID;
+        this._timeLastAllocated = new Date();
+    }
+
+    public deallocate() {
+        this._allocatedTo = null;
     }
 
     public editTriage(ward: Ward, hospital: Hospital, unit: MedicalUnit, description: string, code: TriageCode) {
