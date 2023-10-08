@@ -2,6 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
+import Account from "../../model/account/Account";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
@@ -10,6 +11,7 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
@@ -54,6 +56,11 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             worker.setAccountActivated(true);
             worker.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
             showSuccessNotification(strings("feedback.accountActivated"));
@@ -67,6 +74,11 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             leader.setAccountActivated(true);
             leader.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateLeader(leader);
             Session.inst.setLoggedInAccount(leader);
             showSuccessNotification(strings("feedback.accountActivated"));
@@ -80,6 +92,11 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             admin.setAccountActivated(true);
             admin.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateAdmin(admin);
             Session.inst.setLoggedInAccount(admin);
             showSuccessNotification(strings("feedback.accountActivated"));
@@ -140,7 +157,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.setPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(password) || !password
@@ -155,7 +172,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.confirmPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(confirmationPassword) && confirmationPassword == password

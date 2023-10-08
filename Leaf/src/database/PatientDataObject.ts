@@ -1,5 +1,6 @@
 import { compactMap } from "../language/functions/CompactMap";
 import EmployeeID from "../model/employee/EmployeeID";
+import { ShiftTime } from "../model/employee/ShiftTime";
 import MRN from "../model/patient/MRN";
 import Patient from "../model/patient/Patient";
 import { PatientSex } from "../model/patient/PatientSex";
@@ -43,7 +44,7 @@ class PatientDataObject {
             .addObject(PatientField.TriageCase, triageCaseData)
             .addString(PatientField.PostCode, patient.postCode)
             .addDate(PatientField.TimeLastAllocated, patient.timeLastAllocated)
-            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo.toString())
+            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo?.toString())
             .addObjectArray(PatientField.Events, patientEventsData)
             .addObject(PatientField.Changelog, patientChangelogData);
     }
@@ -71,12 +72,10 @@ class PatientDataObject {
             !sex ||
             !phoneNumber ||
             !postCode ||
-            !timeLastAllocated ||
-            !idAllocatedTo ||
             !restoredTriage ||
             !restoredChangelog
         ) {
-            console.error("[PatientDataObject] Failed to restore Patient");
+            console.error("[PatientDataObject] Failed to restore Patient " + (mrn ?? "(missing MRN!!!)"));
             return null;
         }
         return new Patient(
@@ -89,7 +88,7 @@ class PatientDataObject {
             restoredTriage,
             postCode,
             timeLastAllocated,
-            new EmployeeID(idAllocatedTo),
+            idAllocatedTo == null ? null : new EmployeeID(idAllocatedTo),
             compactMap(eventsData, (data) => PatientEventDataObject.restore(data)),
             restoredChangelog,
         );

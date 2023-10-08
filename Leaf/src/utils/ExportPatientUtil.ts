@@ -1,8 +1,8 @@
+import * as FileSystem from "expo-file-system";
+import { shareAsync } from "expo-sharing";
 import Patient from "../model/patient/Patient";
 import Environment from "../state/environment/Environment";
 import { OS } from "../state/environment/types/OS";
-import * as FileSystem from "expo-file-system";
-import { shareAsync } from "expo-sharing";
 
 /**
  * Exports a list of selected patients into a CSV file format.

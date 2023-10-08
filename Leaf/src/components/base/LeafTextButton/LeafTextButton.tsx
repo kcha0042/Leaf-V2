@@ -29,7 +29,6 @@ const LeafTextButton: React.FC<ButtonProps> = ({
     label,
     onPress,
     style,
-    textStyle,
 }) => {
     return (
         <TouchableOpacity onPress={onPress} style={style}>
@@ -40,7 +39,7 @@ const LeafTextButton: React.FC<ButtonProps> = ({
                     alignItems: "center",
                 }}
             >
-                <LeafText typography={typography} wide={wide} style={textStyle}>
+                <LeafText typography={typography} wide={wide}>
                     {label}
                 </LeafText>
 

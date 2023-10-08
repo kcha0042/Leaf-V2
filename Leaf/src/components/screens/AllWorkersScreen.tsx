@@ -1,50 +1,56 @@
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import Leader from "../../model/employee/Leader";
+import { FlatList } from "react-native";
+import Worker from "../../model/employee/Worker";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
 import VStack from "../containers/VStack";
 import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
-import LeaderCard from "../custom/LeaderCard";
-import NavigationSession from "../navigation/state/NavigationEnvironment";
+import WorkerCard from "../custom/WorkerCard";
 import LeafDimensions from "../styling/LeafDimensions";
-import ManageLeaderScreen from "./ManageLeaderScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import NavigationSession from "../navigation/state/NavigationEnvironment";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import NurseAllocationScreen from "./NurseAllocationScreen";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import { ScreenType } from "../../state/environment/types/ScreenType";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
-const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
-    const [leaders, setLeaders] = React.useState<Leader[]>(Session.inst.getAllLeaders());
-    const [filteredLeaders, setFilteredLeaders] = React.useState<Leader[]>(leaders);
+const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
+    const [workers, setWorkers] = React.useState<Worker[]>(Session.inst.getAllWorkers());
+    const [filteredWorkers, setFilteredWorkers] = React.useState<Worker[]>(workers);
     const [searchQuery, setSearchQuery] = React.useState("");
     const onSearch = (query: string) => {
         setSearchQuery(query);
     };
 
     useEffect(() => {
-        const unsubscribe = StateManager.leadersFetched.subscribe(() => {
-            setLeaders(Session.inst.getAllLeaders());
-            setFilteredLeaders(Session.inst.getAllLeaders());
+        const unsubscribe = StateManager.workersFetched.subscribe(() => {
+            setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
         });
-
-        Session.inst.fetchAllLeaders();
+        const unsubscribePatientsFetched = StateManager.patientsFetched.subscribe(() => {
+            setWorkers(Session.inst.getAllWorkers());
+            setFilteredWorkers(Session.inst.getAllWorkers());
+        });
+        Session.inst.fetchAllPatients();
+        Session.inst.fetchAllWorkers();
 
         return () => {
             unsubscribe();
+            unsubscribePatientsFetched();
         };
     }, []);
 
-    const onPressLeader = (leader: Leader) => {
-        Session.inst.setActiveLeader(leader);
-        NavigationSession.inst.navigateTo(ManageLeaderScreen, navigation, leader.fullName);
+    const onPressWorker = (worker: Worker) => {
+        Session.inst.setActiveWorker(worker);
+        NavigationSession.inst.navigateTo(NurseAllocationScreen, navigation, worker.fullName);
     };
 
     return (
@@ -55,27 +61,31 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <ScrollView style={{ flex: 1, width: "100%" }}>
+                <ScrollView
+                    style={{
+                        width: "100%",
+                        flex: 1,
+                    }}
+                >
                     <LeafSearchBar
                         onTextChange={onSearch}
-                        data={leaders}
-                        setData={setFilteredLeaders}
-                        dataToString={(leader: Leader) => leader.fullName}
+                        data={workers}
+                        setData={setFilteredWorkers}
+                        dataToString={(worker: Worker) => worker.fullName}
                     />
 
                     <VGap size={LeafDimensions.cardTopPadding} />
-
                     <FlatList
-                        data={filteredLeaders}
-                        renderItem={({ item: leader }) => (
-                            <LeaderCard
-                                leader={leader}
+                        data={filteredWorkers}
+                        renderItem={({ item: worker }) => (
+                            <WorkerCard
+                                worker={worker}
                                 onPress={() => {
-                                    onPressLeader(leader);
+                                    onPressWorker(worker);
                                 }}
                             />
                         )}
-                        keyExtractor={(leader) => leader.id.toString()}
+                        keyExtractor={(worker) => worker.id.toString()}
                         ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                         scrollEnabled={false}
                         style={{
@@ -88,12 +98,10 @@ const AllLeadersScreen: React.FC<Props> = ({ navigation }) => {
                                 : {}),
                         }}
                     />
-
-                    <Spacer />
                 </ScrollView>
             </VStack>
         </DefaultScreenContainer>
     );
 };
 
-export default AllLeadersScreen;
+export default AllWorkersScreen;

@@ -10,7 +10,6 @@ export enum WorkerField {
     LastName = "lastName",
     Email = "email",
     CurrentHospitalID = "currentHospitalId",
-    AllocatedPatients = "allocatedPatients",
     AccountActivated = "accountActivated",
 }
 
@@ -22,11 +21,7 @@ class WorkerDataObject {
             .addString(WorkerField.LastName, worker.lastName)
             .addString(WorkerField.Email, worker.email)
             .addString(WorkerField.CurrentHospitalID, worker.currentHospital?.id?.toString())
-            .addBoolean(WorkerField.AccountActivated, worker.accountActivated)
-            .addStringArray(
-                WorkerField.AllocatedPatients,
-                worker.allocatedPatients.map((mrn) => mrn.toString()),
-            );
+            .addBoolean(WorkerField.AccountActivated, worker.accountActivated);
     }
 
     public static restore(data: DataObject): Worker | null {
@@ -35,9 +30,8 @@ class WorkerDataObject {
         const lastName = data.getStringOrNull(WorkerField.LastName);
         const email = data.getStringOrNull(WorkerField.Email);
         const currentHospitalID = data.getStringOrNull(WorkerField.CurrentHospitalID);
-        const allocatedPatients = data.getStringArrayOrNull(WorkerField.AllocatedPatients);
         const accountActivated = data.getBooleanOrNull(WorkerField.AccountActivated);
-        if (!id || !firstName || !lastName || !allocatedPatients || accountActivated == null) {
+        if (!id || !firstName || !lastName || accountActivated == null) {
             // NB: email and current hospital are allowed to be null
             console.error("[WorkerDataObject] Failed to restore Worker");
             return null;
@@ -49,7 +43,6 @@ class WorkerDataObject {
             email,
             currentHospitalID == null ? null : Hospitals[currentHospitalID],
             accountActivated,
-            allocatedPatients.map((data) => new MRN(data)),
         );
     }
 }

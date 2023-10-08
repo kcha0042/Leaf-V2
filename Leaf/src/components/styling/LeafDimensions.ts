@@ -2,6 +2,8 @@
  * Dimensions to be used application-wide.
  */
 class LeafDimensions {
+    static readonly cardTopPadding = 8;
+
     static readonly cardPadding = 18;
 
     static readonly fillRadius = 16;

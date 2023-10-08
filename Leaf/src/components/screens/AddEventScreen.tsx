@@ -90,9 +90,44 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                             PatientEventCategory.medication,
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.other.toString(),
+                            PatientEventCategory.visit.toString(),
                             strings("label.category"),
-                            PatientEventCategory.other,
+                            PatientEventCategory.visit,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.condition.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.condition,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.procedure.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.procedure,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.device.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.device,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.measurement.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.measurement,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.observation.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.observation,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.episode.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.episode,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.note.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.note,
                         ),
                     ]}
                     selected={

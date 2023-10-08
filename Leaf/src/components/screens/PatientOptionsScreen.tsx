@@ -14,6 +14,10 @@ import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import AddEventScreen from "./AddEventScreen";
 import PatientChangelogScreen from "./PatientChangelogScreen";
+import LeafText from "../base/LeafText/LeafText";
+import { LeafPopUp } from "../base/LeafPopUp/LeafPopUp";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import LeafTypography from "../styling/LeafTypography";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -21,6 +25,8 @@ interface Props {
 
 const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
     const [componentWidth, setComponentWidth] = useState(StateManager.contentWidth.read());
+    const [popUpVisible, setPopUpVisible] = React.useState(false);
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const buttonSpacing = LeafDimensions.screenPadding;
     let columnCount = componentWidth < 520 ? 2 : 3;
     if (componentWidth < 365) {
@@ -45,6 +51,27 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
             unsubscribePatientChanged();
         };
     }, []);
+
+    const onDelete = async () => {
+        setPopUpVisible(false);
+        const patient = Session.inst.getActivePatient();
+        if (!patient) {
+            showErrorNotification(strings("feedback.accountNotExist"));
+        } else {
+            const success = await Session.inst.deletePatient(patient);
+            if (success) {
+                Session.inst.fetchAllPatients();
+                NavigationSession.inst.navigateBack(navigation);
+                showSuccessNotification(strings("feedback.successDeleteAccount"));
+            } else {
+                showErrorNotification(strings("feedback.accountNotExist"));
+            }
+        }
+    };
+
+    const onCancel = () => {
+        setPopUpVisible(false);
+    };
 
     return (
         <DefaultScreenContainer>
@@ -150,13 +177,32 @@ const PatientOptionsScreen: React.FC<Props> = ({ navigation }) => {
                         icon="timeline-text"
                     />
 
+                    <LeafPopUp
+                        visible={popUpVisible}
+                        setVisible={(visible) => {
+                            setPopUpVisible(visible);
+                        }}
+                        title={strings("actions.removePatient", Session.inst.getActivePatient()?.fullName ?? "")}
+                        onCancel={onCancel}
+                        onDone={onDelete}
+                        doneLabel={strings("button.deletePatient")}
+                    >
+                        <LeafText typography={LeafTypography.body} wide={false}>
+                            {strings("label.removeAccountWarning")}
+                        </LeafText>
+                    </LeafPopUp>
+
                     <LargeMenuButton
                         size={buttonWidth}
                         label={strings("button.deletePatient")}
                         description={strings("label.removePatient")}
                         onPress={() => {
-                            // TODO: Delete patient, then navigate back when activePatient is none
-                            // TODO: Remember to remove the deleted patient from the cache
+                            const activePatient = Session.inst.getActivePatient();
+                            if (activePatient) {
+                                setPopUpVisible(true);
+                            } else {
+                                showErrorNotification(strings("feedback.accountNotExist"));
+                            }
                         }}
                         icon="delete"
                     />

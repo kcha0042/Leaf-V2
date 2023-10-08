@@ -120,7 +120,7 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
                                             wide={false}
                                             style={{ paddingHorizontal: 10 }}
                                         >
-                                            {isDone ? "Done" : "Mark Done"}
+                                            {isDone ? strings("button.done") : strings("button.markDone")}
                                         </LeafText>
                                     </HStack>
                                 </LeafChip>

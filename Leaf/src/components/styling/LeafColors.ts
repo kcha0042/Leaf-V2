@@ -1,4 +1,5 @@
 import { UnreachableCaseError } from "../../language/errors/UnreachableCaseError";
+import { ShiftTime } from "../../model/employee/ShiftTime";
 import { TriageCode } from "../../model/triage/TriageCode";
 import LeafColor from "./color/LeafColor";
 
@@ -129,6 +130,13 @@ class LeafColors {
         return new LeafColor("#f1edfc");
     }
 
+    static get fillBackgroundGreen(): LeafColor {
+        return new LeafColor("#97fc6f");
+    }
+
+    static get fillBackgroundRed(): LeafColor {
+        return new LeafColor("#e03131");
+    }
     /**
      * The dialog from react-native-paper changes the colour slightly, so I made this to more closly match the {@link fillBackgroundLight}
      */
@@ -154,6 +162,10 @@ class LeafColors {
     // Used for dividing sections, such as the drawer and sidebar
     static get divider(): LeafColor {
         return new LeafColor("gray");
+    }
+
+    static get lightDivider(): LeafColor {
+        return new LeafColor("#d3d3d3");
     }
 
     // Triage
@@ -182,6 +194,21 @@ class LeafColors {
             return LeafColors.textDark;
         } else {
             return LeafColors.textLight;
+        }
+    }
+
+    // Session Allocated
+
+    public static sessionAllocated(session: ShiftTime): LeafColor {
+        switch (session) {
+            case ShiftTime.morning:
+                return new LeafColor("#74b816");
+            case ShiftTime.afternoon:
+                return new LeafColor("#fd7e14");
+            case ShiftTime.night:
+                return new LeafColor("#1765e3");
+            default:
+                return new LeafColor("#e03131");
         }
     }
 }
