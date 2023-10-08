@@ -15,6 +15,8 @@ import { ShiftTime } from "../../model/employee/ShiftTime";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
 import StateManager from "../../state/publishers/StateManager";
+import TriageCodeLabel from "./TriageCodeLabel";
+import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 
 interface Props {
     patient: Patient;
@@ -85,17 +87,14 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                     alignItems: "center",
                 }}
             >
-                <TriageCodeBadge
-                    code={patient.triageCase.triageCode}
-                    fillSpace={false}
-                    style={{
-                        alignSelf: "flex-start",
-                        marginRight: 12,
-                    }}
-                />
-
                 <VStack style={{ flex: 1 }}>
-                    <LeafText typography={LeafTypography.title3}>{patient.fullName}</LeafText>
+                    <LeafText typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}>
+                        {patient.fullName}
+                    </LeafText>
+
+                    <VGap size={4} />
+
+                    <TriageCodeLabel code={patient.triageCase.triageCode} />
 
                     <VGap size={16} />
 
@@ -111,21 +110,26 @@ const PatientAllocationCard: React.FC<Props> = ({ patient }) => {
                         {isAllocated ? strings("label.notAllocated") : strings("label.lastAllocated", `${session}`)}
                     </LeafText>
 
-                    <VGap size={16} />
-                    <HStack spacing={10}>
-                        {patient.events.map((event) => (
-                            <LeafChip
-                                key={event.id.toString()}
-                                children={
-                                    <LeafText
-                                        wide={false}
-                                        typography={typography}
-                                    >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
-                                }
-                                color={LeafColors.fillBackgroundAccent}
-                            />
-                        ))}
-                    </HStack>
+                    {patient.events.length > 0 ? (
+                        <>
+                            <VGap size={16} />
+
+                            <HStack spacing={10}>
+                                {patient.events.map((event) => (
+                                    <LeafChip
+                                        key={event.id.toString()}
+                                        children={
+                                            <LeafText
+                                                wide={false}
+                                                typography={typography}
+                                            >{`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}</LeafText>
+                                        }
+                                        color={LeafColors.fillBackgroundAccent}
+                                    />
+                                ))}
+                            </HStack>
+                        </>
+                    ) : undefined}
                 </VStack>
 
                 <LeafIconButton

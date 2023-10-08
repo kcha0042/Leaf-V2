@@ -14,6 +14,7 @@ import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import LeafTextButton from "../base/LeafTextButton/LeafTextButton";
 import Session from "../../model/session/Session";
 import LeafChip from "../base/LeafChip/LeafChip";
+import TriageCodeLabel from "./TriageCodeLabel";
 
 interface Props {
     patient: Patient;
@@ -47,69 +48,63 @@ const AllocatedPatientsCard: React.FC<Props> = ({ patient, style }) => {
 
     return (
         <FlatContainer>
-            <HStack
+            <VStack
                 style={{
                     flex: 1,
                 }}
             >
-                <TriageCodeBadge
-                    code={patient.triageCase.triageCode}
-                    fillSpace={false}
+                <HStack
                     style={{
-                        alignSelf: "flex-start",
-                        marginRight: 12,
-                    }}
-                />
-
-                <VStack
-                    style={{
-                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
                 >
-                    <HStack
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                    <LeafText
+                        wide={false}
+                        style={{ alignSelf: "flex-start" }}
+                        typography={LeafTypography.title3.withWeight(LeafFontWeight.Bold)}
                     >
-                        <LeafText wide={false} typography={LeafTypography.title3} style={{ alignSelf: "flex-start" }}>
-                            {patient.fullName}
-                        </LeafText>
-                        <Spacer />
-
-                        <LeafTextButton
-                            label={strings("button.deallocate")}
-                            typography={buttonTypography}
-                            onPress={removePatient}
-                        />
-                    </HStack>
-
-                    <VGap size={16} />
-
-                    <LeafText typography={LeafTypography.subscript}>
-                        {strings("label.id")} {idText}
+                        {patient.fullName}
                     </LeafText>
 
-                    <LeafText typography={LeafTypography.subscript}>
-                        {strings("label.date")} {dateText}
-                    </LeafText>
+                    <Spacer />
 
-                    {patient.events.length > 0 ? (
-                        <>
-                            <VGap size={16} />
-                            <HStack spacing={10}>
-                                {patient.events.map((event) => (
-                                    <LeafChip key={event.id.toString()} color={LeafColors.textDark}>
-                                        <LeafText wide={false} typography={chipTypography}>
-                                            {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
-                                        </LeafText>
-                                    </LeafChip>
-                                ))}
-                            </HStack>
-                        </>
-                    ) : undefined}
-                </VStack>
-            </HStack>
+                    <LeafTextButton
+                        label={strings("button.deallocate")}
+                        typography={buttonTypography}
+                        onPress={removePatient}
+                    />
+                </HStack>
+
+                <VGap size={4} />
+
+                <TriageCodeLabel code={patient.triageCase.triageCode} />
+
+                <VGap size={16} />
+
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("label.id")} {idText}
+                </LeafText>
+
+                <LeafText typography={LeafTypography.subscript}>
+                    {strings("label.date")} {dateText}
+                </LeafText>
+
+                {patient.events.length > 0 ? (
+                    <>
+                        <VGap size={16} />
+                        <HStack spacing={10}>
+                            {patient.events.map((event) => (
+                                <LeafChip key={event.id.toString()} color={LeafColors.textDark}>
+                                    <LeafText wide={false} typography={chipTypography}>
+                                        {`${event.title.toString()} @ ${formatTime(event.triggerTime)}`}
+                                    </LeafText>
+                                </LeafChip>
+                            ))}
+                        </HStack>
+                    </>
+                ) : undefined}
+            </VStack>
         </FlatContainer>
     );
 };
