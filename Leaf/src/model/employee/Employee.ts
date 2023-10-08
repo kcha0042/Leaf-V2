@@ -60,7 +60,7 @@ abstract class Employee {
         this._email = email;
     }
 
-    public setHosptial(hospital: Hospital | null) {
+    public setHospital(hospital: Hospital | null) {
         this._currentHospital = hospital;
     }
 

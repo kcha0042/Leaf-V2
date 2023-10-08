@@ -23,6 +23,9 @@ import ActivateAccountScreen from "./ActivateAccountScreen";
 import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
+import ResetPasswordScreen from "./ResetPasswordScreen";
+import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
+import PasswordUtil from "../../utils/PasswordUtil";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
@@ -43,9 +46,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const allIsValid: () => boolean = () => {
-        return ValidateUtil.stringIsValid(username);
         // TODO: Uncomment this when we implement passwords
         // ValidateUtil.stringIsValid(password)
+        return ValidateUtil.stringIsValid(username) && ValidateUtil.stringIsValid(password);
     };
 
     const onLoginPressed = async () => {
@@ -55,31 +58,45 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         }
         const id = new EmployeeID(username!);
 
+        // check if the account exists and check if the password matches
+        const account = await Session.inst.fetchAccount(id);
+        if (account == null || !PasswordUtil.isCorrectPassword(password, account.password)) {
+            // TODO: Provide feedback (probably split this into if elif to provide separate feedback)
+            return;
+        }
+
+        // Log the user in
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
-        if (worker != null && worker.accountActivated) {
-            // We found the matching account!
+        if (worker != null) {
             Session.inst.setLoggedInAccount(worker);
             StateManager.loginStatus.publish(LoginStatus.Worker);
             return;
+        } else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed");
         }
 
         await Session.inst.fetchLeader(id);
         const leader = Session.inst.getLeader(id);
-        if (leader != null && leader.accountActivated) {
-            // We found the matching account!
+        if (leader != null) {
             Session.inst.setLoggedInAccount(leader);
             StateManager.loginStatus.publish(LoginStatus.Leader);
             return;
+        } else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed");
         }
 
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
-        if (admin != null && admin.accountActivated) {
-            // We found the matching account!
+        if (admin != null) {
             Session.inst.setLoggedInAccount(admin);
             StateManager.loginStatus.publish(LoginStatus.Admin);
             return;
+        } else {
+            // TODO: Provide feedback (login failed)
+            console.log("Login Failed");
         }
     };
 
@@ -116,7 +133,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={LeafDimensions.textInputSpacing} />
 
-                <LeafTextInputShort
+                <LeafPasswordInput
                     label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
@@ -163,6 +180,15 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     color={LeafColors.accent}
                     style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
+                />
+
+                <LeafTextButton
+                    label={strings("button.resetPassword")}
+                    typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                    style={{ marginTop: 12 }}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
+                    }}
                 />
             </View>
 

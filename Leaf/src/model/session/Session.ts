@@ -15,6 +15,8 @@ import NewEmployeeManager from "./NewEmployeeManager";
 import NewTriageManager from "./NewTriageManager";
 import { Role } from "../employee/Role";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import AccountsManager from "./AccountsManager";
+import Account from "../account/Account";
 import { assertionFailure } from "../../language/assertions/AssertionFailsure";
 
 class Session {
@@ -402,6 +404,19 @@ class Session {
         }
         // Notify subscribers
         StateManager.patientsFetched.publish();
+    }
+
+    public async fetchAccount(id: EmployeeID): Promise<Account | null> {
+        const account = await AccountsManager.inst.getAccount(id);
+        return account;
+    }
+
+    public async activateNewAccount(account: Account): Promise<boolean> {
+        return AccountsManager.inst.newAccountCreated(account);
+    }
+
+    public async updateAccount(account: Account): Promise<boolean> {
+        return AccountsManager.inst.updateAccount(account);
     }
 }
 
