@@ -4,6 +4,7 @@ import { strings } from "../../localisation/Strings";
 import Hospital from "../../model/hospital/Hospital";
 import MedicalUnit from "../../model/hospital/MedicalUnit";
 import Ward from "../../model/hospital/Ward";
+import { HospitalArray } from "../../preset_data/Hospitals";
 import LeafButton from "../base/LeafButton/LeafButton";
 import LeafDateInput from "../base/LeafDateInput/LeafDateInput";
 import LeafSelectionInput from "../base/LeafListSelection/LeafSelectionInput";
@@ -18,9 +19,6 @@ import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import StateManager from "../../state/publishers/StateManager";
 import LeafTypography from "../styling/LeafTypography";
-import { MedicalUnitsArray } from "../../preset_data/MedicalUnits";
-import { HospitalsArray } from "../../preset_data/Hospitals";
-import { WardsArray } from "../../preset_data/Wards";
 import { TriageCode } from "../../model/triage/TriageCode";
 import ValidateUtil from "../../utils/ValidateUtil";
 import Patient from "../../model/patient/Patient";
@@ -37,7 +35,7 @@ interface Props {
 }
 
 const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
-    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
+    const [selectedHospital, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
     const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(undefined);
     const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
         undefined,
@@ -80,7 +78,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
         return ValidateUtil.stringIsValid(triageDescription);
     };
     const hospitalIsValid: () => boolean = () => {
-        return ValidateUtil.valueIsDefined(selectedHosptial);
+        return ValidateUtil.valueIsDefined(selectedHospital);
     };
     const wardIsValid: () => boolean = () => {
         return ValidateUtil.valueIsDefined(selectedWard);
@@ -120,7 +118,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 phone!,
                 TriageCase.new(
                     selectedWard!.value,
-                    selectedHosptial!.value,
+                    selectedHospital!.value,
                     selectedMedicalUnit!.value,
                     triageDescription!,
                     triageCode!,
@@ -247,11 +245,11 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                 <VStack spacing={LeafDimensions.textInputSpacing} style={{ width: "100%" }}>
                     <LeafSelectionInput
                         navigation={navigation}
-                        items={HospitalsArray.map((hospital) => {
+                        items={HospitalArray.map((hospital) => {
                             return new LeafSelectionItem(hospital.name, hospital.code, hospital);
                         })}
-                        title={strings("inputLabel.hopsital")}
-                        selected={selectedHosptial}
+                        title={strings("inputLabel.hospital")}
+                        selected={selectedHospital}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
                         }}
@@ -259,11 +257,14 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafSelectionInput
                         navigation={navigation}
-                        items={WardsArray.map((ward) => {
-                            return new LeafSelectionItem(ward.name, ward.hospitalCode, ward);
-                        })}
+                        items={
+                            selectedHospital == undefined ? [] : selectedHospital.value.wards.map((ward) => {
+                                return new LeafSelectionItem(ward.name, ward.hospitalCode, ward)
+                            })
+                        }
                         title={strings("inputLabel.ward")}
                         selected={selectedWard}
+                        disabled={selectedHospital == undefined}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedWard(item as LeafSelectionItem<Ward> | undefined);
                         }}
@@ -271,11 +272,14 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
                     <LeafSelectionInput
                         navigation={navigation}
-                        items={MedicalUnitsArray.map((unit) => {
-                            return new LeafSelectionItem(unit.name, unit.group, unit);
-                        })}
+                        items={
+                            selectedHospital == undefined ? [] : selectedHospital.value.medUnits.map((medUnit) => {
+                                return new LeafSelectionItem(medUnit.name, medUnit.group, medUnit)
+                            })
+                        }
                         title={strings("inputLabel.medicalUnit")}
                         selected={selectedMedicalUnit}
+                        disabled = {selectedHospital == undefined}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedMedicalUnit(item as LeafSelectionItem<MedicalUnit> | undefined);
                         }}

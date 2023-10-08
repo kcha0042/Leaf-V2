@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Worker from "../../model/employee/Worker";
 import Session from "../../model/session/Session";
-import { HospitalsArray } from "../../preset_data/Hospitals";
+import { HospitalArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -86,7 +86,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [errTextVisible, setErrTextVisible] = useState(false);
     const [editHospitalVisible, setEditHospitalVisible] = useState(false);
     const onHospitalDone = () => {
-        const hospitals = HospitalsArray;
+        const hospitals = HospitalArray;
         // Checking hospital exists
         let hospitalExists = false;
         for (const hospital of hospitals) {
