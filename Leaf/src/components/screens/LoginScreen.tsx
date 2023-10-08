@@ -183,7 +183,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
                 />
-                
+
                 <LeafTextButton
                     label={strings("button.resetPassword")}
                     typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
