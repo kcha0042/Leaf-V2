@@ -16,6 +16,7 @@ import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import { ScreenType } from "../../state/environment/types/ScreenType";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -60,40 +61,43 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBar
-                    onTextChange={onSearch}
-                    data={workers}
-                    setData={setFilteredWorkers}
-                    dataToString={(worker: Worker) => worker.fullName}
-                />
 
-                <VGap size={LeafDimensions.cardTopPadding} />
-
-                <FlatList
-                    data={filteredWorkers}
-                    renderItem={({ item: worker }) => (
-                        <WorkerCard
-                            worker={worker}
-                            onPress={() => {
-                                onPressWorker(worker);
-                            }}
-                        />
-                    )}
-                    keyExtractor={(worker) => worker.id.toString()}
-                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                    scrollEnabled={false}
-                    style={{
-                        width: "100%",
-                        overflow: "visible", // Stop shadows getting clipped
-                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                        ...(Environment.inst.getOS() == OS.Web &&
-                        Environment.inst.getScreenType() != ScreenType.Mobile
-                            ? { height: Environment.inst.getScreenHeight() - 210 }
-                            : {}),
-                    }}
-                />
-
-                <Spacer />
+                <ScrollView style={{
+                    width: "100%",
+                    flex: 1
+                }}>
+                    <LeafSearchBar
+                        onTextChange={onSearch}
+                        data={workers}
+                        setData={setFilteredWorkers}
+                        dataToString={(worker: Worker) => worker.fullName}
+                    />
+    
+                    <VGap size={LeafDimensions.cardTopPadding} />
+                    <FlatList
+                        data={filteredWorkers}
+                        renderItem={({ item: worker }) => (
+                            <WorkerCard
+                                worker={worker}
+                                onPress={() => {
+                                    onPressWorker(worker);
+                                }}
+                            />
+                        )}
+                        keyExtractor={(worker) => worker.id.toString()}
+                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                        scrollEnabled={false}
+                        style={{
+                            width: "100%",
+                            overflow: "visible", // Stop shadows getting clipped
+                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                            ...(Environment.inst.getOS() == OS.Web &&
+                            Environment.inst.getScreenType() != ScreenType.Mobile
+                                ? { height: Environment.inst.getScreenHeight() - 145 }
+                                : {}),
+                        }}
+                    />
+                </ScrollView>
             </VStack>
         </DefaultScreenContainer>
     );

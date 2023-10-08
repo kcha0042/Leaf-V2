@@ -17,6 +17,7 @@ import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import { ScreenType } from "../../state/environment/types/ScreenType";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -61,40 +62,45 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-                <LeafSearchBar
-                    onTextChange={onSearch}
-                    data={patients}
-                    setData={setFilteredPatients}
-                    dataToString={(patient: Patient) => patient.fullName}
-                />
-
-                <VGap size={LeafDimensions.cardTopPadding} />
-
-                <FlatList
-                    data={filteredPatients}
-                    renderItem={({ item: patient }) => (
-                        <PatientCardExtended
-                            patient={patient}
-                            onPress={() => {
-                                onPressPatient(patient);
-                            }}
-                        />
-                    )}
-                    keyExtractor={(patient) => patient.mrn.toString()}
-                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                    scrollEnabled={false}
+                <ScrollView
                     style={{
                         width: "100%",
-                        overflow: "visible", // Stop shadows getting clipped
-                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                        ...(Environment.inst.getOS() == OS.Web &&
-                        Environment.inst.getScreenType() != ScreenType.Mobile
-                            ? { height: Environment.inst.getScreenHeight() - 250 }
-                            : {}),
+                        flex: 1
                     }}
-                />
+                >
+                    <LeafSearchBar
+                        onTextChange={onSearch}
+                        data={patients}
+                        setData={setFilteredPatients}
+                        dataToString={(patient: Patient) => patient.fullName}
+                    />
 
-                <Spacer />
+                    <VGap size={LeafDimensions.cardTopPadding} />
+
+                    <FlatList
+                        data={filteredPatients}
+                        renderItem={({ item: patient }) => (
+                            <PatientCardExtended
+                                patient={patient}
+                                onPress={() => {
+                                    onPressPatient(patient);
+                                }}
+                            />
+                        )}
+                        keyExtractor={(patient) => patient.mrn.toString()}
+                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                        scrollEnabled={false}
+                        style={{
+                            width: "100%",
+                            overflow: "visible", // Stop shadows getting clipped
+                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                            ...(Environment.inst.getOS() == OS.Web &&
+                            Environment.inst.getScreenType() != ScreenType.Mobile
+                                ? { height: Environment.inst.getScreenHeight() - 145 }
+                                : {}),
+                        }}
+                    />
+                </ScrollView>
             </VStack>
         </DefaultScreenContainer>
     );
