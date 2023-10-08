@@ -3,6 +3,7 @@ import UUID from "../core/UUID";
 
 class PatientEvent {
     public readonly id: UUID;
+    public readonly createdAt: Date;
     public readonly triggerTime: Date;
     public readonly title: string;
     public readonly description: string;
@@ -11,14 +12,31 @@ class PatientEvent {
     public get lastCompleted(): Date {
         return this._lastCompleted;
     }
+    public get createdAtDescription(): string {
+        const timeText = this.createdAt
+            .toLocaleTimeString("en-AU", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+            })
+            .toUpperCase();
+        const dateText = this.createdAt.toDateString();
+        return `${dateText} ${timeText}`;
+    }
     public get triggerTimeDescription(): string {
-        const hours = this.triggerTime.getHours().toString().padStart(2, "0");
-        const minutes = this.triggerTime.getMinutes().toString().padStart(2, "0");
-        return `${hours}:${minutes}`;
+        const timeText = this.triggerTime
+            .toLocaleTimeString("en-AU", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+            })
+            .toUpperCase();
+        return timeText;
     }
 
     constructor(
         id: UUID,
+        createdAt: Date,
         triggerTime: Date,
         title: string,
         description: string,
@@ -26,6 +44,7 @@ class PatientEvent {
         lastCompleted: Date,
     ) {
         this.id = id;
+        this.createdAt = createdAt;
         this.triggerTime = triggerTime;
         this.title = title;
         this.description = description;
@@ -39,7 +58,7 @@ class PatientEvent {
         description: string,
         category: PatientEventCategory,
     ): PatientEvent {
-        return new PatientEvent(UUID.generate(), triggerTime, title, description, category, new Date(0));
+        return new PatientEvent(UUID.generate(), new Date(), triggerTime, title, description, category, new Date(0));
     }
 
     public markCompleted() {
@@ -62,6 +81,13 @@ class PatientEvent {
             now.getFullYear() === this.lastCompleted.getFullYear() &&
             now.getMonth() === this.lastCompleted.getMonth() &&
             now.getDate() === this.lastCompleted.getDate()
+        );
+    }
+
+    public getExportSummary(): string {
+        return `ID:${this.id} TriggerTime:${this.triggerTimeDescription} Title:${this.title} Description:${this.description} Category:${this.category} LastCompleted:${this.lastCompleted}`.replace(
+            /,|\n/g,
+            " ",
         );
     }
 }

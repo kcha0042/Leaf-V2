@@ -2,30 +2,32 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
+import Account from "../../model/account/Account";
+import EmployeeID from "../../model/employee/EmployeeID";
+import Session from "../../model/session/Session";
+import StateManager from "../../state/publishers/StateManager";
+import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import LeafPasswordInputShort from "../base/LeafPasswordInputShort/LeafPasswordInputShort";
 import LeafText from "../base/LeafText/LeafText";
 import LeafTextInput from "../base/LeafTextInput/LeafTextInput";
 import VStack from "../containers/VStack";
-import Spacer from "../containers/layout/Spacer";
 import VGap from "../containers/layout/VGap";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import KeyboardAwareScreenContainer from "./containers/KeyboardAwareScreenContainer";
-import ValidateUtil from "../../utils/ValidateUtil";
-import Session from "../../model/session/Session";
-import EmployeeID from "../../model/employee/EmployeeID";
-import StateManager from "../../state/publishers/StateManager";
-import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
@@ -43,8 +45,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
     const onSubmit = async () => {
         if (!allIsValid()) {
-            // TODO: Provide feedback
-            console.log("Invalid inputs");
+            showErrorNotification(strings("feedback.invalidInputs"));
             return;
         }
         const id = new EmployeeID(username!);
@@ -55,9 +56,14 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             worker.setAccountActivated(true);
             worker.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateWorker(worker);
             Session.inst.setLoggedInAccount(worker);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Worker);
             return;
         }
@@ -68,9 +74,14 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             leader.setAccountActivated(true);
             leader.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateLeader(leader);
             Session.inst.setLoggedInAccount(leader);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Leader);
             return;
         }
@@ -81,15 +92,19 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
             // We found the matching account!
             admin.setAccountActivated(true);
             admin.setEmail(email!);
+            // Create new account in the database with ID and password
+            if (password != undefined) {
+                const newAccount = new Account(id, password);
+                Session.inst.activateNewAccount(newAccount);
+            }
             Session.inst.updateAdmin(admin);
             Session.inst.setLoggedInAccount(admin);
-            // TODO: Provide feedback (login successful)
+            showSuccessNotification(strings("feedback.accountActivated"));
             StateManager.loginStatus.publish(LoginStatus.Admin);
             return;
         }
 
-        // TODO: Provide feedback
-        console.log("No unactivated account found with id");
+        showErrorNotification(strings("feedback.noUnactiviatedAccount"));
     };
 
     return (
@@ -111,7 +126,6 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
                 <View
                     style={{
                         maxWidth: 400,
-                        alignItems: "center",
                         width: "100%",
                     }}
                 >
@@ -143,7 +157,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.setPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(password) || !password
@@ -158,7 +172,7 @@ const ActivateAccountScreen: React.FC<Props> = ({ navigation }) => {
 
                     <VGap size={LeafDimensions.textInputSpacing} />
 
-                    <LeafTextInput
+                    <LeafPasswordInputShort
                         label={strings("inputLabel.confirmPassword")}
                         textColor={
                             ValidateUtil.stringIsValid(confirmationPassword) && confirmationPassword == password

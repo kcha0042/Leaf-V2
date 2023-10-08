@@ -1,6 +1,10 @@
 import EmployeeID from "../employee/EmployeeID";
 import { ShiftTime } from "../employee/ShiftTime";
+import Hospital from "../hospital/Hospital";
+import MedicalUnit from "../hospital/MedicalUnit";
+import Ward from "../hospital/Ward";
 import TriageCase from "../triage/TriageCase";
+import { TriageCode } from "../triage/TriageCode";
 import MRN from "./MRN";
 import PatientChangelog from "./PatientChangelog";
 import PatientEvent from "./PatientEvent";
@@ -13,7 +17,7 @@ class Patient {
     protected _lastName: string;
     protected _sex: PatientSex;
     protected _phoneNumber: string;
-    public readonly triageCase: TriageCase;
+    protected _triageCase: TriageCase;
     protected _postCode: string;
     protected _timeLastAllocated: Date | null;
     protected _allocatedTo: EmployeeID | null;
@@ -39,6 +43,9 @@ class Patient {
     }
     get phoneNumber(): string {
         return this._phoneNumber;
+    }
+    get triageCase(): TriageCase {
+        return this._triageCase;
     }
     get postCode(): string {
         return this._postCode;
@@ -79,7 +86,7 @@ class Patient {
         this._lastName = lastName;
         this._sex = sex;
         this._phoneNumber = phoneNumber;
-        this.triageCase = triageCase;
+        this._triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
@@ -125,6 +132,10 @@ class Patient {
 
     public deallocate() {
         this._allocatedTo = null;
+    }
+
+    public editTriage(ward: Ward, hospital: Hospital, unit: MedicalUnit, description: string, code: TriageCode) {
+        this._triageCase = TriageCase.new(ward, hospital, unit, description, code);
     }
 }
 

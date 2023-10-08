@@ -1,6 +1,6 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, ScrollView } from "react-native";
 import Patient from "../../model/patient/Patient";
 import Session from "../../model/session/Session";
 import StateManager from "../../state/publishers/StateManager";
@@ -15,6 +15,9 @@ import PatientOptionsScreen from "./PatientOptionsScreen";
 import PatientPreviewScreen from "./PatientPreviewScreen";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafSearchBar from "../base/LeafSearchBar/LeafSearchBar";
+import Environment from "../../state/environment/Environment";
+import { OS } from "../../state/environment/types/OS";
+import { ScreenType } from "../../state/environment/types/ScreenType";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -101,36 +104,42 @@ const YourPatientsScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={LeafDimensions.cardTopPadding} />
 
-                <LeafSearchBar
-                    onTextChange={onSearch}
-                    data={patients}
-                    setData={setFilteredPatients}
-                    dataToString={(patient: Patient) => patient.fullName}
-                />
+                <ScrollView style={{ flex: 1, width: "100%" }}>
+                    <LeafSearchBar
+                        onTextChange={onSearch}
+                        data={patients}
+                        setData={setFilteredPatients}
+                        dataToString={(patient: Patient) => patient.fullName}
+                    />
 
-                <VGap size={8} />
+                    <VGap size={8} />
+                
+                    <FlatList
+                        data={patients}
+                        renderItem={({ item: patient }) => (
+                            <PatientCard
+                                patient={patient}
+                                onPress={() => {
+                                    onPressPatient(patient);
+                                }}
+                            />
+                        )}
+                        keyExtractor={(patient) => patient.mrn.toString()}
+                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                        scrollEnabled={false}
+                        style={{
+                            width: "100%",
+                            overflow: "visible", // Stop shadows getting clipped
+                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
+                            ...(Environment.inst.getOS() == OS.Web &&
+                            Environment.inst.getScreenType() != ScreenType.Mobile
+                                ? { height: Environment.inst.getScreenHeight() - 160 }
+                                : {}),
+                        }}
+                    />
 
-                <FlatList
-                    data={filteredPatients}
-                    renderItem={({ item: patient }) => (
-                        <PatientCard
-                            patient={patient}
-                            onPress={() => {
-                                onPressPatient(patient);
-                            }}
-                        />
-                    )}
-                    keyExtractor={(patient) => patient.mrn.toString()}
-                    ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                    scrollEnabled={false}
-                    style={{
-                        width: "100%",
-                        overflow: "visible", // Stop shadows getting clipped
-                        flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                    }}
-                />
-
-                <Spacer />
+                    <Spacer />
+                </ScrollView>
             </VStack>
         </DefaultScreenContainer>
     );

@@ -95,6 +95,7 @@ const EventDashboardScreen: React.FC<Props> = ({ navigation }) => {
                     style={{
                         paddingBottom: 12,
                     }}
+                    clearSelectionAllowed={false}
                 />
 
                 <FlatList

@@ -164,6 +164,10 @@ class LeafColors {
         return new LeafColor("gray");
     }
 
+    static get lightDivider(): LeafColor {
+        return new LeafColor("#d3d3d3");
+    }
+
     // Triage
 
     public static triageCode(code: TriageCode): LeafColor {
@@ -174,20 +178,23 @@ class LeafColors {
             return new LeafColor("#fd7e14");
         }
         if (code.matches(TriageCode.urgent)) {
-            return new LeafColor("#fab005");
+            return new LeafColor("#32b24a");
         }
         if (code.matches(TriageCode.semiUrgent)) {
-            return new LeafColor("#74b816");
+            return new LeafColor("#2c8ae6");
         }
         if (code.matches(TriageCode.nonUrgent)) {
-            return new LeafColor("#2f9e44");
+            return new LeafColor("#ffffff");
         }
         throw new UnreachableCaseError(code);
     }
 
     public static textTriageCode(code: TriageCode): LeafColor {
-        // At the moment all codes have light text overlays
-        return LeafColors.textLight;
+        if (code.matches(TriageCode.nonUrgent)) {
+            return LeafColors.textDark;
+        } else {
+            return LeafColors.textLight;
+        }
     }
 
     // Session Allocated
