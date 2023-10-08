@@ -61,18 +61,19 @@ const AllWorkersScreen: React.FC<Props> = ({ navigation }) => {
                     flex: 1,
                 }}
             >
-
-                <ScrollView style={{
-                    width: "100%",
-                    flex: 1
-                }}>
+                <ScrollView
+                    style={{
+                        width: "100%",
+                        flex: 1,
+                    }}
+                >
                     <LeafSearchBar
                         onTextChange={onSearch}
                         data={workers}
                         setData={setFilteredWorkers}
                         dataToString={(worker: Worker) => worker.fullName}
                     />
-    
+
                     <VGap size={LeafDimensions.cardTopPadding} />
                     <FlatList
                         data={filteredWorkers}

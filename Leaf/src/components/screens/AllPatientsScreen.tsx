@@ -65,7 +65,7 @@ const AllPatientsScreen: React.FC<Props> = ({ navigation }) => {
                 <ScrollView
                     style={{
                         width: "100%",
-                        flex: 1
+                        flex: 1,
                     }}
                 >
                     <LeafSearchBar
