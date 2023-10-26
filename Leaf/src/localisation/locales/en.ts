@@ -166,7 +166,7 @@ export default {
     "inputLabel.dob": "Date of Birth",
     "inputLabel.dateFormat": "DD/MM/YYYY",
     "inputLabel.timeFormat": "HH:MM - 24hr",
-    "inputLabel.hopsital": "Hospital Site",
+    "inputLabel.hospital": "Hospital Site",
     "inputLabel.ward": "Ward",
     "inputLabel.medicalUnit": "Medical Unit",
     "inputLabel.required": "Required",

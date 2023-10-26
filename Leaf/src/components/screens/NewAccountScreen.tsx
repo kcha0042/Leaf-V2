@@ -8,7 +8,7 @@ import { Role } from "../../model/employee/Role";
 import Worker from "../../model/employee/Worker";
 import Hospital from "../../model/hospital/Hospital";
 import Session from "../../model/session/Session";
-import { HospitalsArray } from "../../preset_data/Hospitals";
+import { HospitalArray } from "../../preset_data/Hospitals";
 import ValidateUtil from "../../utils/ValidateUtil";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
@@ -34,7 +34,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
     const [role, setRole] = React.useState<Role | undefined>(undefined);
-    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
+    const [selectedHospital, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(undefined);
 
     const onNameChange = (name: string) => {
         setName(name);
@@ -54,7 +54,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 ValidateUtil.stringIsValid(name) &&
                 ValidateUtil.stringIsValid(surname) &&
                 ValidateUtil.valueIsDefined(role) &&
-                (role!.matches(Role.admin) || ValidateUtil.valueIsDefined(selectedHosptial))
+                (role!.matches(Role.admin) || ValidateUtil.valueIsDefined(selectedHospital))
             )
         ) {
             setCreatedAccount(null);
@@ -70,13 +70,13 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 employee = newAdmin;
             }
         } else if (role!.matches(Role.worker)) {
-            const newWorker = Worker.new(name, surname, selectedHosptial!.value);
+            const newWorker = Worker.new(name, surname, selectedHospital!.value);
             const success = await Session.inst.submitNewWorker(newWorker);
             if (success) {
                 employee = newWorker;
             }
         } else if (role!.matches(Role.leader)) {
-            const newLeader = Leader.new(name, surname, selectedHosptial!.value);
+            const newLeader = Leader.new(name, surname, selectedHospital!.value);
             const success = await Session.inst.submitNewLeader(newLeader);
             if (success) {
                 employee = newLeader;
@@ -107,11 +107,11 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                 {role?.matches(Role.admin) ?? true ? undefined : (
                     <LeafSelectionInput
                         navigation={navigation}
-                        items={HospitalsArray.map((hospital) => {
+                        items={HospitalArray.map((hospital) => {
                             return new LeafSelectionItem(hospital.name, hospital.code, hospital);
                         })}
-                        title={strings("inputLabel.hopsital")}
-                        selected={selectedHosptial}
+                        title={strings("inputLabel.hospital")}
+                        selected={selectedHospital}
                         onSelection={(item: LeafSelectionItem<unknown> | undefined) => {
                             setSelectedHospital(item as LeafSelectionItem<Hospital> | undefined);
                         }}
