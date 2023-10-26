@@ -17,6 +17,7 @@ import NavigationSession from "../navigation/state/NavigationEnvironment";
 import PatientOptionsScreen from "../screens/PatientOptionsScreen";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
+import { strings } from "../../localisation/Strings";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -31,14 +32,7 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
     const [isDone, setIsDone] = useState(event.completedToday());
 
     const onToggleDone = async () => {
-        if (!isDone) {
-            event.markCompleted();
-            Session.inst.updatePatient(patient);
-        } else {
-            event.markIncomplete();
-            Session.inst.updatePatient(patient);
-        }
-        Session.inst.updatePatient(patient);
+        Session.inst.markPatientEvent(patient, event, !isDone);
         setIsDone(!isDone);
     };
 
@@ -73,6 +67,10 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
 
                     {isExpanded ? (
                         <VStack>
+                            <LeafText typography={LeafTypography.subscript}>
+                                {strings("label.createdAt1Param", event.createdAtDescription)}
+                            </LeafText>
+
                             <LeafText typography={LeafTypography.subscript.withColor(LeafColors.textDark)}>
                                 {event.description}
                             </LeafText>
@@ -122,7 +120,7 @@ const PatientEventCard: React.FC<Props> = ({ navigation, patient, event, style }
                                             wide={false}
                                             style={{ paddingHorizontal: 10 }}
                                         >
-                                            {isDone ? "Done" : "Mark Done"}
+                                            {isDone ? strings("button.done") : strings("button.markDone")}
                                         </LeafText>
                                     </HStack>
                                 </LeafChip>

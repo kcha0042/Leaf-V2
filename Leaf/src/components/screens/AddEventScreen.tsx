@@ -13,16 +13,17 @@ import VStack from "../containers/VStack";
 import NavigationSession from "../navigation/state/NavigationEnvironment";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
-import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import PatientEvent from "../../model/patient/PatientEvent";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const AddEventScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [title, setTitle] = useState<string | undefined>();
     const [triggerTime, setTriggerTime] = useState<Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
@@ -45,11 +46,11 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
             const event = PatientEvent.new(triggerTime!, title!, description!, category!);
             const successful = await Session.inst.submitPatientEvent(event);
             if (successful) {
-                // TODO: snackbar
+                showSuccessNotification(strings("feedback.eventCreated"));
                 NavigationSession.inst.navigateBack(navigation);
             }
         } else {
-            // TODO: snackbar
+            showErrorNotification(strings("feedback.invalidInputs"));
         }
     };
 
@@ -89,9 +90,44 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                             PatientEventCategory.medication,
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.other.toString(),
+                            PatientEventCategory.visit.toString(),
                             strings("label.category"),
-                            PatientEventCategory.other,
+                            PatientEventCategory.visit,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.condition.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.condition,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.procedure.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.procedure,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.device.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.device,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.measurement.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.measurement,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.observation.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.observation,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.episode.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.episode,
+                        ),
+                        new LeafSelectionItem<PatientEventCategory>(
+                            PatientEventCategory.note.toString(),
+                            strings("label.category"),
+                            PatientEventCategory.note,
                         ),
                     ]}
                     selected={

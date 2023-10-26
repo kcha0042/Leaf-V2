@@ -5,6 +5,7 @@ import { OS } from "./types/OS";
 import { ScreenType } from "./types/ScreenType";
 import { ColorScheme } from "./types/ColorScheme";
 import { LeafScreenOrientation } from "./types/LeafScreenOrientation";
+import { LeafNavigator } from "./types/LeafNavigator";
 
 class Environment {
     public static readonly inst = new Environment();
@@ -58,6 +59,14 @@ class Environment {
             default:
                 throw new UnreachableCaseError(os);
         }
+    }
+
+    public getNavigatorFromScreenWidth(): LeafNavigator {
+        if (this.getScreenWidth() > 850){
+            return LeafNavigator.drawerNavigator;
+        }
+
+        return LeafNavigator.tabNavigator;
     }
 
     public getScreenOrientation(): LeafScreenOrientation {

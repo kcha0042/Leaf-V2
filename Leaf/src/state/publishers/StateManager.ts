@@ -66,6 +66,8 @@ class StateManager {
 
     // Notifies when a patient is updated
     public static readonly patientUpdated = new LeafPublisher();
+
+    public static readonly reallocationOccurred = new LeafPublisher();
 }
 
 export default StateManager;

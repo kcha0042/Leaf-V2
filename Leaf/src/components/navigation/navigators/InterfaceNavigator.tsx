@@ -1,22 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import Environment from "../../../state/environment/Environment";
-import { ScreenType } from "../../../state/environment/types/ScreenType";
 import { TabBarNavigator } from "./TabBarNavigator";
 import LeafInterface from "../LeafInterface";
 import DrawerNavigator from "./DrawerNavigator";
 import StateManager from "../../../state/publishers/StateManager";
+import { LeafNavigator } from "../../../state/environment/types/LeafNavigator";
 
 interface Props {
     leafInterface: LeafInterface;
 }
 
 export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
-    const [deviceIsTablet, setDeviceIsTablet] = useState<boolean>(Environment.inst.getScreenType() == ScreenType.Large);
+    const [isWideScreen, setIsWideScreen] = useState<boolean>(Environment.inst.getNavigatorFromScreenWidth() == LeafNavigator.drawerNavigator);
 
     useEffect(() => {
         const unsubscribe = StateManager.contentWidth.subscribe(() => {
-            setDeviceIsTablet(Environment.inst.getScreenType() == ScreenType.Large);
+            setIsWideScreen(Environment.inst.getNavigatorFromScreenWidth() == LeafNavigator.drawerNavigator);
         });
 
         return () => {
@@ -26,7 +26,7 @@ export const InterfaceNavigator: React.FC<Props> = ({ leafInterface }) => {
 
     return (
         <NavigationContainer>
-            {deviceIsTablet ? (
+            {isWideScreen ? (
                 <DrawerNavigator leafInterface={leafInterface} />
             ) : (
                 <TabBarNavigator leafInterface={leafInterface} />

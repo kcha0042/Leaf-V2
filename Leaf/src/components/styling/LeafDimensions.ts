@@ -2,6 +2,8 @@
  * Dimensions to be used application-wide.
  */
 class LeafDimensions {
+    static readonly cardTopPadding = 8;
+
     static readonly cardPadding = 18;
 
     static readonly fillRadius = 16;
@@ -18,7 +20,9 @@ class LeafDimensions {
 
     static readonly drawerWidth = 220;
 
-    static readonly sidebarWidth = 350;
+    static readonly minSidebarWidth = 250;
+
+    static readonly maxSidebarWidth = 350;
 
     static readonly textInputSpacing = 10;
 }

@@ -1,6 +1,12 @@
 import EmployeeID from "../employee/EmployeeID";
+import { ShiftTime } from "../employee/ShiftTime";
+import Hospital from "../hospital/Hospital";
+import MedicalUnit from "../hospital/MedicalUnit";
+import Ward from "../hospital/Ward";
 import TriageCase from "../triage/TriageCase";
+import { TriageCode } from "../triage/TriageCode";
 import MRN from "./MRN";
+import PatientChangelog from "./PatientChangelog";
 import PatientEvent from "./PatientEvent";
 import { PatientSex } from "./PatientSex";
 
@@ -10,12 +16,13 @@ class Patient {
     protected _firstName: string;
     protected _lastName: string;
     protected _sex: PatientSex;
-    protected _phoneNumber: string; // TODO: change this to a class with validation
-    public readonly triageCase: TriageCase;
+    protected _phoneNumber: string;
+    protected _triageCase: TriageCase;
     protected _postCode: string;
-    protected _timeLastAllocated: Date;
-    protected _allocatedTo: EmployeeID;
+    protected _timeLastAllocated: Date | null;
+    protected _allocatedTo: EmployeeID | null;
     protected _events: PatientEvent[];
+    protected _changelog: PatientChangelog;
     get mrn(): MRN {
         return this._mrn;
     }
@@ -37,17 +44,26 @@ class Patient {
     get phoneNumber(): string {
         return this._phoneNumber;
     }
+    get triageCase(): TriageCase {
+        return this._triageCase;
+    }
     get postCode(): string {
         return this._postCode;
     }
-    get timeLastAllocated(): Date {
+    get timeLastAllocated(): Date | null {
         return this._timeLastAllocated;
     }
-    get idAllocatedTo(): EmployeeID {
+    get idAllocatedTo(): EmployeeID | null {
         return this._allocatedTo;
     }
     get events(): PatientEvent[] {
         return this._events;
+    }
+    get sessionAllocated(): ShiftTime {
+        return ShiftTime.getCurrent(this._timeLastAllocated);
+    }
+    get changelog(): PatientChangelog {
+        return this._changelog;
     }
 
     constructor(
@@ -59,9 +75,10 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        timeLastAllocated: Date,
-        allocatedTo: EmployeeID,
+        timeLastAllocated: Date | null,
+        allocatedTo: EmployeeID | null,
         events: PatientEvent[],
+        changelog: PatientChangelog,
     ) {
         this._mrn = mrn;
         this._dob = dob;
@@ -69,11 +86,12 @@ class Patient {
         this._lastName = lastName;
         this._sex = sex;
         this._phoneNumber = phoneNumber;
-        this.triageCase = triageCase;
+        this._triageCase = triageCase;
         this._postCode = postCode;
         this._timeLastAllocated = timeLastAllocated;
         this._allocatedTo = allocatedTo;
         this._events = events;
+        this._changelog = changelog;
     }
 
     public static new(
@@ -85,7 +103,7 @@ class Patient {
         phoneNumber: string,
         triageCase: TriageCase,
         postCode: string,
-        allocatedTo: EmployeeID,
+        allocatedTo: EmployeeID | null,
     ): Patient {
         return new Patient(
             mrn,
@@ -99,7 +117,25 @@ class Patient {
             new Date(),
             allocatedTo,
             [],
+            PatientChangelog.new(),
         );
+    }
+
+    public addEvent(event: PatientEvent) {
+        this._events.push(event);
+    }
+
+    public allocateTo(employeeID: EmployeeID) {
+        this._allocatedTo = employeeID;
+        this._timeLastAllocated = new Date();
+    }
+
+    public deallocate() {
+        this._allocatedTo = null;
+    }
+
+    public editTriage(ward: Ward, hospital: Hospital, unit: MedicalUnit, description: string, code: TriageCode) {
+        this._triageCase = TriageCase.new(ward, hospital, unit, description, code);
     }
 }
 

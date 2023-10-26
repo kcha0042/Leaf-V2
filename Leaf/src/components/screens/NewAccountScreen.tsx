@@ -22,12 +22,14 @@ import RolePicker from "../custom/RolePicker";
 import LeafColors from "../styling/LeafColors";
 import LeafTypography from "../styling/LeafTypography";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification } = useNotificationSession();
     const [createdAccount, setCreatedAccount] = React.useState<Employee | null>(null);
     const [name, setName] = React.useState("");
     const [surname, setSurname] = React.useState("");
@@ -56,7 +58,7 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
             )
         ) {
             setCreatedAccount(null);
-            // TODO: Provide user feedback
+            showErrorNotification(strings("feedback.invalidInputs"));
             return;
         }
 

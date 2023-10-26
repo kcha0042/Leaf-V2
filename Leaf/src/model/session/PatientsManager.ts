@@ -38,6 +38,10 @@ class PatientsManager {
         const dataObject = PatientDataObject.create(patient);
         return DatabaseSession.inst.update(DatabaseCollection.Patients, patient.mrn.toString(), dataObject.data);
     }
+
+    public async deletePatient(patient: Patient): Promise<boolean> {
+        return DatabaseSession.inst.delete(DatabaseCollection.Patients, patient.mrn.toString());
+    }
 }
 
 export default PatientsManager;

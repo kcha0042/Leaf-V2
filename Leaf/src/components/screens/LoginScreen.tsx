@@ -23,12 +23,17 @@ import ActivateAccountScreen from "./ActivateAccountScreen";
 import ValidateUtil from "../../utils/ValidateUtil";
 import EmployeeID from "../../model/employee/EmployeeID";
 import Session from "../../model/session/Session";
+import ResetPasswordScreen from "./ResetPasswordScreen";
+import LeafPasswordInput from "../base/LeafPasswordInput/LeafPasswordInput";
+import PasswordUtil from "../../utils/PasswordUtil";
+import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
+    const { showErrorNotification, showSuccessNotification } = useNotificationSession();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -41,46 +46,48 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const allIsValid: () => boolean = () => {
-        return ValidateUtil.stringIsValid(username);
-        // TODO: Uncomment this when we implement passwords
-        // ValidateUtil.stringIsValid(password)
+        return ValidateUtil.stringIsValid(username) && ValidateUtil.stringIsValid(password);
     };
 
     const onLoginPressed = async () => {
         if (!allIsValid()) {
-            // TODO: Provide feedback
-            console.log("Wrong username/password");
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
             return;
         }
         const id = new EmployeeID(username!);
 
+        // check if the account exists and check if the password matches
+        const account = await Session.inst.fetchAccount(id);
+        if (account == null || !PasswordUtil.isCorrectPassword(password, account.password)) {
+            showErrorNotification(strings("feedback.incorrectUsernamePassword"));
+            return;
+        }
+
+        // Log the user in
         await Session.inst.fetchWorker(id);
         const worker = Session.inst.getWorker(id);
-        if (worker != null && worker.accountActivated) {
-            // We found the matching account!
+        if (worker != null) {
             Session.inst.setLoggedInAccount(worker);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Worker);
+            showSuccessNotification(strings("feedback.success"));
             return;
         }
 
         await Session.inst.fetchLeader(id);
         const leader = Session.inst.getLeader(id);
-        if (leader != null && leader.accountActivated) {
-            // We found the matching account!
+        if (leader != null) {
             Session.inst.setLoggedInAccount(leader);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Leader);
+            showSuccessNotification(strings("feedback.success"));
             return;
         }
 
         // No need to fetch admin - we don't maintain an admin store
         const admin = await Session.inst.getAdmin(id);
-        if (admin != null && admin.accountActivated) {
-            // We found the matching account!
+        if (admin != null) {
             Session.inst.setLoggedInAccount(admin);
-            // TODO: Provide feedback (login successful)
             StateManager.loginStatus.publish(LoginStatus.Admin);
+            showSuccessNotification(strings("feedback.success"));
             return;
         }
     };
@@ -118,7 +125,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
                 <VGap size={LeafDimensions.textInputSpacing} />
 
-                <LeafTextInputShort
+                <LeafPasswordInput
                     label={strings("inputLabel.password")}
                     textColor={LeafColors.textDark}
                     color={LeafColors.textBackgroundDark}
@@ -165,6 +172,15 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     color={LeafColors.accent}
                     style={{ marginTop: 36 }}
                     onPress={onLoginPressed}
+                />
+
+                <LeafTextButton
+                    label={strings("button.resetPassword")}
+                    typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
+                    style={{ marginTop: 12 }}
+                    onPress={() => {
+                        NavigationSession.inst.navigateTo(ResetPasswordScreen, navigation, undefined);
+                    }}
                 />
             </View>
 

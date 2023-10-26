@@ -6,12 +6,26 @@ export class ShiftTime {
     // Afternoon shift, 3pm - 11pm
     public static afternoon = new ShiftTime("AFTERNOON");
     // Night shift, 11pm - 7am
-    public static night = new ShiftTime("AFTERNOON");
+    public static night = new ShiftTime("NIGHT");
+    // None, not allocated to a shift
+    public static none = new ShiftTime("NONE");
 
     public readonly id: string;
 
     constructor(id: string) {
         this.id = id.toUpperCase();
+    }
+
+    public static getCurrent(time: Date | null = new Date()): ShiftTime {
+        if (time == null) return ShiftTime.none;
+        const hour = time.getHours();
+
+        if (hour >= 7 && hour < 15) {
+            return ShiftTime.morning;
+        } else if (hour >= 15 && hour < 23) {
+            return ShiftTime.afternoon;
+        }
+        return ShiftTime.night;
     }
 
     public matches(other: ShiftTime) {
@@ -27,6 +41,9 @@ export class ShiftTime {
         }
         if (this.matches(ShiftTime.night)) {
             return strings("shiftTime.night");
+        }
+        if (this.matches(ShiftTime.none)) {
+            return strings("shiftTime.none");
         }
         return strings("unknown");
     }

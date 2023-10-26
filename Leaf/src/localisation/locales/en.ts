@@ -14,6 +14,9 @@ export default {
     // Navigation
     "navigation.noScreen": "No item selected",
 
+    // emergency phone #
+    "emergency.phoneNumber": "000",
+
     // Worker Tab Bar
     "tabBar.worker.yourPatients": "Home",
     "tabBar.worker.newTriage": "Triage",
@@ -27,7 +30,7 @@ export default {
     "tabBar.admin.export": "Export",
 
     // Leader Tab Bar
-    "tabBar.leader.viewNurses": "Home",
+    "tabBar.leader.viewNurses": "Nurses",
     "tabBar.leader.viewPatients": "Patients",
     "tabBar.leader.account": "Account",
 
@@ -40,6 +43,7 @@ export default {
     "header.worker.view1Param": "{0} History",
     "header.worker.actions1Param": "Code {0} Responses",
     "header.worker.edit1Param": "Edit {0}",
+    "header.worker.changelog1Param": "{0} Changelog",
 
     // Admin Headers
     "header.admin.manageNurses": "Home",
@@ -53,38 +57,64 @@ export default {
     "header.leader.viewPatients": "Patients",
     "header.leader.allocatePatient": "Allocate Patient",
     "header.leader.nurses": "Nurses",
+    "header.leader.allocateTo": "Allocate Nurse To {0}",
+    "header.leader.account": "Your Account",
 
     // Buttons
     "button.login": "Login",
     "button.logout": "Logout",
     "button.done": "Done",
+    "button.markDone": "Mark Done",
     "button.cancel": "Cancel",
-    "button.edit": "edit",
-    "button.allocate": "New Allocation",
+    "button.newAllocation": "New Allocation",
+    "button.allocate": "Allocate",
+    "button.allocated": "Allocated",
+    "button.edit": "Edit",
     "button.deleteAccount": "Remove Account",
     "button.createAccount": "Create Account",
     "button.viewPatient": "View",
     "button.patientActions": "Actions",
     "button.editPatient": "Edit",
-    "button.deletePatient": "Remove",
+    "button.morning": "Morning",
+    "button.noon": "Noon",
+    "button.afternoon": "Afternoon",
+    "button.none": "None",
+    "button.code.1": "1",
+    "button.code.2": "2",
+    "button.code.3": "3",
+    "button.code.4": "4",
+    "button.code.5": "5",
+    "button.selectAnOption": "Select an option",
+    "button.deallocate": "DEALLOCATE",
+    "button.deletePatient": "Delete",
     "button.activateAccount": "Activate Account",
     "button.activate": "Activate",
     "button.clear": "Clear",
     "button.submit": "Submit",
     "button.addEvent": "Add Event",
     "button.exportPatient": "Export Patient",
+    "button.resetPassword": "Forgot Password?",
+    "button.reset": "Reset",
+    "button.changelog": "Changelog",
+    "button.removeAccount": "Remove",
 
     // Login
     "login.title": "Login",
     "login.activateAccount": "Activate Account",
+    "login.resetPassword": "Reset Password",
 
     // Operations
     "operation.removeAccount": "This will remove this account and all associated data",
     "operation.activeAccount":
         "To activate the account and set the password, select 'Activate Account' on the login page.",
+    "operation.selectAll": "Select All",
+    "operation.deselectAll": "Deselect All",
 
     // Labels
     "label.id": "ID: ",
+    "label.date": "Date: ",
+    "label.lastAllocated": "Last Allocated: {0} Shift",
+    "label.notAllocated": "Last Allocated: None",
     "label.loading": "Loading",
     "label.details": "Details",
     "label.viewPatient": "View patient information and medical history.",
@@ -93,6 +123,8 @@ export default {
     "label.removePatient": "Delete patient from the system.",
     "label.addEvent": "Add a scheduled event for the patient.",
     "label.done": "Exit patient options.",
+    "label.patientAllocateToNurse": "Select patients to allocate to",
+    "label.allocateToPatient": "Allocate nurse to",
     "label.hospital": "Hospital",
     "label.rememberMe": "Remember Me",
     "label.editHospital": "Edit hospital",
@@ -108,6 +140,12 @@ export default {
     "label.anErrorOccurred": "An error occurred",
     "label.noEvents": "No Events",
     "label.accountCreated1Param": "{0} Account Created",
+    "label.noPatientSelected": "No patient selected",
+    "label.patientSelected": "patient selected",
+    "label.changelog": "View the edit history of the patient.",
+    "label.triageCode2Param": "CODE {0}  •  {1}",
+    "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
+    "label.createdAt1Param": "Created {0}",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -115,6 +153,8 @@ export default {
     "inputLabel.password": "Password",
     "inputLabel.setPassword": "Set Password",
     "inputLabel.confirmPassword": "Confirm Password",
+    "inputLabel.newPassword": "New Password",
+    "inputLabel.confirmNewPassword": "Confirm New Password",
     "inputLabel.givenName": "Name",
     "inputLabel.surname": "Surname",
     "inputLabel.mrn": "MRN",
@@ -167,10 +207,16 @@ export default {
     "patientHistory.descriptor.triggerTime": "Time",
 
     // Actions
-    "actions.emergency": "Emergency",
     "actions.call": "Call",
-    "actions.steps": "Steps",
     "actions.department": "Department",
+    "actions.removeLeader": "Remove Leader",
+    "actions.removeNurse": "Remove Nurse",
+    "actions.removePatient": "Delete Patient {0}?",
+    "actions.emergency": "000",
+    "actions.callEmergency": "Call emergency services",
+    "actions.callPatient": "Call {0}",
+    "actions.steps": "Your next steps",
+    "actions.arrivalWard": "Arrival ward",
 
     // Search
     "search.underlying": "Search",
@@ -182,6 +228,19 @@ export default {
     "triageCode.3": "Urgent",
     "triageCode.4": "Semi-Urgent",
     "triageCode.5": "Non-Urgent",
+
+    // Search Bar Filters
+    "searchBarFilter.time": "Time",
+    "searchBarFilter.triageCode": "Code",
+
+    // WorkerCard
+    "workerCard.numPatients": "{0} Allocated",
+    "workerCard.id": "ID: {0}",
+
+    //AllocateToNurseCard
+    "allocateToNurseCard.id": "ID: {0}",
+    "allocateToNurseCard.date": "Date: {0}",
+    "allocateToNurseCard.session": "Allocated: {0}",
 
     // Triage Steps
     // Immediate
@@ -220,10 +279,21 @@ export default {
     "shiftTime.morning": "Morning",
     "shiftTime.afternoon": "Afternoon",
     "shiftTime.night": "Night",
+    "shiftTime.none": "None",
+
+    // Nurse Allocation Screen
+    "nurseAllocationScreen.subtitle": "Patients Allocated",
 
     // Patient event categories
-    "patientEventCategory.medication": "Medication",
-    "patientEventCategory.other": "Other",
+    "patientEventCategory.medication": "Drug Exposure",
+    "patientEventCategory.visit": "Visit Occurrence",
+    "patientEventCategory.condition": "Condition Occurrence",
+    "patientEventCategory.procedure": "Procedure Occurrence",
+    "patientEventCategory.device": "Device Exposure",
+    "patientEventCategory.measurement": "Measurement",
+    "patientEventCategory.observation": "Observation",
+    "patientEventCategory.episode": "Episode",
+    "patientEventCategory.note": "Note",
 
     // Sex
     "sex.male": "Male",
@@ -237,4 +307,30 @@ export default {
     "error.incorrectPassword": "Incorrect password",
     "error.invalidDate": "Invalid date",
     "error.invalidTime": "Invalid time",
+
+    // Changelog
+    "changelog.creation": "Entered system",
+    "changelog.eventCreation3Param": 'Event "{0}" created by {1} ({2})',
+    "changelog.eventCompletion3Param": 'Event "{0}" marked COMPLETED by {1} ({2})',
+    "changelog.eventIncompletion3Param": 'Event "{0}" marked INCOMPLETE by {1} ({2})',
+    "changelog.allocation4Param": "Allocated by {0} ({1}) to nurse {2} ({3})",
+    "changelog.edit2Param": "Record edited by {0} ({1})",
+
+    // Feedback
+    "feedback.error": "Error",
+    "feedback.success": "Success",
+    "feedback.invalidInputs": "Invalid inputs",
+    "feedback.noUnactiviatedAccount": "Unactivated account could not be found",
+    "feedback.accountActivated": "Account activated",
+    "feedback.eventCreated": "Event created",
+    "feedback.incorrectUsernamePassword": "Incorrect username or password",
+    "feedback.triageCreated": "Triage created",
+    "feedback.patientEdited": "Patient edited",
+    "feedback.triageNotCreated": "Triage creation failed",
+    "feedback.patientNotEdited": "Patient edit failed",
+    "feedback.successDeleteAccount": "Account deleted",
+    "feedback.accountNotExist": "The account does not exist",
+    "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
+    "feedback.successExportPatient": "Patient exported",
+    "feedback.updatedPassword": "Password updated",
 };

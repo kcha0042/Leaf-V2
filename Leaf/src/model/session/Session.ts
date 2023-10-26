@@ -12,10 +12,12 @@ import LeadersManager from "./LeadersManager";
 import PatientsManager from "./PatientsManager";
 import WorkersManager from "./WorkersManager";
 import NewEmployeeManager from "./NewEmployeeManager";
-import NewPatientEventManager from "./NewPatientEventManager";
 import NewTriageManager from "./NewTriageManager";
 import { Role } from "../employee/Role";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
+import AccountsManager from "./AccountsManager";
+import Account from "../account/Account";
+import { assertionFailure } from "../../language/assertions/AssertionFailsure";
 
 class Session {
     public static readonly inst = new Session();
@@ -75,6 +77,8 @@ class Session {
     private constructor() {}
 
     public async submitTriage(patient: Patient): Promise<boolean> {
+        // When you triage a new patient, you are allocating them to yourself
+        patient.changelog.logAllocation(this.loggedInAccount.id, this.loggedInAccount.id);
         return NewTriageManager.inst.newTriageSubmitted(patient);
     }
 
@@ -87,12 +91,68 @@ class Session {
         if (activePatient == null) {
             return false;
         }
-        const success = await NewPatientEventManager.inst.newPatientEventSubmitted(activePatient, event);
+        activePatient.addEvent(event);
+        activePatient.changelog.logEventCreation(event.id, this.loggedInAccount.id);
+        const success = await PatientsManager.inst.updatePatient(activePatient);
         if (success) {
             // If we successfully submitted the event, re-fetch them from the database
             // This keeps Session up to date with the latest patient instance
             this.fetchPatient(activePatient.mrn);
         }
+        return success;
+    }
+
+    public async markPatientEvent(patient: Patient, event: PatientEvent, completed: boolean): Promise<boolean> {
+        if (completed) {
+            event.markCompleted();
+        } else {
+            event.markIncomplete();
+        }
+        patient.changelog.logEventCompletion(event.id, this.loggedInAccount.id, completed);
+        const success = await PatientsManager.inst.updatePatient(patient);
+        if (success) {
+            // If we successfully marked the event, re-fetch them from the database
+            // This keeps Session up to date with the latest patient instance
+            this.fetchPatient(patient.mrn);
+        }
+        return success;
+    }
+
+    public async allocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+        const allocatedPatients = this.getAllocatedPatientsTo(allocatedTo);
+        for (const patientOfWorker of allocatedPatients) {
+            if (patientOfWorker.mrn.matches(patient.mrn)) {
+                return false;
+            }
+        }
+        patient.allocateTo(allocatedTo.id);
+        patient.changelog.logAllocation(this.loggedInAccount.id, allocatedTo.id);
+        const success2 = await this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
+            // If we successfully submitted, re-fetch them from the database
+            await this.fetchAllocatedPatientsTo(allocatedTo);
+        }
+        return success2;
+    }
+
+    public async unallocatePatient(patient: Patient, allocatedTo: Worker): Promise<boolean> {
+        patient.deallocate();
+        const success2 = await this.updatePatient(patient);
+        if (!success2) {
+            return false;
+        } else {
+            await this.fetchAllocatedPatientsTo(allocatedTo);
+        }
+        return success2;
+    }
+
+    // This is used when a worker edits a patient
+    // NOT to be mixed up by updatePatient, which is a generic method to update a patient in the database
+    public async editPatient(patient: Patient): Promise<boolean> {
+        patient.changelog.logEdit(this.loggedInAccount.id);
+        const success = this.updatePatient(patient);
         return success;
     }
 
@@ -108,6 +168,8 @@ class Session {
         return NewEmployeeManager.inst.newLeaderCreated(leader);
     }
 
+    // This is used as a generic method to update a patient in the database
+    // NOT to be mixed up with editPatient, which is used when a worker edits a patient
     public async updatePatient(patient: Patient): Promise<boolean> {
         const success = await PatientsManager.inst.updatePatient(patient);
         if (success) {
@@ -126,6 +188,36 @@ class Session {
 
     public async updateLeader(leader: Leader): Promise<boolean> {
         return LeadersManager.inst.updateLeader(leader);
+    }
+
+    public async deletePatient(patient: Patient): Promise<boolean> {
+        const success = await PatientsManager.inst.deletePatient(patient);
+        if (success) {
+            delete this._patientStore[patient.mrn.toString()];
+            // Notify components that display patients to refresh
+            StateManager.patientsFetched.publish();
+        }
+        return success;
+    }
+
+    public async deleteWorker(worker: Worker): Promise<boolean> {
+        const success = await WorkersManager.inst.deleteWorker(worker);
+        if (success) {
+            delete this._workerStore[worker.id.toString()];
+            // Notify components that display workers to refresh
+            StateManager.workersFetched.publish();
+        }
+        return success;
+    }
+
+    public async deleteLeader(leader: Leader): Promise<boolean> {
+        const success = await LeadersManager.inst.deleteLeader(leader);
+        if (success) {
+            delete this._leaderStore[leader.id.toString()];
+            // Notify components that display leaders to refresh
+            StateManager.leadersFetched.publish();
+        }
+        return success;
     }
 
     public setLoggedInAccount(employee: Employee) {
@@ -187,12 +279,20 @@ class Session {
         return Object.values(this._workerStore);
     }
 
+    public getAllHashedWorkers(): { [key: string]: Worker } {
+        return { ...this._workerStore };
+    }
+
     public getWorker(id: EmployeeID): Worker | null {
         return this._workerStore[id.toString()] || null;
     }
 
     public getAllLeaders(): Leader[] {
         return Object.values(this._leaderStore);
+    }
+
+    public getAllHashedLeaders(): { [key: string]: Leader } {
+        return { ...this._leaderStore };
     }
 
     public getLeader(id: EmployeeID): Leader | null {
@@ -203,10 +303,19 @@ class Session {
         return Object.values(this._patientStore);
     }
 
+    public getAllHashedPatients(): { [key: string]: Patient } {
+        return { ...this._patientStore };
+    }
+
     public getAllocatedPatients(): Patient[] {
-        return Object.values(this._patientStore).filter((patient) =>
-            patient.idAllocatedTo.matches(this.loggedInAccount.id),
-        );
+        if (this.loggedInAccount.role.matches(Role.worker)) {
+            return this.getAllocatedPatientsTo(this.loggedInAccount as Worker);
+        }
+        return [];
+    }
+
+    public getAllocatedPatientsTo(worker: Worker): Patient[] {
+        return Object.values(this._patientStore).filter((patient) => patient.idAllocatedTo?.matches(worker.id));
     }
 
     public getPatient(id: MRN): Patient | null {
@@ -221,6 +330,9 @@ class Session {
     public async fetchAllWorkers() {
         // Restore workers from the database
         const workers = await WorkersManager.inst.getWorkers();
+        // Invalidate cache, since we're restoring all workers, and some may have been deleted
+        this._workerStore = {};
+        // Cache workers
         for (const worker of workers) {
             this._workerStore[worker.id.toString()] = worker;
         }
@@ -232,6 +344,8 @@ class Session {
         const worker = await WorkersManager.inst.getWorker(id);
         if (worker != null) {
             this._workerStore[worker.id.toString()] = worker;
+        } else {
+            delete this._workerStore[id.toString()];
         }
         // Notify subscribers
         StateManager.workersFetched.publish();
@@ -240,6 +354,9 @@ class Session {
     public async fetchAllLeaders() {
         // Restore leaders from the database
         const leaders = await LeadersManager.inst.getLeaders();
+        // Invalidate cache, since we're restoring all leaders, and some may have been deleted
+        this._leaderStore = {};
+        // Cache leaders
         for (const leader of leaders) {
             this._leaderStore[leader.id.toString()] = leader;
         }
@@ -251,6 +368,8 @@ class Session {
         const leader = await LeadersManager.inst.getLeader(id);
         if (leader != null) {
             this._leaderStore[leader.id.toString()] = leader;
+        } else {
+            delete this._leaderStore[id.toString()];
         }
         // Notify subscribers
         StateManager.leadersFetched.publish();
@@ -258,8 +377,10 @@ class Session {
 
     public async fetchAllPatients() {
         const patients = await PatientsManager.inst.getPatients();
+        // Invalidate cache, since we're restoring all patients, and some may have been deleted
+        this._patientStore = {};
+        // Cache patients
         for (const patient of patients) {
-            // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
         }
         // Notify subscribers that patients have been fetched
@@ -274,7 +395,23 @@ class Session {
             // Patients can only be allocated to workers
             return;
         }
-        const patients = await PatientsManager.inst.getPatientsAllocatedTo(this.loggedInAccount as Worker);
+        const workerAllocatedTo = this.loggedInAccount as Worker;
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(workerAllocatedTo);
+        // Invalidate cache since some may have been deleted
+        for (const patient of this.getAllPatients()) {
+            if (patient.idAllocatedTo?.matches(workerAllocatedTo.id) ?? false) {
+                delete this._patientStore[patient.mrn.toString()];
+            }
+        }
+        for (const patient of patients) {
+            this._patientStore[patient.mrn.toString()] = patient;
+        }
+        // Notify subscribers that patients have been fetched
+        StateManager.patientsFetched.publish();
+    }
+
+    public async fetchAllocatedPatientsTo(worker: Worker) {
+        const patients = await PatientsManager.inst.getPatientsAllocatedTo(worker);
         for (const patient of patients) {
             // No duplicates due to use of dictionary
             this._patientStore[patient.mrn.toString()] = patient;
@@ -287,9 +424,24 @@ class Session {
         const patient = await PatientsManager.inst.getPatient(mrn);
         if (patient != null) {
             this._patientStore[patient.mrn.toString()] = patient;
+        } else {
+            delete this._patientStore[mrn.toString()];
         }
         // Notify subscribers
         StateManager.patientsFetched.publish();
+    }
+
+    public async fetchAccount(id: EmployeeID): Promise<Account | null> {
+        const account = await AccountsManager.inst.getAccount(id);
+        return account;
+    }
+
+    public async activateNewAccount(account: Account): Promise<boolean> {
+        return AccountsManager.inst.newAccountCreated(account);
+    }
+
+    public async updateAccount(account: Account): Promise<boolean> {
+        return AccountsManager.inst.updateAccount(account);
     }
 }
 

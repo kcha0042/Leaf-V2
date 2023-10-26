@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import MainScreen from "./src/components/MainScreen";
 import { LeafFont } from "./src/components/styling/typography/LeafFont";
+import { NotificationSessionProvider } from "./src/components/base/LeafDropNotification/NotificationSession";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,9 +38,11 @@ export default function App() {
 
     return (
         <PaperProvider theme={theme}>
-            <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-                <MainScreen />
-            </View>
+            <NotificationSessionProvider>
+                <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+                    <MainScreen />
+                </View>
+            </NotificationSessionProvider>
         </PaperProvider>
     );
 }

@@ -1,10 +1,11 @@
 import { compactMap } from "../language/functions/CompactMap";
 import EmployeeID from "../model/employee/EmployeeID";
+import { ShiftTime } from "../model/employee/ShiftTime";
 import MRN from "../model/patient/MRN";
 import Patient from "../model/patient/Patient";
-import PatientEvent from "../model/patient/PatientEvent";
 import { PatientSex } from "../model/patient/PatientSex";
 import DataObject from "./DataObject";
+import PatientChangelogDataObject from "./PatientChangelogDataObject";
 import PatientEventDataObject from "./PatientEventDataObject";
 import TriageCaseDataObject from "./TriageCaseDataObject";
 
@@ -20,15 +21,18 @@ export enum PatientField {
     TimeLastAllocated = "timeLastAllocated",
     IDAllocatedTo = "idAllocatedTo",
     Events = "events",
+    Changelog = "changelog",
 }
 
 class PatientDataObject {
     public static create(patient: Patient): DataObject {
         const triageCaseData = TriageCaseDataObject.create(patient.triageCase);
 
-        const patientEvents: DataObject[] = patient.events.map((event) => {
+        const patientEventsData: DataObject[] = patient.events.map((event) => {
             return PatientEventDataObject.create(event);
         });
+
+        const patientChangelogData = PatientChangelogDataObject.create(patient.changelog);
 
         return new DataObject()
             .addString(PatientField.MRN, patient.mrn.toString())
@@ -40,8 +44,9 @@ class PatientDataObject {
             .addObject(PatientField.TriageCase, triageCaseData)
             .addString(PatientField.PostCode, patient.postCode)
             .addDate(PatientField.TimeLastAllocated, patient.timeLastAllocated)
-            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo.toString())
-            .addObjectArray(PatientField.Events, patientEvents);
+            .addString(PatientField.IDAllocatedTo, patient.idAllocatedTo?.toString())
+            .addObjectArray(PatientField.Events, patientEventsData)
+            .addObject(PatientField.Changelog, patientChangelogData);
     }
 
     public static restore(data: DataObject): Patient | null {
@@ -52,11 +57,13 @@ class PatientDataObject {
         const sex = data.getStringOrNull(PatientField.Sex);
         const phoneNumber = data.getStringOrNull(PatientField.PhoneNumber);
         const triageCaseData = data.getDataObject(PatientField.TriageCase);
+        const changelogData = data.getDataObject(PatientField.Changelog);
         const postCode = data.getStringOrNull(PatientField.PostCode);
         const timeLastAllocated = data.getDateOrNull(PatientField.TimeLastAllocated);
         const idAllocatedTo = data.getStringOrNull(PatientField.IDAllocatedTo);
         const eventsData = data.getDataObjectArray(PatientField.Events);
         const restoredTriage = TriageCaseDataObject.restore(triageCaseData);
+        const restoredChangelog = PatientChangelogDataObject.restore(changelogData);
         if (
             !mrn ||
             !dob ||
@@ -65,11 +72,10 @@ class PatientDataObject {
             !sex ||
             !phoneNumber ||
             !postCode ||
-            !timeLastAllocated ||
-            !idAllocatedTo ||
-            !restoredTriage
+            !restoredTriage ||
+            !restoredChangelog
         ) {
-            console.error("[PatientDataObject] Failed to restore Patient");
+            console.error("[PatientDataObject] Failed to restore Patient " + (mrn ?? "(missing MRN!!!)"));
             return null;
         }
         return new Patient(
@@ -82,8 +88,9 @@ class PatientDataObject {
             restoredTriage,
             postCode,
             timeLastAllocated,
-            new EmployeeID(idAllocatedTo),
+            idAllocatedTo == null ? null : new EmployeeID(idAllocatedTo),
             compactMap(eventsData, (data) => PatientEventDataObject.restore(data)),
+            restoredChangelog,
         );
     }
 }
