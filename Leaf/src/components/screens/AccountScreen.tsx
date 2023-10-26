@@ -121,35 +121,6 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         updateEmployeeCouldBeNull(employee);
     };
 
-    const [errTextVisible, setErrTextVisible] = useState(false);
-    const [editHospitalVisible, setEditHospitalVisible] = useState(false);
-    const onHospitalDone = () => {
-        const hospitals = HospitalArray;
-        // Checking hospital exists
-        let hospitalExists = false;
-        for (const hospital of hospitals) {
-            if (hospital.name == newHospital) {
-                hospitalExists = true;
-                setHospital(newHospital);
-                setEditHospitalVisible(false);
-                break;
-            }
-        }
-
-        setErrTextVisible(!hospitalExists);
-    };
-
-    const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
-    const onPasswordDone = () => {
-        // TODO: replace with password validation
-        const validPassword = true;
-        if (validPassword) {
-            setEditHospitalVisible(true);
-            setEnterPasswordVisible(false);
-        }
-        updateEmployeeCouldBeNull(employee);
-    };
-
     const onCancel = () => {
         setEditNameVisible(false);
         setEditEmailVisible(false);
