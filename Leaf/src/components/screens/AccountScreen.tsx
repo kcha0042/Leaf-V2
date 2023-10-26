@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
 import Session from "../../model/session/Session";
+import { HospitalArray } from "../../preset_data/Hospitals";
 import StateManager from "../../state/publishers/StateManager";
 import { LoginStatus } from "../../state/publishers/types/LoginStatus";
 import LeafButton from "../base/LeafButton/LeafButton";
@@ -115,7 +116,36 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         setEmail(newEmail);
         setEditEmailVisible(false);
         if (employee != null) {
-            employee.email = newEmail;
+              employee.email = newEmail;
+        }
+        updateEmployeeCouldBeNull(employee);
+    };
+
+    const [errTextVisible, setErrTextVisible] = useState(false);
+    const [editHospitalVisible, setEditHospitalVisible] = useState(false);
+    const onHospitalDone = () => {
+        const hospitals = HospitalArray;
+        // Checking hospital exists
+        let hospitalExists = false;
+        for (const hospital of hospitals) {
+            if (hospital.name == newHospital) {
+                hospitalExists = true;
+                setHospital(newHospital);
+                setEditHospitalVisible(false);
+                break;
+            }
+        }
+
+        setErrTextVisible(!hospitalExists);
+    };
+
+    const [enterPasswordVisible, setEnterPasswordVisible] = useState(false);
+    const onPasswordDone = () => {
+        // TODO: replace with password validation
+        const validPassword = true;
+        if (validPassword) {
+            setEditHospitalVisible(true);
+            setEnterPasswordVisible(false);
         }
         updateEmployeeCouldBeNull(employee);
     };

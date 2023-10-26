@@ -2,8 +2,6 @@ import UUID from "../model/core/UUID";
 import TriageCase from "../model/triage/TriageCase";
 import { TriageCode } from "../model/triage/TriageCode";
 import { Hospitals } from "../preset_data/Hospitals";
-import { MedicalUnits } from "../preset_data/MedicalUnits";
-import { Wards } from "../preset_data/Wards";
 import DataObject from "./DataObject";
 
 export enum TriageCaseField {
@@ -42,18 +40,58 @@ class TriageCaseDataObject {
         const medicalUnitId = data.getStringOrNull(TriageCaseField.MedicalUnitID);
         const triageText = data.getStringOrNull(TriageCaseField.TriageText);
         const triageCode = data.getNumberOrNull(TriageCaseField.TriageCode);
-        if (!id || !arrivalDate || !arrivalWardId || !hosptialId || !medicalUnitId || !triageText || !triageCode) {
-            console.error("[TriageCaseDataObject] Failed to restore TriageCase");
+        if (!id) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase id");
+            return null;
+        }
+        if (!arrivalDate) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase arrivalDate");
+            return null;
+        }
+        if (!arrivalWardId) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase arrivalWardId");
+            return null;
+        }
+        if (!hosptialId) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase hosptialId");
+            return null;
+        }
+        if (!medicalUnitId) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase medicalUnitId");
+            return null;
+        }
+        if (!triageText) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase triageText");
+            return null;
+        }
+        if (!triageCode) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase triageCode");
+            return null;
+        }        
+        const arrivalWard = Hospitals[hosptialId]?.getWardFromId(arrivalWardId);
+        const dischargeWard = dischargeWardId == null ? null : (Hospitals[hosptialId]?.getWardFromId(dischargeWardId) ?? null);
+        const hosptial = Hospitals[hosptialId];
+        const medicalUnit = Hospitals[hosptialId]?.getMedUnitFromId(medicalUnitId);
+        if (!arrivalWard) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase arrivalWard");
+            return null;
+        }
+        if (!hosptial) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase hosptial");
+            return null;
+        }
+        if (!medicalUnit) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase medicalUnit");
             return null;
         }
         return new TriageCase(
             new UUID(id),
             arrivalDate,
             dischargeDate,
-            Wards[arrivalWardId],
-            dischargeWardId == null ? null : Wards[dischargeWardId],
-            Hospitals[hosptialId],
-            MedicalUnits[medicalUnitId],
+            arrivalWard,
+            dischargeWard,
+            hosptial,
+            medicalUnit,
             triageText,
             new TriageCode(triageCode),
         );
