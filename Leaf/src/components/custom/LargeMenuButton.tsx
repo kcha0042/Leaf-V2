@@ -21,7 +21,8 @@ interface Props {
 const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon, onPress }) => {
     const typography = LeafTypography.title3;
     // -20 because web is funky with scroll bars - play it safe with spacing
-    const width = Environment.inst.getOS() == OS.Web ? (size ?? 20) - 20 : size;
+    // -1 because if the total width of the menu button row rounds up to an extra pixel outside the available space, the menu button that overflows that extra pixel goes to the next line
+    const width = Environment.inst.getOS() == OS.Web ? (size ?? 20) - 20 : (size ?? 1) - 1;
 
     return (
         <FlatContainer
