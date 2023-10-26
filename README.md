@@ -1,7 +1,7 @@
 # Leaf
 A multi-platform mental health triage application. [Project Page](https://jonny-low.github.io/projects/mentaltac/).
 
-Try out the latest release on web [here](https://fit4002-team9.github.io/Leaf/).
+View the app's storyboard [here](Storyboard (Tablet).pdf), and familiarise yourself with the app's tablet navigation and layout versus the app's mobile navigation and layout [here](Tablet vs Mobile Navigation and Layout.pdf).
 
 If you're an onboarding developer, read the [onboarding documentation](Onboarding.md).
 
