@@ -45,14 +45,14 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
 
     const editPatientMode = activePatient != undefined;
 
-    const [selectedHosptial, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
+    const [selectedHospital, setSelectedHospital] = useState<LeafSelectionItem<Hospital> | undefined>(
         patientHospital != undefined
             ? new LeafSelectionItem(patientHospital.name, patientHospital.code, patientHospital)
             : undefined,
     );
     const [selectedWard, setSelectedWard] = useState<LeafSelectionItem<Ward> | undefined>(
         patientWard != undefined
-            ? new LeafSelectionItem(patientWard.name, patientWard.hosptialCode, patientWard)
+            ? new LeafSelectionItem(patientWard.name, patientWard.hospitalCode, patientWard)
             : undefined,
     );
     const [selectedMedicalUnit, setSelectedMedicalUnit] = useState<LeafSelectionItem<MedicalUnit> | undefined>(
@@ -143,7 +143,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     phone!,
                     TriageCase.new(
                         selectedWard!.value,
-                        selectedHosptial!.value,
+                        selectedHospital!.value,
                         selectedMedicalUnit!.value,
                         triageDescription!,
                         triageCode!,
@@ -169,7 +169,7 @@ const NewTriageScreen: React.FC<Props> = ({ navigation }) => {
                     phone!,
                     TriageCase.new(
                         selectedWard!.value,
-                        selectedHosptial!.value,
+                        selectedHospital!.value,
                         selectedMedicalUnit!.value,
                         triageDescription!,
                         triageCode!,

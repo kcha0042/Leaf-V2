@@ -12,8 +12,6 @@ import Session from "../model/session/Session";
 import TriageCase from "../model/triage/TriageCase";
 import { TriageCode } from "../model/triage/TriageCode";
 import { Hospitals } from "../preset_data/Hospitals";
-import { MedicalUnits } from "../preset_data/MedicalUnits";
-import { Wards } from "../preset_data/Wards";
 
 export const setupDemo = async () => {
     await DatabaseSession.inst.deleteCollection(DatabaseCollection.Workers);
@@ -45,7 +43,7 @@ export const setupDemo = async () => {
         "Oliver",
         "Robin",
         "oliver.robin@gmail.com",
-        Hospitals["H3"],
+        Hospitals["H1"],
         true
     );
 
@@ -91,7 +89,7 @@ export const setupDemo = async () => {
         "Emma",
         "Lopez",
         "emma.lopez@gmail.com",
-        Hospitals["H3"],
+        Hospitals["H1"],
         true
     );
     
@@ -110,9 +108,9 @@ export const setupDemo = async () => {
         PatientSex.male,
         "0428472940",
         TriageCase.new(
-            Wards["W1"],
+            Hospitals["H1"].getWardFromId("W1"),
             Hospitals["H1"],
-            MedicalUnits["M1"],
+            Hospitals["H1"].getMedUnitFromId("M1"),
             "Feelings of extreme sadness, worthlessness, and hopelessness for the past 3 months. She mentions experiencing insomnia and a lack of appetite.",
             TriageCode.semiUrgent
         ),
@@ -128,9 +126,9 @@ export const setupDemo = async () => {
         PatientSex.female,
         "0412345678",
         TriageCase.new(
-            Wards["W2"],
+            Hospitals["H2"].getWardFromId("W2"),
             Hospitals["H2"],
-            MedicalUnits["M2"],
+            Hospitals["H2"].getMedUnitFromId("M2"),
             "Experiencing panic attacks daily and has trouble leaving the house.",
             TriageCode.urgent
         ),
@@ -146,9 +144,9 @@ export const setupDemo = async () => {
         PatientSex.female,
         "0412987654",
         TriageCase.new(
-            Wards["W1"],
-            Hospitals["H3"],
-            MedicalUnits["M3"],
+            Hospitals["H1"].getWardFromId("W1"),
+            Hospitals["H1"],
+            Hospitals["H1"].getMedUnitFromId("M3"),
             "Reports of auditory hallucinations and feeling paranoid.",
             TriageCode.emergency
         ),
@@ -164,9 +162,9 @@ export const setupDemo = async () => {
         PatientSex.male,
         "0401234567",
         TriageCase.new(
-            Wards["W2"],
+            Hospitals["H1"].getWardFromId("W2"),
             Hospitals["H1"],
-            MedicalUnits["M1"],
+            Hospitals["H1"].getMedUnitFromId("M1"),
             "Has been feeling very anxious especially in social situations.",
             TriageCode.semiUrgent
         ),
@@ -182,9 +180,9 @@ export const setupDemo = async () => {
         PatientSex.male,
         "0409876543",
         TriageCase.new(
-            Wards["W3"],
-            Hospitals["H3"],
-            MedicalUnits["M2"],
+            Hospitals["H1"].getWardFromId("W3"),
+            Hospitals["H1"],
+            Hospitals["H1"].getMedUnitFromId("M2"),
             "Has persistent thoughts of self-harm, needs immediate attention.",
             TriageCode.emergency
         ),
@@ -200,9 +198,9 @@ export const setupDemo = async () => {
         PatientSex.female,
         "0412340987",
         TriageCase.new(
-            Wards["W1"],
+            Hospitals["H2"].getWardFromId("W1"),
             Hospitals["H2"],
-            MedicalUnits["M3"],
+            Hospitals["H2"].getMedUnitFromId("M3"),
             "Struggling with eating and has a fear of gaining weight.",
             TriageCode.urgent
         ),
@@ -218,9 +216,9 @@ export const setupDemo = async () => {
         PatientSex.male,
         "0408765432",
         TriageCase.new(
-            Wards["W3"],
+            Hospitals["H1"].getWardFromId("W3"),
             Hospitals["H1"],
-            MedicalUnits["M1"],
+            Hospitals["H1"].getMedUnitFromId("M1"),
             "Experiencing mood swings and periods of intense depression.",
             TriageCode.semiUrgent
         ),
@@ -236,9 +234,9 @@ export const setupDemo = async () => {
         PatientSex.female,
         "0411122334",
         TriageCase.new(
-            Wards["W2"],
+            Hospitals["H2"].getWardFromId("W2"),
             Hospitals["H2"],
-            MedicalUnits["M2"],
+            Hospitals["H2"].getMedUnitFromId("M2"),
             "Constant fatigue and loss of interest in daily activities.",
             TriageCode.nonUrgent
         ),

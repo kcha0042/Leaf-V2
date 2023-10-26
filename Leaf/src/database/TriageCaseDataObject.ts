@@ -36,7 +36,7 @@ class TriageCaseDataObject {
         const dischargeDate = data.getDateOrNull(TriageCaseField.DischargeDate);
         const arrivalWardId = data.getStringOrNull(TriageCaseField.ArrivalWardID);
         const dischargeWardId = data.getStringOrNull(TriageCaseField.DischargeWardID);
-        const hosptialId = data.getStringOrNull(TriageCaseField.HospitalID);
+        const hospitalId = data.getStringOrNull(TriageCaseField.HospitalID);
         const medicalUnitId = data.getStringOrNull(TriageCaseField.MedicalUnitID);
         const triageText = data.getStringOrNull(TriageCaseField.TriageText);
         const triageCode = data.getNumberOrNull(TriageCaseField.TriageCode);
@@ -52,8 +52,8 @@ class TriageCaseDataObject {
             console.error("[TriageCaseDataObject] Failed to restore TriageCase arrivalWardId");
             return null;
         }
-        if (!hosptialId) {
-            console.error("[TriageCaseDataObject] Failed to restore TriageCase hosptialId");
+        if (!hospitalId) {
+            console.error("[TriageCaseDataObject] Failed to restore TriageCase hospitalId");
             return null;
         }
         if (!medicalUnitId) {
@@ -68,10 +68,10 @@ class TriageCaseDataObject {
             console.error("[TriageCaseDataObject] Failed to restore TriageCase triageCode");
             return null;
         }        
-        const arrivalWard = Hospitals[hosptialId]?.getWardFromId(arrivalWardId);
-        const dischargeWard = dischargeWardId == null ? null : (Hospitals[hosptialId]?.getWardFromId(dischargeWardId) ?? null);
-        const hosptial = Hospitals[hosptialId];
-        const medicalUnit = Hospitals[hosptialId]?.getMedUnitFromId(medicalUnitId);
+        const arrivalWard = Hospitals[hospitalId]?.getWardFromId(arrivalWardId);
+        const dischargeWard = dischargeWardId == null ? null : (Hospitals[hospitalId]?.getWardFromId(dischargeWardId) ?? null);
+        const hosptial = Hospitals[hospitalId];
+        const medicalUnit = Hospitals[hospitalId]?.getMedUnitFromId(medicalUnitId);
         if (!arrivalWard) {
             console.error("[TriageCaseDataObject] Failed to restore TriageCase arrivalWard");
             return null;

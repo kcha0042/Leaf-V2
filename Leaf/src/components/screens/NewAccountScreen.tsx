@@ -108,7 +108,6 @@ const NewAccountScreen: React.FC<Props> = ({ navigation }) => {
                     <LeafSelectionInput
                         navigation={navigation}
                         items={HospitalArray.map((hospital) => {
-                            console.log(hospital);
                             return new LeafSelectionItem(hospital.name, hospital.code, hospital);
                         })}
                         title={strings("inputLabel.hospital")}
