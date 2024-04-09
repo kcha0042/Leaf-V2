@@ -15,7 +15,7 @@ If you're an onboarding developer, read the [onboarding documentation](Onboardin
 2. Clone the repository in your local directory
 
 ```
-$ git clone https://github.com/FIT4002-TEAM9/Leaf.git
+$ git clone https://github.com/FIT4002-Group8/Leaf-V2.git
 ```
 
 2. Open the project directory and run `npm install`
