@@ -2,7 +2,7 @@ import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { strings } from "../../localisation/Strings";
-import { PatientEventCategory } from "../../model/patient/PatientEventCategory";
+import { PatientEventCategories, PatientEventCategory } from "../../model/patient/PatientEventCategory";
 import LeafButton from "../base/LeafButton/LeafButton";
 import LeafSelectionInput from "../base/LeafListSelection/LeafSelectionInput";
 import LeafSelectionItem from "../base/LeafListSelection/LeafSelectionItem";
@@ -17,6 +17,7 @@ import ValidateUtil from "../../utils/ValidateUtil";
 import Session from "../../model/session/Session";
 import PatientEvent from "../../model/patient/PatientEvent";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import EventCategoryContainer from "../custom/event_categories/EventCategoryContainer";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -85,49 +86,49 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                     title={strings("inputLabel.category")}
                     items={[
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.medication.toString(),
+                            PatientEventCategories.DRUG_EXPOSURE,
                             strings("label.category"),
-                            PatientEventCategory.medication,
+                            new PatientEventCategory(PatientEventCategories.DRUG_EXPOSURE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.visit.toString(),
+                            PatientEventCategories.VISIT_OCCURRENCE,
                             strings("label.category"),
-                            PatientEventCategory.visit,
+                            new PatientEventCategory(PatientEventCategories.VISIT_OCCURRENCE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.condition.toString(),
+                            PatientEventCategories.CONDITION_OCCURRENCE,
                             strings("label.category"),
-                            PatientEventCategory.condition,
+                            new PatientEventCategory(PatientEventCategories.CONDITION_OCCURRENCE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.procedure.toString(),
+                            PatientEventCategories.PROCEDURE_OCCURRENCE,
                             strings("label.category"),
-                            PatientEventCategory.procedure,
+                            new PatientEventCategory(PatientEventCategories.PROCEDURE_OCCURRENCE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.device.toString(),
+                            PatientEventCategories.DEVICE_EXPOSURE,
                             strings("label.category"),
-                            PatientEventCategory.device,
+                            new PatientEventCategory(PatientEventCategories.DEVICE_EXPOSURE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.measurement.toString(),
+                            PatientEventCategories.MEASUREMENT,
                             strings("label.category"),
-                            PatientEventCategory.measurement,
+                            new PatientEventCategory(PatientEventCategories.MEASUREMENT),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.observation.toString(),
+                            PatientEventCategories.OBSERVATION,
                             strings("label.category"),
-                            PatientEventCategory.observation,
+                            new PatientEventCategory(PatientEventCategories.OBSERVATION),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.episode.toString(),
+                            PatientEventCategories.EPISODE,
                             strings("label.category"),
-                            PatientEventCategory.episode,
+                            new PatientEventCategory(PatientEventCategories.EPISODE),
                         ),
                         new LeafSelectionItem<PatientEventCategory>(
-                            PatientEventCategory.note.toString(),
+                            PatientEventCategories.NOTE,
                             strings("label.category"),
-                            PatientEventCategory.note,
+                            new PatientEventCategory(PatientEventCategories.NOTE),
                         ),
                     ]}
                     selected={
@@ -147,6 +148,8 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                         }
                     }}
                 />
+
+                {category && <EventCategoryContainer category={category.id}/>}
             </VStack>
 
             <LeafButton label={strings("button.submit")} onPress={onSubmit} />
