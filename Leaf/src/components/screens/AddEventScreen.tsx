@@ -29,13 +29,15 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
     const [triggerTime, setTriggerTime] = useState<Date | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [category, setCategory] = useState<PatientEventCategory | undefined>();
+    const [eventData, setEventData] = useState<string | undefined>();
 
     const allIsValid = (): boolean => {
         return (
             ValidateUtil.stringIsValid(title) &&
             ValidateUtil.valueIsDefined(triggerTime) &&
             ValidateUtil.stringIsValid(description) &&
-            ValidateUtil.valueIsDefined(category)
+            ValidateUtil.valueIsDefined(category) &&
+            ValidateUtil.stringIsValid(eventData)
         );
     };
 
@@ -44,7 +46,7 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
             // We force-unwrap everything because we assume everything is validated already
             // If allIsValid() is every removed, TAKE OUT THE FORCE UNWRAPS
             // Otherwise this WILL cause errors
-            const event = PatientEvent.new(triggerTime!, title!, description!, category!);
+            const event = PatientEvent.new(triggerTime!, title!, description!, category!, eventData!);
             const successful = await Session.inst.submitPatientEvent(event);
             if (successful) {
                 showSuccessNotification(strings("feedback.eventCreated"));
@@ -149,7 +151,7 @@ const AddEventScreen: React.FC<Props> = ({ navigation }) => {
                     }}
                 />
 
-                {category && <EventCategoryContainer category={category.id}/>}
+                {category && <EventCategoryContainer category={category.id} onUpdate={(value) => setEventData(JSON.stringify(value))} />}
             </VStack>
 
             <LeafButton label={strings("button.submit")} onPress={onSubmit} />
