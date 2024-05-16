@@ -1,6 +1,6 @@
 import UUID from "../model/core/UUID";
 import PatientEvent from "../model/patient/PatientEvent";
-import { PatientEventCategory } from "../model/patient/PatientEventCategory";
+import { PatientEventCategories, PatientEventCategory } from "../model/patient/PatientEventCategory";
 import DataObject from "./DataObject";
 
 export enum PatientEventField {
@@ -43,7 +43,7 @@ class PatientEventDataObject {
             triggerTime,
             title,
             description,
-            new PatientEventCategory(category),
+            new PatientEventCategory(category as PatientEventCategories),
             lastCompleted,
         );
     }
