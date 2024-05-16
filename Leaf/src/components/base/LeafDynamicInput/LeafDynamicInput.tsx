@@ -23,9 +23,7 @@ const LeafDynamicInput: React.FC<Props> = ({
   }
 
   return (
-      <VStack
-          spacing={2}
-      >
+      <VStack spacing={2}>
         {
           {
             'string': <LeafTextInput label={label} onTextChange={(text: string) => updateValue(text)} />,
