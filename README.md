@@ -25,9 +25,14 @@ For the ETL aspect of the application, we use a separate python service. This se
 
 1. Ensuring that Docker is installed on your device
 2. Running the start script at ./Dev-Tools/start.sh
-   1. This will build the Leaf-ETL docker container and start it
+   1. This will build the Leaf-ETL Python & Postgres docker containers and start them
 3. Stop the service by running ./Dev-Tools/stop.sh to spin down the Docker container
 4. Restart the service (to load in new changes) by running ./Dev-Tools/restart.sh
+
+### Working with Postgres
+Start up just the database by running the ./Dev-Tools/start_database.sh script
+
+To add schemas and sample data to the database, add SQL scripts to ./Leaf-ETL/postgres/data
 
 ## Running on Simulator
 

@@ -1,0 +1,5 @@
+CREATE TABLE test
+(
+    test_id SERIAL PRIMARY KEY,
+    test_name VARCHAR(50) NOT NULL UNIQUE
+);
