@@ -4,13 +4,14 @@ export let EventCategoryFields: { [key in PatientEventCategories]: any} = {
   [PatientEventCategories.DRUG_EXPOSURE]: {
     "Drug Name": "string",
     "Drug Dose": "number",
+    "Drug Dose Unit": "string",
     "Drug Exposure Start Date": "date",
   },
   [PatientEventCategories.VISIT_OCCURRENCE]: {
-    "Visit Type": "visitType",
+    "Visit Type": "string", // TO-DO: Visit Type Drop-Down
     "Visit Start Date": "date",
     "Visit End Date": "date",
-    "Hospital": "hospital",
+    "Hospital": "string", // TO-DO: Hospital Drop-Down
   },
   [PatientEventCategories.CONDITION_OCCURRENCE]: {
     "Condition Name": "string",
@@ -19,17 +20,17 @@ export let EventCategoryFields: { [key in PatientEventCategories]: any} = {
   [PatientEventCategories.PROCEDURE_OCCURRENCE]: {
     "Procedure Type": "string",
     "Procedure Date": "date",
-    "Provider": "provider",
+    "Provider": "string", // TO-DO: Provider Drop-Down
   },
   [PatientEventCategories.DEVICE_EXPOSURE]: {
     "Device": "string",
     "Device Exposure Start Date": "date",
-    "Provider": "provider",
+    "Provider": "string", // TO-DO: Provider Drop-Down
   },
   [PatientEventCategories.MEASUREMENT]: {
-    "Value as Number": "number",
+    "Measurement Value": "number",
     "Unit": "string",
-    "Provider": "provider",
+    "Provider": "string", // TO-DO: Provider Drop-Down
   },
   [PatientEventCategories.OBSERVATION]: {},
   [PatientEventCategories.EPISODE]: {},
