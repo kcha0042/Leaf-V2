@@ -1,7 +1,8 @@
+// FileHistoryScreen.tsx
+
 import React, { useState } from "react";
 import { FlatList, ScrollView } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { strings } from "../../localisation/Strings";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafText from "../base/LeafText/LeafText";
@@ -10,14 +11,13 @@ import VGap from "../containers/layout/VGap";
 import HStack from "../containers/HStack";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
-import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
-import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
 import reports, { Report } from "../../preset_data/ReportData";
 import ExportReportCard from "../custom/ExportReportCard";
+import FormHeader from "../custom/FormHeader";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
@@ -95,24 +95,32 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
 
             <VStack>
                 <ScrollView style={{ flex: 1, width: "100%" }}>
-                    <FlatList
-                        data={reports}
-                        renderItem={({ item: report }) => (
-                            <ExportReportCard
-                                report={report}
-                                isSelected={selectedReport?.name === report.name}
-                                onPress={() => toggleReportSelect(report)}
+                    {/* Iterate over reports grouped by month and render */}
+                    {groupedReports.map((group, index) => (
+                        <VStack key={index}>
+                            <FormHeader
+                                title={group.monthYear}
                             />
-                        )}
-                        keyExtractor={(report) => report.name}
-                        ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
-                        scrollEnabled={false}
-                        style={{
-                            width: "100%",
-                            overflow: "visible",
-                            flexGrow: 0,
-                        }}
-                    />
+                            <FlatList
+                                data={group.reports}
+                                renderItem={({ item: report }) => (
+                                    <ExportReportCard
+                                        report={report}
+                                        isSelected={selectedReport?.name === report.name}
+                                        onPress={() => toggleReportSelect(report)}
+                                    />
+                                )}
+                                keyExtractor={(report) => report.name}
+                                ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
+                                scrollEnabled={false}
+                                style={{
+                                    width: "100%",
+                                    overflow: "visible",
+                                    flexGrow: 0,
+                                }}
+                            />
+                        </VStack>
+                    ))}
                 </ScrollView>
             </VStack>
         </DefaultScreenContainer>
@@ -120,3 +128,30 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
 };
 
 export default FileHistoryScreen;
+
+// Define the interface for the grouped reports
+interface GroupedReports {
+    monthYear: string;
+    reports: Report[];
+}
+
+// Group reports by month and sort the reports within each group by date
+const groupedReports: GroupedReports[] = [];
+reports
+    .slice() // Create a copy of reports array to avoid modifying the original array
+    .sort((a, b) => b.date.getTime() - a.date.getTime()) // Sort reports by date in descending order
+    .forEach(report => {
+        const monthYear = report.date.toLocaleString('default', { month: 'long', year: 'numeric' });
+        const existingGroupIndex = groupedReports.findIndex(group => group.monthYear === monthYear);
+        if (existingGroupIndex !== -1) {
+            groupedReports[existingGroupIndex].reports.push(report);
+        } else {
+            // Create a new group and add the report to it
+            groupedReports.push({ monthYear: monthYear, reports: [report] });
+        }
+    });
+
+// Sort the reports within each group by date in descending order
+groupedReports.forEach(group => {
+    group.reports.sort((a, b) => b.date.getTime() - a.date.getTime());
+});
