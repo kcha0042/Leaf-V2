@@ -155,6 +155,8 @@ export default {
     "label.triageCode2Param": "CODE {0}  •  {1}",
     "label.removeAccountWarning": "Are you sure you want to remove this account? This action is irreversible.",
     "label.createdAt1Param": "Created {0}",
+    "label.noReportSelected": "No Report Selected",
+    "label.reportSelected": "Report Selected",
 
     // Input Labels
     "inputLabel.username": "Username",
@@ -345,4 +347,5 @@ export default {
     "feedback.failDeleteNurseAccount": "Nurse has patient(s) assigned",
     "feedback.successExportPatient": "Patient exported",
     "feedback.updatedPassword": "Password updated",
+    "feedback.successExportReport": "Report Exported",
 };

@@ -1,100 +1,60 @@
-import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FlatList, ScrollView } from "react-native";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { strings } from "../../localisation/Strings";
-import Patient from "../../model/patient/Patient";
-import Session from "../../model/session/Session";
-import StateManager from "../../state/publishers/StateManager";
 import DefaultScreenContainer from "./containers/DefaultScreenContainer";
 import LeafText from "../base/LeafText/LeafText";
 import VStack from "../containers/VStack";
 import VGap from "../containers/layout/VGap";
-
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Environment from "../../state/environment/Environment";
-import { OS } from "../../state/environment/types/OS";
+import HStack from "../containers/HStack";
 import LeafButton from "../base/LeafButton/LeafButton";
 import { LeafButtonType } from "../base/LeafButton/LeafButtonType";
 import LeafCheckboxStatic from "../base/LeafCheckbox/LeafCheckboxStatic";
-import HStack from "../containers/HStack";
-import ExportPatientCard from "../custom/ExportPatientCard";
 import LeafColors from "../styling/LeafColors";
 import LeafDimensions from "../styling/LeafDimensions";
 import LeafTypography from "../styling/LeafTypography";
 import { LeafFontWeight } from "../styling/typography/LeafFontWeight";
-import { exportPatient } from "../../utils/ExportPatientUtil";
 import { useNotificationSession } from "../base/LeafDropNotification/NotificationSession";
+import reports, { Report } from "../../preset_data/ReportData";
+import ExportReportCard from "../custom/ExportReportCard";
 
 interface Props {
     navigation?: NavigationProp<ParamListBase>;
 }
 
 const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
-        const [patients, setPatients] = React.useState<Patient[]>(Session.inst.getAllPatients());
-    const [selectedPatients, updateSelectedPatients] = React.useState<Patient[]>([]);
+    const [selectedReport, setSelectedReport] = useState<Report | null>(null);
     const [selectAll, setSelectAll] = useState(false);
     const [notify, setNotify] = useState(false);
     const { showErrorNotification, showSuccessNotification } = useNotificationSession();
 
     const notifyHandler = () => {
-        if (selectedPatients.length == 0) {
+        if (!selectedReport) {
             setNotify(true);
-            showErrorNotification(strings("label.noPatientSelected"));
+            showErrorNotification(strings("label.noReportSelected"));
         } else {
-            showSuccessNotification(strings("feedback.successExportPatient"));
+            showSuccessNotification(strings("feedback.successExportReport"));
         }
     };
 
-    const togglePatientSelect = (patient: Patient) => {
+    const toggleReportSelect = (report: Report) => {
         setNotify(false);
-        const updatedSelectedPatients = [...selectedPatients];
-        const index = updatedSelectedPatients.findIndex((p) => p.mrn.matches(patient.mrn));
-        if (index !== -1) {
-            updatedSelectedPatients.splice(index, 1);
+        if (selectedReport && selectedReport.name === report.name) {
+            setSelectedReport(null);
         } else {
-            updatedSelectedPatients.push(patient);
-        }
-        updateSelectedPatients(updatedSelectedPatients);
-
-        // Change the select all status when all the cards are manually selected.
-        if (updatedSelectedPatients.length == patients.length) {
-            setSelectAll(true);
-        } else {
-            setSelectAll(false);
+            setSelectedReport(report);
         }
     };
 
     const toggleSelectAll = () => {
         setNotify(false);
-        // Update the selectedPatient list.
         if (selectAll) {
-            updateSelectedPatients([]);
+            setSelectedReport(null);
         } else {
-            updateSelectedPatients(patients);
+            setSelectedReport(reports.length > 0 ? reports[0] : null);
         }
         setSelectAll(!selectAll);
-    };
-
-    useEffect(() => {
-        const unsubscribe = StateManager.patientsFetched.subscribe(() => {
-            setPatients(Session.inst.getAllPatients());
-        });
-
-        Session.inst.fetchAllPatients();
-
-        return () => {
-            unsubscribe();
-        };
-    }, []);
-
-    const onPressPatient = (patient: Patient) => {
-        Session.inst.setActivePatient(patient);
-        togglePatientSelect(patient);
-    };
-
-    const checkboxPressHandler = () => {
-        setSelectAll(!selectAll);
-        toggleSelectAll();
     };
 
     return (
@@ -108,7 +68,7 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
                     color={LeafColors.accent}
                     onPress={async () => {
                         notifyHandler();
-                        await exportPatient(selectedPatients);
+                        console.log("Exporting report: ", selectedReport);
                     }}
                 />
                 <HStack
@@ -124,33 +84,10 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
                             color: notify ? LeafColors.textError.getColor() : LeafColors.accent.getColor(),
                         }}
                     >
-                        {selectedPatients.length === 0
-                            ? strings("label.noPatientSelected")
-                            : selectedPatients.length + "/" + patients.length + " " + strings("label.patientSelected")}
+                        {selectedReport === null
+                            ? strings("label.noReportSelected")
+                            : strings("label.reportSelected")}
                     </LeafText>
-
-                    <TouchableOpacity onPress={checkboxPressHandler}>
-                        <HStack spacing={8}>
-                            <LeafText
-                                typography={LeafTypography.subscript.withWeight(LeafFontWeight.SemiBold)}
-                                wide={false}
-                            >
-                                {selectAll ? strings("operation.deselectAll") : strings("operation.selectAll")}
-                            </LeafText>
-                            <LeafCheckboxStatic
-                                isChecked={!selectAll}
-                                initialValue={true}
-                                // On mobile devices, the checkbox cannot be recognized within the TouchableOpacity, so it
-                                // also needs to call the checkboxPressHandler. However, on the web, it can be recognized within
-                                // the TouchableOpacity, so this condition is needed to avoid executing it twice in a single interaction.
-                                onPress={Environment.inst.getOS() !== OS.Web ? checkboxPressHandler : undefined}
-                                color={LeafColors.textSemiDark}
-                                style={{
-                                    marginRight: 8,
-                                }}
-                            />
-                        </HStack>
-                    </TouchableOpacity>
                 </HStack>
             </VStack>
 
@@ -159,26 +96,21 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
             <VStack>
                 <ScrollView style={{ flex: 1, width: "100%" }}>
                     <FlatList
-                        data={patients}
-                        renderItem={({ item: patient }) => (
-                            <ExportPatientCard
-                                patient={patient}
-                                isSelected={selectedPatients.some((p) => p.mrn.matches(patient.mrn))}
-                                onPress={() => {
-                                    onPressPatient(patient);
-                                }}
+                        data={reports}
+                        renderItem={({ item: report }) => (
+                            <ExportReportCard
+                                report={report}
+                                isSelected={selectedReport?.name === report.name}
+                                onPress={() => toggleReportSelect(report)}
                             />
                         )}
-                        keyExtractor={(patient) => patient.mrn.toString()}
+                        keyExtractor={(report) => report.name}
                         ItemSeparatorComponent={() => <VGap size={LeafDimensions.cardSpacing} />}
                         scrollEnabled={false}
                         style={{
                             width: "100%",
-                            overflow: "visible", // Stop shadows getting clipped
-                            flexGrow: 0, // Ensures the frame wraps only the FlatList content
-                            ...(Environment.inst.getOS() == OS.Web
-                                ? { height: Environment.inst.getScreenHeight() - 230 }
-                                : {}),
+                            overflow: "visible",
+                            flexGrow: 0,
                         }}
                     />
                 </ScrollView>
