@@ -34,7 +34,7 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
             setNotify(true);
             showErrorNotification(strings("label.noReportSelected"));
         } else {
-            showSuccessNotification(strings("feedback.successExportReport"));
+            showSuccessNotification(strings("feedback.successDownloadReport"));
         }
     };
 
@@ -61,14 +61,14 @@ const FileHistoryScreen: React.FC<Props> = ({ navigation }) => {
         <DefaultScreenContainer>
             <VStack spacing={16}>
                 <LeafButton
-                    label="Export"
-                    icon="file-export"
+                    label="Download"
+                    icon="file-download"
                     typography={LeafTypography.button}
                     type={LeafButtonType.Filled}
                     color={LeafColors.accent}
                     onPress={async () => {
                         notifyHandler();
-                        console.log("Exporting report: ", selectedReport);
+                        console.log("Downloading report: ", selectedReport);
                     }}
                 />
                 <HStack

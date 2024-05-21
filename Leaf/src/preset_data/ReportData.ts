@@ -18,37 +18,37 @@ const getRandomDateLastTwoMonths = (): Date => {
 // Array of report data with random dates from the last two months
 const reports: Report[] = [
     {
-        name: "Report_1_Title",
+        name: "Report_1",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Quick Report",
     },
     {
-        name: "Report_2_Title",
+        name: "Report_2",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Custom Report",
     },
     {
-        name: "Report_3_Title",
+        name: "Report_3",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Full Report",
     },
     {
-        name: "Report_4_Title",
+        name: "Report_4",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Custom Report",
     },
     {
-        name: "Report_5_Title",
+        name: "Report_5",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Quick Report",
     },
     {
-        name: "Report_6_Title",
+        name: "Report_6",
         date: getRandomDateLastTwoMonths(),
         creator: "admin",
         type: "Full Report",

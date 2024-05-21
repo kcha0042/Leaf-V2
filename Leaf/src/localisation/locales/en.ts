@@ -348,4 +348,5 @@ export default {
     "feedback.successExportPatient": "Patient exported",
     "feedback.updatedPassword": "Password updated",
     "feedback.successExportReport": "Report Exported",
+    "feedback.successDownloadReport": "Report Downloaded",
 };
