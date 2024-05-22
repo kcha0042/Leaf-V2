@@ -1,4 +1,5 @@
-import {View} from "react-native";
+import React from "react";
+import { ViewStyle, View } from "react-native";
 import Environment from "../../state/environment/Environment";
 import { OS } from "../../state/environment/types/OS";
 import LeafIcon from "../base/LeafIcon/LeafIcon";
@@ -14,25 +15,45 @@ interface Props {
     label: string;
     description: string;
     size?: number;
-    icon: string; // https://pictogrammers.com/library/mdi/
+    icon: string; // Icon name from a library
     onPress: () => void;
+    onSelect: () => void; // Function to handle selection
+    isSelected: boolean; // Indicates if the button is selected
 }
 
-const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon, onPress }) => {
+const LargeMenuButtonModified: React.FC<Props> = ({
+    label,
+    description,
+    size,
+    icon,
+    onPress,
+    onSelect,
+    isSelected,
+}) => {
     const typography = LeafTypography.title3;
-    // -20 because web is funky with scroll bars - play it safe with spacing
-    // -1 because if the total width of the menu button row rounds up to an extra pixel outside the available space, the menu button that overflows that extra pixel goes to the next line
+
+    // Determine width based on the platform and provided size
     const width = Environment.inst.getOS() == OS.Web ? (size ?? 20) - 20 : (size ?? 1) - 1;
+
+    // Set the style of the FlatContainer
+    const flatContainerStyle: ViewStyle = {
+        flex: size == undefined ? 1 : undefined,
+        width: size == undefined ? undefined : width,
+        borderWidth: 3, // Always set border width to 3
+        // If the button is selected, use LeafColors.textSuccess.getColor() for the border color
+        // If the button is not selected, use LeafColors.fillBackgroundLight.getColor() (same as background color)
+        borderColor: isSelected ? LeafColors.textSuccess.getColor() : LeafColors.fillBackgroundLight.getColor(),
+        backgroundColor: LeafColors.fillBackgroundLight.getColor(),
+    };
 
     return (
         <FlatContainer
-            onPress={onPress}
-            style={{
-                flex: size == undefined ? 1 : undefined,
-                width: size == undefined ? undefined : width,
+            onPress={() => {
+                onPress();
+                onSelect(); // Call the onSelect function when the button is pressed
             }}
+            style={flatContainerStyle}
         >
-            {/* nowrap fixes text bugging out in edge cases (e.g. portrait iPad) */}
             <VStack style={{ flexWrap: "nowrap" }}>
                 <View
                     style={{
@@ -57,4 +78,4 @@ const LargeMenuButton: React.FC<Props> = ({ label, description, size, icon, onPr
     );
 };
 
-export default LargeMenuButton;
+export default LargeMenuButtonModified;
